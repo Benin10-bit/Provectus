@@ -126,8 +126,8 @@ export default function Dashboard() {
                     title="IPR Geral"
                     value={`${d.ipr_geral}%`}
                     icon={Percent}
-                    variant={d.ipr_geral >= 70 ? "success" : "critical"}
-                    subtitle={d.ipr_geral >= 70 ? "Performance operacional" : "Nível crítico (<70%)"}
+                    variant={d.ipr_geral >= 85 ? "success" : d.ipr_geral >= 70 ? "warning" : "critical"}
+                    subtitle={d.ipr_geral >= 85 ? "Excelente performance" : d.ipr_geral >= 70 ? "Performance operacional" : "Nível crítico (<70%)"}
                 />
                 <KpiCard title="Tendência" value={d.tendencia} icon={TrendingUp} variant={tendenciaVariant} />
             </div>
