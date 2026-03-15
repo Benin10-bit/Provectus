@@ -123,7 +123,7 @@ export default function CountdownPage() {
         </div>
 
         {/* Countdown units */}
-        <div className="flex gap-3 sm:gap-5 mb-10 z-10">
+        <div className="flex gap-0 md:gap-5 mb-10 z-10">
           <TimeUnit value={timeLeft.days} label="Dias" />
           <div className="flex flex-col items-center justify-center h-28 sm:h-36">
             <span className="text-2xl text-pink-500/50 font-bold animate-pulse">:</span>
