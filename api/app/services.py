@@ -3,7 +3,7 @@ from uuid import UUID, uuid4
 from sqlalchemy.orm import Session
 from sqlalchemy import func
 from fastapi import HTTPException
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 
 from . import models, schemas
 
@@ -57,14 +57,23 @@ def _calcular_ipr_simulado(simulado: models.SimuladoSemanal) -> float:
     return round(max(min(ipr, 1), 0), 4)
 
 def _obter_data_inicio(periodo: str) -> datetime:
-    agora = datetime.utcnow()
+    agora = datetime.now(timezone.utc)
 
     if periodo == "semana":
-        return agora - timedelta(days=7)
+        # segunda-feira da semana atual
+        inicio_semana = agora - timedelta(days=agora.weekday())
+        return inicio_semana.replace(hour=0, minute=0, second=0, microsecond=0)
+
     if periodo == "mes":
-        return agora - timedelta(days=30)
+        # primeiro dia do mês
+        return agora.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+
     if periodo == "ano":
-        return agora - timedelta(days=365)
+        # primeiro dia do ano
+        return agora.replace(month=1, day=1, hour=0, minute=0, second=0, microsecond=0)
+
+    if periodo == "todos":
+        return datetime(2000, 1, 1)
 
     return datetime(2000, 1, 1)
 
@@ -247,10 +256,16 @@ def get_dashboard(
     simulados = query_simulados.all()
     
     # ================= TOTAIS =================
-    total_questoes = (
+    if (materia_id):
+        total_questoes = (
         sum(b.total_questoes for b in blocos) +
-        sum(s.total_questoes for s in simulados)
+        round((sum(s.total_questoes for s in simulados)/7))  # simulado semanal dividido por 7 para média diária
     )
+    else:
+        total_questoes = (
+            sum(b.total_questoes for b in blocos) +
+            sum(s.total_questoes for s in simulados)
+        )
     
     total_acertos = (
         sum(b.total_acertos for b in blocos) +
@@ -287,7 +302,14 @@ def get_dashboard(
     
     # ================= TENDÊNCIA =================
     
-    data_anterior = data_inicio - (datetime.utcnow() - data_inicio)
+    if periodo == "semana":
+        data_anterior = data_inicio - timedelta(days=7)
+    
+    elif periodo == "mes":
+        data_anterior = (data_inicio - timedelta(days=1)).replace(day=1)
+    
+    else:
+        data_anterior = datetime(2000,1,1)
     
     blocos_anteriores = db.query(models.BlocoQuestoes).filter(
         models.BlocoQuestoes.data >= data_anterior,

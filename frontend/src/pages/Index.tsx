@@ -45,23 +45,50 @@ export default function Dashboard() {
     const d = dashboard!;
 
     // Chart data from API responses (no recalculation)
-    let precisionData: { label: string; value: number }[];
+    const agora = new Date();
 
-    if (materiaId) {
-        precisionData = (blocos || [])
-            .filter(b => b.materia_id === materiaId)
-            .map((b, i) => ({
-                label: `B${i + 1}`,
-                value: b.percentual_acerto,
-            }));
-    } else {
-        precisionData = (blocos || []).slice(-10).map((b, i) => ({
-            label: `B${i + 1}`,
-            value: b.percentual_acerto,
-        }));
+    let inicioPeriodo = new Date(2000, 0, 1);
+
+    if (periodo === "semana") {
+        const dia = agora.getDay();
+        const diff = dia === 0 ? -6 : 1 - dia;
+
+        inicioPeriodo = new Date(agora);
+        inicioPeriodo.setDate(agora.getDate() + diff);
+        inicioPeriodo.setHours(0, 0, 0, 0);
     }
 
-    const simuladoData = (simulados || []).slice(-10).map(s => ({
+    if (periodo === "mes") {
+        inicioPeriodo = new Date(agora.getFullYear(), agora.getMonth(), 1);
+    }
+
+    if (periodo === "ano") {
+        inicioPeriodo = new Date(agora.getFullYear(), 0, 1);
+    }
+
+    const blocosFiltrados = (blocos || []).filter(b => {
+        const data = new Date(b.data);
+
+        data.setHours(0, 0, 0, 0);
+
+        return data >= inicioPeriodo;
+    });
+
+    const blocosMateria = blocosFiltrados.filter(b => !materiaId || b.materia_id === materiaId);
+
+    const precisionData = blocosMateria.slice(-10).map((b, i) => ({
+        label: `B${i + 1}`,
+        value: b.percentual_acerto,
+    }));
+
+    const simuladosFiltrados = (simulados || []).filter(s => {
+        const data = new Date(s.criado_em);
+        data.setHours(0, 0, 0, 0);
+
+        return data >= inicioPeriodo;
+    });
+
+    const simuladoData = simuladosFiltrados.slice(-10).map(s => ({
         label: `C${s.numero_ciclo}S${s.numero_semana}`,
         value: s.percentual_acerto,
     }));
@@ -127,7 +154,13 @@ export default function Dashboard() {
                     value={`${d.ipr_geral}%`}
                     icon={Percent}
                     variant={d.ipr_geral >= 85 ? "success" : d.ipr_geral >= 70 ? "warning" : "critical"}
-                    subtitle={d.ipr_geral >= 85 ? "Excelente performance" : d.ipr_geral >= 70 ? "Performance operacional" : "Nível crítico (<70%)"}
+                    subtitle={
+                        d.ipr_geral >= 85
+                            ? "Excelente performance"
+                            : d.ipr_geral >= 70
+                              ? "Performance operacional"
+                              : "Nível crítico (<70%)"
+                    }
                 />
                 <KpiCard title="Tendência" value={d.tendencia} icon={TrendingUp} variant={tendenciaVariant} />
             </div>
