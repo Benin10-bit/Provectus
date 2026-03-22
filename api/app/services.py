@@ -353,16 +353,32 @@ def get_dashboard(
             assuntos_criticos.append(str(assunto_id))
 
     # ================= STATUS DE META =================
+    meta_horas = 0
+    meta_questoes = 0
+
+    if periodo == "semana":
+        meta_horas = 22
+        meta_questoes = 350
+    elif periodo == "mes":
+        meta_horas = 88
+        meta_questoes = 1400
+    elif periodo == "ano":
+        meta_horas = 1056
+        meta_questoes = 16800
+    else:
+        meta_horas = 1056
+        meta_questoes = 16800
+
     status_horas = "ABAIXO"
-    if 22 <= horas <= 24:
+    if meta_horas <= horas <= meta_horas:
         status_horas = "DENTRO"
-    elif horas > 24:
+    elif horas > meta_horas:
         status_horas = "ACIMA"
 
     status_questoes = "ABAIXO"
-    if 350 <= total_questoes <= 450:
+    if meta_questoes <= total_questoes <= meta_questoes:
         status_questoes = "DENTRO"
-    elif total_questoes > 450:
+    elif total_questoes > meta_questoes:
         status_questoes = "ACIMA"
 
     # ================= RECOMENDAÇÕES =================
