@@ -384,69 +384,61 @@ def get_dashboard(
     # ================= RECOMENDAÇÕES =================
 
     recomendacoes = []
-
+    
+    # --- DESEMPENHO (IPR) ---
     if ipr_medio < 0.60:
-        recomendacoes.append("Desempenho crítico: revise a teoria base imediatamente antes de continuar com exercícios")
-        recomendacoes.append("Refaça questões erradas sem consultar resposta até acertar sozinho")
-        recomendacoes.append("Diminua volume e aumente qualidade do estudo")
-
-    if 0.60 <= ipr_medio < 0.70:
-        recomendacoes.append("Foque nos assuntos críticos identificados")
-        recomendacoes.append("Revise erros recentes antes de iniciar novos blocos")
-        recomendacoes.append("Aumente repetição espaçada dos conteúdos com baixo desempenho")
-
-    if ipr_medio >= 0.75:
-        recomendacoes.append("Bom desempenho: mantenha consistência")
-        recomendacoes.append("Aumente levemente a dificuldade das questões")
-        recomendacoes.append("Introduza simulados mais desafiadores")
-
-    if ipr_medio >= 0.85:
-        recomendacoes.append("Alto desempenho: foco em refinamento e velocidade")
-        recomendacoes.append("Treine resolução sob tempo")
-        recomendacoes.append("Priorize questões de alto nível e provas anteriores")
-
-    # Tendência
+        recomendacoes.append("IPR crítico: seu cérebro está consolidando erros. Pare de aumentar volume e volte à teoria — praticar sem base só reforça padrões errados (efeito de consolidação negativa).")
+        recomendacoes.append("Refaça questões erradas sem ver o gabarito antes: o esforço de recuperação ativa (retrieval practice) é o que gera aprendizado real, não releitura passiva.")
+    
+    elif ipr_medio < 0.70:
+        recomendacoes.append("Desempenho abaixo do limiar de aprovação. Identifique os 2-3 assuntos com mais erros e estude-os em blocos concentrados antes de avançar — o cérebro aprende por domínio progressivo, não por exposição distribuída sem base.")
+        recomendacoes.append("Antes de iniciar qualquer bloco novo, revise os erros do dia anterior por 10 minutos: isso ativa reconsolidação de memória e reduz reincidência de erro.")
+    
+    elif ipr_medio < 0.75:
+        recomendacoes.append("Você está na zona de transição — próximo do nível competitivo, mas ainda instável. Foque em consistência antes de volume: desempenho irregular indica lacunas pontuais, não falta de esforço geral.")
+        recomendacoes.append("Use a técnica de interleaving: alterne assuntos dentro do mesmo bloco em vez de estudar um só tema por sessão. Isso aumenta retenção e prepara para o formato real da prova.")
+    
+    elif ipr_medio < 0.85:
+        recomendacoes.append("Bom desempenho. Para evitar platô cognitivo, aumente progressivamente a dificuldade das questões — o cérebro só cresce sob desafio calibrado (zona de desenvolvimento proximal).")
+        recomendacoes.append("Introduza simulados cronometrados: a pressão do tempo muda o padrão de ativação neural e revela erros que blocos comuns não expõem.")
+    
+    else:
+        recomendacoes.append("Alto desempenho. Agora o diferencial é velocidade e precisão sob pressão. Treine com limite de tempo abaixo do real para criar margem de segurança na prova.")
+        recomendacoes.append("Priorize questões de provas anteriores da EsPCEx: o padrão de elaboração é específico e reconhecer o estilo reduze carga cognitiva no dia da prova.")
+    
+    # --- TENDÊNCIA ---
     if tendencia == "DECLÍNIO":
-        recomendacoes.append("Queda de desempenho: revise estratégia de estudo")
-        recomendacoes.append("Reduza carga temporariamente para recuperar qualidade")
-        recomendacoes.append("Analise erros recorrentes e padrões de falha")
-
+        recomendacoes.append("Queda de desempenho detectada. Antes de estudar mais, estude melhor: fadiga cognitiva acumulada derruba rendimento mesmo com tempo alto. Considere reduzir volume por 2-3 dias e priorizar sono e revisão.")
+        recomendacoes.append("Analise os erros recentes buscando padrões: erro recorrente no mesmo tipo de questão indica falha conceitual estrutural, não distração — e precisa de intervenção específica.")
+    
     elif tendencia == "SUBIDA":
-        recomendacoes.append("Evolução positiva: mantenha o plano atual")
-        recomendacoes.append("Aproveite para consolidar conteúdos fortes")
-
-    # Horas
+        recomendacoes.append("Tendência positiva: seu plano atual está funcionando — não mude o método, apenas eleve gradualmente a carga. Mudanças bruscas em fases de crescimento interrompem o ciclo de consolidação.")
+    
+    # --- HORAS ---
     if status_horas == "ABAIXO":
-        recomendacoes.append("Aumente o tempo de estudo semanal")
-        recomendacoes.append("Distribua melhor os horários ao longo da semana")
-
+        recomendacoes.append(f"Horas abaixo da meta ({meta_horas}h). Distribua o estudo em blocos de 90 minutos com pausas de 15 min (ciclo ultradian): esse ritmo respeita os picos naturais de concentração do cérebro e maximiza retenção por hora estudada.")
+    
     elif status_horas == "ACIMA":
-        recomendacoes.append("Carga alta: cuidado com fadiga e queda de rendimento")
-        recomendacoes.append("Considere pausas estratégicas para manter desempenho")
-
-    # Questões
+        recomendacoes.append(f"Carga acima da meta ({meta_horas}h). Horas em excesso sem qualidade equivalente causam fadiga de decisão e consolidação deficiente durante o sono. Reduza e monitore se o IPR sobe — qualidade supera quantidade.")
+    
+    # --- QUESTÕES ---
     if status_questoes == "ABAIXO":
-        recomendacoes.append("Aumente o volume de questões praticadas")
-        recomendacoes.append("Inclua mais blocos diários")
-
+        recomendacoes.append(f"Volume de questões abaixo da meta ({meta_questoes}). Quantidade mínima importa para criar familiaridade com padrões de prova. Inclua pelo menos um bloco extra diário de 20-30 questões focado nos assuntos mais cobrados.")
+    
     elif status_questoes == "ACIMA":
-        recomendacoes.append("Volume alto: priorize análise de erros em vez de quantidade")
-        recomendacoes.append("Evite fazer questões de forma automática sem aprendizado")
-
-    # Assuntos críticos
+        recomendacoes.append("Volume acima da meta — atenção: fazer muitas questões sem analisar os erros é a principal causa de estagnação em candidatos avançados. Reserve ao menos 30% do tempo de questões para revisão e análise.")
+    
+    # --- ASSUNTOS CRÍTICOS ---
     if assuntos_criticos:
-        recomendacoes.append("Priorize revisão dos assuntos críticos identificados")
-        recomendacoes.append("Resolva questões específicas desses tópicos diariamente")
-        recomendacoes.append("Estude teoria direcionada para corrigir lacunas")
-
+        recomendacoes.append(f"{len(assuntos_criticos)} assunto(s) com IPR abaixo de 70% e pelo menos 2 blocos realizados — isso indica lacuna real, não acaso. Resolva questões específicas desses tópicos diariamente até o IPR deles superar 75%.")
+    
         if len(assuntos_criticos) >= 3:
-            recomendacoes.append("Muitos pontos fracos: reorganize o plano de estudos")
-            recomendacoes.append("Considere voltar etapas no conteúdo para reforço base")
-
-    # Consistência geral
+            recomendacoes.append("Múltiplos pontos críticos simultâneos indicam que a base teórica está fragmentada. Reorganize o plano: estude teoria direcionada por 1 semana antes de retomar volume de questões nesses temas.")
+    
+    # --- FALLBACK ---
     if not recomendacoes:
-        recomendacoes.append("Plano equilibrado: continue com a mesma estratégia")
-
+        recomendacoes.append("Todos os indicadores dentro do esperado. Mantenha a consistência — na reta final de preparação, regularidade supera qualquer pico isolado de esforço.")
+    
 
     return {
         "horas_liquidas": horas,
