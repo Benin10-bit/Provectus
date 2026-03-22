@@ -62,7 +62,7 @@ export default function CountdownPage() {
   }, []);
 
   const totalDaysOriginal = Math.ceil(
-    (TARGET_DATE.getTime() - new Date("2025-01-01").getTime()) / (1000 * 60 * 60 * 24)
+    (TARGET_DATE.getTime() - new Date("2025-02-04").getTime()) / (1000 * 60 * 60 * 24)
   );
   const daysElapsed = totalDaysOriginal - timeLeft.days;
   const progress = Math.min((daysElapsed / totalDaysOriginal) * 100, 100);
