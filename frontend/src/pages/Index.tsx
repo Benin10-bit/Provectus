@@ -96,11 +96,11 @@ export default function Dashboard() {
     }));
 
     const statusToVariant = (status: string) =>
-        status === "ACIMA" || status === "DENTRO"
+        status === "ACIMA"
             ? ("success" as const)
             : status === "ABAIXO"
-              ? ("warning" as const)
-              : ("critical" as const);
+              ? ("critical" as const)
+              : status === "DENTRO" ? ("warning" as const) : ("default" as const);
 
     const tendenciaVariant =
         d.tendencia === "ASCENDENTE"
