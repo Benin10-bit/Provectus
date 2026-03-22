@@ -57,7 +57,7 @@ export default function AppSidebar() {
         {/* HEADER */}
         <div className="flex items-center justify-between gap-3 px-6 py-5 border-b border-border">
           <div className="flex items-center gap-3">
-            <img src="/logo.avif" alt="Provectus" className="h-12 w-12 mt-1 text-accent" />
+            <img src="/logo.avif" alt="Provectus" className="h-14 w-14 mt-1 text-accent" />
             <div>
               <h1 className="text-lg font-bold tracking-widest uppercase">
                 Provectus

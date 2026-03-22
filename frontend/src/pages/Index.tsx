@@ -1,14 +1,16 @@
+import CardRecomendacao from "@/components/dashboard/CardRecomendacao";
 import KpiCard from "@/components/dashboard/KpiCard";
 import MissionStatus from "@/components/dashboard/MissionStatus";
 import PerformanceChart from "@/components/dashboard/PerformanceChart";
 import { MediaRedacoesCard, ProgressoRedacoesChart, UltimaRedacaoCard } from "@/components/dashboard/RedacaoCards";
 import { MateriaSelect } from "@/components/form/Selectors";
 import AppLayout from "@/components/layout/AppLayout";
+import { Card } from "@/components/ui/card";
 import { ErrorState, LoadingState } from "@/components/ui/states";
 import { useAssuntos } from "@/hooks/useConfiguracoes";
 import { useBlocos, useDashboard, useSimulados } from "@/hooks/usePerformance";
 import type { Periodo } from "@/lib/types";
-import { Clock, Lightbulb, ListChecks, Percent, TrendingUp } from "lucide-react";
+import { ChevronDown, Clock, Lightbulb, ListChecks, Percent, TrendingUp } from "lucide-react";
 import { useState } from "react";
 
 const PERIODOS: { value: Periodo; label: string }[] = [
@@ -132,7 +134,6 @@ export default function Dashboard() {
                     <MateriaSelect value={materiaId} onChange={setMateriaId} className="form-select w-auto" />
                 </div>
             </div>
-
             {/* KPI Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
                 <KpiCard
@@ -165,36 +166,8 @@ export default function Dashboard() {
                 <KpiCard title="Tendência" value={d.tendencia} icon={TrendingUp} variant={tendenciaVariant} />
             </div>
 
-            {/* Recomendação Estratégica */}
-            <div
-                className={`rounded-md border p-6 mb-6 animate-slide-in ${
-                    d.status_missao === "MISSÃO CUMPRIDA"
-                        ? "border-success/50 bg-success/10"
-                        : "border-critical/50 bg-critical/10"
-                }`}
-            >
-                <div className="flex items-start gap-3">
-                    <Lightbulb
-                        className={`h-6 w-6 mt-0.5 ${
-                            d.status_missao === "MISSÃO CUMPRIDA" ? "text-success" : "text-critical"
-                        }`}
-                    />
-                    <div>
-                        <p className="text-xs tracking-wider text-muted-foreground uppercase mb-1">
-                            Recomendação Estratégica
-                        </p>
-                        <p
-                            className={`text-xl font-bold tracking-wide mb-2 ${
-                                d.status_missao === "MISSÃO CUMPRIDA" ? "text-success" : "text-critical"
-                            }`}
-                        >
-                            {d.recomendacao}
-                        </p>
-                        <p className="text-sm text-muted-foreground leading-relaxed">{d.status_missao}</p>
-                    </div>
-                </div>
-            </div>
-
+            <CardRecomendacao d={d} />
+            
             {/* Mission Status + Charts */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
                 <MissionStatus
@@ -217,13 +190,13 @@ export default function Dashboard() {
                     unit="%"
                 />
             </div>
-
             {/* Redações */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
                 <UltimaRedacaoCard />
                 <MediaRedacoesCard />
                 <ProgressoRedacoesChart />
             </div>
+            {/* Recomendação Estratégica */}
         </AppLayout>
     );
 }

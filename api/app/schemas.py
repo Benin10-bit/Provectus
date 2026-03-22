@@ -251,7 +251,7 @@ class DashboardResumo(BaseModel):
     assuntos_criticos: List[str]
     status_horas: str
     status_questoes: str
-    recomendacao: str
+    recomendacao: List[str]
 
 
 from pydantic import BaseModel

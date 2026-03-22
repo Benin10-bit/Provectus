@@ -354,26 +354,83 @@ def get_dashboard(
 
     # ================= STATUS DE META =================
     status_horas = "ABAIXO"
-    if 32 <= horas <= 38:
+    if 22 <= horas <= 24:
         status_horas = "DENTRO"
-    elif horas > 38:
+    elif horas > 24:
         status_horas = "ACIMA"
 
     status_questoes = "ABAIXO"
-    if 450 <= total_questoes <= 550:
+    if 350 <= total_questoes <= 450:
         status_questoes = "DENTRO"
-    elif total_questoes > 550:
+    elif total_questoes > 450:
         status_questoes = "ACIMA"
 
-    # ================= RECOMENDAÇÃO =================
-    recomendacao = "MANTER"
+    # ================= RECOMENDAÇÕES =================
 
-    if ipr_medio < 0.70:
-        recomendacao = "FOCAR_ASSUNTOS_CRITICOS"
-    elif status_horas == "ABAIXO" and ipr_medio >= 0.75:
-        recomendacao = "AUMENTAR_CARGA"
-    elif tendencia == "DECLÍNIO":
-        recomendacao = "REDUZIR_CARGA"
+    recomendacoes = []
+
+    if ipr_medio < 0.60:
+        recomendacoes.append("Desempenho crítico: revise a teoria base imediatamente antes de continuar com exercícios")
+        recomendacoes.append("Refaça questões erradas sem consultar resposta até acertar sozinho")
+        recomendacoes.append("Diminua volume e aumente qualidade do estudo")
+
+    if 0.60 <= ipr_medio < 0.70:
+        recomendacoes.append("Foque nos assuntos críticos identificados")
+        recomendacoes.append("Revise erros recentes antes de iniciar novos blocos")
+        recomendacoes.append("Aumente repetição espaçada dos conteúdos com baixo desempenho")
+
+    if ipr_medio >= 0.75:
+        recomendacoes.append("Bom desempenho: mantenha consistência")
+        recomendacoes.append("Aumente levemente a dificuldade das questões")
+        recomendacoes.append("Introduza simulados mais desafiadores")
+
+    if ipr_medio >= 0.85:
+        recomendacoes.append("Alto desempenho: foco em refinamento e velocidade")
+        recomendacoes.append("Treine resolução sob tempo")
+        recomendacoes.append("Priorize questões de alto nível e provas anteriores")
+
+    # Tendência
+    if tendencia == "DECLÍNIO":
+        recomendacoes.append("Queda de desempenho: revise estratégia de estudo")
+        recomendacoes.append("Reduza carga temporariamente para recuperar qualidade")
+        recomendacoes.append("Analise erros recorrentes e padrões de falha")
+
+    elif tendencia == "SUBIDA":
+        recomendacoes.append("Evolução positiva: mantenha o plano atual")
+        recomendacoes.append("Aproveite para consolidar conteúdos fortes")
+
+    # Horas
+    if status_horas == "ABAIXO":
+        recomendacoes.append("Aumente o tempo de estudo semanal")
+        recomendacoes.append("Distribua melhor os horários ao longo da semana")
+
+    elif status_horas == "ACIMA":
+        recomendacoes.append("Carga alta: cuidado com fadiga e queda de rendimento")
+        recomendacoes.append("Considere pausas estratégicas para manter desempenho")
+
+    # Questões
+    if status_questoes == "ABAIXO":
+        recomendacoes.append("Aumente o volume de questões praticadas")
+        recomendacoes.append("Inclua mais blocos diários")
+
+    elif status_questoes == "ACIMA":
+        recomendacoes.append("Volume alto: priorize análise de erros em vez de quantidade")
+        recomendacoes.append("Evite fazer questões de forma automática sem aprendizado")
+
+    # Assuntos críticos
+    if assuntos_criticos:
+        recomendacoes.append("Priorize revisão dos assuntos críticos identificados")
+        recomendacoes.append("Resolva questões específicas desses tópicos diariamente")
+        recomendacoes.append("Estude teoria direcionada para corrigir lacunas")
+
+        if len(assuntos_criticos) >= 3:
+            recomendacoes.append("Muitos pontos fracos: reorganize o plano de estudos")
+            recomendacoes.append("Considere voltar etapas no conteúdo para reforço base")
+
+    # Consistência geral
+    if not recomendacoes:
+        recomendacoes.append("Plano equilibrado: continue com a mesma estratégia")
+
 
     return {
         "horas_liquidas": horas,
@@ -385,7 +442,7 @@ def get_dashboard(
         "assuntos_criticos": assuntos_criticos,
         "status_horas": status_horas,
         "status_questoes": status_questoes,
-        "recomendacao": recomendacao
+        "recomendacao": recomendacoes
     }
 
 def listar_materias(db: Session):

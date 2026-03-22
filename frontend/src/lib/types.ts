@@ -71,7 +71,7 @@ export interface DashboardResumo {
   assuntos_criticos: string[];
   status_horas: string;
   status_questoes: string;
-  recomendacao: string;
+  recomendacao: Array<string>;
 }
 
 export interface RedacaoRequest {
