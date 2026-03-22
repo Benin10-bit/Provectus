@@ -5,12 +5,11 @@ import PerformanceChart from "@/components/dashboard/PerformanceChart";
 import { MediaRedacoesCard, ProgressoRedacoesChart, UltimaRedacaoCard } from "@/components/dashboard/RedacaoCards";
 import { MateriaSelect } from "@/components/form/Selectors";
 import AppLayout from "@/components/layout/AppLayout";
-import { Card } from "@/components/ui/card";
 import { ErrorState, LoadingState } from "@/components/ui/states";
 import { useAssuntos } from "@/hooks/useConfiguracoes";
 import { useBlocos, useDashboard, useSimulados } from "@/hooks/usePerformance";
 import type { Periodo } from "@/lib/types";
-import { ChevronDown, Clock, Lightbulb, ListChecks, Percent, TrendingUp } from "lucide-react";
+import { Clock, ListChecks, Percent, TrendingUp } from "lucide-react";
 import { useState } from "react";
 
 const PERIODOS: { value: Periodo; label: string }[] = [
@@ -100,7 +99,9 @@ export default function Dashboard() {
             ? ("success" as const)
             : status === "ABAIXO"
               ? ("critical" as const)
-              : status === "DENTRO" ? ("warning" as const) : ("default" as const);
+              : status === "DENTRO"
+                ? ("warning" as const)
+                : ("default" as const);
 
     const tendenciaVariant =
         d.tendencia === "ASCENDENTE"
@@ -167,7 +168,7 @@ export default function Dashboard() {
             </div>
 
             <CardRecomendacao d={d} />
-            
+
             {/* Mission Status + Charts */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
                 <MissionStatus
