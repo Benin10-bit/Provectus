@@ -28,9 +28,13 @@ def _calcular_ipr_simulado(simulado: models.SimuladoSemanal) -> float:
 
     # ================= VELOCIDADE =================
     tempo_medio = simulado.tempo_total_segundos / simulado.total_questoes
-    velocidade = 1 / tempo_medio if tempo_medio > 0 else 0
+    tempo_ideal = 120
+    tempo_limite = 300  # 5 min (lento)
 
-    velocidade_normalizada = min(velocidade / 2, 1)
+    velocidade_normalizada = max(
+        0,
+        min(1, (tempo_limite - tempo_medio) / (tempo_limite - tempo_ideal))
+    )
 
 
     # ================= PENALIDADE MENTAL =================
@@ -86,9 +90,14 @@ def _calcular_ipr_bloco(bloco: models.BlocoQuestoes) -> float:
     precisao = bloco.total_acertos / bloco.total_questoes
 
     # Velocidade (normalização simples)
-    tempo_medio = bloco.tempo_medio_por_questao
-    velocidade = 1 / tempo_medio if tempo_medio > 0 else 0
-    velocidade_normalizada = min(velocidade / 2, 1)  # limite arbitrário
+    tempo_medio = bloco.tempo_medio_por_questao    
+    tempo_ideal = 120
+    tempo_limite = 300  # 5 min (lento)
+    
+    velocidade_normalizada = max(
+        0,
+        min(1, (tempo_limite - tempo_medio) / (tempo_limite - tempo_ideal))
+    )
 
     # Penalidade por erros críticos
     penalidade = 0
