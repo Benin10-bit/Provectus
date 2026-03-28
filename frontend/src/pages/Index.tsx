@@ -2,12 +2,13 @@ import CardRecomendacao from "@/components/dashboard/CardRecomendacao";
 import KpiCard from "@/components/dashboard/KpiCard";
 import MissionStatus from "@/components/dashboard/MissionStatus";
 import PerformanceChart from "@/components/dashboard/PerformanceChart";
+import PieChartMaterias from "@/components/dashboard/PieChartMaterias";
 import { MediaRedacoesCard, ProgressoRedacoesChart, UltimaRedacaoCard } from "@/components/dashboard/RedacaoCards";
 import { MateriaSelect } from "@/components/form/Selectors";
 import AppLayout from "@/components/layout/AppLayout";
 import { ErrorState, LoadingState } from "@/components/ui/states";
 import { useAssuntos } from "@/hooks/useConfiguracoes";
-import { useBlocos, useDashboard, useSimulados } from "@/hooks/usePerformance";
+import { useBlocos, useDashboard, useMateriasPerformance, useSimulados } from "@/hooks/usePerformance";
 import type { Periodo } from "@/lib/types";
 import { Clock, ListChecks, Percent, TrendingUp } from "lucide-react";
 import { useState } from "react";
@@ -26,6 +27,7 @@ export default function Dashboard() {
     const { data: dashboard, isLoading, isError } = useDashboard(periodo, materiaId);
     const { data: blocos } = useBlocos();
     const { data: simulados } = useSimulados();
+    const { data: materiasPerformance, isLoading: materiasLoading } = useMateriasPerformance(periodo);
     const { data: assuntos } = useAssuntos();
 
     const getAssuntoNome = (id: string) => assuntos?.find(a => a.id === id)?.nome ?? id;
@@ -190,6 +192,10 @@ export default function Dashboard() {
                     color="hsl(90, 40%, 35%)"
                     unit="%"
                 />
+            </div>
+            {/* Redações */}
+            <div className="grid grid-cols-1 lg:grid-cols-1 gap-6 mb-8">
+                <PieChartMaterias data={materiasPerformance || []} />
             </div>
             {/* Redações */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
