@@ -79,7 +79,7 @@ export default function Dashboard() {
 
     const blocosMateria = blocosFiltrados.filter(b => !materiaId || b.materia_id === materiaId);
 
-    const precisionData = blocosMateria.slice(-10).map((b, i) => ({
+    const precisionData = blocosMateria.map((b, i) => ({
         label: `B${i + 1}`,
         value: b.percentual_acerto,
     }));
