@@ -77,7 +77,11 @@ export default function Dashboard() {
         return data >= inicioPeriodo;
     });
 
-    const blocosMateria = blocosFiltrados.filter(b => !materiaId || b.materia_id === materiaId);
+    const blocosMateria = blocosFiltrados
+        .slice() // cria cópia pra não alterar o original
+        .reverse()
+        .slice(10)
+        .filter(b => !materiaId || b.materia_id === materiaId);
 
     const precisionData = blocosMateria.map((b, i) => ({
         label: `B${i + 1}`,
