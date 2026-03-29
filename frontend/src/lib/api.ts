@@ -64,7 +64,13 @@ export async function fetchMateriasPerformance(periodo: Periodo): Promise<Materi
     const performances = await Promise.all(
         materias.map(async materia => {
             const dash = await fetchDashboard(periodo, materia.id);
-            return { materia, ipr: dash.ipr_geral };
+            return {
+                materia,
+                ipr: dash.ipr_geral,
+                total_questoes: dash.total_questoes,
+                total_acertos: Math.round(dash.total_questoes * (dash.percentual_medio / 100)),
+                horas_estudo: dash.horas_liquidas,
+            };
         }),
     );
     return performances;

@@ -113,6 +113,9 @@ export type Periodo = "semana" | "mes" | "ano" | "total";
 export interface MateriaPerformance {
     materia: MateriaResponse;
     ipr: number;
+    total_questoes?: number;
+    total_acertos?: number;
+    horas_estudo?: number;
 }
 
 export const COMPETENCIAS_MAP: Record<string, string> = {

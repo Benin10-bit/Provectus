@@ -47,6 +47,12 @@ export default function Dashboard() {
 
     const d = dashboard!;
 
+    const metas = periodo === "semana"
+        ? { horas: 22, questoes: 350 }
+        : periodo === "mes"
+            ? { horas: 88, questoes: 1400 }
+            : { horas: 1056, questoes: 16800 };
+
     // Chart data from API responses (no recalculation)
     const agora = new Date();
 
@@ -77,13 +83,9 @@ export default function Dashboard() {
         return data >= inicioPeriodo;
     });
 
-    const blocosMateria = blocosFiltrados
-        .slice() // cria cópia pra não alterar o original
-        .reverse()
-        .slice(10)
-        .filter(b => !materiaId || b.materia_id === materiaId);
+    const blocosMateria = blocosFiltrados.filter(b => !materiaId || b.materia_id === materiaId);
 
-    const precisionData = blocosMateria.map((b, i) => ({
+    const precisionData = blocosMateria.slice(-10).map((b, i) => ({
         label: `B${i + 1}`,
         value: b.percentual_acerto,
     }));
@@ -146,6 +148,7 @@ export default function Dashboard() {
                 <KpiCard
                     title="Horas Líquidas"
                     value={`${d.horas_liquidas}h`}
+                    meta={`${metas.horas}h`}
                     icon={Clock}
                     variant={statusToVariant(d.status_horas)}
                     subtitle={d.status_horas}
@@ -153,6 +156,7 @@ export default function Dashboard() {
                 <KpiCard
                     title="Questões Resolvidas"
                     value={d.total_questoes}
+                    meta={metas.questoes}
                     icon={ListChecks}
                     variant={statusToVariant(d.status_questoes)}
                     subtitle={d.status_questoes}
