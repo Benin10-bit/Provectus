@@ -54,24 +54,23 @@ export default function ExamPage() {
 
   return (
     <AppLayout>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Formulário */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
         <div>
-          <h1 className="text-2xl font-bold tracking-wider text-foreground uppercase mb-1">
-            Simulado Semanal
-          </h1>
-          <p className="text-sm text-muted-foreground mb-8">Simule ambiente de pressão e monitore evolução.</p>
+          <div className="page-header">
+            <h1 className="page-title">Simulado Semanal</h1>
+            <p className="page-subtitle">Simule ambiente de pressão e monitore evolução.</p>
+          </div>
 
           {resultado !== null && (
-            <div className={`mb-6 p-4 rounded-md border ${resultado >= 70 ? "border-success/50 bg-success/10" : "border-critical/50 bg-critical/10"}`}>
+            <div className={`mb-6 p-4 rounded-lg border transition-all duration-300 ${resultado >= 70 ? "border-success/40 bg-success/10" : "border-critical/40 bg-critical/10"}`}>
               <p className={`text-lg font-bold font-mono ${resultado >= 70 ? "text-success" : "text-critical"}`}>
                 {resultado}% de acerto
               </p>
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-5">
-            <div className="grid grid-cols-2 gap-4">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
               <FieldGroup label="Número do Ciclo">
                 <input type="number" min={1} value={ciclo} onChange={(e) => setCiclo(e.target.value)} className="form-input" placeholder="Ex: 1" />
               </FieldGroup>
@@ -82,7 +81,7 @@ export default function ExamPage() {
                 </select>
               </FieldGroup>
             </div>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
               <FieldGroup label="Total de Questões">
                 <input type="number" min={1} value={totalQ} onChange={(e) => setTotalQ(e.target.value)} className="form-input" placeholder="Ex: 60" />
               </FieldGroup>
@@ -93,7 +92,7 @@ export default function ExamPage() {
             <FieldGroup label="Tempo Total (minutos)">
               <input type="number" min={1} value={tempo} onChange={(e) => setTempo(e.target.value)} className="form-input" placeholder="Ex: 180" />
             </FieldGroup>
-            <div className="grid grid-cols-3 gap-4">
+            <div className="grid grid-cols-3 gap-2 sm:gap-4">
               <FieldGroup label={`Ansiedade: ${ansiedade}`}>
                 <input type="range" min={1} max={5} value={ansiedade} onChange={(e) => setAnsiedade(+e.target.value)} className="w-full accent-accent" />
               </FieldGroup>
@@ -105,30 +104,29 @@ export default function ExamPage() {
               </FieldGroup>
             </div>
             <button type="submit" disabled={mutation.isPending}
-              className="w-full py-3 rounded-md bg-primary text-primary-foreground font-semibold tracking-wider uppercase text-sm hover:bg-olive-light transition-colors disabled:opacity-50">
+              className="w-full py-3 rounded-lg bg-primary text-primary-foreground font-semibold tracking-wider uppercase text-sm hover:bg-olive-light transition-all duration-200 disabled:opacity-50 active:scale-[0.98]">
               {mutation.isPending ? "Registrando..." : "Registrar Simulado"}
             </button>
           </form>
         </div>
 
-        {/* Listagem */}
         <div>
-          <h2 className="text-lg font-bold tracking-wider text-foreground uppercase mb-4">Histórico de Simulados</h2>
+          <h2 className="text-base sm:text-lg font-bold tracking-wider text-foreground uppercase mb-4">Histórico de Simulados</h2>
           {loadingSimulados ? <LoadingState /> : (!simulados || simulados.length === 0) ? <EmptyState /> : (
-            <div className="space-y-2 max-h-[600px] overflow-y-auto pr-1">
+            <div className="space-y-2 max-h-[500px] lg:max-h-[600px] overflow-y-auto pr-1">
               {simulados.map((s) => (
-                <div key={s.id} className="rounded-md border border-border bg-card p-4 flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-semibold text-foreground">Ciclo {s.numero_ciclo} — Semana {s.numero_semana}</p>
-                    <p className="text-xs text-muted-foreground">
-                      {s.total_acertos}/{s.total_questoes} • {Math.round(s.tempo_total_segundos / 60)}min • Ans: {s.nivel_ansiedade ?? "—"} • Fad: {s.nivel_fadiga ?? "—"} • Sono: {s.qualidade_sono ?? "—"}
+                <div key={s.id} className="rounded-lg border border-border bg-card p-3 sm:p-4 flex items-center justify-between gap-3 transition-colors hover:border-border/80">
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm font-semibold text-foreground truncate">Ciclo {s.numero_ciclo} — Semana {s.numero_semana}</p>
+                    <p className="text-[10px] sm:text-xs text-muted-foreground truncate">
+                      {s.total_acertos}/{s.total_questoes} • {Math.round(s.tempo_total_segundos / 60)}min • Ans: {s.nivel_ansiedade ?? "—"} • Fad: {s.nivel_fadiga ?? "—"}
                     </p>
                   </div>
-                  <div className="text-right">
+                  <div className="text-right shrink-0">
                     <p className={`text-sm font-bold font-mono ${s.percentual_acerto >= 70 ? "text-success" : "text-critical"}`}>
                       {s.percentual_acerto}%
                     </p>
-                    <p className="text-xs text-muted-foreground font-mono">{new Date(s.criado_em).toLocaleDateString("pt-BR")}</p>
+                    <p className="text-[10px] text-muted-foreground font-mono">{new Date(s.criado_em).toLocaleDateString("pt-BR")}</p>
                   </div>
                 </div>
               ))}
@@ -143,7 +141,7 @@ export default function ExamPage() {
 function FieldGroup({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <label className="block text-xs font-medium tracking-wider text-muted-foreground uppercase mb-1.5">{label}</label>
+      <label className="block text-[10px] sm:text-xs font-medium tracking-wider text-muted-foreground uppercase mb-1.5">{label}</label>
       {children}
     </div>
   );

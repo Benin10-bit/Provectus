@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { PenTool, BarChart3 } from "lucide-react";
+import { PenTool, BarChart3, TrendingUp } from "lucide-react";
 import { useRedacoes } from "@/hooks/useRedacoes";
 import { getCompetenciaNome } from "@/lib/types";
 import { format } from "date-fns";
@@ -25,15 +25,17 @@ export function UltimaRedacaoCard() {
     : "text-critical";
 
   return (
-    <div className="rounded-md border border-border bg-card p-5 animate-slide-in">
+    <div className="rounded-lg border border-border bg-card p-4 sm:p-5 h-full flex flex-col">
       <div className="flex items-start justify-between mb-3">
-        <p className="text-xs font-medium tracking-wider text-muted-foreground uppercase">
+        <p className="text-[10px] sm:text-xs font-medium tracking-wider text-muted-foreground uppercase">
           Última Redação
         </p>
-        <PenTool className="h-4 w-4 text-accent" />
+        <div className="p-1.5 rounded-lg bg-muted/50">
+          <PenTool className="h-4 w-4 text-accent" />
+        </div>
       </div>
-      <p className="text-3xl font-bold font-mono text-foreground">{r.nota_total}</p>
-      <p className={`text-xs font-medium mt-1 ${statusColor}`}>{r.status}</p>
+      <p className="text-2xl sm:text-3xl font-bold font-mono text-foreground">{r.nota_total}</p>
+      <p className={`text-[10px] sm:text-xs font-medium mt-1 ${statusColor}`}>{r.status}</p>
       <p className="text-[10px] text-muted-foreground mt-2">
         {format(new Date(r.data_escrita), "dd/MM/yyyy")}
       </p>
@@ -42,7 +44,7 @@ export function UltimaRedacaoCard() {
       </p>
       <Link
         to={`/redacoes/${r.id}`}
-        className="inline-block mt-3 text-xs text-accent hover:text-accent/80 tracking-wider uppercase transition-colors"
+        className="inline-block mt-auto pt-3 text-xs text-accent hover:text-accent/80 tracking-wider uppercase transition-colors"
       >
         Ver detalhes →
       </Link>
@@ -67,7 +69,6 @@ export function MediaRedacoesCard() {
     redacoes.reduce((sum, r) => sum + r.nota_total, 0) / redacoes.length
   );
 
-  // Variação: média anterior (sem a última) vs última nota
   const ultima = redacoes[0]?.nota_total ?? 0;
   const mediaAnterior =
     redacoes.length > 1
@@ -80,44 +81,43 @@ export function MediaRedacoesCard() {
   const nivel = getNivel(media);
 
   return (
-    <div className="rounded-md border border-border bg-card p-5 animate-slide-in">
+    <div className="rounded-lg border border-border bg-card p-4 sm:p-5 h-full flex flex-col">
       <div className="flex items-start justify-between mb-3">
-        <p className="text-xs font-medium tracking-wider text-muted-foreground uppercase">
+        <p className="text-[10px] sm:text-xs font-medium tracking-wider text-muted-foreground uppercase">
           Média de Redações
         </p>
-        <BarChart3 className="h-4 w-4 text-accent" />
+        <div className="p-1.5 rounded-lg bg-muted/50">
+          <BarChart3 className="h-4 w-4 text-accent" />
+        </div>
       </div>
 
-      <p className="text-3xl font-bold font-mono text-foreground">{media}</p>
+      <p className="text-2xl sm:text-3xl font-bold font-mono text-foreground">{media}</p>
 
-      {/* Variação */}
-      <p className={`text-xs font-medium mt-1 ${
+      <p className={`text-[10px] sm:text-xs font-medium mt-1 ${
         variacao > 0 ? "text-success" : variacao < 0 ? "text-critical" : "text-muted-foreground"
       }`}>
         {variacao > 0 ? `↑ +${variacao}` : variacao < 0 ? `↓ ${variacao}` : "0"}{" "}
-        <span className="font-normal">desde a última redação</span>
+        <span className="font-normal">desde a última</span>
       </p>
 
-      {/* Meta + Progresso */}
       <div className="mt-3">
         <div className="flex items-center justify-between text-[10px] text-muted-foreground mb-1">
           <span>Meta: {META}</span>
-          <span>{progresso}%</span>
+          <span className="font-mono">{progresso}%</span>
         </div>
         <div className="h-1.5 w-full rounded-full bg-secondary overflow-hidden">
           <div
-            className="h-full rounded-full bg-accent transition-all duration-700 ease-out"
+            className="h-full rounded-full bg-accent transition-all duration-1000 ease-out"
             style={{ width: `${progresso}%` }}
           />
         </div>
       </div>
 
-      {/* Nível */}
       <p className="text-[10px] text-muted-foreground mt-2">
         Nível: <span className="text-accent font-medium">{nivel}</span>
       </p>
 
-      <p className="text-xs text-muted-foreground mt-2">
+      <p className="text-[10px] text-muted-foreground mt-auto pt-2">
         Total: {redacoes.length} {redacoes.length === 1 ? "redação" : "redações"}
       </p>
     </div>
@@ -138,30 +138,39 @@ export function ProgressoRedacoesChart() {
     }));
 
   return (
-    <div className="rounded-md border border-border bg-card p-5 animate-slide-in">
-      <p className="text-xs font-medium tracking-wider text-muted-foreground uppercase mb-4">
-        Evolução de Redações
-      </p>
-      <div className="h-[180px]">
+    <div className="rounded-lg border border-border bg-card p-4 sm:p-5 h-full flex flex-col">
+      <div className="flex items-start justify-between mb-3 sm:mb-4">
+        <p className="text-[10px] sm:text-xs font-medium tracking-wider text-muted-foreground uppercase">
+          Evolução de Redações
+        </p>
+        <div className="p-1.5 rounded-lg bg-muted/50">
+          <TrendingUp className="h-4 w-4 text-accent" />
+        </div>
+      </div>
+      <div className="flex-1 min-h-[160px]">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={chartData}>
-            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
             <XAxis
               dataKey="label"
               tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }}
-              axisLine={{ stroke: "hsl(var(--border))" }}
+              axisLine={false}
+              tickLine={false}
             />
             <YAxis
               domain={[0, 1000]}
               tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }}
-              axisLine={{ stroke: "hsl(var(--border))" }}
+              axisLine={false}
+              tickLine={false}
+              width={35}
             />
             <Tooltip
               contentStyle={{
                 backgroundColor: "hsl(var(--card))",
                 border: "1px solid hsl(var(--border))",
-                borderRadius: "4px",
+                borderRadius: "8px",
                 fontSize: "12px",
+                boxShadow: "0 4px 12px rgba(0,0,0,0.3)",
               }}
             />
             <Line
@@ -169,7 +178,8 @@ export function ProgressoRedacoesChart() {
               dataKey="value"
               stroke="hsl(var(--accent))"
               strokeWidth={2}
-              dot={{ r: 3, fill: "hsl(var(--accent))" }}
+              dot={{ r: 3, fill: "hsl(var(--accent))", strokeWidth: 0 }}
+              activeDot={{ r: 5, fill: "hsl(var(--accent))", stroke: "hsl(var(--card))", strokeWidth: 2 }}
               name="Nota"
             />
           </LineChart>

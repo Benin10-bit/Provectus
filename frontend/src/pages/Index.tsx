@@ -10,6 +10,7 @@ import { ErrorState, LoadingState } from "@/components/ui/states";
 import { useAssuntos } from "@/hooks/useConfiguracoes";
 import { useBlocos, useDashboard, useMateriasPerformance, useSimulados } from "@/hooks/usePerformance";
 import type { Periodo } from "@/lib/types";
+import { formatarHoras } from "@/lib/utils";
 import { Clock, ListChecks, Percent, TrendingUp } from "lucide-react";
 import { useState } from "react";
 
@@ -53,39 +54,32 @@ export default function Dashboard() {
             ? { horas: 88, questoes: 1400 }
             : { horas: 1056, questoes: 16800 };
 
-    // Chart data from API responses (no recalculation)
     const agora = new Date();
-
     let inicioPeriodo = new Date(2000, 0, 1);
 
     if (periodo === "semana") {
         const dia = agora.getDay();
         const diff = dia === 0 ? -6 : 1 - dia;
-
         inicioPeriodo = new Date(agora);
         inicioPeriodo.setDate(agora.getDate() + diff);
         inicioPeriodo.setHours(0, 0, 0, 0);
     }
-
     if (periodo === "mes") {
         inicioPeriodo = new Date(agora.getFullYear(), agora.getMonth(), 1);
     }
-
     if (periodo === "ano") {
         inicioPeriodo = new Date(agora.getFullYear(), 0, 1);
     }
 
     const blocosFiltrados = (blocos || []).filter(b => {
         const data = new Date(b.data);
-
         data.setHours(0, 0, 0, 0);
-
         return data >= inicioPeriodo;
     });
 
     const blocosMateria = blocosFiltrados.filter(b => !materiaId || b.materia_id === materiaId);
 
-    const precisionData = blocosMateria.slice(-10).map((b, i) => ({
+    const precisionData = blocosMateria.reverse().map((b, i) => ({
         label: `B${i + 1}`,
         value: b.percentual_acerto,
     }));
@@ -93,7 +87,6 @@ export default function Dashboard() {
     const simuladosFiltrados = (simulados || []).filter(s => {
         const data = new Date(s.criado_em);
         data.setHours(0, 0, 0, 0);
-
         return data >= inicioPeriodo;
     });
 
@@ -121,18 +114,17 @@ export default function Dashboard() {
     return (
         <AppLayout>
             {/* Header */}
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 mb-6 sm:mb-8">
                 <div>
-                    <h1 className="text-2xl font-bold tracking-wider text-foreground uppercase">Painel de Comando</h1>
-                    <p className="text-sm text-muted-foreground">Monitoramento de Performance Acadêmica</p>
+                    <h1 className="page-title">Painel de Comando</h1>
+                    <p className="page-subtitle">Monitoramento de Performance Acadêmica</p>
                 </div>
 
-                {/* Filters */}
-                <div className="flex gap-2">
+                <div className="flex gap-2 flex-wrap">
                     <select
                         value={periodo}
                         onChange={e => setPeriodo(e.target.value as Periodo)}
-                        className="form-select w-auto"
+                        className="form-select w-auto min-w-[100px]"
                     >
                         {PERIODOS.map(p => (
                             <option key={p.value} value={p.value}>
@@ -140,14 +132,15 @@ export default function Dashboard() {
                             </option>
                         ))}
                     </select>
-                    <MateriaSelect value={materiaId} onChange={setMateriaId} className="form-select w-auto" />
+                    <MateriaSelect value={materiaId} onChange={setMateriaId} className="form-select w-auto min-w-[120px]" />
                 </div>
             </div>
+
             {/* KPI Cards */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6 stagger-children">
                 <KpiCard
                     title="Horas Líquidas"
-                    value={`${d.horas_liquidas}h`}
+                    value={formatarHoras(d.horas_liquidas)}
                     meta={`${metas.horas}h`}
                     icon={Clock}
                     variant={statusToVariant(d.status_horas)}
@@ -180,7 +173,7 @@ export default function Dashboard() {
             <CardRecomendacao d={d} />
 
             {/* Mission Status + Charts */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 mb-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-4 mb-6">
                 <MissionStatus
                     status={d.status_missao}
                     tendencia={d.tendencia}
@@ -201,17 +194,18 @@ export default function Dashboard() {
                     unit="%"
                 />
             </div>
-            {/* Redações */}
-            <div className="grid grid-cols-1 lg:grid-cols-1 gap-6 mb-8">
+
+            {/* IPR por Matéria */}
+            <div className="mb-6">
                 <PieChartMaterias data={materiasPerformance || []} />
             </div>
+
             {/* Redações */}
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
                 <UltimaRedacaoCard />
                 <MediaRedacoesCard />
                 <ProgressoRedacoesChart />
             </div>
-            {/* Recomendação Estratégica */}
         </AppLayout>
     );
 }

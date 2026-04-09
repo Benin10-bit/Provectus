@@ -56,16 +56,15 @@ export default function BlockPage() {
 
   return (
     <AppLayout>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Formulário */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
         <div>
-          <h1 className="text-2xl font-bold tracking-wider text-foreground uppercase mb-1">
-            Bloco de Questões
-          </h1>
-          <p className="text-sm text-muted-foreground mb-8">Controle seu volume e precisão por assunto.</p>
+          <div className="page-header">
+            <h1 className="page-title">Bloco de Questões</h1>
+            <p className="page-subtitle">Controle seu volume e precisão por assunto.</p>
+          </div>
 
           {resultado && (
-            <div className={`mb-6 p-4 rounded-md border ${resultado.critico ? "border-critical/50 bg-critical/10" : "border-success/50 bg-success/10"}`}>
+            <div className={`mb-6 p-4 rounded-lg border transition-all duration-300 ${resultado.critico ? "border-critical/40 bg-critical/10" : "border-success/40 bg-success/10"}`}>
               <p className={`text-lg font-bold font-mono ${resultado.critico ? "text-critical" : "text-success"}`}>
                 {resultado.pct}% de acerto
               </p>
@@ -75,7 +74,7 @@ export default function BlockPage() {
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
             <FieldGroup label="Matéria">
               <MateriaSelect value={materiaId} onChange={(v) => { setMateriaId(v); setAssuntoId(""); }} />
             </FieldGroup>
@@ -85,7 +84,7 @@ export default function BlockPage() {
             <FieldGroup label={`Dificuldade: ${dificuldade}`}>
               <input type="range" min={1} max={5} value={dificuldade} onChange={(e) => setDificuldade(+e.target.value)} className="w-full accent-accent" />
             </FieldGroup>
-            <div className="grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
               <FieldGroup label="Total de Questões">
                 <input type="number" min={1} value={totalQ} onChange={(e) => setTotalQ(e.target.value)} className="form-input" placeholder="Ex: 20" />
               </FieldGroup>
@@ -100,30 +99,29 @@ export default function BlockPage() {
               <input type="range" min={1} max={5} value={confianca} onChange={(e) => setConfianca(+e.target.value)} className="w-full accent-accent" />
             </FieldGroup>
             <button type="submit" disabled={mutation.isPending}
-              className="w-full py-3 rounded-md bg-primary text-primary-foreground font-semibold tracking-wider uppercase text-sm hover:bg-olive-light transition-colors disabled:opacity-50">
+              className="w-full py-3 rounded-lg bg-primary text-primary-foreground font-semibold tracking-wider uppercase text-sm hover:bg-olive-light transition-all duration-200 disabled:opacity-50 active:scale-[0.98]">
               {mutation.isPending ? "Registrando..." : "Registrar Bloco"}
             </button>
           </form>
         </div>
 
-        {/* Listagem */}
         <div>
-          <h2 className="text-lg font-bold tracking-wider text-foreground uppercase mb-4">Histórico de Blocos</h2>
+          <h2 className="text-base sm:text-lg font-bold tracking-wider text-foreground uppercase mb-4">Histórico de Blocos</h2>
           {loadingBlocos ? <LoadingState /> : (!blocos || blocos.length === 0) ? <EmptyState /> : (
-            <div className="space-y-2 max-h-[600px] overflow-y-auto pr-1">
+            <div className="space-y-2 max-h-[500px] lg:max-h-[600px] overflow-y-auto pr-1">
               {blocos.map((b) => (
-                <div key={b.id} className="rounded-md border border-border bg-card p-4 flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-semibold text-foreground">{getMateriaNome(b.materia_id)}</p>
-                    <p className="text-xs text-muted-foreground">
+                <div key={b.id} className="rounded-lg border border-border bg-card p-3 sm:p-4 flex items-center justify-between gap-3 transition-colors hover:border-border/80">
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm font-semibold text-foreground truncate">{getMateriaNome(b.materia_id)}</p>
+                    <p className="text-[10px] sm:text-xs text-muted-foreground truncate">
                       {b.total_acertos}/{b.total_questoes} • Dif: {b.dificuldade} • {Math.round(b.tempo_total_segundos / 60)}min
                     </p>
                   </div>
-                  <div className="text-right">
+                  <div className="text-right shrink-0">
                     <p className={`text-sm font-bold font-mono ${b.percentual_acerto >= 70 ? "text-success" : "text-critical"}`}>
                       {b.percentual_acerto}%
                     </p>
-                    <p className="text-xs text-muted-foreground font-mono">{new Date(b.criado_em).toLocaleDateString("pt-BR")}</p>
+                    <p className="text-[10px] text-muted-foreground font-mono">{new Date(b.criado_em).toLocaleDateString("pt-BR")}</p>
                   </div>
                 </div>
               ))}
@@ -138,7 +136,7 @@ export default function BlockPage() {
 function FieldGroup({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <label className="block text-xs font-medium tracking-wider text-muted-foreground uppercase mb-1.5">{label}</label>
+      <label className="block text-[10px] sm:text-xs font-medium tracking-wider text-muted-foreground uppercase mb-1.5">{label}</label>
       {children}
     </div>
   );

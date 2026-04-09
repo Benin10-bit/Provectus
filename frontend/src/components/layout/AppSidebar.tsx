@@ -33,36 +33,36 @@ export default function AppSidebar() {
       {/* BOTÃO MOBILE */}
       <button
         onClick={() => setOpen(true)}
-        className="md:hidden fixed top-4 left-4 z-50 p-2 rounded-md bg-primary text-primary-foreground"
+        className="md:hidden fixed top-4 left-4 z-50 p-2.5 rounded-lg bg-card border border-border text-foreground shadow-lg backdrop-blur-sm active:scale-95 transition-transform"
       >
-        <Menu size={20} />
+        <Menu size={18} />
       </button>
 
       {/* OVERLAY MOBILE */}
       {open && (
         <div
           onClick={() => setOpen(false)}
-          className="fixed inset-0 bg-black/50 z-40 md:hidden"
+          className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 md:hidden animate-fade-in"
         />
       )}
 
       <aside
         className={`
         fixed left-0 top-0 z-50 h-screen w-64 border-r border-border bg-sidebar flex flex-col
-        transform transition-transform duration-300
+        transform transition-transform duration-300 ease-out
         ${open ? "translate-x-0" : "-translate-x-full"}
         md:translate-x-0
       `}
       >
         {/* HEADER */}
-        <div className="flex items-center justify-between gap-3 px-6 py-5 border-b border-border">
+        <div className="flex items-center justify-between gap-3 px-5 py-4 border-b border-border">
           <div className="flex items-center gap-3">
-            <img src="/logo.avif" alt="Provectus" className="h-14 w-14 mt-1 text-accent" />
+            <img src="/logo.avif" alt="Provectus" className="h-12 w-12 rounded-md" />
             <div>
-              <h1 className="text-lg font-bold tracking-widest uppercase">
+              <h1 className="text-base font-bold tracking-widest uppercase text-foreground">
                 Provectus
               </h1>
-              <p className="text-[10px] tracking-[0.25em] text-muted-foreground uppercase">
+              <p className="text-[9px] tracking-[0.2em] text-muted-foreground uppercase leading-tight">
                 Sistema de Performance EsPCEx
               </p>
             </div>
@@ -70,14 +70,14 @@ export default function AppSidebar() {
 
           <button
             onClick={() => setOpen(false)}
-            className="md:hidden"
+            className="md:hidden p-1 rounded-md hover:bg-sidebar-accent transition-colors"
           >
-            <X size={18} />
+            <X size={16} />
           </button>
         </div>
 
         {/* NAV */}
-        <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+        <nav className="flex-1 px-3 py-3 space-y-0.5 overflow-y-auto">
           {navItems.map((item) => {
             const isActive = location.pathname === item.to;
 
@@ -86,22 +86,25 @@ export default function AppSidebar() {
                 key={item.to}
                 to={item.to}
                 onClick={() => setOpen(false)}
-                className={`flex items-center gap-3 px-4 py-3 rounded-md text-sm font-medium transition-all duration-200 ${
+                className={`group flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 ${
                   isActive
                     ? "bg-primary text-primary-foreground hud-glow"
                     : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
                 }`}
               >
-                <item.icon className="h-4 w-4" />
-                {item.label}
+                <item.icon className={`h-4 w-4 shrink-0 transition-transform duration-200 ${!isActive ? "group-hover:scale-110" : ""}`} />
+                <span className="truncate">{item.label}</span>
+                {isActive && (
+                  <div className="ml-auto w-1.5 h-1.5 rounded-full bg-primary-foreground/60" />
+                )}
               </NavLink>
             );
           })}
         </nav>
 
         {/* FOOTER */}
-        <div className="px-6 py-4 border-t border-border">
-          <p className="text-[10px] text-muted-foreground tracking-wider uppercase">
+        <div className="px-5 py-3 border-t border-border">
+          <p className="text-[9px] text-muted-foreground tracking-wider uppercase">
             EsPCEx • Sistema Tático
           </p>
         </div>

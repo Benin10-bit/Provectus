@@ -45,15 +45,15 @@ export default function SessionPage() {
 
   return (
     <AppLayout>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
         {/* Formulário */}
         <div>
-          <h1 className="text-2xl font-bold tracking-wider text-foreground uppercase mb-1">
-            Sessão de Estudo
-          </h1>
-          <p className="text-sm text-muted-foreground mb-8">Registre cada sessão para monitoramento estratégico.</p>
+          <div className="page-header">
+            <h1 className="page-title">Sessão de Estudo</h1>
+            <p className="page-subtitle">Registre cada sessão para monitoramento estratégico.</p>
+          </div>
 
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
             <FieldGroup label="Matéria">
               <MateriaSelect value={materiaId} onChange={(v) => { setMateriaId(v); setAssuntoId(""); }} />
             </FieldGroup>
@@ -69,8 +69,10 @@ export default function SessionPage() {
                     key={t}
                     type="button"
                     onClick={() => setTipo(t)}
-                    className={`px-4 py-2 rounded-md text-xs font-medium border transition-all ${
-                      tipo === t ? "bg-primary text-primary-foreground border-primary" : "bg-secondary text-secondary-foreground border-border hover:bg-muted"
+                    className={`flex-1 sm:flex-none px-4 py-2.5 rounded-lg text-xs font-medium border transition-all duration-200 ${
+                      tipo === t
+                        ? "bg-primary text-primary-foreground border-primary"
+                        : "bg-secondary text-secondary-foreground border-border hover:bg-muted hover:border-muted-foreground/30"
                     }`}
                   >
                     {t === "REVISAO" ? "Revisão" : "Teoria"}
@@ -83,11 +85,11 @@ export default function SessionPage() {
               <input type="number" min={1} value={minutos} onChange={(e) => setMinutos(e.target.value)} className="form-input" placeholder="Ex: 45" />
             </FieldGroup>
 
-            <div className="grid grid-cols-2 gap-4">
-              <FieldGroup label={`Nível de Foco: ${foco}`}>
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
+              <FieldGroup label={`Foco: ${foco}`}>
                 <input type="range" min={1} max={5} value={foco} onChange={(e) => setFoco(+e.target.value)} className="w-full accent-accent" />
               </FieldGroup>
-              <FieldGroup label={`Nível de Energia: ${energia}`}>
+              <FieldGroup label={`Energia: ${energia}`}>
                 <input type="range" min={1} max={5} value={energia} onChange={(e) => setEnergia(+e.target.value)} className="w-full accent-accent" />
               </FieldGroup>
             </div>
@@ -95,7 +97,7 @@ export default function SessionPage() {
             <button
               type="submit"
               disabled={mutation.isPending}
-              className="w-full py-3 rounded-md bg-primary text-primary-foreground font-semibold tracking-wider uppercase text-sm hover:bg-olive-light transition-colors disabled:opacity-50"
+              className="w-full py-3 rounded-lg bg-primary text-primary-foreground font-semibold tracking-wider uppercase text-sm hover:bg-olive-light transition-all duration-200 disabled:opacity-50 active:scale-[0.98]"
             >
               {mutation.isPending ? "Registrando..." : "Registrar Sessão"}
             </button>
@@ -104,16 +106,16 @@ export default function SessionPage() {
 
         {/* Listagem */}
         <div>
-          <h2 className="text-lg font-bold tracking-wider text-foreground uppercase mb-4">Histórico de Sessões</h2>
+          <h2 className="text-base sm:text-lg font-bold tracking-wider text-foreground uppercase mb-4">Histórico de Sessões</h2>
           {loadingSessoes ? <LoadingState /> : (!sessoes || sessoes.length === 0) ? <EmptyState /> : (
-            <div className="space-y-2 max-h-[600px] overflow-y-auto pr-1">
+            <div className="space-y-2 max-h-[500px] lg:max-h-[600px] overflow-y-auto pr-1">
               {sessoes.map((s) => (
-                <div key={s.id} className="rounded-md border border-border bg-card p-4 flex items-center justify-between">
-                  <div>
-                    <p className="text-sm font-semibold text-foreground">{getMateriaNome(s.materia_id)}</p>
-                    <p className="text-xs text-muted-foreground">{s.tipo_sessao} • {s.minutos_liquidos} min • Foco: {s.nivel_foco ?? "—"} • Energia: {s.nivel_energia ?? "—"}</p>
+                <div key={s.id} className="rounded-lg border border-border bg-card p-3 sm:p-4 flex items-center justify-between gap-3 transition-colors hover:border-border/80">
+                  <div className="min-w-0 flex-1">
+                    <p className="text-sm font-semibold text-foreground truncate">{getMateriaNome(s.materia_id)}</p>
+                    <p className="text-[10px] sm:text-xs text-muted-foreground truncate">{s.tipo_sessao} • {s.minutos_liquidos} min • Foco: {s.nivel_foco ?? "—"} • Energia: {s.nivel_energia ?? "—"}</p>
                   </div>
-                  <p className="text-xs text-muted-foreground font-mono">{new Date(s.criado_em).toLocaleDateString("pt-BR")}</p>
+                  <p className="text-[10px] sm:text-xs text-muted-foreground font-mono shrink-0">{new Date(s.criado_em).toLocaleDateString("pt-BR")}</p>
                 </div>
               ))}
             </div>
@@ -127,7 +129,7 @@ export default function SessionPage() {
 function FieldGroup({ label, children }: { label: string; children: React.ReactNode }) {
   return (
     <div>
-      <label className="block text-xs font-medium tracking-wider text-muted-foreground uppercase mb-1.5">{label}</label>
+      <label className="block text-[10px] sm:text-xs font-medium tracking-wider text-muted-foreground uppercase mb-1.5">{label}</label>
       {children}
     </div>
   );

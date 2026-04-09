@@ -19,16 +19,14 @@ export default function RedacaoList() {
 
   return (
     <AppLayout>
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-6 sm:mb-8">
         <div>
-          <h1 className="text-2xl font-bold tracking-wider text-foreground uppercase">
-            Redações
-          </h1>
-          <p className="text-sm text-muted-foreground">Registro e acompanhamento de redações ENEM</p>
+          <h1 className="page-title">Redações</h1>
+          <p className="page-subtitle">Registro e acompanhamento de redações ENEM</p>
         </div>
         <Link
           to="/redacoes/nova"
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-colors"
+          className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:bg-primary/90 transition-all duration-200 active:scale-[0.98] w-full sm:w-auto"
         >
           <Plus className="h-4 w-4" />
           Nova Redação
@@ -38,29 +36,31 @@ export default function RedacaoList() {
       {(!redacoes || redacoes.length === 0) ? (
         <EmptyState message="Nenhuma redação registrada." />
       ) : (
-        <div className="space-y-3">
+        <div className="space-y-2 sm:space-y-3">
           {redacoes.map((r) => (
             <Link
               key={r.id}
               to={`/redacoes/${r.id}`}
-              className="block rounded-md border border-border bg-card p-5 hover:hud-glow transition-all duration-200"
+              className="block rounded-lg border border-border bg-card p-4 sm:p-5 hover:border-border/80 transition-all duration-200 hover:shadow-[0_0_15px_-5px_hsl(var(--olive)/0.2)]"
             >
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                <div className="flex items-start gap-3">
-                  <PenTool className="h-5 w-5 text-accent mt-0.5" />
-                  <div>
-                    <p className="text-sm font-bold text-foreground">{r.tema}</p>
-                    <p className="text-xs text-muted-foreground mt-1">
+                <div className="flex items-start gap-3 min-w-0 flex-1">
+                  <div className="p-1.5 rounded-lg bg-muted/50 shrink-0 mt-0.5">
+                    <PenTool className="h-4 w-4 text-accent" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-sm font-bold text-foreground truncate">{r.tema}</p>
+                    <p className="text-[10px] sm:text-xs text-muted-foreground mt-0.5">
                       {format(new Date(r.data_escrita), "dd/MM/yyyy")}
                     </p>
                   </div>
                 </div>
-                <div className="flex items-center gap-6 text-right">
-                  <div>
-                    <p className="text-2xl font-bold font-mono text-foreground">{r.nota_total}</p>
-                    <p className={`text-xs font-medium ${statusColor(r.status)}`}>{r.status}</p>
+                <div className="flex items-center gap-4 sm:gap-6">
+                  <div className="text-right">
+                    <p className="text-xl sm:text-2xl font-bold font-mono text-foreground">{r.nota_total}</p>
+                    <p className={`text-[10px] sm:text-xs font-medium ${statusColor(r.status)}`}>{r.status}</p>
                   </div>
-                  <div className="text-left">
+                  <div className="text-left hidden sm:block">
                     <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Comp. mais fraca</p>
                     <p className="text-xs text-warning">
                       C{r.competencia_mais_fraca} — {getCompetenciaNome(r.competencia_mais_fraca)}

@@ -2,13 +2,12 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { Timer, Clock, Play, Pause, RotateCcw, Maximize, Minimize } from "lucide-react";
 import AppLayout from "@/components/layout/AppLayout";
 
-// ── Persistent state (survives tab switches) ──────────────────────
 interface TimerState {
   mode: "timer" | "stopwatch";
-  timerSeconds: number; // set duration
-  elapsed: number; // ms elapsed
+  timerSeconds: number;
+  elapsed: number;
   running: boolean;
-  lastTick: number | null; // timestamp
+  lastTick: number | null;
   finished: boolean;
 }
 
@@ -21,85 +20,24 @@ let persisted: TimerState = {
   finished: false,
 };
 
-// ── Sound helper ──────────────────────────────────────────────────
-/*ALARME 1 - n sei dizer kkkk*/
-/* function playAlarm() {
+function playAlarm() {
   const ctx = new AudioContext();
-
-  const playTone = (time: number, freq: number, dur: number) => {
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-
-    osc.type = "sawtooth"; // mais agressivo que square
-    osc.frequency.setValueAtTime(freq, time);
-
-    gain.gain.setValueAtTime(0.2, time);
-    gain.gain.exponentialRampToValueAtTime(0.001, time + dur);
-
-    osc.connect(gain);
-    gain.connect(ctx.destination);
-
-    osc.start(time);
-    osc.stop(time + dur);
-  };
-
-  for (let i = 0; i < 8; i++) {
-    const freq = i % 2 === 0 ? 700 : 1000; // alterna os tons
-    playTone(ctx.currentTime + i * 0.25, freq, 0.2);
-  }
-} */
-
-/*ALARME 2 - pi pi pi irritante*/
- function playAlarm() {
-  const ctx = new AudioContext();
-
   const beep = (time: number) => {
     const osc = ctx.createOscillator();
     const gain = ctx.createGain();
-
     osc.type = "square";
     osc.frequency.value = 1200;
-
     gain.gain.setValueAtTime(0.25, time);
     gain.gain.exponentialRampToValueAtTime(0.001, time + 0.08);
-
     osc.connect(gain).connect(ctx.destination);
-
     osc.start(time);
     osc.stop(time + 0.08);
   };
-
   for (let i = 0; i < 12; i++) {
     beep(ctx.currentTime + i * 0.12);
   }
-} 
+}
 
-/*ALARME 3 - alarme de prédio */
-/* function playAlarm() {
-  const ctx = new AudioContext();
-
-  const tone = (time: number, freq: number) => {
-    const osc = ctx.createOscillator();
-    const gain = ctx.createGain();
-
-    osc.type = "triangle";
-    osc.frequency.value = freq;
-
-    gain.gain.setValueAtTime(0.25, time);
-    gain.gain.exponentialRampToValueAtTime(0.001, time + 0.3);
-
-    osc.connect(gain).connect(ctx.destination);
-
-    osc.start(time);
-    osc.stop(time + 0.3);
-  };
-
-  for (let i = 0; i < 6; i++) {
-    tone(ctx.currentTime + i * 0.35, i % 2 ? 900 : 500);
-  }
-} */
-
-// ── Circular progress component ──────────────────────────────────
 function CircularProgress({
   progress,
   size = 280,
@@ -118,31 +56,17 @@ function CircularProgress({
   return (
     <div className="relative" style={{ width: size, height: size }}>
       <svg width={size} height={size} className="-rotate-90">
+        <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="hsl(var(--border))" strokeWidth={stroke} />
         <circle
-          cx={size / 2}
-          cy={size / 2}
-          r={r}
-          fill="none"
-          stroke="hsl(var(--border))"
-          strokeWidth={stroke}
-        />
-        <circle
-          cx={size / 2}
-          cy={size / 2}
-          r={r}
-          fill="none"
-          stroke="hsl(var(--accent))"
-          strokeWidth={stroke}
-          strokeDasharray={circ}
-          strokeDashoffset={offset}
-          strokeLinecap="round"
-          className="transition-all duration-200"
+          cx={size / 2} cy={size / 2} r={r} fill="none"
+          stroke="hsl(var(--accent))" strokeWidth={stroke}
+          strokeDasharray={circ} strokeDashoffset={offset}
+          strokeLinecap="round" className="transition-all duration-200"
         />
       </svg>
-      {/* Dot indicator */}
       {progress > 0 && progress < 1 && (
         <div
-          className="absolute w-3 h-3 rounded-full bg-accent"
+          className="absolute w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-accent"
           style={{
             top: size / 2 - r * Math.cos(2 * Math.PI * progress) - 6,
             left: size / 2 + r * Math.sin(2 * Math.PI * progress) - 6,
@@ -150,14 +74,11 @@ function CircularProgress({
           }}
         />
       )}
-      <div className="absolute inset-0 flex items-center justify-center">
-        {children}
-      </div>
+      <div className="absolute inset-0 flex items-center justify-center">{children}</div>
     </div>
   );
 }
 
-// ── Format helpers ────────────────────────────────────────────────
 function fmtTimer(ms: number) {
   const totalSec = Math.max(0, Math.ceil(ms / 1000));
   const m = Math.floor(totalSec / 60);
@@ -172,7 +93,6 @@ function fmtStopwatch(ms: number) {
   return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
 }
 
-// ── Main page ─────────────────────────────────────────────────────
 export default function TimerPage() {
   const [mode, setMode] = useState<"timer" | "stopwatch">(persisted.mode);
   const [timerSeconds, setTimerSeconds] = useState(persisted.timerSeconds);
@@ -183,7 +103,6 @@ export default function TimerPage() {
   const alarmPlayed = useRef(persisted.finished);
   const [fullscreen, setFullscreen] = useState(false);
 
-  // Sync back elapsed from wall-clock if was running while away
   useEffect(() => {
     if (persisted.running && persisted.lastTick) {
       const delta = Date.now() - persisted.lastTick;
@@ -194,10 +113,7 @@ export default function TimerPage() {
           setElapsed(totalMs);
           setRunning(false);
           setFinished(true);
-          if (!alarmPlayed.current) {
-            playAlarm();
-            alarmPlayed.current = true;
-          }
+          if (!alarmPlayed.current) { playAlarm(); alarmPlayed.current = true; }
         } else {
           setElapsed(newElapsed);
         }
@@ -209,36 +125,22 @@ export default function TimerPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Persist on every state change + update document title
   useEffect(() => {
-    persisted = {
-      mode,
-      timerSeconds,
-      elapsed,
-      running,
-      lastTick: lastTickRef.current,
-      finished,
-    };
-
+    persisted = { mode, timerSeconds, elapsed, running, lastTick: lastTickRef.current, finished };
     if (running || elapsed > 0) {
-      const display =
-        mode === "timer" ? fmtTimer(timerSeconds * 1000 - elapsed) : fmtStopwatch(elapsed);
+      const display = mode === "timer" ? fmtTimer(timerSeconds * 1000 - elapsed) : fmtStopwatch(elapsed);
       document.title = `${display} - Provectus`;
     } else {
       document.title = "Provectus";
     }
   });
 
-  // Reset title on unmount only if not running
   useEffect(() => {
     return () => {
-      if (!persisted.running && persisted.elapsed === 0) {
-        document.title = "Provectus";
-      }
+      if (!persisted.running && persisted.elapsed === 0) document.title = "Provectus";
     };
   }, []);
 
-  // Tick loop
   useEffect(() => {
     if (!running) return;
     const id = setInterval(() => {
@@ -252,10 +154,7 @@ export default function TimerPage() {
           if (next >= totalMs) {
             setRunning(false);
             setFinished(true);
-            if (!alarmPlayed.current) {
-              playAlarm();
-              alarmPlayed.current = true;
-            }
+            if (!alarmPlayed.current) { playAlarm(); alarmPlayed.current = true; }
             return totalMs;
           }
         }
@@ -265,7 +164,6 @@ export default function TimerPage() {
     return () => clearInterval(id);
   }, [running, mode, timerSeconds]);
 
-  // Space key
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if (e.code === "Space" && e.target === document.body) {
@@ -280,62 +178,34 @@ export default function TimerPage() {
 
   const toggleRunning = useCallback(() => {
     if (finished && mode === "timer") return;
-    setRunning((r) => {
-      if (!r) lastTickRef.current = Date.now();
-      return !r;
-    });
+    setRunning((r) => { if (!r) lastTickRef.current = Date.now(); return !r; });
   }, [finished, mode]);
 
   const reset = useCallback(() => {
-    setRunning(false);
-    setElapsed(0);
-    setFinished(false);
-    lastTickRef.current = null;
-    alarmPlayed.current = false;
+    setRunning(false); setElapsed(0); setFinished(false);
+    lastTickRef.current = null; alarmPlayed.current = false;
   }, []);
 
-  const switchMode = useCallback(
-    (m: "timer" | "stopwatch") => {
-      if (m === mode) return;
-      reset();
-      setMode(m);
-    },
-    [mode, reset]
-  );
+  const switchMode = useCallback((m: "timer" | "stopwatch") => {
+    if (m === mode) return;
+    reset(); setMode(m);
+  }, [mode, reset]);
 
-  const addTime = useCallback(
-    (sec: number) => {
-      if (running) return;
-      setTimerSeconds((t) => t + sec);
-      setElapsed(0);
-      setFinished(false);
-      alarmPlayed.current = false;
-    },
-    [running]
-  );
+  const addTime = useCallback((sec: number) => {
+    if (running) return;
+    setTimerSeconds((t) => t + sec);
+    setElapsed(0); setFinished(false); alarmPlayed.current = false;
+  }, [running]);
 
-  const setPreset = useCallback(
-    (sec: number) => {
-      if (running) return;
-      setTimerSeconds(sec);
-      setElapsed(0);
-      setFinished(false);
-      alarmPlayed.current = false;
-    },
-    [running]
-  );
+  const setPreset = useCallback((sec: number) => {
+    if (running) return;
+    setTimerSeconds(sec);
+    setElapsed(0); setFinished(false); alarmPlayed.current = false;
+  }, [running]);
 
-  // Progress calculation
   const totalMs = timerSeconds * 1000;
-  const progress =
-    mode === "timer"
-      ? totalMs > 0
-        ? elapsed / totalMs
-        : 0
-      : (elapsed % 60000) / 60000;
-
-  const displayTime =
-    mode === "timer" ? fmtTimer(totalMs - elapsed) : fmtStopwatch(elapsed);
+  const progress = mode === "timer" ? (totalMs > 0 ? elapsed / totalMs : 0) : (elapsed % 60000) / 60000;
+  const displayTime = mode === "timer" ? fmtTimer(totalMs - elapsed) : fmtStopwatch(elapsed);
 
   const presets = [
     { label: "0:30", sec: 30 },
@@ -346,135 +216,115 @@ export default function TimerPage() {
     { label: "45:00", sec: 2700 },
   ];
 
+  const circleSize = fullscreen ? 320 : 240;
+
   const content = (
-      <div className={`flex flex-col items-center gap-8 py-6 ${fullscreen ? "justify-center min-h-screen" : ""}`}>
-        {/* Mode tabs */}
-        <div className="flex items-center gap-1 p-1 rounded-lg bg-muted">
-          <button
-            onClick={() => switchMode("timer")}
-            className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all ${
-              mode === "timer"
-                ? "bg-primary text-primary-foreground hud-glow"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            <Timer className="h-4 w-4" />
-            Timer
-          </button>
-          <button
-            onClick={() => switchMode("stopwatch")}
-            className={`flex items-center gap-2 px-4 py-2 rounded-md text-sm font-medium transition-all ${
-              mode === "stopwatch"
-                ? "bg-primary text-primary-foreground hud-glow"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            <Clock className="h-4 w-4" />
-            Cronômetro
-          </button>
-        </div>
-
-        {/* Circular display */}
-        <CircularProgress progress={progress}>
-          <span
-            className={`text-5xl sm:text-6xl font-heading font-bold tabular-nums tracking-wider ${
-              finished ? "text-accent animate-pulse" : "text-foreground"
-            }`}
-          >
-            {displayTime}
-          </span>
-        </CircularProgress>
-
-        {/* Timer presets / add time */}
-        {mode === "timer" && !running && !finished && (
-          <div className="flex flex-col items-center gap-3">
-            <div className="flex gap-2">
-              {presets.map((p) => (
-                <button
-                  key={p.label}
-                  onClick={() => setPreset(p.sec)}
-                  className={`px-3 py-1.5 rounded-md text-xs font-medium border transition-all ${
-                    timerSeconds === p.sec
-                      ? "border-accent text-accent bg-accent/10"
-                      : "border-border text-muted-foreground hover:text-foreground hover:border-muted-foreground"
-                  }`}
-                >
-                  {p.label}
-                </button>
-              ))}
-            </div>
-            <div className="flex gap-2">
-              {[
-                { label: "+0:30", sec: 30 },
-                { label: "+1:00", sec: 60 },
-                { label: "+5:00", sec: 300 },
-              ].map((a) => (
-                <button
-                  key={a.label}
-                  onClick={() => addTime(a.sec)}
-                  className="px-4 py-2 rounded-md text-sm font-medium border border-border text-muted-foreground hover:text-foreground hover:border-muted-foreground bg-card transition-all"
-                >
-                  {a.label}
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {finished && mode === "timer" && (
-          <p className="text-sm text-accent font-medium tracking-wider uppercase animate-pulse">
-            Tempo esgotado!
-          </p>
-        )}
-
-        {/* Controls */}
-        <div className="flex gap-3 w-full max-w-sm">
-          <button
-            onClick={toggleRunning}
-            disabled={finished && mode === "timer"}
-            className={`flex-1 flex items-center justify-center gap-2 py-3.5 rounded-md text-sm font-semibold transition-all ${
-              finished && mode === "timer"
-                ? "bg-muted text-muted-foreground cursor-not-allowed"
-                : running
-                ? "bg-secondary text-secondary-foreground hover:bg-secondary/80"
-                : "bg-primary text-primary-foreground hover:bg-primary/90 hud-glow"
-            }`}
-          >
-            {running ? (
-              <>
-                <Pause className="h-5 w-5" /> Pausar
-              </>
-            ) : (
-              <>
-                <Play className="h-5 w-5" /> Iniciar
-              </>
-            )}
-          </button>
-          <button
-            onClick={reset}
-            className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-md text-sm font-semibold bg-card border border-border text-muted-foreground hover:text-foreground hover:border-muted-foreground transition-all"
-          >
-            <RotateCcw className="h-5 w-5" /> Resetar
-          </button>
-        </div>
-
-        {/* Fullscreen toggle */}
+    <div className={`flex flex-col items-center gap-6 sm:gap-8 py-4 sm:py-6 px-4 ${fullscreen ? "justify-center min-h-screen" : ""}`}>
+      {/* Mode tabs */}
+      <div className="flex items-center gap-1 p-1 rounded-lg bg-muted">
         <button
-          onClick={() => setFullscreen((f) => !f)}
-          className="flex items-center gap-2 px-4 py-2 rounded-md text-xs font-medium border border-border text-muted-foreground hover:text-foreground hover:border-muted-foreground bg-card transition-all"
+          onClick={() => switchMode("timer")}
+          className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-md text-xs sm:text-sm font-medium transition-all duration-200 ${
+            mode === "timer" ? "bg-primary text-primary-foreground hud-glow" : "text-muted-foreground hover:text-foreground"
+          }`}
         >
-          {fullscreen ? <Minimize className="h-4 w-4" /> : <Maximize className="h-4 w-4" />}
-          {fullscreen ? "Sair da tela cheia" : "Tela cheia"}
+          <Timer className="h-4 w-4" />
+          <span>Timer</span>
         </button>
-
-        <p className="text-[10px] tracking-widest uppercase text-muted-foreground">
-          Pressione <kbd className="px-1.5 py-0.5 rounded bg-muted border border-border text-foreground text-[10px] font-mono">Space</kbd> para pausar / continuar
-        </p>
+        <button
+          onClick={() => switchMode("stopwatch")}
+          className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-md text-xs sm:text-sm font-medium transition-all duration-200 ${
+            mode === "stopwatch" ? "bg-primary text-primary-foreground hud-glow" : "text-muted-foreground hover:text-foreground"
+          }`}
+        >
+          <Clock className="h-4 w-4" />
+          <span>Cronômetro</span>
+        </button>
       </div>
+
+      <CircularProgress progress={progress} size={circleSize}>
+        <span className={`text-4xl sm:text-5xl md:text-6xl font-heading font-bold tabular-nums tracking-wider ${
+          finished ? "text-accent animate-pulse" : "text-foreground"
+        }`}>
+          {displayTime}
+        </span>
+      </CircularProgress>
+
+      {mode === "timer" && !running && !finished && (
+        <div className="flex flex-col items-center gap-3 w-full max-w-sm">
+          <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2">
+            {presets.map((p) => (
+              <button
+                key={p.label}
+                onClick={() => setPreset(p.sec)}
+                className={`px-2.5 sm:px-3 py-1.5 rounded-lg text-[10px] sm:text-xs font-medium border transition-all duration-200 ${
+                  timerSeconds === p.sec
+                    ? "border-accent text-accent bg-accent/10"
+                    : "border-border text-muted-foreground hover:text-foreground hover:border-muted-foreground"
+                }`}
+              >
+                {p.label}
+              </button>
+            ))}
+          </div>
+          <div className="flex gap-2">
+            {[{ label: "+0:30", sec: 30 }, { label: "+1:00", sec: 60 }, { label: "+5:00", sec: 300 }].map((a) => (
+              <button
+                key={a.label}
+                onClick={() => addTime(a.sec)}
+                className="px-3 sm:px-4 py-2 rounded-lg text-xs sm:text-sm font-medium border border-border text-muted-foreground hover:text-foreground hover:border-muted-foreground bg-card transition-all duration-200"
+              >
+                {a.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {finished && mode === "timer" && (
+        <p className="text-sm text-accent font-medium tracking-wider uppercase animate-pulse">
+          Tempo esgotado!
+        </p>
+      )}
+
+      <div className="flex gap-3 w-full max-w-sm">
+        <button
+          onClick={toggleRunning}
+          disabled={finished && mode === "timer"}
+          className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-lg text-sm font-semibold transition-all duration-200 ${
+            finished && mode === "timer"
+              ? "bg-muted text-muted-foreground cursor-not-allowed"
+              : running
+              ? "bg-secondary text-secondary-foreground hover:bg-secondary/80"
+              : "bg-primary text-primary-foreground hover:bg-primary/90 hud-glow"
+          } active:scale-[0.98]`}
+        >
+          {running ? <><Pause className="h-4 w-4 sm:h-5 sm:w-5" /> Pausar</> : <><Play className="h-4 w-4 sm:h-5 sm:w-5" /> Iniciar</>}
+        </button>
+        <button
+          onClick={reset}
+          className="flex-1 flex items-center justify-center gap-2 py-3 rounded-lg text-sm font-semibold bg-card border border-border text-muted-foreground hover:text-foreground hover:border-muted-foreground transition-all duration-200 active:scale-[0.98]"
+        >
+          <RotateCcw className="h-4 w-4 sm:h-5 sm:w-5" /> Resetar
+        </button>
+      </div>
+
+      <button
+        onClick={() => setFullscreen((f) => !f)}
+        className="flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-medium border border-border text-muted-foreground hover:text-foreground hover:border-muted-foreground bg-card transition-all duration-200"
+      >
+        {fullscreen ? <Minimize className="h-4 w-4" /> : <Maximize className="h-4 w-4" />}
+        {fullscreen ? "Sair da tela cheia" : "Tela cheia"}
+      </button>
+
+      <p className="text-[9px] sm:text-[10px] tracking-widest uppercase text-muted-foreground">
+        Pressione <kbd className="px-1.5 py-0.5 rounded-md bg-muted border border-border text-foreground text-[10px] font-mono">Space</kbd> para pausar / continuar
+      </p>
+    </div>
   );
 
   if (fullscreen) {
-    return <div className="fixed inset-0 z-50 bg-background">{content}</div>;
+    return <div className="fixed inset-0 z-50 bg-background animate-fade-in">{content}</div>;
   }
 
   return <AppLayout>{content}</AppLayout>;

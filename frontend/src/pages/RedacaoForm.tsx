@@ -14,11 +14,7 @@ export default function RedacaoForm() {
   const [observacoes, setObservacoes] = useState("");
   const [repertorios, setRepertorios] = useState("");
   const [notas, setNotas] = useState<Record<string, number>>({
-    competencia1: 0,
-    competencia2: 0,
-    competencia3: 0,
-    competencia4: 0,
-    competencia5: 0,
+    competencia1: 0, competencia2: 0, competencia3: 0, competencia4: 0, competencia5: 0,
   });
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -41,19 +37,13 @@ export default function RedacaoForm() {
 
   return (
     <AppLayout>
-      <div className="mb-8">
-        <h1 className="text-2xl font-bold tracking-wider text-foreground uppercase">
-          Nova Redação
-        </h1>
-        <p className="text-sm text-muted-foreground">Registre uma redação para avaliação</p>
+      <div className="page-header">
+        <h1 className="page-title">Nova Redação</h1>
+        <p className="page-subtitle">Registre uma redação para avaliação</p>
       </div>
 
-      <form onSubmit={handleSubmit} className="max-w-2xl space-y-6">
-        {/* Tema */}
-        <div>
-          <label className="block text-xs font-medium tracking-wider text-muted-foreground uppercase mb-2">
-            Tema da Redação *
-          </label>
+      <form onSubmit={handleSubmit} className="max-w-2xl space-y-5 sm:space-y-6">
+        <FieldGroup label="Tema da Redação *">
           <input
             type="text"
             value={tema}
@@ -63,13 +53,9 @@ export default function RedacaoForm() {
             className="form-input w-full"
             placeholder="Ex: A persistência da violência contra a mulher no Brasil"
           />
-        </div>
+        </FieldGroup>
 
-        {/* Eixo temático */}
-        <div>
-          <label className="block text-xs font-medium tracking-wider text-muted-foreground uppercase mb-2">
-            Eixo Temático
-          </label>
+        <FieldGroup label="Eixo Temático">
           <input
             type="text"
             value={eixoTematico}
@@ -77,14 +63,10 @@ export default function RedacaoForm() {
             className="form-input w-full"
             placeholder="Ex: Direitos Humanos"
           />
-        </div>
+        </FieldGroup>
 
-        {/* Tempo e observações */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-xs font-medium tracking-wider text-muted-foreground uppercase mb-2">
-              Tempo de Escrita (min)
-            </label>
+          <FieldGroup label="Tempo de Escrita (min)">
             <input
               type="number"
               value={tempoEscrita}
@@ -93,11 +75,8 @@ export default function RedacaoForm() {
               className="form-input w-full"
               placeholder="Ex: 90"
             />
-          </div>
-          <div>
-            <label className="block text-xs font-medium tracking-wider text-muted-foreground uppercase mb-2">
-              Repertórios Utilizados
-            </label>
+          </FieldGroup>
+          <FieldGroup label="Repertórios Utilizados">
             <input
               type="text"
               value={repertorios}
@@ -105,31 +84,26 @@ export default function RedacaoForm() {
               className="form-input w-full"
               placeholder="Ex: Constituição, Hannah Arendt"
             />
-          </div>
+          </FieldGroup>
         </div>
 
-        {/* Observações */}
-        <div>
-          <label className="block text-xs font-medium tracking-wider text-muted-foreground uppercase mb-2">
-            Observações
-          </label>
+        <FieldGroup label="Observações">
           <textarea
             value={observacoes}
             onChange={(e) => setObservacoes(e.target.value)}
             className="form-input w-full min-h-[80px] resize-y"
             placeholder="Observações gerais sobre a redação"
           />
-        </div>
+        </FieldGroup>
 
-        {/* Competências */}
-        <div className="rounded-md border border-border bg-card p-5">
-          <p className="text-xs font-medium tracking-wider text-muted-foreground uppercase mb-4">
+        <div className="rounded-lg border border-border bg-card p-4 sm:p-5">
+          <p className="text-[10px] sm:text-xs font-medium tracking-wider text-muted-foreground uppercase mb-4">
             Notas por Competência (0–200)
           </p>
           <div className="space-y-4">
             {compEntries.map(([code, name], i) => (
               <div key={code}>
-                <label className="block text-sm text-foreground mb-1">
+                <label className="block text-sm text-foreground mb-1.5">
                   <span className="font-bold text-accent">{code}</span> — {name}
                 </label>
                 <input
@@ -155,11 +129,20 @@ export default function RedacaoForm() {
         <button
           type="submit"
           disabled={isPending || !tema}
-          className="w-full py-3 rounded-md bg-primary text-primary-foreground font-bold tracking-wider uppercase text-sm hover:bg-primary/90 transition-colors disabled:opacity-50"
+          className="w-full py-3 rounded-lg bg-primary text-primary-foreground font-bold tracking-wider uppercase text-sm hover:bg-primary/90 transition-all duration-200 disabled:opacity-50 active:scale-[0.98]"
         >
           {isPending ? "Enviando..." : "Enviar Redação"}
         </button>
       </form>
     </AppLayout>
+  );
+}
+
+function FieldGroup({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div>
+      <label className="block text-[10px] sm:text-xs font-medium tracking-wider text-muted-foreground uppercase mb-1.5 sm:mb-2">{label}</label>
+      {children}
+    </div>
   );
 }
