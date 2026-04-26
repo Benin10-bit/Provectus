@@ -210,6 +210,69 @@ def obter_analytics(
 # CONFIGURAÇÕES
 # ==========================================================
 
+@router.post(
+    "/materias",
+    response_model=schemas.MateriaResponse,
+    status_code=status.HTTP_201_CREATED,
+    summary="Criar Matéria",
+    description="""
+    Cria uma nova matéria no sistema.
+
+    Regras:
+    - O nome da matéria deve ser único (não pode repetir, ignorando maiúsculas/minúsculas).
+    - O peso da prova deve ser maior que zero.
+    """,
+    tags=["Configurações"]
+)
+def criar_materia(
+    payload: schemas.MateriaCreate,
+    db: Session = Depends(get_db)
+):
+    """
+    Cria uma nova matéria.
+
+    Args:
+        payload: Dados da matéria (nome e peso_prova).
+        db: Sessão do banco de dados.
+
+    Returns:
+        MateriaResponse: matéria criada.
+    """
+    return services.criar_materia(db, payload)
+
+
+@router.post(
+    "/assuntos",
+    response_model=schemas.AssuntoResponse,
+    status_code=status.HTTP_201_CREATED,
+    summary="Criar Assunto",
+    description="""
+    Cria um novo assunto vinculado a uma matéria existente.
+
+    Regras:
+    - A matéria referenciada por `materia_id` deve existir.
+    - Não é permitido criar dois assuntos com o mesmo nome para a mesma matéria.
+    - A semana do ciclo deve estar entre 1 e 4.
+    """,
+    tags=["Configurações"]
+)
+def criar_assunto(
+    payload: schemas.AssuntoCreate,
+    db: Session = Depends(get_db)
+):
+    """
+    Cria um novo assunto.
+
+    Args:
+        payload: Dados do assunto (materia_id, nome, semana_do_ciclo).
+        db: Sessão do banco de dados.
+
+    Returns:
+        AssuntoResponse: assunto criado.
+    """
+    return services.criar_assunto(db, payload)
+
+
 @router.get(
     "/materias",
     response_model=List[schemas.MateriaResponse],

@@ -14,6 +14,7 @@ import RedacaoDetail from "./pages/RedacaoDetail";
 import NotFound from "./pages/NotFound";
 import CountdownPage from "./pages/CountdownPage";
 import TimerPage from "./pages/TimerPage";
+import CronogramaPage from "./pages/CronogramaPage";
 
 const queryClient = new QueryClient();
 
@@ -34,6 +35,7 @@ const App = () => (
           <Route path="/redacoes/nova" element={<RedacaoForm />} />
           <Route path="/redacoes/:id" element={<RedacaoDetail />} />
           <Route path="/countdown" element={<CountdownPage />} />
+          <Route path="/cronograma" element={<CronogramaPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

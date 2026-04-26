@@ -3,15 +3,21 @@ services:
     image: postgres:15-alpine
     container_name: postgres_db
     restart: always
+    mem_limit: 512m
     environment:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
+    command: >
+      postgres
+      -c shared_buffers=128MB
+      -c work_mem=4MB
+      -c maintenance_work_mem=64MB
     volumes:
       - pgdata:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${DB_USER} -d ${DB_NAME}"]
-      interval: 5s
+      interval: 10s
       timeout: 5s
       retries: 5
 
@@ -20,8 +26,14 @@ services:
       context: ./api
     container_name: fastapi_app
     restart: always
-    # O comando abaixo remove os workers extras para evitar o erro de 'UniqueViolation'
-    command: ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]
+    mem_limit: 512m
+    command: [
+      "uvicorn",
+      "app.main:app",
+      "--host", "0.0.0.0",
+      "--port", "8000",
+      "--workers", "1"
+    ]
     depends_on:
       db:
         condition: service_healthy
@@ -37,6 +49,7 @@ services:
         - VITE_API_URL=/api
     container_name: react_frontend
     restart: always
+    mem_limit: 256m
     ports:
       - "80:80"
     depends_on:

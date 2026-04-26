@@ -610,6 +610,95 @@ def get_dashboard(
         "recomendacao": recomendacoes
     }
 
+def criar_materia(db: Session, payload: schemas.MateriaCreate):
+    """
+    Cria uma nova matéria no banco de dados.
+
+    Validações:
+    - O nome deve ser único (case-insensitive).
+    """
+    nome_normalizado = payload.nome.strip()
+
+    existente = (
+        db.query(models.Materia)
+        .filter(func.lower(models.Materia.nome) == nome_normalizado.lower())
+        .first()
+    )
+
+    if existente:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Matéria '{nome_normalizado}' já existe."
+        )
+
+    db_obj = models.Materia(
+        nome=nome_normalizado,
+        peso_prova=payload.peso_prova
+    )
+
+    try:
+        db.add(db_obj)
+        db.commit()
+        db.refresh(db_obj)
+        return db_obj
+    except Exception:
+        db.rollback()
+        raise HTTPException(status_code=500, detail="Erro ao criar matéria.")
+
+
+def criar_assunto(db: Session, payload: schemas.AssuntoCreate):
+    """
+    Cria um novo assunto vinculado a uma matéria existente.
+
+    Validações:
+    - A matéria referenciada deve existir.
+    - Não pode haver outro assunto com o mesmo nome para a mesma matéria.
+    """
+    materia = (
+        db.query(models.Materia)
+        .filter(models.Materia.id == payload.materia_id)
+        .first()
+    )
+
+    if not materia:
+        raise HTTPException(
+            status_code=404,
+            detail="Matéria não encontrada."
+        )
+
+    nome_normalizado = payload.nome.strip()
+
+    existente = (
+        db.query(models.Assunto)
+        .filter(
+            models.Assunto.materia_id == payload.materia_id,
+            func.lower(models.Assunto.nome) == nome_normalizado.lower()
+        )
+        .first()
+    )
+
+    if existente:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Assunto '{nome_normalizado}' já existe para esta matéria."
+        )
+
+    db_obj = models.Assunto(
+        materia_id=payload.materia_id,
+        nome=nome_normalizado,
+        semana_do_ciclo=payload.semana_do_ciclo
+    )
+
+    try:
+        db.add(db_obj)
+        db.commit()
+        db.refresh(db_obj)
+        return db_obj
+    except Exception:
+        db.rollback()
+        raise HTTPException(status_code=500, detail="Erro ao criar assunto.")
+
+
 def listar_materias(db: Session):
     return db.query(models.Materia).order_by(models.Materia.nome).all()
 
