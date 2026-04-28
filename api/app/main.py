@@ -101,8 +101,4 @@ app.include_router(configurações.router)
     description="Verifica se o sistema está operacional."
 )
 def health_check():
-    return {
-        "status": "OPERACIONAL",
-        "sistema": "Provectus",
-        "versao": "2.0.0"
-    }
+    return {"status": "ok"}

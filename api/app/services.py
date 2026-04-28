@@ -82,6 +82,25 @@ def _obter_data_inicio(periodo: str) -> datetime:
     return datetime(2000, 1, 1)
 
 
+def _obter_data_anterior(periodo: str, data_inicio: datetime) -> datetime:
+    """Retorna o início do período anterior para comparação de tendência."""
+    if periodo == "semana":
+        return data_inicio - timedelta(days=7)
+
+    if periodo == "mes":
+        # primeiro dia do mês anterior
+        ultimo_dia_mes_anterior = data_inicio - timedelta(days=1)
+        return ultimo_dia_mes_anterior.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
+
+    if periodo == "ano":
+        # primeiro dia do ano anterior
+        return data_inicio.replace(year=data_inicio.year - 1)
+
+    # "todos" ou qualquer outro: sem período anterior definido
+    return data_inicio
+
+
+
 def _calcular_ipr_bloco(bloco: models.BlocoQuestoes) -> float:
     if bloco.total_questoes == 0:
         return 0.0
@@ -289,65 +308,79 @@ def get_dashboard(
     # ================= IPR ATUAL =================
     
     iprs_blocos = [_calcular_ipr_bloco(b) for b in blocos]
-    iprs_simulados = [_calcular_ipr_simulado(s) for s in simulados]
-    
     ipr_blocos = (
         sum(iprs_blocos) / len(iprs_blocos)
     ) if iprs_blocos else 0
     
-    ipr_simulados = (
-        sum(iprs_simulados) / len(iprs_simulados)
-    ) if iprs_simulados else 0
-    
-    ipr_medio = None
-
-    if ipr_simulados > 0:
-        ipr_medio = round(
-            (ipr_blocos * 0.7) + (ipr_simulados * 0.3),
-            4
-        )
+    # Quando filtrado por matéria, simulados não são incluídos (são avaliações globais)
+    if materia_id:
+        ipr_medio = round(ipr_blocos, 4)
     else:
-        ipr_medio = round(ipr_blocos, 4)    
+        iprs_simulados = [_calcular_ipr_simulado(s) for s in simulados]
+        ipr_simulados = (
+            sum(iprs_simulados) / len(iprs_simulados)
+        ) if iprs_simulados else 0
+        
+        if ipr_simulados > 0:
+            ipr_medio = round(
+                (ipr_blocos * 0.7) + (ipr_simulados * 0.3),
+                4
+            )
+        else:
+            ipr_medio = round(ipr_blocos, 4)    
     
     # ================= TENDÊNCIA =================
     
-    if periodo == "semana":
-        data_anterior = data_inicio - timedelta(days=7)
+    data_anterior = _obter_data_anterior(periodo, data_inicio)
     
-    elif periodo == "mes":
-        data_anterior = (data_inicio - timedelta(days=1)).replace(day=1)
-    
+    # Se período for "todos" ou não houver período anterior definido, tendência é estável
+    if data_anterior >= data_inicio:
+        tendencia = "ESTÁVEL"
     else:
-        data_anterior = datetime(2000,1,1)
-    
-    blocos_anteriores = db.query(models.BlocoQuestoes).filter(
-        models.BlocoQuestoes.data >= data_anterior,
-        models.BlocoQuestoes.data < data_inicio
-    ).all()
-    
-    simulados_anteriores = db.query(models.SimuladoSemanal).filter(
-        models.SimuladoSemanal.criado_em >= data_anterior,
-        models.SimuladoSemanal.criado_em < data_inicio
-    ).all()
-    
-    
-    iprs_blocos_ant = [_calcular_ipr_bloco(b) for b in blocos_anteriores]
-    iprs_simulados_ant = [_calcular_ipr_simulado(s) for s in simulados_anteriores]
-    
-    ipr_blocos_ant = (
-        sum(iprs_blocos_ant) / len(iprs_blocos_ant)
-    ) if iprs_blocos_ant else 0
-    
-    ipr_simulados_ant = (
-        sum(iprs_simulados_ant) / len(iprs_simulados_ant)
-    ) if iprs_simulados_ant else 0
-    
-    ipr_anterior = round(
-        (ipr_blocos_ant * 0.7) + (ipr_simulados_ant * 0.3),
-        4
-    )
-    
-    tendencia = _calcular_tendencia(ipr_medio, ipr_anterior)
+        blocos_anteriores = db.query(models.BlocoQuestoes).filter(
+            models.BlocoQuestoes.data >= data_anterior,
+            models.BlocoQuestoes.data < data_inicio
+        )
+        
+        if materia_id:
+            blocos_anteriores = blocos_anteriores.filter(
+                models.BlocoQuestoes.materia_id == materia_id
+            )
+        
+        blocos_anteriores = blocos_anteriores.all()
+        
+        # Quando filtrado por matéria, não incluir simulados (são avaliações globais)
+        if materia_id:
+            iprs_blocos_ant = [_calcular_ipr_bloco(b) for b in blocos_anteriores]
+            ipr_anterior = round(
+                sum(iprs_blocos_ant) / len(iprs_blocos_ant), 4
+            ) if iprs_blocos_ant else 0
+        else:
+            simulados_anteriores = db.query(models.SimuladoSemanal).filter(
+                models.SimuladoSemanal.criado_em >= data_anterior,
+                models.SimuladoSemanal.criado_em < data_inicio
+            ).all()
+            
+            iprs_blocos_ant = [_calcular_ipr_bloco(b) for b in blocos_anteriores]
+            iprs_simulados_ant = [_calcular_ipr_simulado(s) for s in simulados_anteriores]
+            
+            ipr_blocos_ant = (
+                sum(iprs_blocos_ant) / len(iprs_blocos_ant)
+            ) if iprs_blocos_ant else 0
+            
+            ipr_simulados_ant = (
+                sum(iprs_simulados_ant) / len(iprs_simulados_ant)
+            ) if iprs_simulados_ant else 0
+            
+            if ipr_simulados_ant > 0:
+                ipr_anterior = round(
+                    (ipr_blocos_ant * 0.7) + (ipr_simulados_ant * 0.3),
+                    4
+                )
+            else:
+                ipr_anterior = round(ipr_blocos_ant, 4)
+        
+        tendencia = _calcular_tendencia(ipr_medio, ipr_anterior)
 
     # ================= ASSUNTOS CRÍTICOS =================
     assuntos_criticos = []
@@ -356,9 +389,22 @@ def get_dashboard(
 
     for assunto_id in assuntos_ids:
         blocos_assunto = [b for b in blocos if b.assunto_id == assunto_id]
-        iprs_assunto = [_calcular_ipr_bloco(b) for b in blocos_assunto]
+        total_questoes_assunto = sum(b.total_questoes for b in blocos_assunto)
+        
+        # Mínimo de questões varia por período para refletir volume realista
+        # Na semana, qualquer bloco já é avaliado (volume naturalmente menor)
+        # No mês/ano, exige pelo menos 10 questões para significância estatística
+        minimo_questoes = 1 if periodo == "semana" else 10
+        
+        if total_questoes_assunto < minimo_questoes:
+            continue
+        
+        # Média ponderada pelo número de questões
+        ipr_ponderado = sum(
+            _calcular_ipr_bloco(b) * b.total_questoes for b in blocos_assunto
+        ) / total_questoes_assunto
 
-        if len(iprs_assunto) >= 2 and sum(iprs_assunto) / len(iprs_assunto) < 0.70:
+        if ipr_ponderado < 0.70:
             assuntos_criticos.append(str(assunto_id))
 
     # ================= STATUS DE META =================
