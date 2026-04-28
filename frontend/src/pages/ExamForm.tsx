@@ -104,7 +104,7 @@ export default function ExamPage() {
               </FieldGroup>
             </div>
             <button type="submit" disabled={mutation.isPending}
-              className="w-full py-3 rounded-lg bg-primary text-primary-foreground font-semibold tracking-wider uppercase text-sm hover:bg-olive-light transition-all duration-200 disabled:opacity-50 active:scale-[0.98]">
+              className="btn-tactical">
               {mutation.isPending ? "Registrando..." : "Registrar Simulado"}
             </button>
           </form>
@@ -115,7 +115,7 @@ export default function ExamPage() {
           {loadingSimulados ? <LoadingState /> : (!simulados || simulados.length === 0) ? <EmptyState /> : (
             <div className="space-y-2 max-h-[500px] lg:max-h-[600px] overflow-y-auto pr-1">
               {simulados.map((s) => (
-                <div key={s.id} className="rounded-lg border border-border bg-card p-3 sm:p-4 flex items-center justify-between gap-3 transition-colors hover:border-border/80">
+                <div key={s.id} className="rounded-lg border border-border bg-card/80 hover:bg-card p-3 sm:p-4 flex items-center justify-between gap-3 transition-all hover:border-accent/40 hover:translate-x-0.5">
                   <div className="min-w-0 flex-1">
                     <p className="text-sm font-semibold text-foreground truncate">Ciclo {s.numero_ciclo} — Semana {s.numero_semana}</p>
                     <p className="text-[10px] sm:text-xs text-muted-foreground truncate">

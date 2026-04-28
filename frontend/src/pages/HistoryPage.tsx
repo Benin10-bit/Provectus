@@ -51,7 +51,7 @@ export default function HistoryPage() {
         lS ? <LoadingState /> : eS ? <ErrorState /> : (!sessoes || sessoes.length === 0) ? <EmptyState /> : (
           <div className="space-y-2">
             {sessoes.map((s) => (
-              <div key={s.id} className="rounded-lg border border-border bg-card p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 transition-colors hover:border-border/80">
+              <div key={s.id} className="rounded-lg border border-border bg-card/80 hover:bg-card p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 transition-all hover:border-accent/40 hover:translate-x-0.5">
                 <div className="min-w-0">
                   <p className="text-sm font-semibold text-foreground truncate">
                     {getMateriaNome(s.materia_id)}{" "}
@@ -72,7 +72,7 @@ export default function HistoryPage() {
         lB ? <LoadingState /> : eB ? <ErrorState /> : (!blocos || blocos.length === 0) ? <EmptyState /> : (
           <div className="space-y-2">
             {blocos.map((b) => (
-              <div key={b.id} className="rounded-lg border border-border bg-card p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 transition-colors hover:border-border/80">
+              <div key={b.id} className="rounded-lg border border-border bg-card/80 hover:bg-card p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 transition-all hover:border-accent/40 hover:translate-x-0.5">
                 <div className="min-w-0">
                   <p className="text-sm font-semibold text-foreground truncate">
                     {getMateriaNome(b.materia_id)}{" "}
@@ -98,7 +98,7 @@ export default function HistoryPage() {
         lSim ? <LoadingState /> : eSim ? <ErrorState /> : (!simulados || simulados.length === 0) ? <EmptyState /> : (
           <div className="space-y-2">
             {simulados.map((s) => (
-              <div key={s.id} className="rounded-lg border border-border bg-card p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 transition-colors hover:border-border/80">
+              <div key={s.id} className="rounded-lg border border-border bg-card/80 hover:bg-card p-3 sm:p-4 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 transition-all hover:border-accent/40 hover:translate-x-0.5">
                 <div className="min-w-0">
                   <p className="text-sm font-semibold text-foreground truncate">Ciclo {s.numero_ciclo} — Semana {s.numero_semana}</p>
                   <p className="text-[10px] sm:text-xs text-muted-foreground truncate">

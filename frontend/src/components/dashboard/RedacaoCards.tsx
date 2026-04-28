@@ -25,7 +25,7 @@ export function UltimaRedacaoCard() {
     : "text-critical";
 
   return (
-    <div className="rounded-lg border border-border bg-card p-4 sm:p-5 h-full flex flex-col">
+    <div className="tac-card h-full flex flex-col">
       <div className="flex items-start justify-between mb-3">
         <p className="text-[10px] sm:text-xs font-medium tracking-wider text-muted-foreground uppercase">
           Última Redação
@@ -81,7 +81,7 @@ export function MediaRedacoesCard() {
   const nivel = getNivel(media);
 
   return (
-    <div className="rounded-lg border border-border bg-card p-4 sm:p-5 h-full flex flex-col">
+    <div className="tac-card h-full flex flex-col">
       <div className="flex items-start justify-between mb-3">
         <p className="text-[10px] sm:text-xs font-medium tracking-wider text-muted-foreground uppercase">
           Média de Redações
@@ -138,7 +138,7 @@ export function ProgressoRedacoesChart() {
     }));
 
   return (
-    <div className="rounded-lg border border-border bg-card p-4 sm:p-5 h-full flex flex-col">
+    <div className="tac-card h-full flex flex-col">
       <div className="flex items-start justify-between mb-3 sm:mb-4">
         <p className="text-[10px] sm:text-xs font-medium tracking-wider text-muted-foreground uppercase">
           Evolução de Redações

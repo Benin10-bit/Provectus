@@ -430,3 +430,158 @@ def listar_redacoes(
     """
 
     return services.listar_redacoes(db)
+
+
+# ==========================================================
+# COLAR NO FINAL DE router.py (dentro do arquivo de Performance)
+# ==========================================================
+
+# ==========================================================
+# RELATÓRIO MENSAL COMPLETO
+# ==========================================================
+
+@router.get(
+    "/relatorio/mensal",
+    response_model=dict,
+    summary="📊 Relatório Mensal Completo de Performance",
+    description="""
+## Relatório Mensal Completo de Performance Acadêmica
+
+Gera um relatório **exaustivo e consolidado** de todos os dados do mês,
+com cálculos, métricas derivadas, comparativos e recomendações estratégicas.
+
+---
+
+### 📦 O que está incluído
+
+#### Período de análise
+- Datas de início e fim, dias no mês, dias efetivamente estudados.
+
+#### Resumo Geral
+- Horas totais líquidas (sessões + blocos + simulados)
+- Total de questões respondidas, acertos, erros
+- Percentual médio de acerto
+- IPR Geral ponderado (70% blocos + 30% simulados)
+- Média de questões por dia
+- Percentual de dias com estudo no mês
+
+#### Sessões de Estudo
+- Distribuição por tipo (TEORIA, QUESTOES, REVISAO): quantidade, minutos, foco médio, energia média
+- Distribuição por matéria: tempo dedicado, percentual do total, níveis de foco e energia
+
+#### Blocos de Questões
+- Desempenho por matéria: total de blocos, questões, acertos, IPR médio, tempo médio/questão
+- Desempenho por assunto: IPR, status (CRÍTICO / FRACO / REGULAR / BOM), semana do ciclo
+- Distribuição por dificuldade (1 a 5)
+
+#### Análise de Erros
+- Total de erros registrados, quebrado por tipo
+- Taxa de erro por distração/pressa vs. conceito/cálculo
+- Tendência de erros vs. mês anterior (MELHORANDO / ESTÁVEL / PIORANDO)
+- Erros por bloco (atual vs. mês anterior)
+
+#### Simulados Semanais
+- Detalhamento de cada simulado: percentual de acerto, IPR, tempo médio por questão
+- Nível de ansiedade, fadiga e qualidade do sono registrados
+- Desempenho por matéria dentro de cada simulado (quando disponível)
+
+#### Provas Oficiais
+- Todas as provas registradas no período, com nota total, tempo e estado mental
+- Desempenho por matéria (quando disponível)
+
+#### Redações
+- Lista de todas as redações com notas por competência
+- Estatísticas consolidadas: nota média, mín, máx
+- Média por competência (1 a 5)
+- Competência mais fraca mais recorrente no mês
+- Distribuição de status (crítica, fraca, regular, boa, muito_boa, excelente)
+- Evolução da nota ao longo do mês
+
+#### Estado Mental
+- Nível de foco médio (sessões), energia média (sessões)
+- Nível de confiança médio (blocos)
+- Ansiedade, fadiga e qualidade do sono médios (simulados)
+
+#### Comparativo com Mês Anterior
+- Variação absoluta e percentual de: horas, questões, percentual de acerto, IPR, redações
+- Labels de tendência (↑ / → / ↓) para cada métrica
+
+#### Projeção de Fechamento *(apenas para o mês atual)*
+- Média diária atual de horas e questões
+- Projeção do total ao fim do mês com base na média
+- Indicador `on_track` para meta de horas (88h) e questões (1400)
+- Horas e questões necessárias por dia para bater as metas
+
+#### Score de Consistência
+- Score 0–100 baseado em % de dias estudados com penalidade por variação
+- Classificação: EXCELENTE / BOA / REGULAR / IRREGULAR
+- Maior sequência de estudo contínuo (streak)
+- Maior sequência sem estudo
+- Desvio padrão de horas/dia e questões/dia
+
+#### Melhor e Pior Dia do Mês
+- Data, dia da semana, horas, questões, percentual de acerto e IPR do dia
+
+#### Correlações
+- Coeficiente de Pearson entre: foco × IPR, sono × acerto, ansiedade × taxa de erro
+- Baseado nos dados do mês (requer mínimo de 3 pontos por par)
+
+#### Balanceamento de Matérias
+- Para cada matéria: peso na prova, % de tempo dedicado, % de questões respondidas, IPR
+- Classificação por alinhamento peso×tempo: EQUILIBRADA / SUBINVESTIDA / SUPERINVESTIDA
+
+#### Recomendações Estratégicas
+- Lista priorizada (CRÍTICA / ALTA / MÉDIA / BAIXA) de ações concretas
+- Baseada automaticamente em todos os indicadores do mês:
+  IPR, consistência, assuntos críticos, balanceamento, erros, volume e redações
+
+---
+
+### 📌 Parâmetros
+
+| Parâmetro | Tipo | Padrão | Descrição |
+|-----------|------|--------|-----------|
+| `mes`     | int  | mês atual | Mês de referência (1–12) |
+| `ano`     | int  | ano atual | Ano de referência (ex: 2025) |
+
+---
+
+### ⚠️ Observações
+- A **projeção de fechamento** só é calculada para o mês atual.
+  Para meses passados, os valores de projeção refletem o realizado.
+- As **correlações** requerem ao menos 3 pares de dados por dimensão.
+  Se insuficientes, o campo retorna `null`.
+- O **IPR** é calculado com base na fórmula interna:
+  `(precisão × peso) + (velocidade normalizada × peso) - penalidades`.
+""",
+    tags=["Relatórios"],
+)
+def obter_relatorio_mensal(
+    mes: int = Query(
+        default=None,
+        ge=1,
+        le=12,
+        description="Mês de referência (1 = Janeiro ... 12 = Dezembro). Padrão: mês atual.",
+    ),
+    ano: int = Query(
+        default=None,
+        ge=2000,
+        le=2100,
+        description="Ano de referência (ex: 2025). Padrão: ano atual.",
+    ),
+    db: Session = Depends(get_db),
+):
+    """
+    Gera o relatório mensal completo de performance acadêmica.
+
+    Se `mes` ou `ano` não forem informados, usa o mês e ano atuais.
+
+    Retorna um JSON com todas as seções descritas na documentação acima.
+    """
+    from datetime import datetime
+
+    agora = datetime.utcnow()
+    mes_ref = mes if mes is not None else agora.month
+    ano_ref = ano if ano is not None else agora.year
+
+    return services.gerar_relatorio_mensal(db=db, mes=mes_ref, ano=ano_ref)

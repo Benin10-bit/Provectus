@@ -129,7 +129,7 @@ export default function RedacaoForm() {
         <button
           type="submit"
           disabled={isPending || !tema}
-          className="w-full py-3 rounded-lg bg-primary text-primary-foreground font-bold tracking-wider uppercase text-sm hover:bg-primary/90 transition-all duration-200 disabled:opacity-50 active:scale-[0.98]"
+          className="btn-tactical"
         >
           {isPending ? "Enviando..." : "Enviar Redação"}
         </button>
