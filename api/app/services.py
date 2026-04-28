@@ -143,6 +143,56 @@ def _calcular_tendencia(ipr_atual: float, ipr_anterior: float) -> str:
         return "DECLÍNIO"
     return "ESTÁVEL"
 
+def _calcular_status_missao(
+    ipr_medio: float,
+    status_horas: str,
+    status_questoes: str,
+    tendencia: str
+) -> str:
+    """
+    Status da missão é composto por 4 critérios independentes.
+    Todos precisam estar minimamente OK para ser 'MISSÃO CUMPRIDA'.
+    """
+    pontos = 0
+
+    # 1. IPR (peso maior — qualidade é o principal indicador)
+    if ipr_medio >= 0.75:
+        pontos += 3
+    elif ipr_medio >= 0.70:
+        pontos += 2
+    elif ipr_medio >= 0.60:
+        pontos += 1
+    # abaixo de 0.60 = 0 pontos
+
+    # 2. Horas
+    if status_horas == "DENTRO" or status_horas == "ACIMA":
+        pontos += 2
+    elif status_horas == "ABAIXO":
+        pontos += 0
+
+    # 3. Questões
+    if status_questoes == "DENTRO" or status_questoes == "ACIMA":
+        pontos += 2
+    elif status_questoes == "ABAIXO":
+        pontos += 0
+
+    # 4. Tendência
+    if tendencia == "ASCENDENTE":
+        pontos += 2
+    elif tendencia == "ESTÁVEL":
+        pontos += 1
+    elif tendencia == "DECLÍNIO":
+        pontos += 0
+
+    # Máximo possível: 9 pontos
+    # Missão Cumprida exige IPR mínimo ok (>=0.70) + pelo menos 6 pontos no total
+    ipr_minimo_ok = ipr_medio >= 0.70
+    if ipr_minimo_ok and pontos >= 6:
+        return "MISSÃO CUMPRIDA"
+    elif pontos >= 5:
+        return "EXECUÇÃO PARCIAL"
+    else:
+        return "EXECUÇÃO INSUFICIENTE"
 
 # ==========================================================
 # SESSÃO DE ESTUDO
@@ -439,207 +489,201 @@ def get_dashboard(
         status_questoes = "DENTRO"
     
     # ================= RECOMENDAÇÕES =================
-    # ================= RECOMENDAÇÕES =================
     recomendacoes = []
-    
-    # --- 1. DESEMPENHO (IPR) ---
+
+    deficit_horas = round(meta_horas - horas, 1)
+    deficit_questoes = meta_questoes - total_questoes
+    pct_acerto = percentual_medio  # já é 0-100
+
+    # --- 1. IPR CRÍTICO (< 0.60) ---
     if ipr_medio < 0.60:
         recomendacoes.append(
-            "IPR crítico: seu cérebro está consolidando erros. Pare de aumentar volume e volte à teoria — "
-            "praticar sem base só reforça padrões errados (efeito de consolidação negativa)."
+            f"IPR crítico em {round(ipr_medio * 100, 1)}%: você está consolidando erros. "
+            f"Com {pct_acerto}% de acerto e {round(ipr_medio*100,1)}% de eficiência real, "
+            "continuar aumentando volume só aprofunda os padrões errados. "
+            "Pare questões por 2 dias e revise a teoria dos assuntos com mais erros."
         )
         recomendacoes.append(
-            "Refaça questões erradas sem ver o gabarito antes: o esforço de recuperação ativa "
-            "(retrieval practice) é o que gera aprendizado real, não releitura passiva."
+            "Refaça as últimas 30 questões erradas sem ver o gabarito antes de responder: "
+            "o esforço de recuperação ativa (retrieval practice) é o que gera aprendizado real. "
+            "Releitura passiva não funciona."
         )
         if status_horas == "ACIMA":
             recomendacoes.append(
-                f"Você está estudando acima da meta de horas ({meta_horas}h), mas o IPR está crítico — "
-                "isso é um sinal claro de que volume sem qualidade está atrapalhando. Reduza a carga e foque em revisão profunda."
+                f"Você está {round(horas - meta_horas, 1)}h acima da meta de horas ({meta_horas}h) "
+                f"e o IPR está em {round(ipr_medio*100,1)}% — volume sem qualidade está atrapalhando. "
+                "Corte a carga em 30% agora."
             )
-        if periodo == "semana":
-            recomendacoes.append(
-                "Nessa semana, priorize entender o padrão dos seus erros antes de avançar qualquer conteúdo novo. "
-                "Uma semana de consolidação vale mais do que duas semanas de avanço sem base."
-            )
-    
+
+    # --- 2. IPR ABAIXO DO LIMIAR (0.60–0.70) ---
     elif ipr_medio < 0.70:
         recomendacoes.append(
-            "Desempenho abaixo do limiar de aprovação. Identifique os 2-3 assuntos com mais erros e estude-os "
-            "em blocos concentrados — o cérebro aprende por domínio progressivo, não por exposição distribuída sem base."
+            f"Desempenho em {round(ipr_medio*100,1)}% de eficiência — abaixo do limiar de aprovação (70%). "
+            f"Com {pct_acerto}% de acerto bruto, o gargalo está na velocidade ou em erros por distração/pressa. "
+            "Identifique os 2-3 assuntos com mais erros e estude-os em blocos concentrados antes de avançar."
         )
         recomendacoes.append(
-            "Antes de iniciar qualquer bloco novo, revise os erros do dia anterior por 10 minutos: "
-            "isso ativa reconsolidação de memória e reduz reincidência de erro."
+            "Reserve 10 minutos no início de cada sessão para revisar os erros do dia anterior: "
+            "isso ativa reconsolidação de memória e reduz reincidência. "
+            "Sem esse ciclo, você vai repetir os mesmos erros indefinidamente."
         )
         if tendencia == "DECLÍNIO":
             recomendacoes.append(
-                "IPR abaixo do esperado e ainda em queda — sinal de alerta. Interrompa o avanço de conteúdo "
-                "por 2-3 dias e dedique esse tempo exclusivamente a revisão dos erros recentes."
+                f"IPR em queda e abaixo de 70% — sinal de alerta. "
+                "Interrompa avanço de conteúdo novo por 3 dias e dedique esse tempo exclusivamente "
+                "a revisão dos erros recentes. Avançar agora vai aprofundar as lacunas."
             )
-        if periodo == "mes":
-            recomendacoes.append(
-                "No acumulado do mês, um IPR abaixo de 70% indica que a base está frágil. "
-                "Reorganize o plano mensal: reserve a primeira semana do próximo mês para revisão estruturada antes de avançar."
-            )
-    
+
+    # --- 3. ZONA DE TRANSIÇÃO (0.70–0.75) ---
     elif ipr_medio < 0.75:
         recomendacoes.append(
-            "Você está na zona de transição — próximo do nível competitivo, mas ainda instável. "
-            "Foque em consistência antes de volume: desempenho irregular indica lacunas pontuais, não falta de esforço geral."
-        )
-        recomendacoes.append(
-            "Use interleaving: alterne assuntos dentro do mesmo bloco em vez de estudar um só tema por sessão. "
-            "Isso aumenta retenção e prepara para o formato real da prova."
+            f"Eficiência em {round(ipr_medio*100,1)}% — zona de transição. "
+            f"Você acerta {pct_acerto}% das questões, mas ainda há instabilidade entre assuntos. "
+            "Use interleaving: alterne 2-3 assuntos dentro do mesmo bloco em vez de estudar um único tema por sessão. "
+            "Isso prepara o cérebro para o formato real da prova."
         )
         if tendencia == "ASCENDENTE":
             recomendacoes.append(
-                "Boa notícia: você está crescendo. Mantenha o método atual e eleve levemente a dificuldade das questões — "
-                "você está pronto para sair da zona de transição."
+                "Tendência positiva: você está crescendo. Eleve levemente a dificuldade das questões — "
+                "você está pronto para sair da zona de transição. Não mude o método, apenas aumente o nível."
             )
         if status_questoes == "ABAIXO":
             recomendacoes.append(
-                f"Com IPR nessa faixa e volume de questões abaixo da meta ({meta_questoes}), "
-                "o risco é de desenvolvimento lento. Adicione um bloco extra diário focado nos temas mais cobrados."
+                f"Com IPR nessa faixa e {deficit_questoes} questões abaixo da meta ({meta_questoes}), "
+                "o desenvolvimento está lento. Adicione um bloco extra diário de 20-25 questões nos temas mais cobrados."
             )
-    
+
+    # --- 4. BOM DESEMPENHO (0.75–0.85) ---
     elif ipr_medio < 0.85:
         recomendacoes.append(
-            "Bom desempenho. Para evitar platô cognitivo, aumente progressivamente a dificuldade das questões — "
-            "o cérebro só cresce sob desafio calibrado (zona de desenvolvimento proximal)."
-        )
-        recomendacoes.append(
-            "Introduza simulados cronometrados: a pressão do tempo muda o padrão de ativação neural "
-            "e revela erros que blocos comuns não expõem."
+            f"Bom desempenho: {round(ipr_medio*100,1)}% de eficiência com {pct_acerto}% de acerto. "
+            "Para evitar platô, aumente progressivamente a dificuldade — questões fáceis não geram crescimento real. "
+            "O cérebro só evolui sob desafio calibrado."
         )
         if status_horas == "ABAIXO":
             recomendacoes.append(
-                f"Seu desempenho está bom, mas as horas estão abaixo da meta ({meta_horas}h). "
-                "Você tem qualidade — agora precisa de volume. Adicione sessões curtas de 45-60 min nos intervalos do dia."
+                f"Qualidade alta, mas {deficit_horas}h abaixo da meta de {meta_horas}h. "
+                "Você tem o método — agora precisa de volume. "
+                "Adicione sessões de 45-60 min nos intervalos do dia para fechar esse déficit."
             )
-        if periodo == "ano":
-            recomendacoes.append(
-                "No acumulado anual, esse IPR coloca você em posição competitiva. "
-                "O próximo passo é simular condições reais de prova com frequência — consistência no longo prazo é o diferencial."
-            )
-    
+
+    # --- 5. ALTO DESEMPENHO (>= 0.85) ---
     else:
         recomendacoes.append(
-            "Alto desempenho. Agora o diferencial é velocidade e precisão sob pressão. "
-            "Treine com limite de tempo abaixo do real para criar margem de segurança na prova."
+            f"Alto desempenho: {round(ipr_medio*100,1)}% de eficiência. "
+            "O diferencial agora é velocidade sob pressão. "
+            "Treine com limite de tempo 20% abaixo do real para criar margem de segurança na prova."
         )
         recomendacoes.append(
             "Priorize questões de provas anteriores da EsPCEx: reconhecer o estilo de elaboração "
-            "reduz carga cognitiva no dia da prova."
+            "reduz carga cognitiva no dia da prova e libera atenção para questões mais difíceis."
         )
         if tendencia == "DECLÍNIO":
             recomendacoes.append(
-                "Atenção: mesmo com IPR alto, a tendência está caindo. Isso pode indicar fadiga acumulada — "
-                "considere 1-2 dias de carga reduzida para recuperação cognitiva antes de retomar o ritmo."
+                f"Atenção: IPR alto ({round(ipr_medio*100,1)}%) mas tendência em queda. "
+                "Isso quase sempre indica fadiga acumulada. "
+                "Faça 1-2 dias de carga reduzida agora antes que o rendimento caia de forma mais acentuada."
             )
-        if status_horas == "ACIMA":
-            recomendacoes.append(
-                f"IPR alto e horas acima da meta ({meta_horas}h) — cuidado com a armadilha da quantidade. "
-                "Você está bem: proteja esse desempenho reduzindo um pouco o volume e priorizando qualidade de sono."
-            )
-    
-    # --- 2. ASSUNTOS CRÍTICOS ---
+
+    # --- 6. ASSUNTOS CRÍTICOS (IPR < 70%) ---
     if assuntos_criticos:
         recomendacoes.append(
-            f"{len(assuntos_criticos)} assunto(s) com IPR abaixo de 70% e pelo menos 2 blocos realizados — "
-            "isso indica lacuna real, não acaso. Resolva questões específicas desses tópicos diariamente "
-            "até o IPR superar 75%."
+            f"{len(assuntos_criticos)} assunto(s) com IPR abaixo de 70% no período — lacuna confirmada, não acaso. "
+            "Resolva ao menos 15 questões específicas desses tópicos por dia até o IPR superar 75%. "
+            "Não avance nesses assuntos sem atingir esse limiar."
         )
         if len(assuntos_criticos) >= 3:
             recomendacoes.append(
-                "Múltiplos pontos críticos simultâneos indicam base teórica fragmentada. "
-                "Reorganize o plano: dedique 1 semana a teoria direcionada antes de retomar volume nesses temas."
+                f"{len(assuntos_criticos)} pontos críticos simultâneos indicam base teórica fragmentada. "
+                "Reorganize o plano: dedique 1 semana inteira a teoria direcionada antes de retomar volume nesses temas. "
+                "Tentar cobrir todos ao mesmo tempo vai aprofundar as lacunas."
             )
-        if ipr_medio >= 0.75 and assuntos_criticos:
+        if ipr_medio >= 0.75:
             recomendacoes.append(
-                "Seu IPR geral está bom, mas há assuntos críticos específicos puxando para baixo. "
-                "Esse é o tipo de lacuna que derruba candidatos avançados na reta final — trate com prioridade."
+                f"IPR geral ok ({round(ipr_medio*100,1)}%), mas há assuntos específicos críticos puxando para baixo. "
+                "Esse é exatamente o tipo de lacuna que elimina candidatos avançados na reta final. "
+                "Trate com prioridade máxima."
             )
-    
-    # --- 3. TENDÊNCIA ---
+
+    # --- 7. TENDÊNCIA ---
     if tendencia == "DECLÍNIO":
         recomendacoes.append(
-            "Queda de desempenho detectada. Antes de estudar mais, estude melhor: fadiga cognitiva acumulada "
-            "derruba rendimento mesmo com tempo alto. Considere reduzir volume por 2-3 dias e priorizar sono e revisão."
-        )
-        recomendacoes.append(
-            "Analise os erros recentes buscando padrões: erro recorrente no mesmo tipo de questão indica "
-            "falha conceitual estrutural, não distração — e precisa de intervenção específica."
+            "Queda de desempenho detectada em relação ao período anterior. "
+            "Antes de estudar mais, estude melhor: fadiga cognitiva acumulada derruba rendimento mesmo com tempo alto. "
+            "Reduza volume por 2-3 dias, priorize sono e faça revisão em vez de conteúdo novo."
         )
     elif tendencia == "ASCENDENTE":
         recomendacoes.append(
-            "Tendência positiva — seu plano atual está funcionando. Não mude o método, apenas eleve gradualmente "
-            "a carga. Mudanças bruscas em fases de crescimento interrompem o ciclo de consolidação."
+            "Tendência positiva em relação ao período anterior — seu plano atual está funcionando. "
+            "Não mude o método agora. Eleve gradualmente a carga. "
+            "Mudanças bruscas em fases de crescimento interrompem o ciclo de consolidação."
         )
-        if periodo == "semana":
-            recomendacoes.append(
-                "Semana em ascensão: aproveite o momentum e mantenha a rotina que está gerando esse resultado. "
-                "Consistência agora vale mais do que qualquer ajuste no método."
-            )
-    
-    # --- 4. VOLUME ---
+
+    # --- 8. HORAS ---
     if status_horas == "ABAIXO":
         if periodo == "semana":
             recomendacoes.append(
-                f"Horas abaixo da meta semanal ({meta_horas}h). Distribua o estudo em blocos de 90 minutos com "
-                "pausas de 15 min (ciclo ultradiano): esse ritmo respeita os picos naturais de concentração "
-                "e maximiza retenção por hora estudada."
+                f"Faltam {deficit_horas}h para atingir a meta semanal de {meta_horas}h. "
+                "Distribua em blocos de 90 minutos com pausas de 15 min: esse ciclo respeita os picos naturais "
+                "de concentração e maximiza retenção por hora estudada."
             )
         elif periodo == "mes":
             recomendacoes.append(
-                f"No acumulado do mês, as horas estão abaixo da meta ({meta_horas}h). "
+                f"Déficit de {deficit_horas}h no mês (meta: {meta_horas}h). "
                 "Identifique quais dias da semana estão com menor carga e adicione pelo menos uma sessão extra nesses dias."
             )
         else:
             recomendacoes.append(
-                f"Horas abaixo da meta ({meta_horas}h). Revise sua rotina semanal e identifique onde há espaço "
-                "para sessões adicionais — pequenos blocos diários de 45 min acumulam muito ao longo do ano."
+                f"Déficit de {deficit_horas}h no período (meta: {meta_horas}h). "
+                "Pequenos blocos diários de 45 min acumulam muito: "
+                "5 dias por semana × 45 min = mais de 3h semanais extras sem reorganizar a rotina."
             )
     elif status_horas == "ACIMA":
         recomendacoes.append(
-            f"Carga acima da meta ({meta_horas}h). Excesso de horas sem qualidade equivalente causa fadiga de decisão "
-            "e consolidação deficiente durante o sono. Reduza e monitore se o IPR sobe — qualidade supera quantidade."
+            f"Horas {round(horas - meta_horas, 1)}h acima da meta ({meta_horas}h). "
+            "Excesso sem qualidade equivalente causa fadiga de decisão e consolidação deficiente durante o sono. "
+            "Monitore: se o IPR não acompanhou o volume, reduza agora."
         )
-    
+
+    # --- 9. QUESTÕES ---
     if status_questoes == "ABAIXO":
         recomendacoes.append(
-            f"Volume de questões abaixo da meta ({meta_questoes}). Quantidade mínima importa para criar familiaridade "
-            "com padrões de prova. Inclua pelo menos um bloco extra diário de 20-30 questões nos assuntos mais cobrados."
+            f"Déficit de {deficit_questoes} questões no período (meta: {meta_questoes}). "
+            "Volume mínimo importa para criar familiaridade com padrões de prova. "
+            "Inclua pelo menos um bloco extra diário de 20-30 questões nos assuntos mais cobrados."
         )
     elif status_questoes == "ACIMA":
         recomendacoes.append(
-            "Volume acima da meta — atenção: fazer muitas questões sem analisar os erros é a principal causa de "
-            "estagnação em candidatos avançados. Reserve ao menos 30% do tempo de questões para revisão e análise."
+            f"Volume acima da meta ({meta_questoes} questões) — atenção: "
+            "fazer muitas questões sem analisar os erros é a principal causa de estagnação em candidatos avançados. "
+            "Reserve ao menos 30% do tempo de questões para revisão e análise de cada erro."
         )
-    
-    # --- 5. COMBINAÇÕES ESPECIAIS ---
-    if ipr_medio >= 0.75 and status_horas == "DENTRO" and status_questoes == "DENTRO" and tendencia != "DECLÍNIO":
-        recomendacoes.append(
-            "Todos os indicadores principais estão alinhados — IPR, volume e tendência. "
-            "Você está no caminho certo. Agora é proteger a consistência e elevar progressivamente a dificuldade."
-        )
-    
+
+    # --- 10. COMBINAÇÕES CRÍTICAS ---
     if ipr_medio < 0.70 and status_questoes == "ACIMA":
         recomendacoes.append(
-            "Combinação crítica: IPR baixo e volume alto de questões. Você está praticando muito mas aprendendo pouco. "
+            f"Combinação crítica: IPR em {round(ipr_medio*100,1)}% (abaixo do limiar) e volume acima da meta. "
+            "Você está praticando muito e aprendendo pouco. "
             "Reduza o volume pela metade e invista o tempo restante em análise profunda de cada erro."
         )
-    
+
     if tendencia == "DECLÍNIO" and status_horas == "ACIMA":
         recomendacoes.append(
-            "Queda de desempenho com horas acima da meta — esse padrão quase sempre indica fadiga cognitiva. "
-            "Tire um dia de descanso completo e retome com volume reduzido. Descanso é parte do treino."
+            f"Queda de desempenho com horas acima da meta ({meta_horas}h) — padrão clássico de fadiga cognitiva. "
+            "Tire um dia de descanso completo e retome com volume 20% menor. "
+            "Descanso não é perda de tempo: é quando o cérebro consolida o que aprendeu."
         )
-    
-    # --- 6. FALLBACK ---
+
+    if ipr_medio >= 0.75 and status_horas == "DENTRO" and status_questoes == "DENTRO" and tendencia != "DECLÍNIO":
+        recomendacoes.append(
+            "Todos os indicadores alinhados: IPR, volume e tendência estão dentro ou acima do esperado. "
+            "Agora o objetivo é proteger essa consistência e elevar progressivamente a dificuldade das questões."
+        )
+
+    # --- 11. FALLBACK ---
     if not recomendacoes:
         recomendacoes.append(
-            "Todos os indicadores dentro do esperado. Mantenha a consistência — "
+            "Indicadores dentro do esperado. Mantenha a consistência — "
             "na reta final, regularidade supera qualquer pico isolado de esforço."
         )
             
@@ -650,7 +694,7 @@ def get_dashboard(
         "percentual_medio": percentual_medio,
         "ipr_geral": round(ipr_medio * 100, 2),
         "tendencia": tendencia,
-        "status_missao": "MISSÃO CUMPRIDA" if ipr_medio >= 0.70 else "EXECUÇÃO INSUFICIENTE",
+        "status_missao": _calcular_status_missao(ipr_medio, status_horas, status_questoes, tendencia),
         "assuntos_criticos": assuntos_criticos,
         "status_horas": status_horas,
         "status_questoes": status_questoes,
@@ -818,21 +862,21 @@ def identificar_competencia_mais_fraca(c1, c2, c3, c4, c5):
 def calcular_status(nota: int) -> str:
 
     if nota < 400:
-        return "critica"
+        return "Crítica"
 
     if nota < 600:
-        return "fraca"
+        return "Fraca"
 
     if nota < 700:
-        return "regular"
+        return "Regular"
 
     if nota < 800:
-        return "boa"
+        return "Boa"
 
     if nota < 900:
-        return "muito_boa"
+        return "Muito Boa"
 
-    return "excelente"
+    return "Excelente"
 
 
 # -----------------------------------------

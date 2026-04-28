@@ -103,8 +103,8 @@ export interface RedacaoResponse {
     nota_total: number;
     status: string;
     competencia_mais_fraca: number;
-    diagnostico: string;
-    recomendacao: string;
+    diagnostico: string | string[];
+    recomendacao: string | string[];
     criado_em: string;
 }
 

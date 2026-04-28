@@ -4,6 +4,7 @@ import AppLayout from "@/components/layout/AppLayout";
 import { LoadingState, ErrorState, EmptyState } from "@/components/ui/states";
 import { useRedacoes } from "@/hooks/useRedacoes";
 import { getCompetenciaNome } from "@/lib/types";
+import { getRedacaoStatusInfo } from "@/lib/redacaoStatus";
 import { format } from "date-fns";
 
 export default function RedacaoList() {
@@ -11,11 +12,6 @@ export default function RedacaoList() {
 
   if (isLoading) return <AppLayout><LoadingState message="Carregando redações..." /></AppLayout>;
   if (isError) return <AppLayout><ErrorState message="Falha ao carregar redações." /></AppLayout>;
-
-  const statusColor = (status: string) =>
-    status.includes("Excelente") || status.includes("Bom") ? "text-success"
-    : status.includes("Regular") ? "text-warning"
-    : "text-critical";
 
   return (
     <AppLayout>
@@ -37,7 +33,9 @@ export default function RedacaoList() {
         <EmptyState message="Nenhuma redação registrada." />
       ) : (
         <div className="space-y-2 sm:space-y-3">
-          {redacoes.map((r) => (
+          {redacoes.map((r) => {
+            const s = getRedacaoStatusInfo(r.status);
+            return (
             <Link
               key={r.id}
               to={`/redacoes/${r.id}`}
@@ -58,7 +56,10 @@ export default function RedacaoList() {
                 <div className="flex items-center gap-4 sm:gap-6">
                   <div className="text-right">
                     <p className="text-xl sm:text-2xl font-bold font-mono text-foreground">{r.nota_total}</p>
-                    <p className={`text-[10px] sm:text-xs font-medium ${statusColor(r.status)}`}>{r.status}</p>
+                    <span className={`inline-flex items-center gap-1.5 mt-1 px-2 py-0.5 rounded-full border text-[10px] sm:text-xs font-semibold ${s.textClass} ${s.bgClass} ${s.borderClass}`}>
+                      <span className={`h-1.5 w-1.5 rounded-full ${s.dotClass}`} />
+                      {s.label}
+                    </span>
                   </div>
                   <div className="text-left hidden sm:block">
                     <p className="text-[10px] text-muted-foreground uppercase tracking-wider">Comp. mais fraca</p>
@@ -69,7 +70,8 @@ export default function RedacaoList() {
                 </div>
               </div>
             </Link>
-          ))}
+            );
+          })}
         </div>
       )}
     </AppLayout>

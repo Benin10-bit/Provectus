@@ -4,6 +4,7 @@ import AppLayout from "@/components/layout/AppLayout";
 import { LoadingState, ErrorState } from "@/components/ui/states";
 import { useRedacao } from "@/hooks/useRedacoes";
 import { getCompetenciaNome } from "@/lib/types";
+import { getRedacaoStatusInfo, toListaTextos } from "@/lib/redacaoStatus";
 import { format } from "date-fns";
 
 function competenciaColor(nota: number): string {
@@ -38,6 +39,10 @@ export default function RedacaoDetail() {
     : r.status.includes("Regular") ? "text-warning"
     : "text-critical";
 
+  const s = getRedacaoStatusInfo(r.status);
+  const diagnosticos = toListaTextos(r.diagnostico);
+  const recomendacoes = toListaTextos(r.recomendacao);
+
   return (
     <AppLayout>
       <div className="page-header">
@@ -60,9 +65,15 @@ export default function RedacaoDetail() {
           <p className="text-[9px] sm:text-[10px] tracking-wider text-muted-foreground uppercase">Nota Total</p>
           <p className="text-xl sm:text-3xl font-bold font-mono text-foreground mt-1">{r.nota_total}</p>
         </div>
-        <div className="rounded-lg border border-border bg-card p-3 sm:p-4">
+        <div className={`rounded-lg border p-3 sm:p-4 transition-all ${s.borderClass} ${s.bgClass}`}>
           <p className="text-[9px] sm:text-[10px] tracking-wider text-muted-foreground uppercase">Status</p>
-          <p className={`text-sm sm:text-lg font-bold mt-1 ${statusColor}`}>{r.status}</p>
+          <div className="flex items-center gap-2 mt-1">
+            <span className={`h-2 w-2 rounded-full ${s.dotClass} animate-pulse`} />
+            <p className={`text-sm sm:text-lg font-bold ${s.textClass}`}>{s.label}</p>
+          </div>
+          {s.rangeLabel && (
+            <p className="text-[9px] sm:text-[10px] text-muted-foreground font-mono mt-0.5">{s.rangeLabel}</p>
+          )}
         </div>
         <div className="rounded-lg border border-border bg-card p-3 sm:p-4">
           <p className="text-[9px] sm:text-[10px] tracking-wider text-muted-foreground uppercase">Comp. Mais Fraca</p>
@@ -103,9 +114,22 @@ export default function RedacaoDetail() {
             <div className="p-2 rounded-lg bg-critical/15 shrink-0">
               <AlertTriangle className="h-4 w-4 sm:h-5 sm:w-5 text-critical" />
             </div>
-            <div className="min-w-0">
-              <p className="text-[10px] sm:text-xs tracking-wider text-muted-foreground uppercase mb-2">Diagnóstico</p>
-              <p className="text-xs sm:text-sm text-foreground leading-relaxed">{r.diagnostico}</p>
+            <div className="min-w-0 w-full">
+              <p className="text-[10px] sm:text-xs tracking-wider text-muted-foreground uppercase mb-3">
+                Diagnóstico {diagnosticos.length > 1 && <span className="text-critical">· {diagnosticos.length}</span>}
+              </p>
+              {diagnosticos.length === 0 ? (
+                <p className="text-xs sm:text-sm text-muted-foreground italic">Sem diagnóstico.</p>
+              ) : (
+                <ul className="space-y-2">
+                  {diagnosticos.map((item, i) => (
+                    <li key={i} className="flex gap-2 text-xs sm:text-sm text-foreground leading-relaxed">
+                      <span className="text-critical font-bold shrink-0">▸</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </div>
         </div>
@@ -114,9 +138,22 @@ export default function RedacaoDetail() {
             <div className="p-2 rounded-lg bg-accent/15 shrink-0">
               <Lightbulb className="h-4 w-4 sm:h-5 sm:w-5 text-accent" />
             </div>
-            <div className="min-w-0">
-              <p className="text-[10px] sm:text-xs tracking-wider text-muted-foreground uppercase mb-2">Recomendação</p>
-              <p className="text-xs sm:text-sm text-foreground leading-relaxed">{r.recomendacao}</p>
+            <div className="min-w-0 w-full">
+              <p className="text-[10px] sm:text-xs tracking-wider text-muted-foreground uppercase mb-3">
+                Recomendações {recomendacoes.length > 1 && <span className="text-accent">· {recomendacoes.length}</span>}
+              </p>
+              {recomendacoes.length === 0 ? (
+                <p className="text-xs sm:text-sm text-muted-foreground italic">Sem recomendações.</p>
+              ) : (
+                <ul className="space-y-2">
+                  {recomendacoes.map((item, i) => (
+                    <li key={i} className="flex gap-2 text-xs sm:text-sm text-foreground leading-relaxed">
+                      <span className="text-accent font-bold shrink-0">▸</span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </div>
         </div>

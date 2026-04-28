@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { PenTool, BarChart3, TrendingUp } from "lucide-react";
 import { useRedacoes } from "@/hooks/useRedacoes";
 import { getCompetenciaNome } from "@/lib/types";
+import { getRedacaoStatusInfo } from "@/lib/redacaoStatus";
 import { format } from "date-fns";
 import {
   ResponsiveContainer,
@@ -19,10 +20,7 @@ export function UltimaRedacaoCard() {
 
   if (!r) return null;
 
-  const statusColor =
-    r.status.includes("Excelente") || r.status.includes("Bom") ? "text-success"
-    : r.status.includes("Regular") ? "text-warning"
-    : "text-critical";
+  const s = getRedacaoStatusInfo(r.status);
 
   return (
     <div className="tac-card h-full flex flex-col">
@@ -35,7 +33,10 @@ export function UltimaRedacaoCard() {
         </div>
       </div>
       <p className="text-2xl sm:text-3xl font-bold font-mono text-foreground">{r.nota_total}</p>
-      <p className={`text-[10px] sm:text-xs font-medium mt-1 ${statusColor}`}>{r.status}</p>
+      <span className={`inline-flex items-center gap-1.5 mt-1 px-2 py-0.5 rounded-full border text-[10px] sm:text-xs font-semibold w-fit ${s.textClass} ${s.bgClass} ${s.borderClass}`}>
+        <span className={`h-1.5 w-1.5 rounded-full ${s.dotClass}`} />
+        {s.label}
+      </span>
       <p className="text-[10px] text-muted-foreground mt-2">
         {format(new Date(r.data_escrita), "dd/MM/yyyy")}
       </p>
