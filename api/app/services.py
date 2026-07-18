@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from sqlalchemy import func
 from fastapi import HTTPException
 from datetime import datetime, timedelta, timezone
-import calendar
+import math
 
 from . import models, schemas
 
@@ -19,47 +19,49 @@ def _normalizar(valor, minimo, maximo):
     return (valor - minimo) / (maximo - minimo)
 
 def _calcular_ipr_simulado(simulado: models.SimuladoSemanal) -> float:
-
+    """
+    Condição de prova — tempo fixo (sem variação por dificuldade),
+    estado mental como atenuador/penalizador contextual.
+    """
     if simulado.total_questoes == 0:
         return 0.0
 
-    # ================= PRECISÃO =================
+    # --- Precisão ---
     precisao = simulado.total_acertos / simulado.total_questoes
 
-
-    # ================= VELOCIDADE =================
+    # --- Velocidade com curva gaussiana fixa ---
+    # Pico em 180s — sem adaptação por dificuldade (simulados têm dificuldade uniforme)
+    # Penaliza tanto rapidez excessiva (chute) quanto lentidão
     tempo_medio = simulado.tempo_total_segundos / simulado.total_questoes
-    tempo_ideal = 120
-    tempo_limite = 300  # 5 min (lento)
+    tempo_ideal = 200
+    sigma       = 60  # ±60s cobre a zona saudável sem ser muito rígido
 
-    velocidade_normalizada = max(
-        0,
-        min(1, (tempo_limite - tempo_medio) / (tempo_limite - tempo_ideal))
+    velocidade_normalizada = math.exp(
+        -((tempo_medio - tempo_ideal) ** 2) / (2 * sigma ** 2)
     )
 
-
-    # ================= PENALIDADE MENTAL =================
-    penalidade = 0
-
+    # --- Penalidade por estado mental ---
+    # ansiedade e fadiga penalizam; qualidade_sono atenua essa penalidade
+    penalidade_bruta = 0.0
     if simulado.nivel_ansiedade:
-        penalidade += simulado.nivel_ansiedade * 0.01
-
+        penalidade_bruta += simulado.nivel_ansiedade * 0.01
     if simulado.nivel_fadiga:
-        penalidade += simulado.nivel_fadiga * 0.01
+        penalidade_bruta += simulado.nivel_fadiga * 0.01
 
-    if simulado.qualidade_sono:
-        penalidade -= simulado.qualidade_sono * 0.01
+    # sono bom reduz até 50% da penalidade, mas não gera bônus se não há penalidade
+    atenuacao_sono = 0.0
+    if simulado.qualidade_sono and penalidade_bruta > 0:
+        atenuacao_sono = (simulado.qualidade_sono / 5) * 0.5 * penalidade_bruta
 
+    penalidade_mental = min(penalidade_bruta - atenuacao_sono, 0.15)
 
-    # ================= IPR =================
+    # --- Composição do IPR ---
     ipr = (
-        (precisao * 0.7) +
-        (velocidade_normalizada * 0.3)
-    )
+        precisao               * 0.65 +
+        velocidade_normalizada * 0.35
+    ) - penalidade_mental
 
-    ipr -= penalidade
-
-    return round(max(min(ipr, 1), 0), 4)
+    return round(max(min(ipr, 1.0), 0.0), 4)
 
 def _obter_data_inicio(periodo: str) -> datetime:
     agora = datetime.now(timezone.utc)
@@ -109,23 +111,13 @@ def _calcular_ipr_bloco(bloco: models.BlocoQuestoes) -> float:
     # Precisão
     precisao = bloco.total_acertos / bloco.total_questoes
 
-    # Velocidade (normalização simples)
-    tempo_medio = bloco.tempo_medio_por_questao    
-    tempo_ideal = 120
-    tempo_limite = 300  # 5 min (lento)
-    
-    velocidade_normalizada = max(
-        0,
-        min(1, (tempo_limite - tempo_medio) / (tempo_limite - tempo_ideal))
-    )
-
     # Penalidade por erros críticos
     penalidade = 0
     for erro in bloco.erros:
         if erro.tipo_erro in ["DISTRACAO", "PRESSA"]:
             penalidade += erro.quantidade * 0.01
 
-    ipr = (precisao * 0.6) + (velocidade_normalizada * 0.2) + (bloco.dificuldade / 5 * 0.2)
+    ipr = (precisao * 0.75) + (bloco.dificuldade / 5 * 0.25)
     ipr -= penalidade
 
     return round(max(min(ipr, 1), 0), 4)
@@ -357,12 +349,12 @@ def get_dashboard(
     
     
     # ================= IPR ATUAL =================
-    
+
     iprs_blocos = [_calcular_ipr_bloco(b) for b in blocos]
     ipr_blocos = (
         sum(iprs_blocos) / len(iprs_blocos)
     ) if iprs_blocos else 0
-    
+
     # Quando filtrado por matéria, simulados não são incluídos (são avaliações globais)
     if materia_id:
         ipr_medio = round(ipr_blocos, 4)
@@ -371,19 +363,18 @@ def get_dashboard(
         ipr_simulados = (
             sum(iprs_simulados) / len(iprs_simulados)
         ) if iprs_simulados else 0
-        
+
         if ipr_simulados > 0:
             ipr_medio = round(
                 (ipr_blocos * 0.7) + (ipr_simulados * 0.3),
                 4
             )
         else:
-            ipr_medio = round(ipr_blocos, 4)    
-    
+            ipr_medio = round(ipr_blocos, 4)
+
     # ================= TENDÊNCIA =================
-    
     data_anterior = _obter_data_anterior(periodo, data_inicio)
-    
+
     # Se período for "todos" ou não houver período anterior definido, tendência é estável
     if data_anterior >= data_inicio:
         tendencia = "ESTÁVEL"
@@ -392,14 +383,14 @@ def get_dashboard(
             models.BlocoQuestoes.data >= data_anterior,
             models.BlocoQuestoes.data < data_inicio
         )
-        
+
         if materia_id:
             blocos_anteriores = blocos_anteriores.filter(
                 models.BlocoQuestoes.materia_id == materia_id
             )
-        
+
         blocos_anteriores = blocos_anteriores.all()
-        
+
         # Quando filtrado por matéria, não incluir simulados (são avaliações globais)
         if materia_id:
             iprs_blocos_ant = [_calcular_ipr_bloco(b) for b in blocos_anteriores]
@@ -411,26 +402,26 @@ def get_dashboard(
                 models.SimuladoSemanal.criado_em >= data_anterior,
                 models.SimuladoSemanal.criado_em < data_inicio
             ).all()
-            
+
             iprs_blocos_ant = [_calcular_ipr_bloco(b) for b in blocos_anteriores]
             iprs_simulados_ant = [_calcular_ipr_simulado(s) for s in simulados_anteriores]
-            
+
             ipr_blocos_ant = (
                 sum(iprs_blocos_ant) / len(iprs_blocos_ant)
             ) if iprs_blocos_ant else 0
-            
+
             ipr_simulados_ant = (
                 sum(iprs_simulados_ant) / len(iprs_simulados_ant)
             ) if iprs_simulados_ant else 0
-            
+
             if ipr_simulados_ant > 0:
                 ipr_anterior = round(
-                    (ipr_blocos_ant * 0.7) + (ipr_simulados_ant * 0.3),
+                    (ipr_blocos_ant * 0.5) + (ipr_simulados_ant * 0.5),
                     4
                 )
             else:
                 ipr_anterior = round(ipr_blocos_ant, 4)
-        
+
         tendencia = _calcular_tendencia(ipr_medio, ipr_anterior)
 
     # ================= ASSUNTOS CRÍTICOS =================
