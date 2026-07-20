@@ -16,6 +16,7 @@ import CountdownPage from "./pages/CountdownPage";
 import TimerPage from "./pages/TimerPage";
 import CronogramaPage from "./pages/CronogramaPage";
 import RelatorioMensalPage from "./pages/RelatorioMensalPage";
+import ListaRevisaoPage from "./pages/ListaRevisaoPage";
 import { useEffect } from "react";
 import { toast } from "sonner";
 
@@ -61,6 +62,7 @@ const App = () => (
           <Route path="/countdown" element={<CountdownPage />} />
           <Route path="/cronograma" element={<CronogramaPage />} />
           <Route path="/relatorio-mensal" element={<RelatorioMensalPage />} />
+          <Route path="/revisao" element={<ListaRevisaoPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

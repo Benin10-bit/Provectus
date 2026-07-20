@@ -9,6 +9,7 @@ import {
     Menu,
     PenTool,
     Radio,
+    RotateCcw,
     Target,
     Timer,
     X,
@@ -23,10 +24,11 @@ const navItems = [
     { to: "/simulado", icon: Target, label: "Simulado", code: "04" },
     { to: "/redacoes", icon: PenTool, label: "Redações", code: "05" },
     { to: "/cronograma", icon: CalendarDays, label: "Cronograma", code: "06" },
-    { to: "/timer", icon: Timer, label: "Timer", code: "07" },
-    { to: "/historico", icon: History, label: "Histórico", code: "08" },
-    { to: "/relatorio-mensal", icon: FileBarChart, label: "Relatório Mensal", code: "09" },
-    { to: "/countdown", icon: Heart, label: "Contagem Regressiva", code: "10" },
+    { to: "/revisao", icon: RotateCcw, label: "Lista de Revisão", code: "07" },
+    { to: "/timer", icon: Timer, label: "Timer", code: "08" },
+    { to: "/historico", icon: History, label: "Histórico", code: "09" },
+    { to: "/relatorio-mensal", icon: FileBarChart, label: "Relatório Mensal", code: "10" },
+    { to: "/countdown", icon: Heart, label: "Contagem Regressiva", code: "11" },
 ];
 
 export default function AppSidebar() {

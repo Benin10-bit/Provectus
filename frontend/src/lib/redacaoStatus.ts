@@ -43,7 +43,7 @@ const NORMALIZED: Record<string, RedacaoStatusInfo> = {
     dotClass: "bg-accent",
     rangeLabel: "700–799",
   },
-  "muito_boa": {
+  "muito boa": {
     label: "Muito Boa",
     textClass: "text-success",
     bgClass: "bg-success/10",
