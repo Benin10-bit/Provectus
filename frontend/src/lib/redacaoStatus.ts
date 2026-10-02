@@ -72,7 +72,7 @@ const FALLBACK: RedacaoStatusInfo = {
 
 export function getRedacaoStatusInfo(status: string | null | undefined): RedacaoStatusInfo {
   if (!status) return FALLBACK;
-  const key = status.trim().toLowerCase();
+  const key = status.trim().toLowerCase().replace(/_/g, " ").normalize("NFD").replace(/[\u0300-\u036f]/g, "");
   return NORMALIZED[key] ?? FALLBACK;
 }
 

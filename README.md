@@ -1,277 +1,38 @@
-![Python](https://img.shields.io/badge/python-3.11-blue)
-![FastAPI](https://img.shields.io/badge/FastAPI-API-green)
-![React](https://img.shields.io/badge/react-frontend-blue)
-![License](https://img.shields.io/badge/license-MIT-green)
+> **Provectus 2.1:** para instalar ou atualizar com backup e preservação dos dados, siga [COMO_ATUALIZAR.md](COMO_ATUALIZAR.md). As instruções históricas abaixo não substituem esse procedimento. Veja também [MUDANCAS.md](MUDANCAS.md) e [TESTES.md](TESTES.md).
 
-# ⚔️ Provectus
+# Provectus 2.1
 
-<p align="center">
-  <b>Strategic study performance system for EsPCEx candidates</b>
-</p>
+FastAPI, React/Vite, PostgreSQL 15 e Docker Compose. Design tático original preservado.
 
-<p align="center">
-  A data-driven platform that transforms study data into actionable performance insights.
-</p>
+- **Já usa o Provectus?** Extraia esta versão em outra pasta e execute `bash atualizar.sh`. Não substitua seu `.env` nem remova volumes.
+- **Instalação realmente nova:** `bash instalar.sh`.
+- **Uso normal após instalar/atualizar:** `bash start-provectus.sh` na pasta da instalação.
 
----
+Leia [COMO_ATUALIZAR.md](COMO_ATUALIZAR.md), [MUDANCAS.md](MUDANCAS.md) e [TESTES.md](TESTES.md).
 
-## 📊 Overview
+Na interface: **Conteúdos** organiza seu cadastro; **Estudar agora** recebe as cotas do seu ciclo e oferece matéria, assunto e atividade. A sessão integrada salva tempo e questões uma única vez. A lista de revisão usa ações de retorno sem flashcards. Nenhum catálogo fictício é inserido no seu banco.
 
-**Provectus** is a performance analysis system designed to help candidates preparing for the **EsPCEx (Escola Preparatória de Cadetes do Exército)** monitor their study efficiency and optimize their preparation.
+## Desenvolvimento
 
-Instead of focusing only on study time, Provectus analyzes **real performance indicators**, combining:
+Use o lockfile npm (`npm ci`, `npm run dev`, porta 8080) e Python 3.11 (`pip install -r api/requirements-dev.txt`). Configure DATABASE_URL para um PostgreSQL de desenvolvimento. De `api/`, execute `python -m app.migrate`, depois `uvicorn app.main:app --host 127.0.0.1 --port 8000`. O proxy Vite remove apenas o primeiro `/api`, como o Nginx.
 
-- Question accuracy
-- Study consistency
-- Performance trends
-- Topic mastery
+API: `/docs`; saúde real do banco: `/health`. A precisão observada mantém o campo legado `ipr_geral` por compatibilidade, com `versao_metrica=precisao_v2`; não há previsão de aprovação.
 
-The goal is simple:
+## Banco de Questões
 
-> **Provide a clear answer to the question: _"If the exam were today, would I pass?"_**
-
----
-
-## ✨ Features
-
-- 📈 Performance analytics dashboard
-- ⏱️ Study time tracking
-- 🧠 Question accuracy monitoring
-- 📊 Performance trend analysis
-- 🎯 Topic weakness detection
-- 📝 Essay evaluation tracking
-- 📚 Simulated exam analysis
-- 📉 Strategic performance indicators (IPR)
-
----
-
-## 🧠 Core Concept
-
-### IPR — Real Performance Index
-
-Provectus introduces the **IPR (Índice de Performance Real)**.
-
-The metric combines:
-
-- Number of questions solved
-- Accuracy rate
-- Consistency of study
-- Performance trends
-
-This creates a **realistic indicator of exam readiness**, instead of relying only on hours studied.
-
----
-
-## 🏗️ Architecture
-
-```
-Provectus
-│
-├── api/                  # FastAPI backend
-│   └── app/
-│       ├── models/
-│       ├── schemas/
-│       ├── routes/
-│       ├── services/
-│       └── main.py
-│
-├── frontend/             # React frontend
-│   └── src/
-│       ├── components/
-│       ├── pages/
-│       ├── hooks/
-│       └── lib/
-│
-└── README.md
-```
-
----
-
-## ⚙️ Tech Stack
-
-### Backend
-
-- **FastAPI**
-- **SQLAlchemy**
-- **PostgreSQL**
-- **Pydantic**
-- **Uvicorn**
-
-### Frontend
-
-- **React**
-- **TypeScript**
-- **Vite**
-- **TailwindCSS**
-- **shadcn/ui**
-- **React Query**
-- **Recharts**
-
----
-
-## 🚀 Getting Started
-
-### 1. Clone the repository
+A migration `api/migrations/004_question_bank.sql` contém as tabelas importadas pelo pipeline. A nova `005_question_bank_user_data.sql` acrescenta somente pastas, listas e respostas. Com o banco existente em execução, aplique as migrations ordenadas antes de abrir o módulo:
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/provectus.git
-cd provectus
+sudo docker compose run --rm api python -m app.migrate
+sudo docker compose up -d --build
 ```
 
----
+Caso a `004` tenha sido executada manualmente fora do histórico `provectus_migrations`, concilie o registro dessa migration com o DBA antes de executar o migrador; ele valida o checksum e não pula uma tabela já existente por conta própria.
 
-## Backend Setup
+Os arquivos de `question_bank.assets.storage_path` ficam fora do ZIP e do PostgreSQL. Configure `QUESTION_BANK_ASSETS_DIR` no `.env` do host para a **raiz que contém os arquivos relativos** a esses caminhos. O Compose monta essa raiz somente para leitura na API. Por exemplo, se `storage_path` é `assets/a.webp`, o arquivo deve existir em `${QUESTION_BANK_ASSETS_DIR}/assets/a.webp`. O padrão é `./question-bank-assets`. Uma imagem ausente aparece como indisponível, sem impedir o uso da questão. Não copie o `.env` de outro projeto por cima do seu.
 
-### 2. Navigate to API folder
+A nova entrada **Banco de Questões** abre a busca paginada, seleção de conteúdos de profundidade variável, listas e pastas. A resolução grava alternativas eliminadas e a resposta por lista e questão. O PDF contém o gabarito ao final. O módulo não cria simulados nem modifica as tabelas importadas. Suas respostas e contadores ficam isolados nas tabelas de listas; não entram nos indicadores, metas ou métricas gerais do PROVECTUS. Apenas uma sessão de estudo registrada voluntariamente no fluxo já existente conta nas métricas. O cronômetro de uma sessão iniciada em Estudar agora aparece em outras páginas e leva de volta à sessão. A migração não altera questões já existentes.
 
-```bash
-cd api
-```
+## Banco de Questões: consulta e PDF
 
-### 3. Create virtual environment
-
-```bash
-python -m venv venv
-```
-
-### 4. Activate environment
-
-```bash
-# Linux / Mac
-source venv/bin/activate
-```
-
-### 5. Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-### 6. Configure database
-
-Create an environment variable:
-
-```env
-DATABASE_URL=postgresql://user:password@localhost:5432/provectus
-```
-
-### 7. Run the API
-
-```bash
-uvicorn app.main:app --reload
-```
-
-- API: `http://localhost:8000`
-- Docs: `http://localhost:8000/docs`
-
----
-
-## Frontend Setup
-
-### 8. Navigate to frontend folder
-
-```bash
-cd frontend
-```
-
-### 9. Install dependencies
-
-```bash
-npm install
-# or
-bun install
-```
-
-### 10. Start development server
-
-```bash
-npm run dev
-```
-
-Application will be available at `http://localhost:5173`
-
----
-
-## 🔗 Frontend ↔ Backend
-
-The frontend communicates with the API at `http://localhost:8000`. Ensure both servers are running simultaneously.
-
----
-
-## 📊 Project Philosophy
-
-Provectus is based on three principles:
-
-### 1️⃣ Measurable Discipline
-
-Study effort must be **quantifiable**.
-
-### 2️⃣ Real Performance
-
-Hours studied are irrelevant if they do not produce **correct answers in exams**.
-
-### 3️⃣ Strategy
-
-Preparation without performance data leads to **inefficient study cycles**.
-
----
-
-## 📸 Screenshots
-
-_(Add screenshots of your dashboard here)_
-
-```
-docs/screenshots/dashboard.png
-docs/screenshots/analytics.png
-```
-
----
-
-## 🛣️ Roadmap
-
-Future planned features:
-
-- 📱 Mobile responsive improvements
-- 🤖 AI-assisted performance analysis
-- 📊 Advanced study analytics
-- 📚 Topic mastery heatmaps
-- 🧠 Predictive approval probability
-
----
-
-## 🤝 Contributing
-
-Contributions are welcome.
-
-1. Fork the repository
-2. Create a feature branch
-
-```bash
-git checkout -b feature/new-feature
-```
-
-3. Commit your changes
-
-```bash
-git commit -m "Add new feature"
-```
-
-4. Push the branch
-
-```bash
-git push origin feature/new-feature
-```
-
-5. Open a Pull Request
-
----
-
-## 📄 License
-
-This project is licensed under the **MIT License**.
-
----
-
-## 👨‍💻 Author
-
-Developed by **Benicio Neto**
+Veja [ATUALIZACAO_CADERNO.md](ATUALIZACAO_CADERNO.md) para as alterações, validação e instalação da visualização individual e dos dois modos de gabarito no PDF.

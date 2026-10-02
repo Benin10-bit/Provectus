@@ -1,3 +1,4 @@
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 import {
   LineChart,
   Line,
@@ -32,22 +33,23 @@ export default function PerformanceChart({
   color = "hsl(90, 40%, 35%)",
   unit = "",
 }: PerformanceChartProps) {
+  const reducedMotion = useReducedMotion();
   const gradId = `grad-${title.replace(/\s/g, "").slice(0, 8)}`;
   const hasData = data.length > 0;
 
   return (
-    <div className="tac-card h-full flex flex-col">
+    <div className="tac-card performance-chart h-full flex flex-col">
       <div className="flex items-center justify-between mb-3 sm:mb-4">
-        <p className="text-[10px] sm:text-xs font-medium tracking-wider text-muted-foreground uppercase">
+        <p className="chart-title">
           {title}
         </p>
         <div className="flex items-center gap-1.5">
           <span className="w-1.5 h-1.5 rounded-full animate-pulse-glow" style={{ background: color }} />
-          <span className="text-[9px] font-mono tracking-widest text-muted-foreground/70 uppercase">Live</span>
+          <span className="text-[9px] font-mono tracking-widest text-muted-foreground/70 uppercase">{unit}</span>
         </div>
       </div>
 
-      <div className="flex-1 min-h-[180px] sm:min-h-[200px]">
+      <div className="h-[220px] sm:h-[250px] min-w-0">
         {!hasData ? (
           <div className="h-full flex items-center justify-center text-xs text-muted-foreground/60 italic">
             Sem dados no período.
@@ -58,13 +60,13 @@ export default function PerformanceChart({
             <AreaChart data={data}>
               <defs>
                 <linearGradient id={gradId} x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor={color} stopOpacity={0.4} />
+                  <stop offset="0%" stopColor={color} stopOpacity={0.18} />
                   <stop offset="100%" stopColor={color} stopOpacity={0} />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
-              <XAxis dataKey="label" tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }} axisLine={false} tickLine={false} />
-              <YAxis tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }} axisLine={false} tickLine={false} width={30} />
+              <CartesianGrid strokeDasharray="2 6" stroke="hsl(var(--border))" vertical={false} />
+              <XAxis dataKey="label" tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} axisLine={false} tickLine={false} />
+              <YAxis tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} axisLine={false} tickLine={false} width={30} />
               <Tooltip
                 cursor={{ stroke: color, strokeWidth: 1, strokeDasharray: "4 4" }}
                 contentStyle={{
@@ -76,17 +78,17 @@ export default function PerformanceChart({
                   boxShadow: "0 4px 14px rgba(0,0,0,0.4)",
                 }}
               />
-              <Area type="monotone" dataKey="value" stroke="none" fill={`url(#${gradId})`} />
+              <Area isAnimationActive={!reducedMotion} animationDuration={350} type="monotone" dataKey="value" stroke="none" fill={`url(#${gradId})`} />
               <Line
                 type="monotone"
                 dataKey="value"
                 stroke={color}
                 strokeWidth={2}
-                dot={{ fill: color, r: 3, strokeWidth: 0 }}
+                dot={{ fill: color, r: 2, strokeWidth: 0 }}
                 activeDot={{ r: 5, fill: color, stroke: "hsl(var(--card))", strokeWidth: 2 }}
                 name={unit}
-                isAnimationActive
-                animationDuration={900}
+                isAnimationActive={!reducedMotion}
+                animationDuration={350}
               />
             </AreaChart>
           ) : (
@@ -97,9 +99,9 @@ export default function PerformanceChart({
                   <stop offset="100%" stopColor={color} stopOpacity={0.5} />
                 </linearGradient>
               </defs>
-              <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
-              <XAxis dataKey="label" tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }} axisLine={false} tickLine={false} />
-              <YAxis tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }} axisLine={false} tickLine={false} width={30} />
+              <CartesianGrid strokeDasharray="2 6" stroke="hsl(var(--border))" vertical={false} />
+              <XAxis dataKey="label" tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} axisLine={false} tickLine={false} />
+              <YAxis tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} axisLine={false} tickLine={false} width={30} />
               <Tooltip
                 cursor={{ fill: "hsl(var(--accent) / 0.06)" }}
                 contentStyle={{
@@ -111,7 +113,7 @@ export default function PerformanceChart({
                   boxShadow: "0 4px 14px rgba(0,0,0,0.4)",
                 }}
               />
-              <Bar dataKey="value" fill={`url(#${gradId})`} radius={[4, 4, 0, 0]} name={unit} animationDuration={900} />
+              <Bar isAnimationActive={!reducedMotion} dataKey="value" fill={`url(#${gradId})`} maxBarSize={36} radius={[3, 3, 0, 0]} name={unit} animationDuration={350} />
             </BarChart>
           )}
         </ResponsiveContainer>

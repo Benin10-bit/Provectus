@@ -1,0 +1,9 @@
+[1/4] fisica/hidroestatica/hidroestatica.pdf
+pages=314 questions=490 ok=453 review=37 error=0 duration=60.14s DONE
+[2/4] historia/primeiro_reinado.pdf
+pages=55 questions=96 ok=96 review=0 error=0 duration=2.43s DONE
+[3/4] matematica/area.pdf
+pages=437 questions=779 ok=734 review=45 error=0 duration=12.51s DONE
+[4/4] portugues/interpretacao_1.pdf
+pages=915 questions=587 ok=584 review=3 error=0 duration=250.26s DONE
+BATCH COMPLETE | DONE=4 FAILED=0 SKIPPED=0 | questões=1952 | /workspace/scratch/a1e46f202537/work/batch_staging/reports/global.md

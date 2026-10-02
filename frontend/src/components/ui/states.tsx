@@ -1,36 +1,14 @@
-import { Loader2, AlertCircle, Inbox } from "lucide-react";
+import { AlertCircle, Inbox, Loader2 } from "lucide-react";
 
 export function LoadingState({ message = "Carregando dados..." }: { message?: string }) {
-  return (
-    <div className="flex flex-col items-center justify-center py-16 gap-3 animate-fade-in">
-      <div className="relative">
-        <Loader2 className="h-7 w-7 animate-spin text-accent" />
-        <span className="absolute inset-0 rounded-full bg-accent/20 blur-md animate-pulse" />
-      </div>
-      <p className="text-xs text-muted-foreground tracking-[0.25em] uppercase font-mono">{message}</p>
-    </div>
-  );
+  return <div className="loading-surface" role="status" aria-busy="true" aria-label={message}>
+    <div className="loading-caption"><Loader2 size={15} className="animate-spin"/><span>{message}</span></div>
+    <div className="skeleton-layout" aria-hidden><div className="skeleton-line short"/><div className="skeleton-metrics">{[0,1,2].map(n=><div className="skeleton-metric" key={n}><i/><b/><i/></div>)}</div><div className="skeleton-line"/><div className="skeleton-line medium"/></div>
+  </div>;
 }
-
 export function ErrorState({ message = "Erro ao carregar dados." }: { message?: string }) {
-  return (
-    <div className="flex flex-col items-center justify-center py-16 gap-3 animate-fade-in">
-      <div className="p-3 rounded-full bg-critical/10 border border-critical/30">
-        <AlertCircle className="h-6 w-6 text-critical" />
-      </div>
-      <p className="text-xs text-critical tracking-[0.25em] uppercase font-bold">{message}</p>
-      <p className="text-xs text-muted-foreground">Verifique a conexão com a API.</p>
-    </div>
-  );
+  return <div role="alert" className="feedback-state feedback-error"><div className="feedback-icon"><AlertCircle size={24}/></div><div><h2>Não foi possível carregar</h2><p>{message}</p><p className="feedback-help">Verifique a conexão com a API.</p></div></div>;
 }
-
 export function EmptyState({ message = "Nenhum registro encontrado." }: { message?: string }) {
-  return (
-    <div className="flex flex-col items-center justify-center py-16 gap-3 animate-fade-in">
-      <div className="p-3 rounded-full bg-muted/50 border border-border">
-        <Inbox className="h-6 w-6 text-muted-foreground" />
-      </div>
-      <p className="text-xs text-muted-foreground tracking-[0.25em] uppercase font-mono">{message}</p>
-    </div>
-  );
+  return <div role="status" className="feedback-state feedback-empty"><div className="feedback-icon"><Inbox size={25}/></div><div><h2>Espaço para o seu progresso</h2><p>{message}</p></div></div>;
 }

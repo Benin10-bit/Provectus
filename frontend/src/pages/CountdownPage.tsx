@@ -113,7 +113,7 @@ export default function CountdownPage() {
         </h1>
         <div className="flex items-center gap-2 mb-6 sm:mb-10 z-10">
           <Calendar className="h-3 w-3 sm:h-3.5 sm:w-3.5 text-pink-400/70" />
-          <p className="text-xs sm:text-sm text-pink-300/70 font-mono">12 de junho de 2026</p>
+          <p className="text-xs sm:text-sm text-pink-300/70 font-mono">{TARGET_DATE.toLocaleDateString("pt-BR", {day:"numeric",month:"long",year:"numeric"})}</p>
         </div>
 
         <div className="flex gap-1 sm:gap-2 md:gap-5 mb-6 sm:mb-10 z-10">

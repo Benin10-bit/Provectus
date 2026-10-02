@@ -1,3 +1,4 @@
+import { SectionHeading } from "@/components/experience/StudyUI";
 import AppLayout from "@/components/layout/AppLayout";
 import { ErrorState } from "@/components/ui/states";
 import { useRelatorioMensal } from "@/hooks/useRelatorioMensal";
@@ -25,7 +26,7 @@ const LOADING_STEPS = [
   "Coletando sessões de estudo",
   "Processando blocos de questões",
   "Cruzando simulados e provas",
-  "Calculando IPR consolidado",
+  "Calculando Precisão consolidado",
   "Analisando redações",
   "Gerando recomendações estratégicas",
   "Compilando relatório final",
@@ -129,7 +130,7 @@ function WaitingNextMonthLoader() {
   const proxMesNome = NOMES_MES[dataAlvo.getMonth()];
 
   return (
-    <div className="min-h-[70vh] flex items-center justify-center animate-fade-in">
+    <div className="report-waiting min-h-[70vh] flex items-center justify-center animate-fade-in">
       <div className="w-full max-w-lg mx-auto text-center px-4">
         {/* Orbital animation */}
         <div className="relative inline-flex mb-8 h-28 w-28 items-center justify-center">
@@ -205,10 +206,10 @@ function Section({
   title, icon: Icon, children, subtitle,
 }: { title: string; icon: any; children: React.ReactNode; subtitle?: string }) {
   return (
-    <section className="mb-6 animate-fade-in">
-      <div className="flex items-center gap-2 mb-3">
+    <section className="report-section mb-6 animate-fade-in">
+      <div className="report-section-heading flex items-center gap-2 mb-3">
         <Icon className="h-4 w-4 text-accent" />
-        <h2 className="text-sm font-bold tracking-[0.2em] uppercase text-foreground">{title}</h2>
+        <h2 className="text-lg font-semibold text-foreground">{title}</h2>
         {subtitle && <span className="text-[10px] font-mono text-muted-foreground tracking-wider">· {subtitle}</span>}
       </div>
       {children}
@@ -236,7 +237,7 @@ function MetricCard({
   }[variant];
 
   return (
-    <div className={`relative p-3 sm:p-4 rounded-lg border bg-card/80 backdrop-blur-sm hover:border-accent/40 transition-all ${variantClass}`}>
+    <div className={`report-metric relative p-3 sm:p-4 rounded-lg border bg-card/80 backdrop-blur-sm hover:border-accent/40 transition-all ${variantClass}`}>
       <div className="flex items-start justify-between gap-2 mb-1.5">
         <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground font-mono">{label}</p>
         {Icon && <Icon className="h-3.5 w-3.5 text-muted-foreground/70 shrink-0" />}
@@ -282,14 +283,14 @@ const PRIO_COLORS: Record<string, string> = {
 };
 
 const CHART_COLORS = [
-  "hsl(90, 40%, 45%)",
-  "hsl(43, 70%, 55%)",
-  "hsl(180, 50%, 45%)",
-  "hsl(0, 60%, 55%)",
-  "hsl(270, 40%, 55%)",
-  "hsl(30, 70%, 55%)",
-  "hsl(200, 50%, 50%)",
-  "hsl(140, 40%, 45%)",
+  "hsl(var(--olive))",
+  "hsl(var(--accent))",
+  "hsl(155, 16%, 58%)",
+  "hsl(var(--critical))",
+  "hsl(210, 12%, 60%)",
+  "hsl(30, 27%, 57%)",
+  "hsl(185, 14%, 48%)",
+  "hsl(var(--success))",
 ];
 
 /* =========================================================================
@@ -297,39 +298,16 @@ const CHART_COLORS = [
  * ========================================================================= */
 
 export default function RelatorioMensalPage() {
-  // Enquanto o mês corrente não fechar (ou seja, antes do próximo dia 1º),
-  // mostramos o loader em loop com a mensagem "Juntando mais informações".
-  // A consulta à API só é habilitada após a virada do mês.
-  const hoje = new Date();
-  const aguardandoFechamento = hoje.getDate() !== 1 ? false : false; // sempre aguarda até virar o mês
-  // Regra: como este é o PRIMEIRO mês de uso, o relatório só existe a partir do próximo dia 1º.
-  // Comportamento: sempre renderizar o WaitingNextMonthLoader até a data virar.
-  // Para destravar quando o mês virar, basta o componente re-renderizar (o setInterval interno cuida disso).
-  const { dias } = diasAteProximoMes(hoje);
-  const aindaNaoLiberado = dias > 0 && hoje.getDate() !== 1;
-
-  const { data, isLoading, isError, error } = useRelatorioMensal();
-  const { mes, ano } = mesAnterior();
-
-  if (aindaNaoLiberado) {
-    return (
-      <AppLayout>
-        <div className="page-header">
-          <p className="text-[10px] tracking-[0.3em] uppercase text-accent font-mono mb-1 flex items-center gap-2">
-            <Radio className="h-3 w-3 animate-pulse-glow" /> Relatório consolidado
-          </p>
-          <h1 className="page-title">Relatório Mensal</h1>
-          <p className="page-subtitle">Aguardando o fechamento do mês corrente</p>
-        </div>
-        <WaitingNextMonthLoader />
-      </AppLayout>
-    );
-  }
+  const inicial = mesAnterior();
+  const [mesSelecionado, setMesSelecionado] = useState(`${inicial.ano}-${String(inicial.mes).padStart(2,'0')}`);
+  const [ano, mes] = mesSelecionado.split('-').map(Number);
+  const { data, isLoading, isError, error } = useRelatorioMensal(mes, ano);
+  const monthPicker = <label className="block text-sm mb-5">Mês do relatório<input aria-label="Mês do relatório" type="month" min="2000-01" max={new Date().getFullYear()+'-'+String(new Date().getMonth()+1).padStart(2,'0')} className="form-input mt-1 max-w-xs" value={mesSelecionado} onChange={e=>{if(e.target.value)setMesSelecionado(e.target.value);}}/></label>;
 
   if (isLoading) {
     return (
       <AppLayout>
-        <GatheringLoader />
+        {monthPicker}<GatheringLoader />
       </AppLayout>
     );
   }
@@ -341,7 +319,7 @@ export default function RelatorioMensalPage() {
           <h1 className="page-title">Relatório Mensal</h1>
           <p className="page-subtitle">{NOMES_MES[mes - 1]} / {ano}</p>
         </div>
-        <ErrorState message={(error as Error)?.message || "Falha ao carregar o relatório."} />
+        {monthPicker}<ErrorState message={(error as Error)?.message || "Falha ao carregar o relatório."} />
       </AppLayout>
     );
   }
@@ -404,11 +382,11 @@ export default function RelatorioMensalPage() {
 
   // erros.tipos_mais_comuns é array de objetos
   const errosData = arr<any>(erros.tipos_mais_comuns ?? erros.todos_os_tipos).map((e: any) => ({
-    tipo: e.tipo ?? e.nome ?? String(e),
-    total: num(e.total ?? e.quantidade ?? e.count),
+    tipo: e.tipo_erro ?? e.tipo ?? "Sem categoria",
+    total: num(e.total_ocorrencias ?? e.total ?? e.quantidade),
   }));
   const totalErros = num(erros.total_erros_registrados ?? erros.total ?? erros.total_erros);
-  const tendenciaErros = String(erros.tendencia_erro ?? erros.tendencia ?? "");
+  const tendenciaErros = String(erros?.tendencia_erro ?? erros?.tendencia ?? "");
 
   const simuladosLista = Array.isArray(simulados)
     ? (simulados as any[])
@@ -449,7 +427,7 @@ export default function RelatorioMensalPage() {
   return (
     <AppLayout>
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-6">
+      <div className="report-hero flex flex-col sm:flex-row sm:items-end sm:justify-between gap-5 mb-6">
         <div>
           <p className="text-[10px] tracking-[0.3em] uppercase text-accent font-mono mb-1 flex items-center gap-2">
             <Radio className="h-3 w-3 animate-pulse-glow" /> Relatório consolidado
@@ -462,14 +440,15 @@ export default function RelatorioMensalPage() {
             )}
           </p>
         </div>
-        <div className="px-3 py-2 rounded-md border border-accent/30 bg-accent/5 flex items-center gap-2">
+        <div className="report-period">{monthPicker}<div className="px-3 py-2 rounded-md border border-accent/30 bg-accent/5 flex items-center gap-2">
           <CalendarRange className="h-4 w-4 text-accent" />
           <span className="text-[10px] tracking-[0.25em] uppercase text-accent font-bold font-mono">
             Período fechado
           </span>
-        </div>
+        </div></div>
       </div>
 
+      <p className="context-note mb-6">Precisão observada = acertos / questões. Horas e presença são descritivas; não medem domínio. Comparações usam janelas equivalentes.</p>
       {isEmpty && (
         <div className="rounded-lg border border-border bg-card/60 p-6 text-center mb-6">
           <p className="text-sm text-muted-foreground">
@@ -478,9 +457,10 @@ export default function RelatorioMensalPage() {
         </div>
       )}
 
+      <SectionHeading number="01" title="Resumo do mês" description="Volume, precisão e comparação com o período anterior."/>
       {/* RESUMO GERAL */}
       <Section title="Resumo Geral" icon={Activity}>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+        <div className="report-metrics grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-3">
           <MetricCard
             label="Horas líquidas"
             value={formatarHoras(num(resumo.horas_totais ?? resumo.horas_totais_liquidas ?? resumo.horas_liquidas))}
@@ -501,7 +481,7 @@ export default function RelatorioMensalPage() {
             hint={<TrendPill delta={num(comparativo?.percentual_acerto?.variacao_percentual ?? comparativo?.percentual_acerto?.variacao_pct, NaN)} suffix="%" />}
           />
           <MetricCard
-            label="IPR Geral"
+            label="Precisão Geral"
             value={`${num(resumo.ipr_geral).toFixed(1)}%`}
             icon={Target}
             variant={num(resumo.ipr_geral) >= 85 ? "success" : num(resumo.ipr_geral) >= 70 ? "warning" : "critical"}
@@ -560,7 +540,7 @@ export default function RelatorioMensalPage() {
                   <p className="text-[10px] tracking-[0.2em] uppercase text-success font-mono font-bold">Melhor dia</p>
                 </div>
                 <p className="text-lg font-bold font-mono">
-                  {melhorPior.melhor_dia.data ? new Date(melhorPior.melhor_dia.data).toLocaleDateString("pt-BR") : "—"}
+                  {melhorPior.melhor_dia.data ? new Date(`${melhorPior.melhor_dia.data}T12:00:00`).toLocaleDateString("pt-BR") : "—"}
                 </p>
                 <p className="text-xs text-muted-foreground capitalize mb-2">{melhorPior.melhor_dia.dia_semana ?? ""}</p>
                 <div className="grid grid-cols-3 gap-2 text-[11px]">
@@ -578,7 +558,7 @@ export default function RelatorioMensalPage() {
                   <p className="text-[10px] tracking-[0.2em] uppercase text-critical font-mono font-bold">Pior dia</p>
                 </div>
                 <p className="text-lg font-bold font-mono">
-                  {melhorPior.pior_dia.data ? new Date(melhorPior.pior_dia.data).toLocaleDateString("pt-BR") : "—"}
+                  {melhorPior.pior_dia.data ? new Date(`${melhorPior.pior_dia.data}T12:00:00`).toLocaleDateString("pt-BR") : "—"}
                 </p>
                 <p className="text-xs text-muted-foreground capitalize mb-2">{melhorPior.pior_dia.dia_semana ?? ""}</p>
                 <div className="grid grid-cols-3 gap-2 text-[11px]">
@@ -592,6 +572,7 @@ export default function RelatorioMensalPage() {
         </Section>
       )}
 
+      <SectionHeading number="02" title="Como você estudou" description="Distribuição do tempo, prática e resultados."/>
       {/* SESSÕES */}
       {(distSessoesData.length > 0 || sessoesPorMateria.length > 0) && (
         <Section title="Sessões de Estudo" icon={BarChart3}>
@@ -603,11 +584,11 @@ export default function RelatorioMensalPage() {
                 </p>
                 <ResponsiveContainer width="100%" height={220}>
                   <BarChart data={distSessoesData}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                    <CartesianGrid strokeDasharray="2 6" stroke="hsl(var(--border))" />
                     <XAxis dataKey="tipo" tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
                     <YAxis tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
                     <Tooltip contentStyle={{ background: "hsl(var(--card))", border: "1px solid hsl(var(--border))", fontSize: 12 }} />
-                    <Bar dataKey="minutos" fill="hsl(90, 40%, 45%)" radius={[4, 4, 0, 0]} />
+                    <Bar isAnimationActive={!window.matchMedia("(prefers-reduced-motion: reduce)").matches} animationDuration={350} dataKey="minutos" fill="hsl(var(--olive))" radius={[4, 4, 0, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -620,11 +601,11 @@ export default function RelatorioMensalPage() {
                 </p>
                 <ResponsiveContainer width="100%" height={220}>
                   <BarChart data={sessoesPorMateria} layout="vertical">
-                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                    <CartesianGrid strokeDasharray="2 6" stroke="hsl(var(--border))" />
                     <XAxis type="number" tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
                     <YAxis type="category" dataKey="materia" width={90} tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
                     <Tooltip contentStyle={{ background: "hsl(var(--card))", border: "1px solid hsl(var(--border))", fontSize: 12 }} />
-                    <Bar dataKey="tempo" radius={[0, 4, 4, 0]}>
+                    <Bar isAnimationActive={!window.matchMedia("(prefers-reduced-motion: reduce)").matches} animationDuration={350} dataKey="tempo" radius={[0, 4, 4, 0]}>
                       {sessoesPorMateria.map((_, i) => (
                         <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />
                       ))}
@@ -642,14 +623,14 @@ export default function RelatorioMensalPage() {
         <Section title="Blocos de Questões" icon={ListChecks}>
           {blocosPorMateria.length > 0 && (
             <div className="p-4 rounded-lg border border-border bg-card/80 mb-3">
-              <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground font-mono mb-3">IPR por matéria</p>
+              <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground font-mono mb-3">Precisão por matéria</p>
               <ResponsiveContainer width="100%" height={240}>
                 <BarChart data={blocosPorMateria}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                  <CartesianGrid strokeDasharray="2 6" stroke="hsl(var(--border))" />
                   <XAxis dataKey="materia" tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }} angle={-15} height={50} />
                   <YAxis tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} domain={[0, 100]} />
                   <Tooltip contentStyle={{ background: "hsl(var(--card))", border: "1px solid hsl(var(--border))", fontSize: 12 }} />
-                  <Bar dataKey="ipr" radius={[4, 4, 0, 0]}>
+                  <Bar isAnimationActive={!window.matchMedia("(prefers-reduced-motion: reduce)").matches} animationDuration={350} dataKey="ipr" radius={[4, 4, 0, 0]}>
                     {blocosPorMateria.map((d, i) => (
                       <Cell key={i} fill={d.ipr >= 85 ? "hsl(var(--success))" : d.ipr >= 70 ? "hsl(var(--warning))" : "hsl(var(--critical))"} />
                     ))}
@@ -666,13 +647,13 @@ export default function RelatorioMensalPage() {
                 <thead className="text-[10px] tracking-wider uppercase text-muted-foreground border-b border-border">
                   <tr>
                     <th className="text-left py-2 pr-3">Assunto</th>
-                    <th className="text-right py-2 px-2">IPR</th>
+                    <th className="text-right py-2 px-2">Precisão</th>
                     <th className="text-center py-2 px-2">Status</th>
                     <th className="text-right py-2 pl-2">Semana</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {blocosPorAssunto.slice(0, 30).map((a: any, i: number) => {
+                  {blocosPorAssunto.map((a: any, i: number) => {
                     const status = String(a.status ?? "—").toUpperCase();
                     return (
                       <tr key={i} className="border-b border-border/40 hover:bg-muted/20">
@@ -703,15 +684,64 @@ export default function RelatorioMensalPage() {
               <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground font-mono mb-3">Distribuição por dificuldade</p>
               <ResponsiveContainer width="100%" height={180}>
                 <BarChart data={dificuldadeData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                  <CartesianGrid strokeDasharray="2 6" stroke="hsl(var(--border))" />
                   <XAxis dataKey="dificuldade" tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
                   <YAxis tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
                   <Tooltip contentStyle={{ background: "hsl(var(--card))", border: "1px solid hsl(var(--border))", fontSize: 12 }} />
-                  <Bar dataKey="total" fill="hsl(43, 70%, 55%)" radius={[4, 4, 0, 0]} />
+                  <Bar isAnimationActive={!window.matchMedia("(prefers-reduced-motion: reduce)").matches} animationDuration={350} dataKey="total" fill="hsl(var(--accent))" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
           )}
+        </Section>
+      )}
+
+      <SectionHeading number="03" title="Pontos de atenção" description="Distribuição entre matérias e padrões de erro observados."/>
+      {/* BALANCEAMENTO */}
+      {balanceamento.length > 0 && (
+        <Section title="Balanceamento de Matérias" icon={Scale}>
+          <div className="p-4 rounded-lg border border-border bg-card/80 overflow-x-auto">
+            <table className="w-full text-xs">
+              <thead className="text-[10px] tracking-wider uppercase text-muted-foreground border-b border-border">
+                <tr>
+                  <th className="text-left py-2 pr-3">Matéria</th>
+                  <th className="text-right py-2 px-2">Peso</th>
+                  <th className="text-right py-2 px-2">% Tempo</th>
+                  <th className="text-right py-2 px-2">% Questões</th>
+                  <th className="text-right py-2 px-2">Precisão</th>
+                  <th className="text-center py-2 pl-2">Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {balanceamento.map((b: any, i: number) => {
+                  const balance = String(b.peso_vs_tempo ?? b.classificacao ?? "—").toUpperCase();
+                  const status = String(b.status ?? "—").toUpperCase();
+                  const balanceColor =
+                    balance.includes("EQUI") ? "text-success" :
+                    balance.includes("SUB") ? "text-critical" :
+                    balance.includes("SUPER") ? "text-warning" : "text-muted-foreground";
+                  const statusColor =
+                    status.includes("BOA") || status.includes("BOM") || status.includes("EXCEL") ? "text-success" :
+                    status.includes("REGUL") ? "text-warning" :
+                    status.includes("FRAC") || status.includes("CRÍT") || status.includes("CRIT") ? "text-critical" :
+                    "text-muted-foreground";
+                  return (
+                    <tr key={i} className="border-b border-border/40 hover:bg-muted/20">
+                      <td className="py-2 pr-3 truncate">{b.materia_nome ?? b.materia ?? b.nome}</td>
+                      <td className="py-2 px-2 text-right font-mono">{num(b.peso_prova ?? b.peso).toFixed(1)}</td>
+                      <td className="py-2 px-2 text-right font-mono">{num(b.tempo_dedicado_percentual ?? b.percentual_tempo ?? b.pct_tempo).toFixed(1)}%</td>
+                      <td className="py-2 px-2 text-right font-mono">{num(b.questoes_respondidas_percentual ?? b.percentual_questoes ?? b.pct_questoes).toFixed(1)}%</td>
+                      <td className="py-2 px-2 text-right font-mono">{num(b.ipr).toFixed(1)}%</td>
+                      <td className={`py-2 pl-2 text-center font-bold tracking-wider text-[10px] ${balanceColor}`}>
+                        <div>{balance}</div>
+                        <div className={`mt-0.5 text-[9px] ${statusColor}`}>{status}</div>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         </Section>
       )}
 
@@ -738,11 +768,11 @@ export default function RelatorioMensalPage() {
                 <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground font-mono mb-3">Por tipo</p>
                 <ResponsiveContainer width="100%" height={200}>
                   <BarChart data={errosData} layout="vertical">
-                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                    <CartesianGrid strokeDasharray="2 6" stroke="hsl(var(--border))" />
                     <XAxis type="number" tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
                     <YAxis type="category" dataKey="tipo" width={120} tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }} />
                     <Tooltip contentStyle={{ background: "hsl(var(--card))", border: "1px solid hsl(var(--border))", fontSize: 12 }} />
-                    <Bar dataKey="total" fill="hsl(var(--critical))" radius={[0, 4, 4, 0]} />
+                    <Bar isAnimationActive={!window.matchMedia("(prefers-reduced-motion: reduce)").matches} animationDuration={350} dataKey="total" fill="hsl(var(--critical))" radius={[0, 4, 4, 0]} />
                   </BarChart>
                 </ResponsiveContainer>
               </div>
@@ -757,13 +787,13 @@ export default function RelatorioMensalPage() {
           <div className="p-4 rounded-lg border border-border bg-card/80">
             <ResponsiveContainer width="100%" height={240}>
               <LineChart data={evolucaoSimulados}>
-                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                <CartesianGrid strokeDasharray="2 6" stroke="hsl(var(--border))" />
                 <XAxis dataKey="label" tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
                 <YAxis tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} domain={[0, 100]} />
                 <Tooltip contentStyle={{ background: "hsl(var(--card))", border: "1px solid hsl(var(--border))", fontSize: 12 }} />
                 <Legend wrapperStyle={{ fontSize: 11 }} />
-                <Line type="monotone" dataKey="pct" name="% Acerto" stroke="hsl(43, 70%, 55%)" strokeWidth={2} dot={{ r: 3 }} />
-                <Line type="monotone" dataKey="ipr" name="IPR" stroke="hsl(90, 40%, 45%)" strokeWidth={2} dot={{ r: 3 }} />
+                <Line isAnimationActive={!window.matchMedia("(prefers-reduced-motion: reduce)").matches} animationDuration={350} type="monotone" dataKey="pct" name="% Acerto" stroke="hsl(var(--accent))" strokeWidth={2} dot={{ r: 3 }} />
+                <Line isAnimationActive={!window.matchMedia("(prefers-reduced-motion: reduce)").matches} animationDuration={350} type="monotone" dataKey="ipr" name="Precisão" stroke="hsl(var(--olive))" strokeWidth={2} dot={{ r: 3 }} />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -804,7 +834,7 @@ export default function RelatorioMensalPage() {
                   <RadarChart data={radarComp}>
                     <PolarGrid stroke="hsl(var(--border))" />
                     <PolarAngleAxis dataKey="comp" tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
-                    <Radar name="Nota" dataKey="nota" stroke="hsl(43, 70%, 55%)" fill="hsl(43, 70%, 55%)" fillOpacity={0.4} />
+                    <Radar isAnimationActive={!window.matchMedia("(prefers-reduced-motion: reduce)").matches} animationDuration={350} name="Nota" dataKey="nota" stroke="hsl(var(--accent))" fill="hsl(var(--accent))" fillOpacity={0.4} />
                     <Tooltip contentStyle={{ background: "hsl(var(--card))", border: "1px solid hsl(var(--border))", fontSize: 12 }} />
                   </RadarChart>
                 </ResponsiveContainer>
@@ -815,11 +845,11 @@ export default function RelatorioMensalPage() {
                 <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground font-mono mb-3">Evolução das notas</p>
                 <ResponsiveContainer width="100%" height={240}>
                   <LineChart data={evolucaoRedacoes}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                    <CartesianGrid strokeDasharray="2 6" stroke="hsl(var(--border))" />
                     <XAxis dataKey="label" tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} />
                     <YAxis tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }} domain={[0, 1000]} />
                     <Tooltip contentStyle={{ background: "hsl(var(--card))", border: "1px solid hsl(var(--border))", fontSize: 12 }} />
-                    <Line type="monotone" dataKey="nota" stroke="hsl(43, 70%, 55%)" strokeWidth={2} dot={{ r: 3 }} />
+                    <Line isAnimationActive={!window.matchMedia("(prefers-reduced-motion: reduce)").matches} animationDuration={350} type="monotone" dataKey="nota" stroke="hsl(var(--accent))" strokeWidth={2} dot={{ r: 3 }} />
                   </LineChart>
                 </ResponsiveContainer>
               </div>
@@ -853,6 +883,7 @@ export default function RelatorioMensalPage() {
         </Section>
       )}
 
+      <SectionHeading number="04" title="Próximo ciclo" description="Projeções e orientações disponíveis no relatório."/>
       {/* PROJEÇÃO */}
       {Object.keys(projecao).length > 0 && (
         <Section title="Projeção de Fechamento" icon={GitCompareArrows}>
@@ -863,10 +894,7 @@ export default function RelatorioMensalPage() {
                 {formatarHoras(num(projecao.projecao_horas_mes ?? projecao.horas_projetadas ?? projecao.horas))}
               </p>
               <p className="text-[11px] text-muted-foreground mt-1">
-                Meta {num(projecao.meta_horas_mes, 88)}h ·{" "}
-                <span className={(projecao.on_track_meta_horas ?? projecao.on_track_horas) ? "text-success" : "text-critical"}>
-                  {(projecao.on_track_meta_horas ?? projecao.on_track_horas) ? "ON TRACK" : "ABAIXO"}
-                </span>
+                Projeção descritiva, sem meta mensal imposta.
               </p>
               {num(projecao.dias_restantes) > 0 && num(projecao.horas_necessarias_por_dia) > 0 && (
                 <p className="text-[10px] text-muted-foreground/80 font-mono mt-1">
@@ -880,10 +908,7 @@ export default function RelatorioMensalPage() {
                 {num(projecao.projecao_questoes_mes ?? projecao.questoes_projetadas ?? projecao.questoes).toLocaleString("pt-BR")}
               </p>
               <p className="text-[11px] text-muted-foreground mt-1">
-                Meta {num(projecao.meta_questoes_mes, 1400).toLocaleString("pt-BR")} ·{" "}
-                <span className={(projecao.on_track_meta_questoes ?? projecao.on_track_questoes) ? "text-success" : "text-critical"}>
-                  {(projecao.on_track_meta_questoes ?? projecao.on_track_questoes) ? "ON TRACK" : "ABAIXO"}
-                </span>
+                A distribuição de estudo é definida pelo seu ciclo.
               </p>
               {num(projecao.dias_restantes) > 0 && num(projecao.questoes_necessarias_por_dia) > 0 && (
                 <p className="text-[10px] text-muted-foreground/80 font-mono mt-1">
@@ -899,7 +924,7 @@ export default function RelatorioMensalPage() {
       {Object.keys(correlacoes).length > 0 && (
         <Section title="Correlações" icon={GitCompareArrows}>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            {Object.entries(correlacoes).map(([k, v]) => {
+            {Object.entries(correlacoes).filter(([k])=>k !== "nota").map(([k, v]) => {
               const val = v === null || v === undefined ? null : num(v);
               return (
                 <div key={k} className="p-4 rounded-lg border border-border bg-card/80">
@@ -919,57 +944,9 @@ export default function RelatorioMensalPage() {
         </Section>
       )}
 
-      {/* BALANCEAMENTO */}
-      {balanceamento.length > 0 && (
-        <Section title="Balanceamento de Matérias" icon={Scale}>
-          <div className="p-4 rounded-lg border border-border bg-card/80 overflow-x-auto">
-            <table className="w-full text-xs">
-              <thead className="text-[10px] tracking-wider uppercase text-muted-foreground border-b border-border">
-                <tr>
-                  <th className="text-left py-2 pr-3">Matéria</th>
-                  <th className="text-right py-2 px-2">Peso</th>
-                  <th className="text-right py-2 px-2">% Tempo</th>
-                  <th className="text-right py-2 px-2">% Questões</th>
-                  <th className="text-right py-2 px-2">IPR</th>
-                  <th className="text-center py-2 pl-2">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {balanceamento.map((b: any, i: number) => {
-                  const balance = String(b.peso_vs_tempo ?? b.classificacao ?? "—").toUpperCase();
-                  const status = String(b.status ?? "—").toUpperCase();
-                  const balanceColor =
-                    balance.includes("EQUI") ? "text-success" :
-                    balance.includes("SUB") ? "text-critical" :
-                    balance.includes("SUPER") ? "text-warning" : "text-muted-foreground";
-                  const statusColor =
-                    status.includes("BOA") || status.includes("BOM") || status.includes("EXCEL") ? "text-success" :
-                    status.includes("REGUL") ? "text-warning" :
-                    status.includes("FRAC") || status.includes("CRÍT") || status.includes("CRIT") ? "text-critical" :
-                    "text-muted-foreground";
-                  return (
-                    <tr key={i} className="border-b border-border/40 hover:bg-muted/20">
-                      <td className="py-2 pr-3 truncate">{b.materia_nome ?? b.materia ?? b.nome}</td>
-                      <td className="py-2 px-2 text-right font-mono">{num(b.peso_prova ?? b.peso).toFixed(1)}</td>
-                      <td className="py-2 px-2 text-right font-mono">{num(b.tempo_dedicado_percentual ?? b.percentual_tempo ?? b.pct_tempo).toFixed(1)}%</td>
-                      <td className="py-2 px-2 text-right font-mono">{num(b.questoes_respondidas_percentual ?? b.percentual_questoes ?? b.pct_questoes).toFixed(1)}%</td>
-                      <td className="py-2 px-2 text-right font-mono">{num(b.ipr).toFixed(1)}%</td>
-                      <td className={`py-2 pl-2 text-center font-bold tracking-wider text-[10px] ${balanceColor}`}>
-                        <div>{balance}</div>
-                        <div className={`mt-0.5 text-[9px] ${statusColor}`}>{status}</div>
-                      </td>
-                    </tr>
-                  );
-                })}
-              </tbody>
-            </table>
-          </div>
-        </Section>
-      )}
-
       {/* RECOMENDAÇÕES */}
       {recomendacoes.length > 0 && (
-        <Section title="Recomendações Estratégicas" icon={Award}>
+        <Section title="Próximo ciclo · recomendações" icon={Award}>
           <div className="space-y-2">
             {recomendacoes.map((rec: any, i: number) => {
               const prio = String(rec.prioridade ?? "MEDIA").toUpperCase();

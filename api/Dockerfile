@@ -11,8 +11,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libpq-dev \
     && rm -rf /var/lib/apt/lists/*
 
-COPY requirements.txt .
-RUN pip install --no-cache-dir --prefix=/install -r requirements.txt
+COPY requirements.txt requirements.lock ./
+RUN pip install --no-cache-dir --prefix=/install -r requirements.lock
 
 # Estágio 2: Imagem final de execução
 FROM python:3.11-slim
@@ -24,6 +24,7 @@ COPY --from=builder /install /usr/local
 # 🔥 AQUI ESTÁ O FIX IMPORTANTE
 RUN apt-get update && apt-get install -y --no-install-recommends \
     libpq5 \
+    fonts-dejavu-core \
     curl \
     && rm -rf /var/lib/apt/lists/*
 

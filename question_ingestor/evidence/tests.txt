@@ -1,0 +1,169 @@
+test_atomic_failure (test_batch.Batch.test_atomic_failure) ... [1/1] Física/A.pdf
+/workspace/scratch/a1e46f202537/question_ingestor/src/question_ingestor/batch/runner.py:109: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp48uixrjk/out/documents/386a617e200a0f699ca96563bb5d55040df6bd536eadf470a1e6e9ab68db17b5/data/staging/questions.jsonl' mode='r' encoding='utf8'>
+  qs=[json.loads(line) for line in (docroot/'data/staging/questions.jsonl').open(encoding='utf8')]
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+FAILED RuntimeError
+BATCH COMPLETE | DONE=0 FAILED=1 SKIPPED=0 | questões=0 | /tmp/tmp48uixrjk/out/reports/global.md
+[1/1] Física/A.pdf
+pages=3 questions=3 ok=3 review=0 error=0 duration=0.02s DONE
+BATCH COMPLETE | DONE=1 FAILED=0 SKIPPED=0 | questões=3 | /tmp/tmp48uixrjk/out/reports/global.md
+ok
+test_dry_run_limit_resume_force_duplicate_move (test_batch.Batch.test_dry_run_limit_resume_force_duplicate_move) ... [1/2] Física/A.pdf | Física | A | OK
+[2/2] Física/B.PDF | Física | B | OK
+[1/2] Física/A.pdf
+/workspace/scratch/a1e46f202537/question_ingestor/src/question_ingestor/batch/runner.py:109: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpe9s5o8p3/out/documents/b293acd370983a5d95ee5ee5e6ad839c78c0f1f9ad68f204fdc9c90554a1e6bb/data/staging/questions.jsonl' mode='r' encoding='utf8'>
+  qs=[json.loads(line) for line in (docroot/'data/staging/questions.jsonl').open(encoding='utf8')]
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+pages=3 questions=3 ok=3 review=0 error=0 duration=0.04s DONE
+[2/2] Física/B.PDF
+SKIPPED
+BATCH COMPLETE | DONE=1 FAILED=0 SKIPPED=1 | questões=3 | /tmp/tmpe9s5o8p3/out/reports/global.md
+[1/2] Física/A.pdf
+SKIPPED
+[2/2] Física/B.PDF
+SKIPPED
+BATCH COMPLETE | DONE=1 FAILED=0 SKIPPED=2 | questões=3 | /tmp/tmpe9s5o8p3/out/reports/global.md
+[1/1] Física/A.pdf
+pages=3 questions=3 ok=3 review=0 error=0 duration=0.02s DONE
+BATCH COMPLETE | DONE=1 FAILED=0 SKIPPED=0 | questões=3 | /tmp/tmpe9s5o8p3/out/reports/global.md
+[1/1] Física/C.pdf
+SKIPPED
+BATCH COMPLETE | DONE=1 FAILED=0 SKIPPED=1 | questões=3 | /tmp/tmpe9s5o8p3/out/reports/global.md
+ok
+test_failed_continues_retry_and_document_changed (test_batch.Batch.test_failed_continues_retry_and_document_changed) ... [1/2] Física/0bad.pdf
+FAILED FileDataError
+[2/2] Física/A.pdf
+/workspace/scratch/a1e46f202537/question_ingestor/src/question_ingestor/batch/runner.py:109: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpog9z6mxv/out/documents/8e93e4739d611b00378290f55dbdd3522f253652cad5287ad832eba44af58503/data/staging/questions.jsonl' mode='r' encoding='utf8'>
+  qs=[json.loads(line) for line in (docroot/'data/staging/questions.jsonl').open(encoding='utf8')]
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+pages=3 questions=3 ok=3 review=0 error=0 duration=0.04s DONE
+BATCH COMPLETE | DONE=1 FAILED=1 SKIPPED=0 | questões=3 | /tmp/tmpog9z6mxv/out/reports/global.md
+[1/2] Física/0bad.pdf
+FAILED_NOT_RETRIED (use --retry-failed)
+[2/2] Física/A.pdf
+SKIPPED
+BATCH COMPLETE | DONE=1 FAILED=1 SKIPPED=1 | questões=3 | /tmp/tmpog9z6mxv/out/reports/global.md
+[1/2] Física/0bad.pdf
+FAILED FileDataError
+[2/2] Física/A.pdf
+SKIPPED
+BATCH COMPLETE | DONE=1 FAILED=1 SKIPPED=1 | questões=3 | /tmp/tmpog9z6mxv/out/reports/global.md
+[1/2] Física/0bad.pdf
+FAILED_NOT_RETRIED (use --retry-failed)
+[2/2] Física/A.pdf
+/workspace/scratch/a1e46f202537/question_ingestor/src/question_ingestor/batch/runner.py:109: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpog9z6mxv/out/documents/3ac5824142ec339247d1a95a0433d330375cecbbd23a278b2f28c6e9ac4993b9/data/staging/questions.jsonl' mode='r' encoding='utf8'>
+  qs=[json.loads(line) for line in (docroot/'data/staging/questions.jsonl').open(encoding='utf8')]
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+pages=3 questions=3 ok=3 review=0 error=0 duration=0.04s DONE
+BATCH COMPLETE | DONE=2 FAILED=1 SKIPPED=0 | questões=6 | /tmp/tmpog9z6mxv/out/reports/global.md
+ok
+test_interrupt_resume (test_batch.Batch.test_interrupt_resume) ... [1/1] Física/A.pdf
+INTERRUPTED: execute o mesmo comando para continuar.
+BATCH INTERRUPTED | DONE=0 FAILED=1 SKIPPED=0 | questões=0 | /tmp/tmp5hhgaps4/out/reports/global.md
+[1/1] Física/A.pdf
+/workspace/scratch/a1e46f202537/question_ingestor/src/question_ingestor/batch/runner.py:109: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmp5hhgaps4/out/documents/331a6605fbd6f7ff15ae6985a46f4e83ddcdc8b52ae11091cc88293029590784/data/staging/questions.jsonl' mode='r' encoding='utf8'>
+  qs=[json.loads(line) for line in (docroot/'data/staging/questions.jsonl').open(encoding='utf8')]
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+pages=3 questions=3 ok=3 review=0 error=0 duration=0.04s DONE
+BATCH COMPLETE | DONE=1 FAILED=0 SKIPPED=0 | questões=3 | /tmp/tmp5hhgaps4/out/reports/global.md
+ok
+test_limit_two (test_batch.Batch.test_limit_two) ... [1/2] Física/A.pdf
+/workspace/scratch/a1e46f202537/question_ingestor/src/question_ingestor/batch/runner.py:109: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpx6wx8myj/out/documents/2469a1f89d29e9d36e07eb9c59656e6cf43c13a0d865f60beb0d7f09090b5668/data/staging/questions.jsonl' mode='r' encoding='utf8'>
+  qs=[json.loads(line) for line in (docroot/'data/staging/questions.jsonl').open(encoding='utf8')]
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+pages=3 questions=3 ok=3 review=0 error=0 duration=0.04s DONE
+[2/2] Física/B.pdf
+/workspace/scratch/a1e46f202537/question_ingestor/src/question_ingestor/batch/runner.py:109: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpx6wx8myj/out/documents/f01f68da18ce99deb5aa6c4880580f7cac28d020ced598509a34c9bd01fed56d/data/staging/questions.jsonl' mode='r' encoding='utf8'>
+  qs=[json.loads(line) for line in (docroot/'data/staging/questions.jsonl').open(encoding='utf8')]
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+pages=3 questions=3 ok=3 review=0 error=0 duration=0.04s DONE
+BATCH COMPLETE | DONE=2 FAILED=0 SKIPPED=0 | questões=6 | /tmp/tmpx6wx8myj/out/reports/global.md
+ok
+test_overrides_approval_revert_and_stale (test_batch.Batch.test_overrides_approval_revert_and_stale) ... [1/1] Física/A.pdf
+/workspace/scratch/a1e46f202537/question_ingestor/src/question_ingestor/batch/runner.py:109: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpwmxn76dg/out/documents/bf435bc86ad76871b77926ed5b7a2471e89442bffcb906fa1011561140b09eda/data/staging/questions.jsonl' mode='r' encoding='utf8'>
+  qs=[json.loads(line) for line in (docroot/'data/staging/questions.jsonl').open(encoding='utf8')]
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+pages=3 questions=3 ok=3 review=0 error=0 duration=0.04s DONE
+BATCH COMPLETE | DONE=1 FAILED=0 SKIPPED=0 | questões=3 | /tmp/tmpwmxn76dg/out/reports/global.md
+ok
+test_blank_page_requires_evidence (test_batch.FinalRegressions.test_blank_page_requires_evidence) ... ok
+test_force_reuses_verified_regional_images (test_batch.FinalRegressions.test_force_reuses_verified_regional_images) ... ok
+test_unicode_line_separator_preserved_in_jsonl (test_batch.FinalRegressions.test_unicode_line_separator_preserved_in_jsonl) ... ok
+test_adjacent_only (test_batch.Hierarchy.test_adjacent_only) ... ok
+test_discovery (test_batch.Hierarchy.test_discovery) ... ok
+test_generic (test_batch.Hierarchy.test_generic) ... ok
+test_missing_materia (test_batch.Hierarchy.test_missing_materia) ... ok
+test_root_subject (test_batch.Hierarchy.test_root_subject) ... ok
+test_variable_depth (test_batch.Hierarchy.test_variable_depth) ... ok
+test_failed_job_trace_and_raw (test_pipeline.Integration.test_failed_job_trace_and_raw) ... ok
+test_sanitization_and_idempotency (test_pipeline.Integration.test_sanitization_and_idempotency) ... /workspace/scratch/a1e46f202537/question_ingestor/src/question_ingestor/pipeline.py:46: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpgpyb62cm/out/data/staging/questions.jsonl' mode='r' encoding='utf8'>
+  expected_rows={q['extraction_id']:q for q in (json.loads(l) for l in (root/'data/staging/questions.jsonl').open(encoding='utf8'))} if (root/'data/staging/questions.jsonl').exists() else {}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_large_question_is_preserved_without_length_review (test_batch.LongText.test_large_question_is_preserved_without_length_review) ... ok
+test_api_pagination_edit_and_revert (test_batch.ReviewHTTP.test_api_pagination_edit_and_revert) ... [1/1] Física/A.pdf
+/workspace/scratch/a1e46f202537/question_ingestor/src/question_ingestor/batch/runner.py:109: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpr1gj09ou/out/documents/7df66d79b00d00ade2c983a1d039eefc508a9ab5fd16d3d3185e995e0759cbb3/data/staging/questions.jsonl' mode='r' encoding='utf8'>
+  qs=[json.loads(line) for line in (docroot/'data/staging/questions.jsonl').open(encoding='utf8')]
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+pages=3 questions=3 ok=3 review=0 error=0 duration=0.04s DONE
+BATCH COMPLETE | DONE=1 FAILED=0 SKIPPED=0 | questões=3 | /tmp/tmpr1gj09ou/out/reports/global.md
+ok
+test_bibliography_is_not_missing_formula (test_batch.SourceRegression.test_bibliography_is_not_missing_formula) ... ok
+test_font_auxiliary_repair_preserves_text (test_batch.SourceRegression.test_font_auxiliary_repair_preserves_text) ... ok
+test_visual_statement_not_short (test_batch.SourceRegression.test_visual_statement_not_short) ... ok
+test_candidates_never_confirm (test_pipeline.Dedup.test_candidates_never_confirm) ... ok
+test_math_preserved (test_pipeline.Dedup.test_math_preserved) ... ok
+test_whitespace (test_pipeline.Dedup.test_whitespace) ... ok
+test_institution (test_pipeline.Headers.test_institution) ... ok
+test_origin (test_pipeline.Headers.test_origin) ... ok
+test_unknown_preserved (test_pipeline.Headers.test_unknown_preserved) ... ok
+test_wrapped (test_pipeline.Headers.test_wrapped) ... ok
+test_failed_job_trace_and_raw (test_pipeline.Integration.test_failed_job_trace_and_raw) ... ok
+test_sanitization_and_idempotency (test_pipeline.Integration.test_sanitization_and_idempotency) ... /workspace/scratch/a1e46f202537/question_ingestor/src/question_ingestor/pipeline.py:46: ResourceWarning: unclosed file <_io.TextIOWrapper name='/tmp/tmpw_ilyb66/out/data/staging/questions.jsonl' mode='r' encoding='utf8'>
+  expected_rows={q['extraction_id']:q for q in (json.loads(l) for l in (root/'data/staging/questions.jsonl').open(encoding='utf8'))} if (root/'data/staging/questions.jsonl').exists() else {}
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+ok
+test_alternatives_and_answer (test_pipeline.Parsing.test_alternatives_and_answer) ... ok
+test_bad_header_retained (test_pipeline.Parsing.test_bad_header_retained) ... ok
+test_graphical_option_assignment (test_pipeline.Parsing.test_graphical_option_assignment) ... ok
+test_header_only_page (test_pipeline.Parsing.test_header_only_page) ... ok
+test_image_crossing_boundary (test_pipeline.Parsing.test_image_crossing_boundary) ... ok
+test_multiline_alternative (test_pipeline.Parsing.test_multiline_alternative) ... ok
+test_multipage (test_pipeline.Parsing.test_multipage) ... ok
+test_question_boundary (test_pipeline.Parsing.test_question_boundary) ... ok
+test_answer_membership (test_pipeline.Validation.test_answer_membership) ... ok
+test_duplicate_option (test_pipeline.Validation.test_duplicate_option) ... ok
+test_dynamic_count (test_pipeline.Validation.test_dynamic_count) ... ok
+test_empty_option (test_pipeline.Validation.test_empty_option) ... ok
+test_empty_statement_with_image_review (test_pipeline.Validation.test_empty_statement_with_image_review) ... ok
+test_missing_answer (test_pipeline.Validation.test_missing_answer) ... ok
+test_missing_formula (test_pipeline.Validation.test_missing_formula) ... ok
+test_sequence (test_pipeline.Validation.test_sequence) ... ok
+test_unknown_answer (test_pipeline.Validation.test_unknown_answer) ... ok
+test_valid (test_pipeline.Validation.test_valid) ... ok
+test_candidate_never_claims_verified (test_recovery.Recovery.test_candidate_never_claims_verified) ... ok
+test_candidate_preserves_distinct_low_surrogates (test_recovery.Recovery.test_candidate_preserves_distinct_low_surrogates) ... ok
+test_isolated_image_excludes_overlay_and_keeps_original (test_recovery.Recovery.test_isolated_image_excludes_overlay_and_keeps_original) ... ok
+test_panels_order_left_then_right (test_recovery.Recovery.test_panels_order_left_then_right) ... ok
+test_unknown_pattern_has_no_proposal (test_recovery.Recovery.test_unknown_pattern_has_no_proposal) ... ok
+test_adjacent_rasters_in_distinct_lines_do_not_merge (test_rich_content.RasterLineIsolation.test_adjacent_rasters_in_distinct_lines_do_not_merge) ... ok
+test_ordered_visual_plain_has_placeholder (test_rich_content.RichIntegrity.test_ordered_visual_plain_has_placeholder) ... ok
+test_source_missing_requires_evidence (test_rich_content.RichIntegrity.test_source_missing_requires_evidence) ... ok
+test_sqlite_canonical_roundtrip_and_raw_cache (test_rich_content.RichIntegrity.test_sqlite_canonical_roundtrip_and_raw_cache) ... ok
+test_trailing_option_whitespace_does_not_drop_text (test_rich_content.RichIntegrity.test_trailing_option_whitespace_does_not_drop_text) ... ok
+test_unresolved_glyph_stays_review (test_rich_content.RichIntegrity.test_unresolved_glyph_stays_review) ... ok
+test_false_overlap_q27 (test_rich_content.RichRegression.test_false_overlap_q27) ... ok
+test_graphical_option_and_info (test_rich_content.RichRegression.test_graphical_option_and_info) ... ok
+test_html_inline (test_rich_content.RichRegression.test_html_inline) ... ok
+test_inline_order_q13_geometry (test_rich_content.RichRegression.test_inline_order_q13_geometry) ... ok
+test_native_superscript_not_missing_formula (test_rich_content.RichRegression.test_native_superscript_not_missing_formula) ... ok
+test_rich_content_exists (test_rich_content.RichRegression.test_rich_content_exists) ... ok
+test_roman_sequence_is_statement (test_rich_content.RichRegression.test_roman_sequence_is_statement) ... ok
+test_small_graphic_is_block (test_rich_content.RichRegression.test_small_graphic_is_block) ... ok
+test_table_zero_height_lines_grouped (test_rich_content.RichRegression.test_table_zero_height_lines_grouped) ... ok
+test_true_overlap (test_rich_content.RichRegression.test_true_overlap) ... ok
+
+----------------------------------------------------------------------
+Ran 70 tests in 1.639s
+
+OK

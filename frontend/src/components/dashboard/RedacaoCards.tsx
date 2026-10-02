@@ -151,16 +151,16 @@ export function ProgressoRedacoesChart() {
       <div className="flex-1 min-h-[160px]">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={chartData}>
-            <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" vertical={false} />
+            <CartesianGrid strokeDasharray="2 6" stroke="hsl(var(--border))" vertical={false} />
             <XAxis
               dataKey="label"
-              tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }}
+              tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }}
               axisLine={false}
               tickLine={false}
             />
             <YAxis
               domain={[0, 1000]}
-              tick={{ fontSize: 10, fill: "hsl(var(--muted-foreground))" }}
+              tick={{ fontSize: 11, fill: "hsl(var(--muted-foreground))" }}
               axisLine={false}
               tickLine={false}
               width={35}
@@ -174,7 +174,7 @@ export function ProgressoRedacoesChart() {
                 boxShadow: "0 4px 12px rgba(0,0,0,0.3)",
               }}
             />
-            <Line
+            <Line isAnimationActive={!window.matchMedia("(prefers-reduced-motion: reduce)").matches}
               type="monotone"
               dataKey="value"
               stroke="hsl(var(--accent))"

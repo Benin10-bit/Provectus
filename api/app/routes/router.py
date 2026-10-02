@@ -177,7 +177,7 @@ def obter_dashboard(
 
 @router.get(
     "/analytics",
-    response_model=dict,
+    response_model=schemas.DashboardResumo,
     summary="Analytics Avançado",
     description="""
     Retorna estatísticas detalhadas do período:
@@ -373,7 +373,7 @@ Se a redação não existir, retorna erro **404**.
 """
 )
 def buscar_redacao(
-    redacao_id: str,
+    redacao_id: UUID,
     db: Session = Depends(get_db)
 ):
     """
@@ -442,7 +442,7 @@ def listar_redacoes(
 
 @router.get(
     "/relatorio/mensal",
-    response_model=dict,
+    response_model=schemas.RelatorioMensalAPI,
     summary="📊 Relatório Mensal Completo de Performance",
     description="""
 ## Relatório Mensal Completo de Performance Acadêmica

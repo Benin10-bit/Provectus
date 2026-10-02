@@ -1,0 +1,5630 @@
+[
+  {
+    "document": "fisica/hidroestatica/hidroestatica.pdf",
+    "number": 35,
+    "id": "96d3ae596f5cf8c552fd5fb87c4d4f113634c7787733eba2ea3fda5652a4a6bc",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 28,
+        "bbox": [
+          60.10200119018555,
+          242.5070037841797,
+          69.10200500488281,
+          252.98300170898438
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 28,
+        "bbox": [
+          94.04100036621094,
+          242.5070037841797,
+          103.04100036621094,
+          252.98300170898438
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 28,
+        "bbox": [
+          106.29900360107422,
+          242.5070037841797,
+          115.29900360107422,
+          252.98300170898438
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 28,
+        "bbox": [
+          355.6260070800781,
+          258.06304931640625,
+          364.6260070800781,
+          268.5390319824219
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 28,
+        "bbox": [
+          389.56500244140625,
+          258.06304931640625,
+          407.56500244140625,
+          268.5390319824219
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 28,
+        "bbox": [
+          79.00199890136719,
+          273.6199951171875,
+          88.00199890136719,
+          284.0959777832031
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 28,
+        "bbox": [
+          112.94100189208984,
+          273.6199951171875,
+          121.94100189208984,
+          284.0959777832031
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 28,
+        "bbox": [
+          125.1989974975586,
+          273.6199951171875,
+          134.19900512695312,
+          284.0959777832031
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "fisica/hidroestatica/hidroestatica.pdf",
+    "number": 37,
+    "id": "2aea6811c88a78dff5e6d88c712ac4505b11a77bd77e7de30e55caa1b1a4dcd4",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 29,
+        "bbox": [
+          264.2850036621094,
+          582.0180053710938,
+          282.2850036621094,
+          592.4940185546875
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 29,
+        "bbox": [
+          380.4930114746094,
+          582.0180053710938,
+          398.4930114746094,
+          592.4940185546875
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 29,
+        "bbox": [
+          401.97601318359375,
+          582.0180053710938,
+          410.97601318359375,
+          592.4940185546875
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 29,
+        "bbox": [
+          35.9010009765625,
+          613.1320190429688,
+          44.9010009765625,
+          623.6080322265625
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 29,
+        "bbox": [
+          102.3030014038086,
+          613.1320190429688,
+          120.3030014038086,
+          623.6080322265625
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 29,
+        "bbox": [
+          123.78600311279297,
+          613.1320190429688,
+          132.7860107421875,
+          623.6080322265625
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 29,
+        "bbox": [
+          54.66600036621094,
+          662.8030395507812,
+          63.66600036621094,
+          673.279052734375
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 29,
+        "bbox": [
+          88.6050033569336,
+          662.8030395507812,
+          97.6050033569336,
+          673.279052734375
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 29,
+        "bbox": [
+          100.86299896240234,
+          662.8030395507812,
+          109.86299896240234,
+          673.279052734375
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 29,
+        "bbox": [
+          30.0,
+          698.416015625,
+          39.0,
+          708.8920288085938
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 29,
+        "bbox": [
+          55.35300064086914,
+          698.416015625,
+          73.35299682617188,
+          708.8920288085938
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 29,
+        "bbox": [
+          30.0,
+          732.530029296875,
+          39.0,
+          743.0060424804688
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 29,
+        "bbox": [
+          61.07699966430664,
+          732.530029296875,
+          79.07699584960938,
+          743.0060424804688
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 29,
+        "bbox": [
+          30.0,
+          766.64404296875,
+          39.0,
+          777.1200561523438
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 29,
+        "bbox": [
+          61.07699966430664,
+          766.64404296875,
+          79.07699584960938,
+          777.1200561523438
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 30,
+        "bbox": [
+          30.0,
+          108.15001678466797,
+          39.0,
+          118.62601470947266
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 30,
+        "bbox": [
+          61.07699966430664,
+          108.15001678466797,
+          79.07699584960938,
+          118.62601470947266
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 30,
+        "bbox": [
+          30.0,
+          142.26402282714844,
+          39.0,
+          152.74002075195312
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 30,
+        "bbox": [
+          61.07699966430664,
+          142.26402282714844,
+          70.07699584960938,
+          152.74002075195312
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "fisica/hidroestatica/hidroestatica.pdf",
+    "number": 44,
+    "id": "afe30914d92b973dacee51279e5e0a67185b363fca05a365641073390402e7db",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 35,
+        "bbox": [
+          296.84698486328125,
+          643.666015625,
+          305.84698486328125,
+          654.1420288085938
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 35,
+        "bbox": [
+          345.8429870605469,
+          643.666015625,
+          363.8429870605469,
+          654.1420288085938
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 35,
+        "bbox": [
+          367.32598876953125,
+          643.666015625,
+          376.32598876953125,
+          654.1420288085938
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 35,
+        "bbox": [
+          22.5,
+          659.2230224609375,
+          31.5,
+          669.6990356445312
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 35,
+        "bbox": [
+          71.49600219726562,
+          659.2230224609375,
+          89.49600219726562,
+          669.6990356445312
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 35,
+        "bbox": [
+          92.97899627685547,
+          659.2230224609375,
+          101.97899627685547,
+          669.6990356445312
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 35,
+        "bbox": [
+          258.3089904785156,
+          674.780029296875,
+          267.3089904785156,
+          685.2560424804688
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 35,
+        "bbox": [
+          234.6840057373047,
+          708.89404296875,
+          243.6840057373047,
+          719.3700561523438
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 35,
+        "bbox": [
+          268.62298583984375,
+          708.89404296875,
+          277.62298583984375,
+          719.3700561523438
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 35,
+        "bbox": [
+          280.8810119628906,
+          708.89404296875,
+          289.8810119628906,
+          719.3700561523438
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "fisica/hidroestatica/hidroestatica.pdf",
+    "number": 96,
+    "id": "2c5fe73832194473bdaa72720e5428e9ea5b4f911d9874564b99368e0e6e229b",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "PARSER_MISSING_ANSWER",
+        "severity": "REVIEW",
+        "component": "answer",
+        "page": null,
+        "bbox": null,
+        "detail": {
+          "reason": "absence not yet checked against visual source"
+        }
+      }
+    ]
+  },
+  {
+    "document": "fisica/hidroestatica/hidroestatica.pdf",
+    "number": 117,
+    "id": "bcb2e001d8f421e36d9248b6f8b9458cc03a0e7fea4d9cf30257da3c25b9d5b3",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "PARSER_MISSING_ANSWER",
+        "severity": "REVIEW",
+        "component": "answer",
+        "page": null,
+        "bbox": null,
+        "detail": {
+          "reason": "absence not yet checked against visual source"
+        }
+      }
+    ]
+  },
+  {
+    "document": "fisica/hidroestatica/hidroestatica.pdf",
+    "number": 122,
+    "id": "eea29e5803f10d50811efd8d7cb1fe8ce68a878057344f486a8c802be5d966bf",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 95,
+        "bbox": [
+          319.7070007324219,
+          554.9960327148438,
+          328.7070007324219,
+          565.4720458984375
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "fisica/hidroestatica/hidroestatica.pdf",
+    "number": 158,
+    "id": "0dd092dc54387565da0462acc10d61e609e68ada1c8218f8dae84916c0612689",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 117,
+        "bbox": [
+          153.08099365234375,
+          679.6890258789062,
+          162.08099365234375,
+          690.1650390625
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 117,
+        "bbox": [
+          68.68199920654297,
+          730.8590087890625,
+          77.68199920654297,
+          741.3350219726562
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 117,
+        "bbox": [
+          68.68199920654297,
+          764.9730224609375,
+          77.68199920654297,
+          775.4490356445312
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 118,
+        "bbox": [
+          68.68199920654297,
+          108.15001678466797,
+          77.68199920654297,
+          118.62601470947266
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 118,
+        "bbox": [
+          68.68199920654297,
+          142.26402282714844,
+          77.68199920654297,
+          152.74002075195312
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 118,
+        "bbox": [
+          68.68199920654297,
+          176.37803649902344,
+          77.68199920654297,
+          186.85403442382812
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "fisica/hidroestatica/hidroestatica.pdf",
+    "number": 159,
+    "id": "ded8cda3e1cfcd83c806d1ed18edb25c50b37068e0bc2390e06b8a14ddfb9469",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "PARSER_MISSING_ANSWER",
+        "severity": "REVIEW",
+        "component": "answer",
+        "page": null,
+        "bbox": null,
+        "detail": {
+          "reason": "absence not yet checked against visual source"
+        }
+      }
+    ]
+  },
+  {
+    "document": "fisica/hidroestatica/hidroestatica.pdf",
+    "number": 170,
+    "id": "e313ca26c3f0cd79e5c6c49c6df576f94cdc74401cc00626e8b6a6510771558c",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "PARSER_MISSING_ANSWER",
+        "severity": "REVIEW",
+        "component": "answer",
+        "page": null,
+        "bbox": null,
+        "detail": {
+          "reason": "absence not yet checked against visual source"
+        }
+      }
+    ]
+  },
+  {
+    "document": "fisica/hidroestatica/hidroestatica.pdf",
+    "number": 175,
+    "id": "fa3de951b37f7426c3c671ceaebd142f8b6d8dced1ed0896a8d472931b3c7c66",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "PARSER_MISSING_ANSWER",
+        "severity": "REVIEW",
+        "component": "answer",
+        "page": null,
+        "bbox": null,
+        "detail": {
+          "reason": "absence not yet checked against visual source"
+        }
+      }
+    ]
+  },
+  {
+    "document": "fisica/hidroestatica/hidroestatica.pdf",
+    "number": 179,
+    "id": "ca7be15a96dc42d85c70b31142c75b6be37ae5b5d0642a50cd9481b55c464bf5",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 130,
+        "bbox": [
+          418.760986328125,
+          745.0420532226562,
+          427.760986328125,
+          755.51806640625
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "fisica/hidroestatica/hidroestatica.pdf",
+    "number": 197,
+    "id": "ddaa8b9e12c66601349a7fb78cdb484f6fbe030d4e91bbb1731d7888a6d50647",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 142,
+        "bbox": [
+          367.26300048828125,
+          466.6020202636719,
+          376.26300048828125,
+          477.0780029296875
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 142,
+        "bbox": [
+          390.9779968261719,
+          466.6020202636719,
+          399.9779968261719,
+          477.0780029296875
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 142,
+        "bbox": [
+          439.6679992675781,
+          466.6020202636719,
+          448.6679992675781,
+          477.0780029296875
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 142,
+        "bbox": [
+          72.06300354003906,
+          482.1590270996094,
+          81.06300354003906,
+          492.635009765625
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 142,
+        "bbox": [
+          103.31999969482422,
+          482.1590270996094,
+          112.31999969482422,
+          492.635009765625
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 142,
+        "bbox": [
+          132.57000732421875,
+          482.1590270996094,
+          141.57000732421875,
+          492.635009765625
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 142,
+        "bbox": [
+          180.6929931640625,
+          482.1590270996094,
+          189.6929931640625,
+          492.635009765625
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 142,
+        "bbox": [
+          59.696998596191406,
+          718.9430541992188,
+          68.6969985961914,
+          729.4190673828125
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 142,
+        "bbox": [
+          80.802001953125,
+          718.9430541992188,
+          89.802001953125,
+          729.4190673828125
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 142,
+        "bbox": [
+          125.60399627685547,
+          718.9430541992188,
+          134.60400390625,
+          729.4190673828125
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 142,
+        "bbox": [
+          36.965999603271484,
+          766.5270385742188,
+          45.965999603271484,
+          777.0030517578125
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 142,
+        "bbox": [
+          67.75499725341797,
+          766.5270385742188,
+          76.75499725341797,
+          777.0030517578125
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 142,
+        "bbox": [
+          125.9219970703125,
+          766.5270385742188,
+          134.9219970703125,
+          777.0030517578125
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 143,
+        "bbox": [
+          36.965999603271484,
+          120.11998748779297,
+          45.965999603271484,
+          130.59597778320312
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 143,
+        "bbox": [
+          67.75499725341797,
+          120.11998748779297,
+          76.75499725341797,
+          130.59597778320312
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 143,
+        "bbox": [
+          125.9219970703125,
+          120.11998748779297,
+          134.9219970703125,
+          130.59597778320312
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 143,
+        "bbox": [
+          36.965999603271484,
+          175.1739959716797,
+          45.965999603271484,
+          185.64999389648438
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 143,
+        "bbox": [
+          67.75499725341797,
+          175.1739959716797,
+          76.75499725341797,
+          185.64999389648438
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 143,
+        "bbox": [
+          98.54399871826172,
+          175.1739959716797,
+          107.54399871826172,
+          185.64999389648438
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 143,
+        "bbox": [
+          36.965999603271484,
+          230.22801208496094,
+          45.965999603271484,
+          240.70401000976562
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 143,
+        "bbox": [
+          67.75499725341797,
+          230.22801208496094,
+          76.75499725341797,
+          240.70401000976562
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 143,
+        "bbox": [
+          98.54399871826172,
+          230.22801208496094,
+          107.54399871826172,
+          240.70401000976562
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 143,
+        "bbox": [
+          36.965999603271484,
+          285.28204345703125,
+          45.965999603271484,
+          295.7580261230469
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 143,
+        "bbox": [
+          67.75499725341797,
+          285.28204345703125,
+          76.75499725341797,
+          295.7580261230469
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 143,
+        "bbox": [
+          125.9219970703125,
+          285.28204345703125,
+          134.9219970703125,
+          295.7580261230469
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "fisica/hidroestatica/hidroestatica.pdf",
+    "number": 202,
+    "id": "2c7b202c7657ebb58d5a29bf79c356bc3ec7d7b2790c80bfbc87fa52827ed5e7",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "PARSER_MISSING_ANSWER",
+        "severity": "REVIEW",
+        "component": "answer",
+        "page": null,
+        "bbox": null,
+        "detail": {
+          "reason": "absence not yet checked against visual source"
+        }
+      }
+    ]
+  },
+  {
+    "document": "fisica/hidroestatica/hidroestatica.pdf",
+    "number": 224,
+    "id": "87ee4caf0970b3f6114d643566d935b677d8f5cef3e350cf0bec826326a53543",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 160,
+        "bbox": [
+          114.3270034790039,
+          353.7610168457031,
+          123.3270034790039,
+          364.23699951171875
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 160,
+        "bbox": [
+          191.45700073242188,
+          353.7610168457031,
+          200.45700073242188,
+          364.23699951171875
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 160,
+        "bbox": [
+          378.8550109863281,
+          353.7610168457031,
+          387.8550109863281,
+          364.23699951171875
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "fisica/hidroestatica/hidroestatica.pdf",
+    "number": 237,
+    "id": "5007b8a34a44e7233735d8e7ecd138a4ace92bd231ebaaf77c0278be3237576a",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 168,
+        "bbox": [
+          442.9440002441406,
+          92.59300994873047,
+          451.9440002441406,
+          103.06900787353516
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 168,
+        "bbox": [
+          510.9750061035156,
+          92.59300994873047,
+          519.9749755859375,
+          103.06900787353516
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "fisica/hidroestatica/hidroestatica.pdf",
+    "number": 240,
+    "id": "390decf3c10f40c3da41daf2a0d46edbc8f8647e518ca0bd76c11e6d34471fbb",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "PARSER_MISSING_ANSWER",
+        "severity": "REVIEW",
+        "component": "answer",
+        "page": null,
+        "bbox": null,
+        "detail": {
+          "reason": "absence not yet checked against visual source"
+        }
+      }
+    ]
+  },
+  {
+    "document": "fisica/hidroestatica/hidroestatica.pdf",
+    "number": 259,
+    "id": "2d6c4a5620757c3fade4474da82849355e74c7bcfeea4c9827addd187755d419",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 182,
+        "bbox": [
+          51.02399826049805,
+          613.0450439453125,
+          60.02399826049805,
+          623.5210571289062
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 182,
+        "bbox": [
+          51.02399826049805,
+          647.1589965820312,
+          60.02399826049805,
+          657.635009765625
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 182,
+        "bbox": [
+          80.43599700927734,
+          715.3860473632812,
+          89.43599700927734,
+          725.862060546875
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 182,
+        "bbox": [
+          137.6219940185547,
+          749.5,
+          146.6219940185547,
+          759.9760131835938
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "fisica/hidroestatica/hidroestatica.pdf",
+    "number": 261,
+    "id": "97bf1288e1ec307d02fc3897e76c3bd84e312ad4c935cfa234e725a92adf36b2",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "PARSER_MISSING_ANSWER",
+        "severity": "REVIEW",
+        "component": "answer",
+        "page": null,
+        "bbox": null,
+        "detail": {
+          "reason": "absence not yet checked against visual source"
+        }
+      }
+    ]
+  },
+  {
+    "document": "fisica/hidroestatica/hidroestatica.pdf",
+    "number": 271,
+    "id": "6b157bec5b23bef6ad7b777e210360f0ad06fad00dc6d3717a39328657ad67d2",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 190,
+        "bbox": [
+          469.5840148925781,
+          298.905029296875,
+          478.5840148925781,
+          309.3810119628906
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 190,
+        "bbox": [
+          495.7829895019531,
+          298.905029296875,
+          504.7829895019531,
+          309.3810119628906
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 190,
+        "bbox": [
+          22.5,
+          345.57501220703125,
+          31.5,
+          356.0509948730469
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 190,
+        "bbox": [
+          73.40399932861328,
+          345.57501220703125,
+          82.40399932861328,
+          356.0509948730469
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "fisica/hidroestatica/hidroestatica.pdf",
+    "number": 293,
+    "id": "8632843bcca2eb6452e8119da5860000593b67446cabcf07af4abe5dd50bf5de",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "PARSER_MISSING_ANSWER",
+        "severity": "REVIEW",
+        "component": "answer",
+        "page": null,
+        "bbox": null,
+        "detail": {
+          "reason": "absence not yet checked against visual source"
+        }
+      }
+    ]
+  },
+  {
+    "document": "fisica/hidroestatica/hidroestatica.pdf",
+    "number": 305,
+    "id": "04499c3e26ba82ea232c483549099a82ee150755b37ade9b6377a59aa94c8d8a",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "PARSER_MISSING_ANSWER",
+        "severity": "REVIEW",
+        "component": "answer",
+        "page": null,
+        "bbox": null,
+        "detail": {
+          "reason": "absence not yet checked against visual source"
+        }
+      }
+    ]
+  },
+  {
+    "document": "fisica/hidroestatica/hidroestatica.pdf",
+    "number": 307,
+    "id": "a1e5545df0d63fa00f5a4768e679844d3eb3407c23f4cefa78d46eb607d8718b",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 211,
+        "bbox": [
+          35.70600128173828,
+          341.3130187988281,
+          44.70600128173828,
+          351.78900146484375
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 211,
+        "bbox": [
+          86.79900360107422,
+          341.3130187988281,
+          95.79900360107422,
+          351.78900146484375
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 211,
+        "bbox": [
+          35.70600128173828,
+          375.4270324707031,
+          44.70600128173828,
+          385.90301513671875
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 211,
+        "bbox": [
+          83.93699645996094,
+          375.4270324707031,
+          92.93699645996094,
+          385.90301513671875
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 211,
+        "bbox": [
+          35.70600128173828,
+          409.541015625,
+          44.70600128173828,
+          420.0169982910156
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 211,
+        "bbox": [
+          78.21299743652344,
+          409.541015625,
+          87.21299743652344,
+          420.0169982910156
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 211,
+        "bbox": [
+          35.70600128173828,
+          443.655029296875,
+          44.70600128173828,
+          454.1310119628906
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 211,
+        "bbox": [
+          83.93699645996094,
+          443.655029296875,
+          92.93699645996094,
+          454.1310119628906
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "fisica/hidroestatica/hidroestatica.pdf",
+    "number": 312,
+    "id": "4b008c90088a69dde991e54d3ccb90be7c8ffea66b5c93a6304ea9d230a690aa",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 213,
+        "bbox": [
+          223.61399841308594,
+          421.4310302734375,
+          232.61399841308594,
+          431.9070129394531
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 213,
+        "bbox": [
+          231.5970001220703,
+          439.988037109375,
+          240.5970001220703,
+          450.4640197753906
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 213,
+        "bbox": [
+          110.81700134277344,
+          477.1020202636719,
+          119.81700134277344,
+          487.5780029296875
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "fisica/hidroestatica/hidroestatica.pdf",
+    "number": 320,
+    "id": "00f9c253ca9706798080cc17a78b45b7c7f2c8ad673c54c110bb9d85c6a01337",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 218,
+        "bbox": [
+          102.46499633789062,
+          92.59300994873047,
+          111.46499633789062,
+          103.06900787353516
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 218,
+        "bbox": [
+          316.00799560546875,
+          92.59300994873047,
+          325.00799560546875,
+          103.06900787353516
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 218,
+        "bbox": [
+          461.16900634765625,
+          126.70702362060547,
+          470.16900634765625,
+          137.18301391601562
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 218,
+        "bbox": [
+          477.0360107421875,
+          126.70702362060547,
+          486.0360107421875,
+          137.18301391601562
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "fisica/hidroestatica/hidroestatica.pdf",
+    "number": 327,
+    "id": "1a0c36c58d07a7d3111e26984fa88e4f8730027be777f45a000e54a987750835",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "PARSER_MISSING_ANSWER",
+        "severity": "REVIEW",
+        "component": "answer",
+        "page": null,
+        "bbox": null,
+        "detail": {
+          "reason": "absence not yet checked against visual source"
+        }
+      }
+    ]
+  },
+  {
+    "document": "fisica/hidroestatica/hidroestatica.pdf",
+    "number": 360,
+    "id": "d2188d0bb8c51e67d8bb01e047733c50c714fd5ef4a80fc5a9dcd695fcfa9a97",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "PARSER_MISSING_ANSWER",
+        "severity": "REVIEW",
+        "component": "answer",
+        "page": null,
+        "bbox": null,
+        "detail": {
+          "reason": "absence not yet checked against visual source"
+        }
+      }
+    ]
+  },
+  {
+    "document": "fisica/hidroestatica/hidroestatica.pdf",
+    "number": 370,
+    "id": "c241334f5c39e5a4a4a912eb1ad622cdba368a0db9b4fd1a6a119cbc60240186",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "EMPTY_GRAPHICAL_ALTERNATIVE",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": null,
+        "bbox": null,
+        "detail": {
+          "alternative": "A"
+        }
+      }
+    ]
+  },
+  {
+    "document": "fisica/hidroestatica/hidroestatica.pdf",
+    "number": 375,
+    "id": "9a785ae640cfd8e4e80c24dfd0953f602fec22497da9087703f4aaf402b9bc7d",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "PARSER_MISSING_ANSWER",
+        "severity": "REVIEW",
+        "component": "answer",
+        "page": null,
+        "bbox": null,
+        "detail": {
+          "reason": "absence not yet checked against visual source"
+        }
+      }
+    ]
+  },
+  {
+    "document": "fisica/hidroestatica/hidroestatica.pdf",
+    "number": 376,
+    "id": "e1aa7e16a7ffaa9e71d484e523942e864b991c17a5e26d3a6af42232f89e4944",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "PARSER_MISSING_ANSWER",
+        "severity": "REVIEW",
+        "component": "answer",
+        "page": null,
+        "bbox": null,
+        "detail": {
+          "reason": "absence not yet checked against visual source"
+        }
+      }
+    ]
+  },
+  {
+    "document": "fisica/hidroestatica/hidroestatica.pdf",
+    "number": 377,
+    "id": "d514f3cbdfbbce79cc80025098beff8e496b1ab2dc35777be956b455bd2c78fb",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "PARSER_MISSING_ANSWER",
+        "severity": "REVIEW",
+        "component": "answer",
+        "page": null,
+        "bbox": null,
+        "detail": {
+          "reason": "absence not yet checked against visual source"
+        }
+      }
+    ]
+  },
+  {
+    "document": "fisica/hidroestatica/hidroestatica.pdf",
+    "number": 408,
+    "id": "5b154b3c9508b37618ff6dae965de2d30362fc42eb510065555e4a58ff9ccc7d",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "PARSER_MISSING_ANSWER",
+        "severity": "REVIEW",
+        "component": "answer",
+        "page": null,
+        "bbox": null,
+        "detail": {
+          "reason": "absence not yet checked against visual source"
+        }
+      }
+    ]
+  },
+  {
+    "document": "fisica/hidroestatica/hidroestatica.pdf",
+    "number": 445,
+    "id": "eef8a36f5a1814681fc28634068faae430c1c6f4701861a11f456c13d2dfc611",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 285,
+        "bbox": [
+          53.922000885009766,
+          438.9840393066406,
+          62.922000885009766,
+          449.46002197265625
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 285,
+        "bbox": [
+          53.922000885009766,
+          473.0980224609375,
+          62.922000885009766,
+          483.5740051269531
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 285,
+        "bbox": [
+          53.922000885009766,
+          507.21099853515625,
+          62.922000885009766,
+          517.68701171875
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 285,
+        "bbox": [
+          53.922000885009766,
+          541.3250122070312,
+          62.922000885009766,
+          551.801025390625
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 285,
+        "bbox": [
+          53.922000885009766,
+          575.4390258789062,
+          62.922000885009766,
+          585.9150390625
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "fisica/hidroestatica/hidroestatica.pdf",
+    "number": 448,
+    "id": "06c9cf40cc476334bcae271af9fa9f9b309d827ea2ea2c3ea9a3117458504a79",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 286,
+        "bbox": [
+          299.03399658203125,
+          716.6930541992188,
+          308.03399658203125,
+          727.1690673828125
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 286,
+        "bbox": [
+          317.5920104980469,
+          716.6930541992188,
+          326.5920104980469,
+          727.1690673828125
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 286,
+        "bbox": [
+          341.68499755859375,
+          716.6930541992188,
+          350.68499755859375,
+          727.1690673828125
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 286,
+        "bbox": [
+          371.7179870605469,
+          747.8070068359375,
+          380.7179870605469,
+          758.2830200195312
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 286,
+        "bbox": [
+          452.3219909667969,
+          747.8070068359375,
+          461.3219909667969,
+          758.2830200195312
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 286,
+        "bbox": [
+          70.42500305175781,
+          763.364013671875,
+          79.42500305175781,
+          773.8400268554688
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "fisica/hidroestatica/hidroestatica.pdf",
+    "number": 451,
+    "id": "86e2e2ef4b165f571c7c6cbb3cfb7ec04934dcc1b5b489f8ee0ff8672dbfc4bd",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 288,
+        "bbox": [
+          30.0,
+          570.3820190429688,
+          39.0,
+          580.8580322265625
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 288,
+        "bbox": [
+          30.0,
+          604.4960327148438,
+          39.0,
+          614.9720458984375
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 288,
+        "bbox": [
+          30.0,
+          638.6090087890625,
+          39.0,
+          649.0850219726562
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 288,
+        "bbox": [
+          30.0,
+          672.7230224609375,
+          39.0,
+          683.1990356445312
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "fisica/hidroestatica/hidroestatica.pdf",
+    "number": 457,
+    "id": "9bea524b1b547dfc90283bf41b013ed91dc45523164df0d96dbe54abaa399737",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 292,
+        "bbox": [
+          541.1519775390625,
+          230.67698669433594,
+          550.1519775390625,
+          241.15298461914062
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "fisica/hidroestatica/hidroestatica.pdf",
+    "number": 473,
+    "id": "f3a0fcfd625bc03533a74cce3c61052b9493585416e363adf960e88fd5cc4c34",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 302,
+        "bbox": [
+          411.1199951171875,
+          196.5630340576172,
+          420.1199951171875,
+          207.03903198242188
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 302,
+        "bbox": [
+          123.35700225830078,
+          405.791015625,
+          132.35699462890625,
+          416.2669982910156
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 302,
+        "bbox": [
+          92.8290023803711,
+          439.905029296875,
+          101.8290023803711,
+          450.3810119628906
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 302,
+        "bbox": [
+          123.35700225830078,
+          474.0180358886719,
+          132.35699462890625,
+          484.4940185546875
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 302,
+        "bbox": [
+          116.63400268554688,
+          508.13201904296875,
+          125.63400268554688,
+          518.6080322265625
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "fisica/hidroestatica/hidroestatica.pdf",
+    "number": 482,
+    "id": "e9b41376350bda0f8925ef97c70bf60976c3b15e968b0aef4c062530f191a0a6",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "PARSER_MISSING_ANSWER",
+        "severity": "REVIEW",
+        "component": "answer",
+        "page": null,
+        "bbox": null,
+        "detail": {
+          "reason": "absence not yet checked against visual source"
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 36,
+    "id": "f5d5ea28a7f0b2470a7b239e3a7b7d066810cf100b5d93908e72d5c959bce233",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 23,
+        "bbox": [
+          337.51800537109375,
+          299.593017578125,
+          346.51800537109375,
+          310.0690002441406
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 23,
+        "bbox": [
+          350.35198974609375,
+          299.593017578125,
+          359.35198974609375,
+          310.0690002441406
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 23,
+        "bbox": [
+          396.4949951171875,
+          299.593017578125,
+          414.4949951171875,
+          310.0690002441406
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 23,
+        "bbox": [
+          550.781982421875,
+          315.1500244140625,
+          559.781982421875,
+          325.6260070800781
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 44,
+    "id": "4ef2c63a407dcdebfd6a526e84f356065d26475c05e417af7ba8c90c0f1a3aac",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "PARSER_MISSING_ANSWER",
+        "severity": "REVIEW",
+        "component": "answer",
+        "page": null,
+        "bbox": null,
+        "detail": {
+          "reason": "absence not yet checked against visual source"
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 108,
+    "id": "7c276e61a7d3b5df1ccf6dbacf8f8ec47256df7820d31d5d57ac2ec440dc852a",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 72,
+        "bbox": [
+          228.7259979248047,
+          215.11997985839844,
+          237.7259979248047,
+          225.59597778320312
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 72,
+        "bbox": [
+          141.76800537109375,
+          230.67698669433594,
+          150.76800537109375,
+          241.15298461914062
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 72,
+        "bbox": [
+          162.2519989013672,
+          230.67698669433594,
+          171.2519989013672,
+          241.15298461914062
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 72,
+        "bbox": [
+          26.010000228881836,
+          246.23399353027344,
+          44.01000213623047,
+          256.7099914550781
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 72,
+        "bbox": [
+          57.72600173950195,
+          246.23399353027344,
+          66.72599792480469,
+          256.7099914550781
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 72,
+        "bbox": [
+          73.322998046875,
+          246.23399353027344,
+          91.322998046875,
+          256.7099914550781
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 72,
+        "bbox": [
+          453.4830017089844,
+          246.23399353027344,
+          471.4830017089844,
+          256.7099914550781
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 113,
+    "id": "4916038651c9db750d996a3886abcf4441ba65b0bcc8345e965548f8b2af18db",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "PARSER_MISSING_ANSWER",
+        "severity": "REVIEW",
+        "component": "answer",
+        "page": null,
+        "bbox": null,
+        "detail": {
+          "reason": "absence not yet checked against visual source"
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 120,
+    "id": "7c27ab4be25fbf735ed605d22d04c2ffb1f909039ac9b70e5cc2a8ac9fae4224",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 78,
+        "bbox": [
+          87.44400024414062,
+          705.8070068359375,
+          96.44400024414062,
+          716.2830200195312
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 122,
+    "id": "5cae2d9ed337c439a781b2d7eb8ec8a1b082ab9ae709434b52d513e6fb6cd092",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 79,
+        "bbox": [
+          545.114990234375,
+          689.0130004882812,
+          554.114990234375,
+          699.489013671875
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 128,
+    "id": "e9fcada11dea9e43760869fe11389a733071b4d78f26154e088ed2b5d70c79d1",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 83,
+        "bbox": [
+          336.5820007324219,
+          117.83599090576172,
+          345.5820007324219,
+          128.31198120117188
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 83,
+        "bbox": [
+          359.072998046875,
+          117.83599090576172,
+          368.072998046875,
+          128.31198120117188
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 83,
+        "bbox": [
+          371.1600036621094,
+          117.83599090576172,
+          389.1600036621094,
+          128.31198120117188
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 83,
+        "bbox": [
+          531.468017578125,
+          117.83599090576172,
+          540.468017578125,
+          128.31198120117188
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 83,
+        "bbox": [
+          546.4169921875,
+          117.83599090576172,
+          555.4169921875,
+          128.31198120117188
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 83,
+        "bbox": [
+          561.3660278320312,
+          117.83599090576172,
+          570.3660278320312,
+          128.31198120117188
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 83,
+        "bbox": [
+          22.5,
+          133.3929901123047,
+          31.5,
+          143.86898803710938
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 83,
+        "bbox": [
+          34.58700180053711,
+          133.3929901123047,
+          43.58700180053711,
+          143.86898803710938
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 83,
+        "bbox": [
+          288.08099365234375,
+          133.3929901123047,
+          306.08099365234375,
+          143.86898803710938
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 83,
+        "bbox": [
+          30.0,
+          349.75701904296875,
+          39.0,
+          360.2330017089844
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 83,
+        "bbox": [
+          48.198001861572266,
+          349.75701904296875,
+          57.198001861572266,
+          360.2330017089844
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 83,
+        "bbox": [
+          30.0,
+          383.8700256347656,
+          39.0,
+          394.34600830078125
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 83,
+        "bbox": [
+          48.198001861572266,
+          383.8700256347656,
+          57.198001861572266,
+          394.34600830078125
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 83,
+        "bbox": [
+          30.0,
+          417.9840393066406,
+          39.0,
+          428.46002197265625
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 83,
+        "bbox": [
+          48.198001861572266,
+          417.9840393066406,
+          57.198001861572266,
+          428.46002197265625
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 83,
+        "bbox": [
+          60.45600128173828,
+          417.9840393066406,
+          69.45600128173828,
+          428.46002197265625
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 83,
+        "bbox": [
+          30.0,
+          452.0980224609375,
+          39.0,
+          462.5740051269531
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 83,
+        "bbox": [
+          48.198001861572266,
+          452.0980224609375,
+          57.198001861572266,
+          462.5740051269531
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 83,
+        "bbox": [
+          30.0,
+          486.2110290527344,
+          39.0,
+          496.68701171875
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 83,
+        "bbox": [
+          48.198001861572266,
+          486.2110290527344,
+          57.198001861572266,
+          496.68701171875
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 83,
+        "bbox": [
+          60.45600128173828,
+          486.2110290527344,
+          69.45600128173828,
+          496.68701171875
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 129,
+    "id": "65c9b7caddfc542c236cc1b9fdf79cfa7bda2c3887f57b59864f850174112424",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 83,
+        "bbox": [
+          64.34400177001953,
+          625.7950439453125,
+          73.34400177001953,
+          636.2710571289062
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 83,
+        "bbox": [
+          58.619998931884766,
+          659.9089965820312,
+          67.6199951171875,
+          670.385009765625
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 83,
+        "bbox": [
+          64.34400177001953,
+          694.0230102539062,
+          73.34400177001953,
+          704.4990234375
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 83,
+        "bbox": [
+          50.034000396728516,
+          728.1360473632812,
+          59.034000396728516,
+          738.612060546875
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 83,
+        "bbox": [
+          58.619998931884766,
+          762.25,
+          67.6199951171875,
+          772.7260131835938
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "PARSER_MISSING_ANSWER",
+        "severity": "REVIEW",
+        "component": "answer",
+        "page": null,
+        "bbox": null,
+        "detail": {
+          "reason": "absence not yet checked against visual source"
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 159,
+    "id": "b02d2a30950436d46a3464a7c943fe5e7c5ebb543514d4cffec94666062923b3",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 102,
+        "bbox": [
+          47.81999969482422,
+          701.416015625,
+          56.81999969482422,
+          711.8920288085938
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 102,
+        "bbox": [
+          47.81999969482422,
+          735.530029296875,
+          56.81999969482422,
+          746.0060424804688
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 102,
+        "bbox": [
+          47.81999969482422,
+          769.64404296875,
+          56.81999969482422,
+          780.1200561523438
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 103,
+        "bbox": [
+          47.81999969482422,
+          108.15001678466797,
+          56.81999969482422,
+          118.62601470947266
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 103,
+        "bbox": [
+          47.81999969482422,
+          142.26402282714844,
+          56.81999969482422,
+          152.74002075195312
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "PARSER_MISSING_ANSWER",
+        "severity": "REVIEW",
+        "component": "answer",
+        "page": null,
+        "bbox": null,
+        "detail": {
+          "reason": "absence not yet checked against visual source"
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 176,
+    "id": "718fe6f4225d6231e077b97bb77c13531aa11bac06822a9f45bb3fdde674d5f2",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 112,
+        "bbox": [
+          320.4179992675781,
+          636.9390258789062,
+          329.4179992675781,
+          647.4150390625
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 112,
+        "bbox": [
+          360.9179992675781,
+          636.9390258789062,
+          369.9179992675781,
+          647.4150390625
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 113,
+        "bbox": [
+          30.0,
+          279.9000244140625,
+          39.0,
+          290.3760070800781
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 113,
+        "bbox": [
+          35.7239990234375,
+          314.0140380859375,
+          44.7239990234375,
+          324.4900207519531
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 113,
+        "bbox": [
+          35.7239990234375,
+          348.1280212402344,
+          44.7239990234375,
+          358.60400390625
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 113,
+        "bbox": [
+          30.0,
+          382.2420349121094,
+          39.0,
+          392.718017578125
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 113,
+        "bbox": [
+          35.7239990234375,
+          416.3550109863281,
+          44.7239990234375,
+          426.83099365234375
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 220,
+    "id": "c3c9c6a1e30cc0ac5bd203d716e851f3925e71f9f2f3245934fd308c52921225",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 139,
+        "bbox": [
+          40.81800079345703,
+          295.2640380859375,
+          49.81800079345703,
+          305.7400207519531
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 139,
+        "bbox": [
+          37.30799865722656,
+          329.3780212402344,
+          46.30799865722656,
+          339.85400390625
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 229,
+    "id": "250fa8b81126b848584220d2300db91ea99d455468e5f8b1111d105b599aea86",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 143,
+        "bbox": [
+          35.7239990234375,
+          650.114013671875,
+          44.7239990234375,
+          660.5900268554688
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "PARSER_MISSING_ANSWER",
+        "severity": "REVIEW",
+        "component": "answer",
+        "page": null,
+        "bbox": null,
+        "detail": {
+          "reason": "absence not yet checked against visual source"
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 232,
+    "id": "8ebf70466b31022d5544a3b465f1c375595bebe33cf7d7011b429ae16df34e38",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "PARSER_MISSING_ANSWER",
+        "severity": "REVIEW",
+        "component": "answer",
+        "page": null,
+        "bbox": null,
+        "detail": {
+          "reason": "absence not yet checked against visual source"
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 239,
+    "id": "1490e4da41916ecac3995a1e4e8be1b91f7cc6a41f5d969c9491532dcd0cfff1",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 148,
+        "bbox": [
+          541.3049926757812,
+          669.5750122070312,
+          550.3049926757812,
+          680.051025390625
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 256,
+    "id": "dce01d957a7d96c75eaa62ccd7957e24da6999e8cba8e5fcef600128478dfc65",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 159,
+        "bbox": [
+          211.27499389648438,
+          126.70702362060547,
+          220.27499389648438,
+          137.18301391601562
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 278,
+    "id": "33960c0325931e83663594abf1ff6b23d26acae8f9124231201b6645b863e475",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 172,
+        "bbox": [
+          50.042999267578125,
+          529.7730102539062,
+          68.04299926757812,
+          540.2490234375
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 172,
+        "bbox": [
+          44.310001373291016,
+          563.8860473632812,
+          62.310001373291016,
+          574.362060546875
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 172,
+        "bbox": [
+          50.042999267578125,
+          598.0000610351562,
+          68.04299926757812,
+          608.47607421875
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 172,
+        "bbox": [
+          55.766998291015625,
+          632.114013671875,
+          73.76699829101562,
+          642.5900268554688
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 172,
+        "bbox": [
+          44.310001373291016,
+          666.2269897460938,
+          62.310001373291016,
+          676.7030029296875
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 284,
+    "id": "7834d28f062a5ac47e29dbcb73e81c1b11263c46d1330711afa7b8f088ae7694",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 175,
+        "bbox": [
+          41.448001861572266,
+          489.530029296875,
+          50.448001861572266,
+          500.0060119628906
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 175,
+        "bbox": [
+          41.448001861572266,
+          523.6439819335938,
+          50.448001861572266,
+          534.1199951171875
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 175,
+        "bbox": [
+          41.448001861572266,
+          557.7570190429688,
+          50.448001861572266,
+          568.2330322265625
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 175,
+        "bbox": [
+          41.448001861572266,
+          591.8710327148438,
+          50.448001861572266,
+          602.3470458984375
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 175,
+        "bbox": [
+          41.448001861572266,
+          625.9850463867188,
+          50.448001861572266,
+          636.4610595703125
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 306,
+    "id": "a5359ccfc8e7793e8c65dd7c28e3c1a2f44dbe8bb127a0a1f52a2553697064fb",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 188,
+        "bbox": [
+          89.96399688720703,
+          446.4610290527344,
+          98.96399688720703,
+          456.93701171875
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 188,
+        "bbox": [
+          275.1029968261719,
+          594.916015625,
+          284.1029968261719,
+          605.3920288085938
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 312,
+    "id": "c4dba8ed879a634b835e7634b6527eb97d9fbb3a7208c56420d9ffe1f9beff73",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "PARSER_MISSING_ANSWER",
+        "severity": "REVIEW",
+        "component": "answer",
+        "page": null,
+        "bbox": null,
+        "detail": {
+          "reason": "absence not yet checked against visual source"
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 313,
+    "id": "18ee28632c8e12ac8868731cdfacede7d75044218df897f83f81ddf148608177",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 193,
+        "bbox": [
+          44.310001373291016,
+          215.11997985839844,
+          53.310001373291016,
+          225.59597778320312
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 193,
+        "bbox": [
+          52.895999908447266,
+          249.23399353027344,
+          61.895999908447266,
+          259.7099914550781
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 193,
+        "bbox": [
+          44.310001373291016,
+          283.3480224609375,
+          53.310001373291016,
+          293.8240051269531
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 193,
+        "bbox": [
+          52.895999908447266,
+          317.46099853515625,
+          61.895999908447266,
+          327.9369812011719
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 193,
+        "bbox": [
+          44.310001373291016,
+          351.57501220703125,
+          53.310001373291016,
+          362.0509948730469
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 323,
+    "id": "b80b1678acf57e607e811cd3739529efe9b6a0252eb078fbec9bcbc2c62b2a04",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 197,
+        "bbox": [
+          38.58599853515625,
+          721.7730102539062,
+          47.58599853515625,
+          732.2490234375
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 197,
+        "bbox": [
+          38.58599853515625,
+          755.8860473632812,
+          47.58599853515625,
+          766.362060546875
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 198,
+        "bbox": [
+          30.0,
+          92.59300994873047,
+          39.0,
+          103.06900787353516
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 198,
+        "bbox": [
+          30.0,
+          126.70702362060547,
+          39.0,
+          137.18301391601562
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 345,
+    "id": "c7d08b4e6c8d7c7f6bfe085a36b99aeba080705843324f8c4d635c1978f73a72",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 209,
+        "bbox": [
+          111.0270004272461,
+          196.4349822998047,
+          120.0270004272461,
+          206.91098022460938
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 209,
+        "bbox": [
+          130.6199951171875,
+          230.5480194091797,
+          139.6199951171875,
+          241.02401733398438
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 209,
+        "bbox": [
+          179.94000244140625,
+          264.66204833984375,
+          188.94000244140625,
+          275.1380310058594
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 209,
+        "bbox": [
+          191.16299438476562,
+          298.7760009765625,
+          200.16299438476562,
+          309.2519836425781
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 353,
+    "id": "16915ed8554a9caef41c812fce2e623b6c7ccec762489f657a5c5cca9068e979",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 212,
+        "bbox": [
+          86.11199951171875,
+          627.3040161132812,
+          95.11199951171875,
+          637.780029296875
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 380,
+    "id": "f27884bb95183c5bd99ef2f23effc1adab47f6f7e02561ebe854c861f4f56047",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 228,
+        "bbox": [
+          35.7239990234375,
+          655.7109985351562,
+          44.7239990234375,
+          666.18701171875
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 228,
+        "bbox": [
+          41.448001861572266,
+          689.8250122070312,
+          50.448001861572266,
+          700.301025390625
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 228,
+        "bbox": [
+          41.448001861572266,
+          723.9390258789062,
+          50.448001861572266,
+          734.4150390625
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 228,
+        "bbox": [
+          41.448001861572266,
+          758.0530395507812,
+          50.448001861572266,
+          768.529052734375
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 382,
+    "id": "15a4be0ed1759b64e558633283f78f0e5887926cc2776b9d2784741840aeee62",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 229,
+        "bbox": [
+          396.1889953613281,
+          393.89703369140625,
+          405.1889953613281,
+          404.3730163574219
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 400,
+    "id": "dd631a8bf2ed69369330acb4e35a27afd6e8fa9949f1ea92bef8f09bdc9374d4",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 240,
+        "bbox": [
+          127.93499755859375,
+          133.3929901123047,
+          136.93499755859375,
+          143.86898803710938
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 437,
+    "id": "408f2010948585b36b56f5edbcb3c8e98854a8e62a2eac4e720a0cda1d8a828b",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 261,
+        "bbox": [
+          35.7239990234375,
+          425.07501220703125,
+          44.7239990234375,
+          435.5509948730469
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 261,
+        "bbox": [
+          41.448001861572266,
+          459.18902587890625,
+          50.448001861572266,
+          469.6650085449219
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 261,
+        "bbox": [
+          41.448001861572266,
+          493.30303955078125,
+          50.448001861572266,
+          503.7790222167969
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 261,
+        "bbox": [
+          41.448001861572266,
+          527.416015625,
+          50.448001861572266,
+          537.8920288085938
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 486,
+    "id": "978c33e42eaf953fb293ee4854519875a470bf52a31ec171672d7b169b9977df",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 290,
+        "bbox": [
+          379.2330017089844,
+          327.1280212402344,
+          388.2330017089844,
+          337.60400390625
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 507,
+    "id": "0f9939b63e40cd75ccb501f1c04825659f2b22d26981976c98ac7e21caf1b64c",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 300,
+        "bbox": [
+          41.448001861572266,
+          176.37803649902344,
+          50.448001861572266,
+          186.85403442382812
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 300,
+        "bbox": [
+          41.448001861572266,
+          210.4919891357422,
+          50.448001861572266,
+          220.96798706054688
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 510,
+    "id": "50ce1782d56a6bae9787905e54a3e664bdb65cb7c883f350146c79859d560be4",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 302,
+        "bbox": [
+          472.1669921875,
+          92.59300994873047,
+          481.1669921875,
+          103.06900787353516
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 535,
+    "id": "69c737e3241e75315bd9e98524aa565f78dd0e05e26cb8b3f259069b7c59a591",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 315,
+        "bbox": [
+          35.7239990234375,
+          665.5230102539062,
+          44.7239990234375,
+          675.9990234375
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 315,
+        "bbox": [
+          41.448001861572266,
+          699.6360473632812,
+          50.448001861572266,
+          710.112060546875
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 315,
+        "bbox": [
+          41.448001861572266,
+          733.75,
+          50.448001861572266,
+          744.2260131835938
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 315,
+        "bbox": [
+          41.448001861572266,
+          767.864013671875,
+          50.448001861572266,
+          778.3400268554688
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 567,
+    "id": "5135ad7f35cc402fb6b128f7471bdb0b824bada14cd5a210117355b5c3c38bb3",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "PARSER_MISSING_ANSWER",
+        "severity": "REVIEW",
+        "component": "answer",
+        "page": null,
+        "bbox": null,
+        "detail": {
+          "reason": "absence not yet checked against visual source"
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 591,
+    "id": "16ae4e17db5195f0ad3cf7337dcc356061776f772dee1f36ef3d9c4cd661676f",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 345,
+        "bbox": [
+          391.8420104980469,
+          491.1590270996094,
+          400.8420104980469,
+          501.635009765625
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 595,
+    "id": "da8cfa30a34e53792cfc3d2d88f07cb456bfba3e11769e5e9a44425ed4c69ed0",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 347,
+        "bbox": [
+          80.30699920654297,
+          638.5000610351562,
+          89.30699920654297,
+          648.97607421875
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 347,
+        "bbox": [
+          142.74000549316406,
+          654.0570068359375,
+          151.74000549316406,
+          664.5330200195312
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 347,
+        "bbox": [
+          355.7879943847656,
+          654.0570068359375,
+          364.7879943847656,
+          664.5330200195312
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 347,
+        "bbox": [
+          376.2720031738281,
+          654.0570068359375,
+          385.2720031738281,
+          664.5330200195312
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 347,
+        "bbox": [
+          85.55400085449219,
+          669.614013671875,
+          94.55400085449219,
+          680.0900268554688
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 347,
+        "bbox": [
+          106.03800201416016,
+          669.614013671875,
+          115.03800201416016,
+          680.0900268554688
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 621,
+    "id": "e3bd35be8fad894f0b38d04a868843dbbe55f8c50a8727ca5c8743fca0788f7d",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 360,
+        "bbox": [
+          422.68499755859375,
+          558.488037109375,
+          431.68499755859375,
+          568.9640502929688
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 360,
+        "bbox": [
+          477.84600830078125,
+          558.488037109375,
+          486.84600830078125,
+          568.9640502929688
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 650,
+    "id": "e05fdadf5656dd8e48b57cf3ca7d7761fa90a3fc657f1b204ce2b1040b37b6c1",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 375,
+        "bbox": [
+          44.696998596191406,
+          205.30601501464844,
+          53.696998596191406,
+          215.78201293945312
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 375,
+        "bbox": [
+          72.5790023803711,
+          239.42002868652344,
+          81.5790023803711,
+          249.89602661132812
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 375,
+        "bbox": [
+          33.5099983215332,
+          307.64703369140625,
+          42.5099983215332,
+          318.1230163574219
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "alternatives",
+        "page": 375,
+        "bbox": [
+          30.0,
+          341.7610168457031,
+          39.0,
+          352.23699951171875
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 666,
+    "id": "6ce394385fde06e3ec60f68d7780d38fdaea9db003605823617cf7217f30f74b",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 382,
+        "bbox": [
+          235.6649932861328,
+          393.8740234375,
+          244.6649932861328,
+          404.3500061035156
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 382,
+        "bbox": [
+          93.73500061035156,
+          409.4310302734375,
+          102.73500061035156,
+          419.9070129394531
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 382,
+        "bbox": [
+          343.2869873046875,
+          409.4310302734375,
+          352.2869873046875,
+          419.9070129394531
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      },
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 382,
+        "bbox": [
+          361.4849853515625,
+          409.4310302734375,
+          370.4849853515625,
+          419.9070129394531
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 681,
+    "id": "695807dc4ecf16cad3ec79d0f6255683e608bb7a7ced3c1061ff67101be97187",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "UNRESOLVED_INVALID_GLYPH",
+        "severity": "REVIEW",
+        "component": "statement",
+        "page": 390,
+        "bbox": [
+          240.71400451660156,
+          673.3480224609375,
+          249.71400451660156,
+          683.8240356445312
+        ],
+        "detail": {
+          "reason": "missing/.notdef glyph or unverified glyph geometry; crop is evidence, not a recovered symbol",
+          "glyph_ids": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 685,
+    "id": "76dd88759ff59577840d9d45a6f3723a0816b939da567bcff1dd9fbd5f551309",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "PARSER_MISSING_ANSWER",
+        "severity": "REVIEW",
+        "component": "answer",
+        "page": null,
+        "bbox": null,
+        "detail": {
+          "reason": "absence not yet checked against visual source"
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 696,
+    "id": "7a6432551c163320d8dffcf38061e220a3fc983c6831eb0a4e08966db6276bc4",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "PARSER_MISSING_ANSWER",
+        "severity": "REVIEW",
+        "component": "answer",
+        "page": null,
+        "bbox": null,
+        "detail": {
+          "reason": "absence not yet checked against visual source"
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 697,
+    "id": "ee6a828b5665d113d34651f737cbb33e9b83592568b0a747410c51c1dad42bc6",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "PARSER_MISSING_ANSWER",
+        "severity": "REVIEW",
+        "component": "answer",
+        "page": null,
+        "bbox": null,
+        "detail": {
+          "reason": "absence not yet checked against visual source"
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 698,
+    "id": "d36216aa13fb4ba8a5c8a32d4000813f1d406a104280686a9d66522c0aba110b",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "PARSER_MISSING_ANSWER",
+        "severity": "REVIEW",
+        "component": "answer",
+        "page": null,
+        "bbox": null,
+        "detail": {
+          "reason": "absence not yet checked against visual source"
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 699,
+    "id": "1bf8263bfdd926c0ec930ee067c059d7deb4e6c0ee82d0fc6a1b2b38be347540",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "PARSER_MISSING_ANSWER",
+        "severity": "REVIEW",
+        "component": "answer",
+        "page": null,
+        "bbox": null,
+        "detail": {
+          "reason": "absence not yet checked against visual source"
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 712,
+    "id": "dd0106068f5e78f6263c79b277ee2d2493017ef475ae9517874183b4e212014b",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "PARSER_MISSING_ANSWER",
+        "severity": "REVIEW",
+        "component": "answer",
+        "page": null,
+        "bbox": null,
+        "detail": {
+          "reason": "absence not yet checked against visual source"
+        }
+      }
+    ]
+  },
+  {
+    "document": "matematica/area.pdf",
+    "number": 715,
+    "id": "76320f4ab970f12bb243fc711a197ba94de47225ecfb229c916537a4b9f86237",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "PARSER_MISSING_ANSWER",
+        "severity": "REVIEW",
+        "component": "answer",
+        "page": null,
+        "bbox": null,
+        "detail": {
+          "reason": "absence not yet checked against visual source"
+        }
+      }
+    ]
+  },
+  {
+    "document": "portugues/interpretacao_1.pdf",
+    "number": 181,
+    "id": "a67e31eba90af2d993a1574e4cb632b8b51d3f884eb8d08f7eb4c4d754cbb783",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "SOURCE_EMPTY_CLOSEPATH",
+        "severity": "REVIEW",
+        "component": "layout",
+        "page": 314,
+        "bbox": [
+          44.66999816894531,
+          413.47601318359375,
+          47.81999969482422,
+          416.6260070800781
+        ],
+        "detail": {}
+      },
+      {
+        "code": "SOURCE_EMPTY_CLOSEPATH",
+        "severity": "REVIEW",
+        "component": "layout",
+        "page": 314,
+        "bbox": [
+          21.0,
+          91.09300994873047,
+          460.98602294921875,
+          653.3890380859375
+        ],
+        "detail": {}
+      },
+      {
+        "code": "PDF_ENGINE_WARNING",
+        "severity": "REVIEW",
+        "component": "layout",
+        "page": 314,
+        "bbox": null,
+        "detail": {
+          "source_diagnostics": [
+            "SOURCE_EMPTY_CLOSEPATH"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "portugues/interpretacao_1.pdf",
+    "number": 182,
+    "id": "bdb6416ecea432db8a6ed2fae26d9ef680bb540249622b2311e6afc91f18ee68",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "SOURCE_EMPTY_CLOSEPATH",
+        "severity": "REVIEW",
+        "component": "layout",
+        "page": 314,
+        "bbox": [
+          21.0,
+          665.8340454101562,
+          460.8329162597656,
+          783.9730224609375
+        ],
+        "detail": {}
+      },
+      {
+        "code": "PDF_ENGINE_WARNING",
+        "severity": "REVIEW",
+        "component": "layout",
+        "page": 314,
+        "bbox": null,
+        "detail": {
+          "source_diagnostics": [
+            "SOURCE_EMPTY_CLOSEPATH"
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "document": "portugues/interpretacao_1.pdf",
+    "number": 217,
+    "id": "6b72ff1681fcfeb30ef323d5bec970f4f30ddbc3a91aa2a2a54d5fcbbe68b00c",
+    "status": "REVIEW",
+    "warnings": [
+      {
+        "code": "PARSER_MISSING_ANSWER",
+        "severity": "REVIEW",
+        "component": "answer",
+        "page": null,
+        "bbox": null,
+        "detail": {
+          "reason": "absence not yet checked against visual source"
+        }
+      }
+    ]
+  }
+]

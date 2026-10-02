@@ -54,7 +54,7 @@ export default function RedacaoDetail() {
         <p className="page-subtitle mt-1">{r.tema}</p>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 mb-6 stagger-children">
+      <div className="essay-result-grid grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-4 mb-6 stagger-children">
         <div className="rounded-lg border border-border bg-card p-3 sm:p-4">
           <p className="text-[9px] sm:text-[10px] tracking-wider text-muted-foreground uppercase">Data</p>
           <p className="text-sm sm:text-lg font-bold font-mono text-foreground mt-1">
@@ -82,7 +82,7 @@ export default function RedacaoDetail() {
         </div>
       </div>
 
-      <div className="rounded-lg border border-border bg-card p-4 sm:p-6 mb-6">
+      <div className="tac-card competency-results mb-6">
         <p className="text-[10px] sm:text-xs font-medium tracking-wider text-muted-foreground uppercase mb-4 sm:mb-5">
           Competências
         </p>
@@ -90,7 +90,7 @@ export default function RedacaoDetail() {
           {competencias.map((c) => (
             <div key={c.code}>
               <div className="flex items-center justify-between mb-1.5 gap-2">
-                <p className="text-xs sm:text-sm text-foreground truncate">
+                <p className="text-xs sm:text-sm text-foreground">
                   <span className="font-bold text-accent">{c.code}</span> — {getCompetenciaNome(c.code)}
                 </p>
                 <p className={`text-xs sm:text-sm font-bold font-mono shrink-0 ${competenciaTextColor(c.nota)}`}>

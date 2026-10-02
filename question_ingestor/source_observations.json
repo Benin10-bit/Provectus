@@ -1,0 +1,60 @@
+{
+  "document_sha256": "5c4b0a1e7c5cac9d88da8a80897e836be629c4e82f1e03416a23ebc497247909",
+  "method": "assistant visual comparison of full question and next-question boundary; no inferred answer",
+  "questions": {
+    "a785cad71a7348866a2ff74099c43327bb0c9d4c93c35062ee6ffcdebeb7a952": {
+      "code": "SOURCE_MISSING_ANSWER",
+      "pages": [
+        40,
+        40
+      ],
+      "boundary_next_page": 40,
+      "evidence": "qa/boundary66.png"
+    },
+    "182bfa334f6f4caf53fa344a7cde211fb77ec2ffa4eebbe7465a426052e4486c": {
+      "code": "SOURCE_MISSING_ANSWER",
+      "pages": [
+        61,
+        61
+      ],
+      "boundary_next_page": 61,
+      "evidence": "qa/boundary94.png"
+    },
+    "6673b26b882d934faca8535898dce024a2b10efb5a08c17bdbe381476866d354": {
+      "code": "SOURCE_MISSING_ANSWER",
+      "pages": [
+        66,
+        67
+      ],
+      "boundary_next_page": 67,
+      "evidence": "qa/boundary101.png"
+    },
+    "379f7bab5bae35019b6d761d7f1100ffb2568c308dc5fe972fd286f01a467283": {
+      "code": "SOURCE_MISSING_ANSWER",
+      "pages": [
+        70,
+        70
+      ],
+      "boundary_next_page": 71,
+      "evidence": "qa/boundary106.png"
+    },
+    "ee5180d60f33169c4d1e96b884bd38c1294804f3ed3fac0c14903fec585380a3": {
+      "code": "SOURCE_MISSING_ANSWER",
+      "pages": [
+        73,
+        74
+      ],
+      "boundary_next_page": 74,
+      "evidence": "qa/boundary111.png"
+    },
+    "febfdb330ad5a0241d6a6549a7538fa1cd0eb315ca8c3bcc7373c99275600f44": {
+      "code": "SOURCE_MISSING_ANSWER",
+      "pages": [
+        102,
+        103
+      ],
+      "boundary_next_page": 103,
+      "evidence": "qa/boundary150.png"
+    }
+  }
+}

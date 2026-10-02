@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+[project]
+name = "question-ingestor"
+version = "0.3.0"
+requires-python = ">=3.11"
+dependencies = ["PyMuPDF==1.26.6", "Pillow==12.3.0"]
+[project.optional-dependencies]
+test = ["pytest>=8"]
+postgresql = ["psycopg[binary]==3.1.18"]
+[project.scripts]
+question-ingestor = "question_ingestor.cli:main"
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+question_ingestor = ["review/*.html"]

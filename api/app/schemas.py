@@ -1,16 +1,36 @@
-from pydantic import BaseModel, Field, ConfigDict
+from pydantic import BaseModel, Field, ConfigDict, field_validator, model_validator, field_serializer
 from uuid import UUID
 from datetime import datetime
 from typing import Optional, List, Literal
+from .clock import utc_naive, utcnow, iso_utc
+from datetime import timedelta
+
+class APIModel(BaseModel):
+    @field_serializer("*", check_fields=False, when_used="json")
+    def serialize_dates(self, value):
+        return iso_utc(value) if isinstance(value, datetime) else value
+
+def validar_data(value):
+    value = utc_naive(value)
+    if value > utcnow() + timedelta(minutes=1):
+        raise ValueError("A data de estudo não pode estar no futuro.")
+    return value
+
+def validar_contagem(self):
+    if self.total_acertos > self.total_questoes:
+        raise ValueError("Acertos não podem superar o total de questões.")
+    return self
+
 
 
 # ==========================================================
 # MATERIA
 # ==========================================================
 
-class MateriaBase(BaseModel):
-    nome: str = Field(..., min_length=1)
-    peso_prova: float = Field(..., gt=0)
+class MateriaBase(APIModel):
+    model_config = ConfigDict(str_strip_whitespace=True)
+    nome: str = Field(..., min_length=1, max_length=50)
+    peso_prova: float = Field(..., gt=0, le=999.99)
 
 
 class MateriaCreate(MateriaBase):
@@ -29,9 +49,10 @@ class MateriaResponse(MateriaBase):
 # ASSUNTO
 # ==========================================================
 
-class AssuntoBase(BaseModel):
+class AssuntoBase(APIModel):
+    model_config = ConfigDict(str_strip_whitespace=True)
     materia_id: UUID
-    nome: str = Field(..., min_length=1)
+    nome: str = Field(..., min_length=1, max_length=120)
     semana_do_ciclo: int = Field(..., ge=1, le=4)
 
 
@@ -40,6 +61,8 @@ class AssuntoCreate(AssuntoBase):
 
 
 class AssuntoResponse(AssuntoBase):
+    ordem: int = 0
+    referencia: Optional[str] = None
     id: UUID
     ativo: bool
     criado_em: datetime
@@ -51,7 +74,7 @@ class AssuntoResponse(AssuntoBase):
 # SESSÃO DE ESTUDO
 # ==========================================================
 
-class SessaoEstudoBase(BaseModel):
+class SessaoEstudoBase(APIModel):
     materia_id: UUID
     assunto_id: UUID
 
@@ -65,10 +88,15 @@ class SessaoEstudoBase(BaseModel):
 
 
 class SessaoEstudoCreate(SessaoEstudoBase):
-    pass
+    _validar_data = field_validator("data")(validar_data)
 
 
 class SessaoEstudoResponse(SessaoEstudoBase):
+    minutos_liquidos: int
+    ciclo_id: Optional[UUID] = None
+    segundos_exatos: Optional[int] = None
+    atividade: Optional[str] = None
+    proximo_passo: Optional[str] = None
     id: UUID
     criado_em: datetime
 
@@ -79,7 +107,7 @@ class SessaoEstudoResponse(SessaoEstudoBase):
 # BLOCO DE QUESTÕES
 # ==========================================================
 
-class BlocoQuestoesBase(BaseModel):
+class BlocoQuestoesBase(APIModel):
     materia_id: UUID
     assunto_id: UUID
 
@@ -95,10 +123,17 @@ class BlocoQuestoesBase(BaseModel):
 
 
 class BlocoQuestoesCreate(BlocoQuestoesBase):
-    pass
+    _validar_data = field_validator("data")(validar_data)
+    _validar_contagem = model_validator(mode="after")(validar_contagem)
 
 
 class BlocoQuestoesResponse(BlocoQuestoesBase):
+    total_questoes: int
+    total_acertos: int
+    tempo_total_segundos: int
+    dificuldade: int
+    sessao_id: Optional[UUID] = None
+    ciclo_id: Optional[UUID] = None
     id: UUID
     percentual_acerto: float
     tempo_medio_por_questao: float
@@ -111,7 +146,7 @@ class BlocoQuestoesResponse(BlocoQuestoesBase):
 # ERRO DE QUESTÃO
 # ==========================================================
 
-class ErroQuestaoBase(BaseModel):
+class ErroQuestaoBase(APIModel):
     bloco_id: UUID
     tipo_erro: Literal[
         "CONCEITO",
@@ -139,7 +174,7 @@ class ErroQuestaoResponse(ErroQuestaoBase):
 # SIMULADO SEMANAL
 # ==========================================================
 
-class SimuladoSemanalBase(BaseModel):
+class SimuladoSemanalBase(APIModel):
     numero_ciclo: int = Field(..., ge=1)
     numero_semana: int = Field(..., ge=1, le=4)
 
@@ -153,10 +188,13 @@ class SimuladoSemanalBase(BaseModel):
 
 
 class SimuladoSemanalCreate(SimuladoSemanalBase):
-    pass
+    _validar_contagem = model_validator(mode="after")(validar_contagem)
 
 
 class SimuladoSemanalResponse(SimuladoSemanalBase):
+    total_questoes: int
+    total_acertos: int
+    tempo_total_segundos: int
     id: UUID
     percentual_acerto: float
     criado_em: datetime
@@ -168,7 +206,7 @@ class SimuladoSemanalResponse(SimuladoSemanalBase):
 # DESEMPENHO POR MATÉRIA NO SIMULADO
 # ==========================================================
 
-class DesempenhoSimuladoMateriaBase(BaseModel):
+class DesempenhoSimuladoMateriaBase(APIModel):
     simulado_id: UUID
     materia_id: UUID
     total_questoes: int = Field(..., ge=1)
@@ -177,7 +215,7 @@ class DesempenhoSimuladoMateriaBase(BaseModel):
 
 
 class DesempenhoSimuladoMateriaCreate(DesempenhoSimuladoMateriaBase):
-    pass
+    _validar_contagem = model_validator(mode="after")(validar_contagem)
 
 
 class DesempenhoSimuladoMateriaResponse(DesempenhoSimuladoMateriaBase):
@@ -190,7 +228,7 @@ class DesempenhoSimuladoMateriaResponse(DesempenhoSimuladoMateriaBase):
 # PROVA OFICIAL
 # ==========================================================
 
-class ProvaOficialBase(BaseModel):
+class ProvaOficialBase(APIModel):
     ano: int = Field(..., ge=2000)
     nota_total: float = Field(..., ge=0)
     tempo_total_segundos: int = Field(..., gt=0)
@@ -215,7 +253,7 @@ class ProvaOficialResponse(ProvaOficialBase):
 # DESEMPENHO POR MATÉRIA NA PROVA OFICIAL
 # ==========================================================
 
-class DesempenhoProvaMateriaBase(BaseModel):
+class DesempenhoProvaMateriaBase(APIModel):
     prova_id: UUID
     materia_id: UUID
     percentual_acerto: float = Field(..., ge=0)
@@ -236,12 +274,52 @@ class DesempenhoProvaMateriaResponse(DesempenhoProvaMateriaBase):
 # DASHBOARD
 # ==========================================================
 
-class DashboardParametros(BaseModel):
+class DashboardParametros(APIModel):
     periodo: Literal["semana", "mes", "ano", "total"] = "semana"
     materia_id: Optional[UUID] = None
 
 
-class DashboardResumo(BaseModel):
+class StudyOrientation(APIModel):
+    id: str
+    categoria: str
+    prioridade: int
+    variante: str
+    materia: str
+    assunto: str
+    motivo: str
+    acao: str
+    destino: str
+
+class CriticalTopic(APIModel):
+    assunto_id: str
+    assunto: str
+    materia_id: str
+    materia: str
+    precisao: float
+    questoes: int
+    registros: int
+    atividade: str
+    tarefa: str
+    destino: str
+
+class DashboardResumo(APIModel):
+    recomendacoes_estudo: List[str] = Field(default_factory=list)
+    orientacoes: List[StudyOrientation] = Field(default_factory=list)
+    assuntos_criticos_detalhes: List[CriticalTopic] = Field(default_factory=list)
+    criticidade_contexto: Optional[str] = None
+    status_academico: Optional[str] = None
+    variante_academica: str = 'default'
+
+    tendencia_contexto: Optional[str] = None
+    variante_missao: str = 'default'
+    contexto_meta: Optional[str] = None
+    registros_inconsistentes: int = 0
+    tem_evidencia: bool = False
+    total_acertos: int = 0
+    amostra_blocos: int = 0
+    meta_horas: Optional[float] = None
+    meta_questoes: Optional[int] = None
+    versao_metrica: str = "precisao_v2"
     horas_liquidas: float
     total_questoes: int
     percentual_medio: float
@@ -254,38 +332,19 @@ class DashboardResumo(BaseModel):
     recomendacao: List[str]
 
 
-from pydantic import BaseModel
-from uuid import UUID
-
-
-class MateriaResponse(BaseModel):
-    id: UUID
-    nome: str
-
-    class Config:
-        from_attributes = True
-
-
-class AssuntoResponse(BaseModel):
-    id: UUID
-    nome: str
-    materia_id: UUID
-
-    class Config:
-        from_attributes = True
-
 
 # ==========================================================
 # REDAÇÃO
 # ==========================================================
 
-class RedacaoRequest(BaseModel):
+class RedacaoRequest(APIModel):
+    model_config = ConfigDict(str_strip_whitespace=True)
 
-    tema: str = Field(..., max_length=300)
+    tema: str = Field(..., min_length=1, max_length=300)
 
-    eixo_tematico: Optional[str] = None
+    eixo_tematico: Optional[str] = Field(None, max_length=100)
 
-    tempo_escrita_min: Optional[int] = None
+    tempo_escrita_min: Optional[int] = Field(None, gt=0)
 
     observacoes: Optional[str] = None
 
@@ -298,7 +357,7 @@ class RedacaoRequest(BaseModel):
     competencia5: int = Field(..., ge=0, le=200)
 
 
-class RedacaoResponse(BaseModel):
+class RedacaoResponse(APIModel):
 
     id: UUID
 
@@ -340,7 +399,7 @@ class RedacaoResponse(BaseModel):
 # RELATÓRIO MENSAL COMPLETO
 # ==========================================================
 
-class PeriodoAnalise(BaseModel):
+class PeriodoAnalise(APIModel):
     """Define o período de análise do relatório."""
     mes_referencia: int = Field(..., ge=1, le=12)
     ano_referencia: int = Field(..., ge=2000, le=2100)
@@ -350,7 +409,7 @@ class PeriodoAnalise(BaseModel):
     dias_estudados: int
 
 
-class ResumoGeralRelatorio(BaseModel):
+class ResumoGeralRelatorio(APIModel):
     """Métricas consolidadas de alto nível do mês."""
     horas_totais: float
     total_sessoes: int
@@ -366,7 +425,7 @@ class ResumoGeralRelatorio(BaseModel):
     percentual_dias_estudados: float
 
 
-class SessaoPorTipo(BaseModel):
+class SessaoPorTipo(APIModel):
     """Distribuição de sessões por tipo."""
     tipo_sessao: str
     quantidade: int
@@ -376,7 +435,7 @@ class SessaoPorTipo(BaseModel):
     media_energia: Optional[float]
 
 
-class SessaoPorMateria(BaseModel):
+class SessaoPorMateria(APIModel):
     """Desempenho de sessões por matéria."""
     materia_id: UUID
     materia_nome: str
@@ -387,7 +446,7 @@ class SessaoPorMateria(BaseModel):
     media_energia: Optional[float]
 
 
-class BlocoPorMateria(BaseModel):
+class BlocoPorMateria(APIModel):
     """Desempenho de blocos de questões por matéria."""
     materia_id: UUID
     materia_nome: str
@@ -399,7 +458,7 @@ class BlocoPorMateria(BaseModel):
     ipr_medio: float
 
 
-class BlocoPorAssunto(BaseModel):
+class BlocoPorAssunto(APIModel):
     """Desempenho de blocos por assunto específico."""
     assunto_id: UUID
     assunto_nome: str
@@ -414,7 +473,7 @@ class BlocoPorAssunto(BaseModel):
     status: str
 
 
-class BlocoPorDificuldade(BaseModel):
+class BlocoPorDificuldade(APIModel):
     """Distribuição de blocos por nível de dificuldade."""
     dificuldade: int
     total_blocos: int
@@ -424,7 +483,7 @@ class BlocoPorDificuldade(BaseModel):
     ipr_medio: float
 
 
-class ErroPorTipo(BaseModel):
+class ErroPorTipo(APIModel):
     """Estatísticas de erros categorizados por tipo."""
     tipo_erro: str
     total_ocorrencias: int
@@ -432,7 +491,7 @@ class ErroPorTipo(BaseModel):
     blocos_afetados: int
 
 
-class AnaliseErros(BaseModel):
+class AnaliseErros(APIModel):
     """Análise completa de padrões de erro do mês."""
     total_erros: int
     tipos_mais_comuns: List[ErroPorTipo]
@@ -442,7 +501,7 @@ class AnaliseErros(BaseModel):
     tendencia_erro: str
 
 
-class SimuladoMensalDetalhe(BaseModel):
+class SimuladoMensalDetalhe(APIModel):
     """Detalhamento de cada simulado semanal do mês."""
     simulado_id: UUID
     numero_ciclo: int
@@ -459,7 +518,7 @@ class SimuladoMensalDetalhe(BaseModel):
     desempenhos: List[dict]
 
 
-class MediaEstadoMental(BaseModel):
+class MediaEstadoMental(APIModel):
     """Médias de indicadores de estado mental e bem-estar."""
     nivel_ansiedade_medio: Optional[float]
     nivel_fadiga_medio: Optional[float]
@@ -469,7 +528,7 @@ class MediaEstadoMental(BaseModel):
     nivel_confianca_medio: Optional[float]
 
 
-class ProvaOficialMensal(BaseModel):
+class ProvaOficialMensal(APIModel):
     """Prova oficial realizada no mês."""
     prova_id: UUID
     ano: int
@@ -482,7 +541,7 @@ class ProvaOficialMensal(BaseModel):
     desempenhos: List[dict]
 
 
-class RedacaoMensal(BaseModel):
+class RedacaoMensal(APIModel):
     """Redação realizada no mês."""
     redacao_id: UUID
     tema: str
@@ -499,7 +558,7 @@ class RedacaoMensal(BaseModel):
     competencia_mais_fraca: int
 
 
-class EstatisticasRedacaoMensal(BaseModel):
+class EstatisticasRedacaoMensal(APIModel):
     """Consolidado de redações do mês."""
     total_redacoes: int
     nota_media: float
@@ -515,7 +574,7 @@ class EstatisticasRedacaoMensal(BaseModel):
     evolucao_nota: List[dict]
 
 
-class ComparativoMensal(BaseModel):
+class ComparativoMensal(APIModel):
     """Comparação do mês atual vs mês anterior."""
     mes_atual: str
     mes_anterior: str
@@ -533,7 +592,7 @@ class ComparativoMensal(BaseModel):
     comparativo_qualidade: str
 
 
-class ProjecaoFechamento(BaseModel):
+class ProjecaoFechamento(APIModel):
     """Projeção do fechamento do mês baseado na média diária."""
     media_horas_diaria: float
     media_questoes_diaria: float
@@ -547,7 +606,7 @@ class ProjecaoFechamento(BaseModel):
     questoes_necessarias_por_dia: float
 
 
-class ScoreConsistencia(BaseModel):
+class ScoreConsistencia(APIModel):
     """Score de consistência e regularidade."""
     score: float
     classificacao: str
@@ -558,7 +617,7 @@ class ScoreConsistencia(BaseModel):
     variacao_diaria_questoes: float
 
 
-class DiaDestaque(BaseModel):
+class DiaDestaque(APIModel):
     """Melhor ou pior dia do mês."""
     data: datetime
     dia_semana: str
@@ -569,7 +628,7 @@ class DiaDestaque(BaseModel):
     motivo: str
 
 
-class CorrelacaoFocoPerformance(BaseModel):
+class CorrelacaoFocoPerformance(APIModel):
     """Análise de correlação entre foco/energia e desempenho."""
     correlacao_foco_ipr: Optional[float]
     correlacao_energia_ipr: Optional[float]
@@ -579,7 +638,7 @@ class CorrelacaoFocoPerformance(BaseModel):
     pior_combinacao_estado: str
 
 
-class BalanceamentoMaterias(BaseModel):
+class BalanceamentoMaterias(APIModel):
     """Análise de balanceamento entre matérias."""
     materia_id: UUID
     materia_nome: str
@@ -592,7 +651,7 @@ class BalanceamentoMaterias(BaseModel):
     status: str
 
 
-class RecomendacaoMensal(BaseModel):
+class RecomendacaoMensal(APIModel):
     """Recomendações estratégicas baseadas no mês."""
     categoria: str
     prioridade: str
@@ -600,7 +659,7 @@ class RecomendacaoMensal(BaseModel):
     acao_sugerida: str
 
 
-class RelatorioMensalCompleto(BaseModel):
+class RelatorioMensalCompleto(APIModel):
     """
     Relatório mensal completo de performance acadêmica.
 
@@ -633,3 +692,25 @@ class RelatorioMensalCompleto(BaseModel):
     correlacoes: CorrelacaoFocoPerformance
     balanceamento: List[BalanceamentoMaterias]
     recomendacoes: List[RecomendacaoMensal]
+
+
+class RelatorioMensalAPI(APIModel):
+    gerado_em: datetime
+    versao_metrica: str
+    periodo: dict
+    resumo_geral: dict
+    sessoes: dict
+    blocos: dict
+    erros: dict
+    simulados: list[dict]
+    provas_oficiais: list[dict]
+    redacoes: dict
+    estado_mental: dict
+    comparativo_mes_anterior: dict
+    projecao_fechamento: dict
+    consistencia: dict
+    melhor_dia: Optional[dict]
+    pior_dia: Optional[dict]
+    correlacoes: dict
+    balanceamento_materias: list[dict]
+    recomendacoes_estrategicas: list[dict]

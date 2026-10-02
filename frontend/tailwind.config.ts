@@ -14,9 +14,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        heading: ["Rajdhani", "sans-serif"],
-        body: ["Rajdhani", "sans-serif"],
-        mono: ["JetBrains Mono", "monospace"],
+        heading: ["Space Grotesk", "Inter", "Segoe UI", "sans-serif"],
+        body: ["DM Sans", "Inter", "Segoe UI", "sans-serif"],
+        mono: ["JetBrains Mono", "SFMono-Regular", "Consolas", "monospace"],
       },
       colors: {
         border: "hsl(var(--border))",

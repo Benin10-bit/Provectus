@@ -1,0 +1,51 @@
+# Additive override for the existing Provectus docker-compose.yml.
+# Invoke with: docker compose -f docker-compose.yml -f docker-compose.ingestion.yml ...
+services:
+  question_ingestor:
+    profiles: [ingestion]
+    image: provectus-question-ingestor:0.3.0
+    build:
+      context: ./question_ingestor
+    restart: "no"
+    init: true
+    user: "${HOST_UID:-1000}:${HOST_GID:-1000}"
+    environment:
+      HOME: /tmp
+      PYTHONDONTWRITEBYTECODE: "1"
+    volumes:
+      - type: bind
+        source: ${QUESTION_PDF_ROOT:?Defina QUESTION_PDF_ROOT com o caminho absoluto dos PDFs}
+        target: /data/pdfs
+        read_only: true
+        bind:
+          create_host_path: false
+      - type: bind
+        source: ${QUESTION_STAGING_ROOT:?Defina QUESTION_STAGING_ROOT com o caminho absoluto do staging existente}
+        target: /data/staging
+        bind:
+          create_host_path: false
+    # No PostgreSQL dependency: containerization does not perform import.
+
+  question_importer:
+    profiles: [import]
+    image: provectus-question-ingestor:0.3.0
+    restart: "no"
+    init: true
+    user: "${HOST_UID:-1000}:${HOST_GID:-1000}"
+    environment:
+      HOME: /tmp
+      PYTHONDONTWRITEBYTECODE: "1"
+      DB_HOST: db
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+    depends_on:
+      db:
+        condition: service_healthy
+    volumes:
+      - type: bind
+        source: ${QUESTION_STAGING_ROOT:?Defina QUESTION_STAGING_ROOT com o caminho absoluto do staging existente}
+        target: /data/staging
+        read_only: true
+        bind:
+          create_host_path: false

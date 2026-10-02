@@ -14,11 +14,11 @@ function Caret() {
 }
 
 export function MateriaSelect({ value, onChange, className = "form-select" }: MateriaSelectProps) {
-  const { data: materias, isLoading } = useMaterias();
+  const { data: materias, isLoading, isError } = useMaterias();
 
   return (
     <div className="relative">
-      <select
+      <select aria-label="Matéria"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         className={`${className} pr-9`}
@@ -30,6 +30,7 @@ export function MateriaSelect({ value, onChange, className = "form-select" }: Ma
         ))}
       </select>
       <Caret />
+      {isError && <p role="alert" className="text-xs text-critical mt-1">Falha ao carregar opções. Recarregue a página.</p>}
     </div>
   );
 }
@@ -42,11 +43,11 @@ interface AssuntoSelectProps {
 }
 
 export function AssuntoSelect({ materiaId, value, onChange, className = "form-select" }: AssuntoSelectProps) {
-  const { data: assuntos, isLoading } = useAssuntosPorMateria(materiaId || undefined);
+  const { data: assuntos, isLoading, isError } = useAssuntosPorMateria(materiaId || undefined);
 
   return (
     <div className="relative">
-      <select
+      <select aria-label="Assunto"
         value={value}
         onChange={(e) => onChange(e.target.value)}
         className={`${className} pr-9`}
@@ -58,6 +59,7 @@ export function AssuntoSelect({ materiaId, value, onChange, className = "form-se
         ))}
       </select>
       <Caret />
+      {isError && <p role="alert" className="text-xs text-critical mt-1">Falha ao carregar opções. Recarregue a página.</p>}
     </div>
   );
 }

@@ -1,0 +1,110 @@
+{
+  "job_id": "df5fcb84134e4226bb0dcfd1184598c7",
+  "documents_discovered": 4,
+  "run_states": {
+    "DONE": 2
+  },
+  "documents_done": 2,
+  "documents_failed": 0,
+  "documents_skipped": 0,
+  "documents_unsupported_unexpected": 0,
+  "pages": 369,
+  "questions_found": 586,
+  "questions_ok": 549,
+  "questions_review": 37,
+  "questions_error": 0,
+  "answers_found": 569,
+  "multipage_questions": 324,
+  "questions_with_images": 317,
+  "missing_answers": 17,
+  "warnings_by_type": {
+    "VISUAL_BLOCK_CAPTURED": 603,
+    "VISUAL_CONTINUATION_PAGE": 1,
+    "GRAPHICAL_ALTERNATIVE": 297,
+    "UNRESOLVED_INVALID_GLYPH": 119,
+    "INLINE_VISUAL_CAPTURED": 121,
+    "PARSER_MISSING_ANSWER": 17,
+    "SOURCE_OVERLAP_RECOVERED": 2,
+    "EMPTY_GRAPHICAL_ALTERNATIVE": 1
+  },
+  "by_materia": {
+    "fisica": 490,
+    "historia": 96
+  },
+  "by_content_path": {
+    "[\"fisica\", \"hidroestatica\"]": 490,
+    "[\"historia\", \"primeiro_reinado\"]": 96
+  },
+  "by_bank": {
+    "EEAr": 15,
+    "EFOMM": 66,
+    "AFA": 58,
+    "EsPCEx": 46,
+    "EAM": 29,
+    "EN": 45,
+    "CBMERJ": 7,
+    "IDOMED": 7,
+    "CFS - Demais especialidades": 86,
+    "UERJ": 22,
+    "FAMEMA": 3,
+    "UECE": 32,
+    "FUVEST": 12,
+    "IME": 18,
+    "ITA": 51,
+    "CN": 18,
+    "FAMERP": 5,
+    "UNIVASSOURAS": 11,
+    "APMBB": 4,
+    "SD-PMSP": 1,
+    "ESA": 11,
+    "Especiais": 38,
+    "Soldado da PM-AL": 1
+  },
+  "by_difficulty": {
+    "MEDIA": 179,
+    "DIFICIL": 130,
+    "FACIL": 245,
+    "MUITO_DIFICIL": 32
+  },
+  "elapsed_seconds": 12.667,
+  "average_successful_processing_seconds": 29.533,
+  "problems": {
+    "FAILED_DOCUMENTS": [],
+    "UNEXPECTED_LAYOUT": [],
+    "DOCUMENTS_WITH_REVIEW": [
+      {
+        "sha256": "8821b924ebd7e9086f9969658e357522ff08e6b4dd9d3066d7a815feef6d746e",
+        "relative_path": "fisica/hidroestatica/hidroestatica.pdf",
+        "error_code": null,
+        "report": "documents/8821b924ebd7e9086f9969658e357522ff08e6b4dd9d3066d7a815feef6d746e/report.md",
+        "audit": "documents/8821b924ebd7e9086f9969658e357522ff08e6b4dd9d3066d7a815feef6d746e/audit.html",
+        "count": 37
+      }
+    ],
+    "DOCUMENTS_WITH_ERROR": [],
+    "MISSING_ANSWER": [
+      {
+        "sha256": "8821b924ebd7e9086f9969658e357522ff08e6b4dd9d3066d7a815feef6d746e",
+        "relative_path": "fisica/hidroestatica/hidroestatica.pdf",
+        "error_code": null,
+        "report": "documents/8821b924ebd7e9086f9969658e357522ff08e6b4dd9d3066d7a815feef6d746e/report.md",
+        "audit": "documents/8821b924ebd7e9086f9969658e357522ff08e6b4dd9d3066d7a815feef6d746e/audit.html",
+        "count": 17
+      }
+    ],
+    "SOURCE_DEFECTS": [
+      {
+        "sha256": "8821b924ebd7e9086f9969658e357522ff08e6b4dd9d3066d7a815feef6d746e",
+        "relative_path": "fisica/hidroestatica/hidroestatica.pdf",
+        "error_code": null,
+        "report": "documents/8821b924ebd7e9086f9969658e357522ff08e6b4dd9d3066d7a815feef6d746e/report.md",
+        "audit": "documents/8821b924ebd7e9086f9969658e357522ff08e6b4dd9d3066d7a815feef6d746e/audit.html",
+        "warnings": {
+          "UNRESOLVED_INVALID_GLYPH": 119
+        }
+      }
+    ]
+  },
+  "scope": "counts include all DONE documents in this staging; run_states describe this invocation",
+  "interrupted": false
+}

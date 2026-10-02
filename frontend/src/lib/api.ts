@@ -26,25 +26,26 @@ import type {
 
 export const USE_MOCKS = false;
 
-const API_BASE = import.meta.env.VITE_API_URL || "";
+const API_BASE = import.meta.env.VITE_API_URL || "/api";
 
 // Latência simulada para que loading states apareçam.
 function mockResponse<T>(data: T, ms = 250): Promise<T> {
     return new Promise(resolve => setTimeout(() => resolve(data), ms));
 }
 
-async function request<T>(path: string, options?: RequestInit): Promise<T> {
+export async function request<T>(path: string, options?: RequestInit): Promise<T> {
     const res = await fetch(`${API_BASE}${path}`, {
         headers: { "Content-Type": "application/json" },
         ...options,
     });
     const contentType = res.headers.get("content-type") || "";
-    if (!contentType.includes("application/json")) {
-        throw new Error("API indisponível — resposta não é JSON. Verifique VITE_API_URL.");
-    }
     if (!res.ok) {
         const err = await res.json().catch(() => ({}));
-        throw new Error(err.detail?.[0]?.msg || `Erro ${res.status}`);
+        throw new Error(typeof err.detail === "string" ? err.detail : err.detail?.[0]?.msg || `Erro ${res.status}`);
+    }
+    if (res.status === 204) return undefined as T;
+    if (!contentType.includes("application/json")) {
+        throw new Error("API indisponível — resposta não é JSON. Verifique VITE_API_URL.");
     }
     return res.json();
 }
@@ -82,20 +83,7 @@ export async function fetchDashboard(periodo: Periodo, materiaId?: string): Prom
 
 export async function fetchMateriasPerformance(periodo: Periodo): Promise<MateriaPerformance[]> {
     if (USE_MOCKS) return mockResponse(mockMateriasPerformance(periodo));
-    const materias = await fetchMaterias();
-    const performances = await Promise.all(
-        materias.map(async materia => {
-            const dash = await fetchDashboard(periodo, materia.id);
-            return {
-                materia,
-                ipr: dash.ipr_geral,
-                total_questoes: dash.total_questoes,
-                total_acertos: Math.round(dash.total_questoes * (dash.percentual_medio / 100)),
-                horas_estudo: dash.horas_liquidas,
-            };
-        }),
-    );
-    return performances;
+    return request(`/api/v1/estudos/materias-performance?periodo=${periodo}`);
 }
 
 export async function fetchAnalytics(periodo: Periodo, materiaId?: string): Promise<Record<string, unknown>> {

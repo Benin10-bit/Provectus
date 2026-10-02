@@ -43,9 +43,11 @@ export function useCreateSessao(onSuccess?: () => void) {
         onSuccess: () => {
             toast.success("Sessão registrada com sucesso!", { description: "Dashboard atualizado." });
             qc.invalidateQueries({ queryKey: ["performance"] });
+            qc.invalidateQueries({ queryKey: ["relatorio-mensal"] });
+            qc.invalidateQueries({ queryKey: ["estudos"] });
             onSuccess?.();
         },
-        onError: () => toast.error("Erro ao registrar sessão."),
+        onError: (e: Error) => toast.error(e.message),
     });
 }
 
@@ -64,12 +66,14 @@ export function useCreateBloco(onSuccess?: (pct: number) => void) {
         onSuccess: data => {
             const critico = data.percentual_acerto < 70;
             toast.success(`Bloco registrado: ${data.percentual_acerto}%`, {
-                description: critico ? "⚠️ ASSUNTO CRÍTICO — IPR abaixo de 70%" : "Performance operacional.",
+                description: "Confira a amostra e os erros antes de concluir sobre o assunto.",
             });
             qc.invalidateQueries({ queryKey: ["performance"] });
+            qc.invalidateQueries({ queryKey: ["relatorio-mensal"] });
+            qc.invalidateQueries({ queryKey: ["estudos"] });
             onSuccess?.(data.percentual_acerto);
         },
-        onError: () => toast.error("Erro ao registrar bloco."),
+        onError: (e: Error) => toast.error(e.message),
     });
 }
 
@@ -88,8 +92,10 @@ export function useCreateSimulado(onSuccess?: (pct: number) => void) {
         onSuccess: data => {
             toast.success(`Simulado registrado: ${data.percentual_acerto}%`);
             qc.invalidateQueries({ queryKey: ["performance"] });
+            qc.invalidateQueries({ queryKey: ["relatorio-mensal"] });
+            qc.invalidateQueries({ queryKey: ["estudos"] });
             onSuccess?.(data.percentual_acerto);
         },
-        onError: () => toast.error("Erro ao registrar simulado."),
+        onError: (e: Error) => toast.error(e.message),
     });
 }

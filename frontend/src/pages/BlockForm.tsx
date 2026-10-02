@@ -1,3 +1,5 @@
+import FieldGroup from "@/components/experience/FieldGroup";
+import { FormSection } from "@/components/experience/StudyUI";
 import { useState } from "react";
 import { toast } from "sonner";
 import AppLayout from "@/components/layout/AppLayout";
@@ -14,6 +16,7 @@ export default function BlockPage() {
   const [totalQ, setTotalQ] = useState("");
   const [totalA, setTotalA] = useState("");
   const [tempo, setTempo] = useState("");
+  const [confiancaSet, setConfiancaSet] = useState(false);
   const [confianca, setConfianca] = useState(3);
   const [resultado, setResultado] = useState<{ pct: number; critico: boolean } | null>(null);
 
@@ -21,6 +24,7 @@ export default function BlockPage() {
   const { data: blocos, isLoading: loadingBlocos } = useBlocos();
 
   const resetForm = () => {
+    setConfiancaSet(false);
     setMateriaId(""); setAssuntoId(""); setTotalQ(""); setTotalA(""); setTempo(""); setDificuldade(3); setConfianca(3);
   };
 
@@ -47,7 +51,7 @@ export default function BlockPage() {
       total_questoes: tq,
       total_acertos: ta,
       tempo_total_segundos: parseInt(tempo) * 60,
-      nivel_confianca_medio: confianca,
+      nivel_confianca_medio: confiancaSet ? confianca : null,
     };
     mutation.mutate(data);
   };
@@ -56,31 +60,36 @@ export default function BlockPage() {
 
   return (
     <AppLayout>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+      <div className="record-workspace grid grid-cols-1 xl:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] gap-6 lg:gap-8">
         <div>
           <div className="page-header">
             <h1 className="page-title">Bloco de Questões</h1>
-            <p className="page-subtitle">Controle seu volume e precisão por assunto.</p>
+            
           </div>
 
           {resultado && (
-            <div className={`mb-6 p-4 rounded-lg border transition-all duration-300 ${resultado.critico ? "border-critical/40 bg-critical/10" : "border-success/40 bg-success/10"}`}>
+            <div role="status" className={`saved-result mb-6 p-4 rounded-lg border transition-all duration-300 ${resultado.critico ? "border-critical/40 bg-critical/10" : "border-success/40 bg-success/10"}`}>
               <p className={`text-lg font-bold font-mono ${resultado.critico ? "text-critical" : "text-success"}`}>
                 {resultado.pct}% de acerto
               </p>
               <p className="text-xs text-muted-foreground">
-                {resultado.critico ? "Assunto marcado como CRÍTICO" : "Performance dentro do esperado"}
+                {resultado.critico ? "Confira os erros deste bloco; a amostra isolada não define domínio" : "Resultado registrado; continue acompanhando a amostra"}
               </p>
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+          <form onSubmit={handleSubmit} className="record-form guided-form" aria-busy={mutation.isPending}>
+<FormSection number="01" title="Conteúdo praticado" description="Identifique a matéria e o assunto." complete={Boolean(materiaId && assuntoId)}>
+
             <FieldGroup label="Matéria">
               <MateriaSelect value={materiaId} onChange={(v) => { setMateriaId(v); setAssuntoId(""); }} />
             </FieldGroup>
             <FieldGroup label="Assunto">
               <AssuntoSelect materiaId={materiaId} value={assuntoId} onChange={setAssuntoId} />
             </FieldGroup>
+
+</FormSection>
+<FormSection number="02" title="Resultado do bloco" description="Dificuldade, acertos e tempo da prática." complete={Boolean(totalQ && totalA && tempo)}>
             <FieldGroup label={`Dificuldade: ${dificuldade}`}>
               <input type="range" min={1} max={5} value={dificuldade} onChange={(e) => setDificuldade(+e.target.value)} className="w-full accent-accent" />
             </FieldGroup>
@@ -95,14 +104,19 @@ export default function BlockPage() {
             <FieldGroup label="Tempo Total (minutos)">
               <input type="number" min={1} value={tempo} onChange={(e) => setTempo(e.target.value)} className="form-input" placeholder="Ex: 30" />
             </FieldGroup>
-            <FieldGroup label={`Confiança Média: ${confianca}`}>
-              <input type="range" min={1} max={5} value={confianca} onChange={(e) => setConfianca(+e.target.value)} className="w-full accent-accent" />
+
+</FormSection>
+<FormSection number="03" title="Sua percepção" description="A confiança é opcional." complete={confiancaSet}>
+            <FieldGroup label={`Confiança Média: ${confiancaSet ? confianca : "não informado (opcional)"}`}>
+              <input type="range" min={1} max={5} value={confianca} onChange={(e) => {setConfiancaSet(true); setConfianca(+e.target.value);}} className="w-full accent-accent" />
             </FieldGroup>
-            <button type="submit" disabled={mutation.isPending}
+
+</FormSection>
+<div className="form-submit-zone"><p>Confira os dados antes de registrar.</p>            <button type="submit" disabled={mutation.isPending}
               className="btn-tactical">
               {mutation.isPending ? "Registrando..." : "Registrar Bloco"}
             </button>
-          </form>
+          </div></form>
         </div>
 
         <div>
@@ -133,11 +147,3 @@ export default function BlockPage() {
   );
 }
 
-function FieldGroup({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <div>
-      <label className="block text-[10px] sm:text-xs font-medium tracking-wider text-muted-foreground uppercase mb-1.5">{label}</label>
-      {children}
-    </div>
-  );
-}

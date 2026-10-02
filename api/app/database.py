@@ -1,28 +1,21 @@
-from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
 import os
+from sqlalchemy import create_engine
+from sqlalchemy.engine import URL
+from sqlalchemy.orm import declarative_base, sessionmaker
 
-
-# Agora a URL será montada corretamente para o ambiente Docker
-SQLALCHEMY_DATABASE_URL = os.getenv(
-    "DATABASE_URL", 
-    "postgresql+psycopg://provectususer:1992@localhost:5432/provectusdb"
-)
-
-# 2. Criação do Engine
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
-
-# 3. Configuração da Sessão
+# URL.create escapes passwords correctly; DATABASE_URL remains supported locally.
+url = os.getenv("DATABASE_URL")
+if not url:
+    required = ("DB_USER", "DB_PASSWORD", "DB_NAME")
+    if any(not os.getenv(k) for k in required):
+        raise RuntimeError("Configure DATABASE_URL ou DB_USER, DB_PASSWORD e DB_NAME.")
+    url = URL.create("postgresql+psycopg", username=os.environ["DB_USER"],
+        password=os.environ["DB_PASSWORD"], host=os.getenv("DB_HOST", "db"),
+        port=int(os.getenv("DB_PORT", "5432")), database=os.environ["DB_NAME"])
+engine = create_engine(url, pool_pre_ping=True)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-# 4. Base para os Models
 Base = declarative_base()
 
-# Dependência para as rotas
 def get_db():
-    db = SessionLocal()
-    try:
+    with SessionLocal() as db:
         yield db
-    finally:
-        db.close()

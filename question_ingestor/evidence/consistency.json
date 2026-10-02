@@ -1,0 +1,48 @@
+{
+  "counts": {
+    "documents": 4,
+    "questions": 1952,
+    "assets": 5847,
+    "warnings": 3821,
+    "question_assets": 6394
+  },
+  "integrity": "ok",
+  "foreign_key_errors": [],
+  "longest": {
+    "document": "portugues/interpretacao_1.pdf",
+    "question": 220,
+    "id": "f355a0d30e12c4e0b0ed33933c81d905cfc8ae092421515d373ae0fb0ae0c36f",
+    "chars": 12675,
+    "status": "OK",
+    "pages": [
+      378,
+      385
+    ]
+  },
+  "documents": [
+    {
+      "sha256": "8821b924ebd7e9086f9969658e357522ff08e6b4dd9d3066d7a815feef6d746e",
+      "path": "fisica/hidroestatica/hidroestatica.pdf",
+      "questions": 490,
+      "sqlite_jsonl_equal": true
+    },
+    {
+      "sha256": "4121f9678bf5eee44684c5016c556ef5c3e9416e8d940c52aca630f70f4ddadb",
+      "path": "historia/primeiro_reinado.pdf",
+      "questions": 96,
+      "sqlite_jsonl_equal": true
+    },
+    {
+      "sha256": "cb1dcc40ff3353b4c1c48bb8e57c63dae83f7624aa4a4e36acef8788cf4f4b55",
+      "path": "matematica/area.pdf",
+      "questions": 779,
+      "sqlite_jsonl_equal": true
+    },
+    {
+      "sha256": "000c06869f7966759b5f4aff029adc2b78429646d06c9b9b71ad145bc042bb13",
+      "path": "portugues/interpretacao_1.pdf",
+      "questions": 587,
+      "sqlite_jsonl_equal": true
+    }
+  ]
+}

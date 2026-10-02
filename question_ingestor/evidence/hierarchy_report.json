@@ -1,0 +1,55 @@
+{
+  "root": "/workspace/scratch/a1e46f202537/work/batch_input/PDFs",
+  "documents_found": 4,
+  "documents_selected": 4,
+  "files": [
+    {
+      "relative_path": "fisica/hidroestatica/hidroestatica.pdf",
+      "filename": "hidroestatica.pdf",
+      "file_stem": "hidroestatica",
+      "materia": "fisica",
+      "content_path": [
+        "hidroestatica"
+      ],
+      "generic_filename": false,
+      "hierarchy_warnings": [],
+      "hierarchy_status": "OK"
+    },
+    {
+      "relative_path": "historia/primeiro_reinado.pdf",
+      "filename": "primeiro_reinado.pdf",
+      "file_stem": "primeiro_reinado",
+      "materia": "historia",
+      "content_path": [
+        "primeiro_reinado"
+      ],
+      "generic_filename": false,
+      "hierarchy_warnings": [],
+      "hierarchy_status": "OK"
+    },
+    {
+      "relative_path": "matematica/area.pdf",
+      "filename": "area.pdf",
+      "file_stem": "area",
+      "materia": "matematica",
+      "content_path": [
+        "area"
+      ],
+      "generic_filename": false,
+      "hierarchy_warnings": [],
+      "hierarchy_status": "OK"
+    },
+    {
+      "relative_path": "portugues/interpretacao_1.pdf",
+      "filename": "interpretacao_1.pdf",
+      "file_stem": "interpretacao_1",
+      "materia": "portugues",
+      "content_path": [
+        "interpretacao_1"
+      ],
+      "generic_filename": false,
+      "hierarchy_warnings": [],
+      "hierarchy_status": "OK"
+    }
+  ]
+}

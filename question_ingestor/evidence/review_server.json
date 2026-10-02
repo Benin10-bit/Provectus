@@ -1,0 +1,17 @@
+{
+  "documents": 4,
+  "pagination": true,
+  "filters": {
+    "REVIEW": 85,
+    "ERROR": 0,
+    "MISSING_ANSWER": 33,
+    "GLYPH": 52,
+    "OVERLAP": 1,
+    "FORMULA": 0
+  },
+  "rich_content": true,
+  "original_asset_http": true,
+  "automatic_unchanged": true,
+  "edit_approve_revert": true,
+  "history_actions": 3
+}

@@ -158,10 +158,7 @@ export default function ListaRevisaoPage() {
           ▸ Radar de conteúdos estudados
         </p>
         <h1 className="page-title">Lista de Revisão</h1>
-        <p className="page-subtitle">
-          Todos os assuntos que você já estudou, ordenados por urgência de revisão.
-          Qualquer bloco de questões ou sessão de estudo reinicia a contagem daquele assunto.
-        </p>
+        
       </div>
 
       {isLoading ? (

@@ -1,0 +1,15 @@
+.venv
+__pycache__
+*.pyc
+.pytest_cache
+.git
+evidence
+tests
+data
+storage
+documents
+*.pdf
+*.zip
+*.db
+*.db-wal
+*.db-shm

@@ -1,3 +1,5 @@
+import FieldGroup from "@/components/experience/FieldGroup";
+import { FormSection } from "@/components/experience/StudyUI";
 import { useState } from "react";
 import { toast } from "sonner";
 import AppLayout from "@/components/layout/AppLayout";
@@ -12,13 +14,17 @@ export default function SessionPage() {
   const [assuntoId, setAssuntoId] = useState("");
   const [tipo, setTipo] = useState<"TEORIA" | "REVISAO">("TEORIA");
   const [minutos, setMinutos] = useState("");
+  const [focoSet, setFocoSet] = useState(false);
   const [foco, setFoco] = useState(3);
+  const [energiaSet, setEnergiaSet] = useState(false);
   const [energia, setEnergia] = useState(3);
 
   const { data: materias } = useMaterias();
   const { data: sessoes, isLoading: loadingSessoes } = useSessoes();
 
   const resetForm = () => {
+    setEnergiaSet(false);
+    setFocoSet(false);
     setMateriaId(""); setAssuntoId(""); setMinutos(""); setFoco(3); setEnergia(3);
   };
 
@@ -35,8 +41,8 @@ export default function SessionPage() {
       assunto_id: assuntoId,
       tipo_sessao: tipo,
       minutos_liquidos: parseInt(minutos),
-      nivel_foco: foco,
-      nivel_energia: energia,
+      nivel_foco: focoSet ? foco : null,
+      nivel_energia: energiaSet ? energia : null,
     };
     mutation.mutate(data);
   };
@@ -45,15 +51,17 @@ export default function SessionPage() {
 
   return (
     <AppLayout>
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+      <div className="record-workspace grid grid-cols-1 xl:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] gap-6 lg:gap-8">
         {/* Formulário */}
         <div>
           <div className="page-header">
             <h1 className="page-title">Sessão de Estudo</h1>
-            <p className="page-subtitle">Registre cada sessão para monitoramento estratégico.</p>
+            
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-5">
+          <form onSubmit={handleSubmit} className="record-form guided-form" aria-busy={mutation.isPending}>
+<FormSection number="01" title="Conteúdo estudado" description="Escolha a matéria e o assunto da sessão." complete={Boolean(materiaId && assuntoId)}>
+
             <FieldGroup label="Matéria">
               <MateriaSelect value={materiaId} onChange={(v) => { setMateriaId(v); setAssuntoId(""); }} />
             </FieldGroup>
@@ -62,12 +70,16 @@ export default function SessionPage() {
               <AssuntoSelect materiaId={materiaId} value={assuntoId} onChange={setAssuntoId} />
             </FieldGroup>
 
+
+</FormSection>
+<FormSection number="02" title="Atividade e duração" description="Registre apenas o tempo líquido." complete={Boolean(minutos)}>
             <FieldGroup label="Tipo de Sessão">
               <div className="flex gap-2">
                 {(["TEORIA", "REVISAO"] as const).map((t) => (
                   <button
                     key={t}
                     type="button"
+                    aria-pressed={tipo === t}
                     onClick={() => setTipo(t)}
                     className={`flex-1 sm:flex-none px-4 py-2.5 rounded-lg text-xs font-medium border transition-all duration-200 ${
                       tipo === t
@@ -85,23 +97,28 @@ export default function SessionPage() {
               <input type="number" min={1} value={minutos} onChange={(e) => setMinutos(e.target.value)} className="form-input" placeholder="Ex: 45" />
             </FieldGroup>
 
+
+</FormSection>
+<FormSection number="03" title="Como foi a sessão" description="Foco e energia são opcionais." complete={focoSet || energiaSet}>
             <div className="grid grid-cols-2 gap-3 sm:gap-4">
-              <FieldGroup label={`Foco: ${foco}`}>
-                <input type="range" min={1} max={5} value={foco} onChange={(e) => setFoco(+e.target.value)} className="w-full accent-accent" />
+              <FieldGroup label={`Foco: ${focoSet ? foco : "não informado (opcional)"}`}>
+                <input type="range" min={1} max={5} value={foco} onChange={(e) => {setFocoSet(true); setFoco(+e.target.value);}} className="w-full accent-accent" />
               </FieldGroup>
-              <FieldGroup label={`Energia: ${energia}`}>
-                <input type="range" min={1} max={5} value={energia} onChange={(e) => setEnergia(+e.target.value)} className="w-full accent-accent" />
+              <FieldGroup label={`Energia: ${energiaSet ? energia : "não informado (opcional)"}`}>
+                <input type="range" min={1} max={5} value={energia} onChange={(e) => {setEnergiaSet(true); setEnergia(+e.target.value);}} className="w-full accent-accent" />
               </FieldGroup>
             </div>
 
-            <button
+
+</FormSection>
+<div className="form-submit-zone"><p>Confira os dados antes de registrar.</p>            <button
               type="submit"
               disabled={mutation.isPending}
               className="btn-tactical"
             >
               {mutation.isPending ? "Registrando..." : "Registrar Sessão"}
             </button>
-          </form>
+          </div></form>
         </div>
 
         {/* Listagem */}
@@ -126,11 +143,3 @@ export default function SessionPage() {
   );
 }
 
-function FieldGroup({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <div>
-      <label className="block text-[10px] sm:text-xs font-medium tracking-wider text-muted-foreground uppercase mb-1.5">{label}</label>
-      {children}
-    </div>
-  );
-}

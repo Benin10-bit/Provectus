@@ -22,6 +22,7 @@ export interface SessaoEstudoCreate {
 }
 
 export interface SessaoEstudoResponse extends SessaoEstudoCreate {
+    segundos_exatos?: number | null;
     id: string;
     criado_em: string;
 }
@@ -38,6 +39,7 @@ export interface BlocoQuestoesCreate {
 }
 
 export interface BlocoQuestoesResponse extends BlocoQuestoesCreate {
+    sessao_id?: string | null;
     id: string;
     percentual_acerto: number;
     tempo_medio_por_questao: number;
@@ -61,13 +63,36 @@ export interface SimuladoSemanalResponse extends SimuladoSemanalCreate {
     criado_em: string;
 }
 
+export interface StudyOrientation {
+    id: string; categoria: string; prioridade: number; variante: string;
+    materia: string; assunto: string; motivo: string; acao: string; destino: string;
+}
+export interface CriticalTopic {
+    assunto_id: string; assunto: string; materia_id: string; materia: string;
+    precisao: number; questoes: number; registros: number; tarefa: string; destino: string;
+}
 export interface DashboardResumo {
+    recomendacoes_estudo?: string[];
+    amostra_blocos?: number;
+    orientacoes?: StudyOrientation[];
+    assuntos_criticos_detalhes?: CriticalTopic[];
+    criticidade_contexto?: string;
+    status_academico?: string;
+    variante_academica?: string;
+
+    tem_evidencia?: boolean;
+    total_acertos?: number;
+    meta_horas?: number | null;
+    meta_questoes?: number | null;
     horas_liquidas: number;
     total_questoes: number;
     percentual_medio: number;
     ipr_geral: number;
     tendencia: string;
+    tendencia_contexto?: string;
     status_missao: string;
+    variante_missao?: string;
+    contexto_meta?: string;
     assuntos_criticos: string[];
     status_horas: string;
     status_questoes: string;
@@ -111,6 +136,7 @@ export interface RedacaoResponse {
 export type Periodo = "semana" | "mes" | "ano" | "total";
 
 export interface MateriaPerformance {
+    amostra_blocos?: number;
     materia: MateriaResponse;
     ipr: number;
     total_questoes?: number;

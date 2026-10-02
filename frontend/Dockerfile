@@ -1,11 +1,11 @@
 # ESTÁGIO 1: Build (Transforma o código React em arquivos estáticos)
-FROM node:18-alpine AS build
+FROM node:22-alpine AS build
 
 WORKDIR /app
 
 # Copia arquivos de dependências primeiro (otimiza o cache do Docker)
 COPY package.json package-lock.json ./
-RUN npm ci
+RUN npm ci --no-audit --no-fund
 
 # Copia o restante do código
 COPY . .
@@ -19,6 +19,7 @@ RUN npm run build
 
 # ESTÁGIO 2: Serve (Usa o Nginx para entregar os arquivos)
 FROM nginx:alpine
+RUN apk add --no-cache curl
 
 # Copia os arquivos gerados no estágio anterior para a pasta do Nginx
 COPY --from=build /app/dist /usr/share/nginx/html

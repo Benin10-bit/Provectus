@@ -1,3 +1,4 @@
+import RecordEditor from "@/components/RecordEditor";
 import { useState } from "react";
 import AppLayout from "@/components/layout/AppLayout";
 import { LoadingState, ErrorState, EmptyState } from "@/components/ui/states";
@@ -7,13 +8,14 @@ import { useMaterias, useAssuntos } from "@/hooks/useConfiguracoes";
 type Tab = "sessoes" | "blocos" | "simulados";
 
 export default function HistoryPage() {
+  const [page, setPage] = useState(0);
   const [tab, setTab] = useState<Tab>("sessoes");
 
   const { data: materias } = useMaterias();
   const { data: assuntos } = useAssuntos();
-  const { data: sessoes, isLoading: lS, isError: eS } = useSessoes();
-  const { data: blocos, isLoading: lB, isError: eB } = useBlocos();
-  const { data: simulados, isLoading: lSim, isError: eSim } = useSimulados();
+  const { data: sessoes, isLoading: lS, isError: eS } = useSessoes(page*100,100);
+  const { data: blocos, isLoading: lB, isError: eB } = useBlocos(page*100,100);
+  const { data: simulados, isLoading: lSim, isError: eSim } = useSimulados(page*100,100);
 
   const getMateriaNome = (id: string) => materias?.find((m) => m.id === id)?.nome ?? id;
   const getAssuntoNome = (id: string) => assuntos?.find((a) => a.id === id)?.nome ?? id;
@@ -28,14 +30,14 @@ export default function HistoryPage() {
     <AppLayout>
       <div className="page-header">
         <h1 className="page-title">Histórico</h1>
-        <p className="page-subtitle">Registros completos de execução.</p>
+        
       </div>
 
-      <div className="flex gap-1 mb-6 border-b border-border overflow-x-auto">
+      <div className="history-tabs tac-tabs flex gap-1 mb-6 overflow-x-auto">
         {tabs.map((t) => (
           <button
             key={t.key}
-            onClick={() => setTab(t.key)}
+            onClick={() => {setTab(t.key);setPage(0);}}
             className={`px-4 py-2.5 text-xs font-medium tracking-wider uppercase transition-all duration-200 whitespace-nowrap ${
               tab === t.key
                 ? "text-accent border-b-2 border-accent"
@@ -58,10 +60,10 @@ export default function HistoryPage() {
                     <span className="font-normal text-muted-foreground">— {getAssuntoNome(s.assunto_id)}</span>
                   </p>
                   <p className="text-[10px] sm:text-xs text-muted-foreground truncate">
-                    {s.tipo_sessao} • {s.minutos_liquidos} min • Foco: {s.nivel_foco ?? "—"} • Energia: {s.nivel_energia ?? "—"}
+                    {s.tipo_sessao} • {s.segundos_exatos != null ? (s.segundos_exatos/60).toFixed(1) : s.minutos_liquidos} min • Foco: {s.nivel_foco ?? "—"} • Energia: {s.nivel_energia ?? "—"}
                   </p>
                 </div>
-                <p className="text-[10px] sm:text-xs text-muted-foreground font-mono shrink-0">{new Date(s.criado_em).toLocaleDateString("pt-BR")}</p>
+                <p className="text-[10px] sm:text-xs text-muted-foreground font-mono shrink-0">{new Date(String(("data" in s && s.data) || s.criado_em)).toLocaleDateString("pt-BR")}</p><RecordEditor kind={tab} value={s}/>
               </div>
             ))}
           </div>
@@ -86,7 +88,7 @@ export default function HistoryPage() {
                   <p className={`text-sm font-bold font-mono ${b.percentual_acerto >= 70 ? "text-success" : "text-critical"}`}>
                     {b.percentual_acerto}%
                   </p>
-                  <p className="text-[10px] text-muted-foreground font-mono">{new Date(b.criado_em).toLocaleDateString("pt-BR")}</p>
+                  <p className="text-[10px] text-muted-foreground font-mono">{new Date(b.data || b.criado_em).toLocaleDateString("pt-BR")}</p><RecordEditor kind="blocos" value={b}/>
                 </div>
               </div>
             ))}
@@ -109,13 +111,14 @@ export default function HistoryPage() {
                   <p className={`text-sm font-bold font-mono ${s.percentual_acerto >= 70 ? "text-success" : "text-critical"}`}>
                     {s.percentual_acerto}%
                   </p>
-                  <p className="text-[10px] text-muted-foreground font-mono">{new Date(s.criado_em).toLocaleDateString("pt-BR")}</p>
+                  <p className="text-[10px] text-muted-foreground font-mono">{new Date(String(("data" in s && s.data) || s.criado_em)).toLocaleDateString("pt-BR")}</p><RecordEditor kind={tab} value={s}/>
                 </div>
               </div>
             ))}
           </div>
         )
       )}
+      <div className="flex gap-4 items-center mt-6"><button className="text-accent disabled:opacity-40" disabled={page===0} onClick={()=>setPage(p=>p-1)}>Anterior</button><span className="text-xs">Página {page+1}</span><button className="text-accent disabled:opacity-40" disabled={(tab==='sessoes'?sessoes:tab==='blocos'?blocos:simulados)?.length!==100} onClick={()=>setPage(p=>p+1)}>Próxima</button></div>
     </AppLayout>
   );
 }

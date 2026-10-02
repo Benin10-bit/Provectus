@@ -20,6 +20,8 @@ let persisted: TimerState = {
   finished: false,
 };
 
+try { const saved=JSON.parse(localStorage.getItem('provectus:timer:v1')||'null'); if(saved && ['timer','stopwatch'].includes(saved.mode) && Number.isFinite(saved.elapsed)) persisted=saved; } catch { /* Browser storage may be unavailable. */ }
+
 function playAlarm() {
   const ctx = new AudioContext();
   const beep = (time: number) => {
@@ -54,7 +56,7 @@ function CircularProgress({
   const offset = circ * (1 - Math.min(Math.max(progress, 0), 1));
 
   return (
-    <div className="relative" style={{ width: size, height: size }}>
+    <div className="timer-orbit relative" style={{ width: size, height: size }}>
       <svg width={size} height={size} className="-rotate-90">
         <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="hsl(var(--border))" strokeWidth={stroke} />
         <circle
@@ -127,6 +129,7 @@ export default function TimerPage() {
 
   useEffect(() => {
     persisted = { mode, timerSeconds, elapsed, running, lastTick: lastTickRef.current, finished };
+    try {localStorage.setItem('provectus:timer:v1',JSON.stringify(persisted));} catch { /* The active timer still works in memory. */ }
     if (running || elapsed > 0) {
       const display = mode === "timer" ? fmtTimer(timerSeconds * 1000 - elapsed) : fmtStopwatch(elapsed);
       document.title = `${display} - Provectus`;
@@ -216,13 +219,15 @@ export default function TimerPage() {
     { label: "45:00", sec: 2700 },
   ];
 
-  const circleSize = fullscreen ? 320 : 240;
+  const circleSize = fullscreen ? 360 : 300;
 
   const content = (
-    <div className={`flex flex-col items-center gap-6 sm:gap-8 py-4 sm:py-6 px-4 ${fullscreen ? "justify-center min-h-screen" : ""}`}>
+    <div data-running={running} data-finished={finished} className={`focus-workspace flex flex-col items-center gap-6 sm:gap-8 py-6 sm:py-10 px-4 ${fullscreen ? "justify-center min-h-screen" : ""}`}>
+      <div className="focus-state" role="status"><span />{finished ? "Sessão concluída" : running ? "Foco em andamento" : elapsed > 0 ? "Pausado · retome quando quiser" : "Pronto para começar"}</div>
       {/* Mode tabs */}
-      <div className="flex items-center gap-1 p-1 rounded-lg bg-muted">
+      <div className="timer-mode-tabs flex items-center gap-1 p-1 rounded-lg bg-muted">
         <button
+          aria-pressed={mode === "timer"}
           onClick={() => switchMode("timer")}
           className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-md text-xs sm:text-sm font-medium transition-all duration-200 ${
             mode === "timer" ? "bg-primary text-primary-foreground hud-glow" : "text-muted-foreground hover:text-foreground"
@@ -232,6 +237,7 @@ export default function TimerPage() {
           <span>Timer</span>
         </button>
         <button
+          aria-pressed={mode === "stopwatch"}
           onClick={() => switchMode("stopwatch")}
           className={`flex items-center gap-2 px-3 sm:px-4 py-2 rounded-md text-xs sm:text-sm font-medium transition-all duration-200 ${
             mode === "stopwatch" ? "bg-primary text-primary-foreground hud-glow" : "text-muted-foreground hover:text-foreground"
@@ -251,7 +257,7 @@ export default function TimerPage() {
       </CircularProgress>
 
       {mode === "timer" && !running && !finished && (
-        <div className="flex flex-col items-center gap-3 w-full max-w-sm">
+        <div className="timer-presets flex flex-col items-center gap-3 w-full max-w-sm">
           <div className="flex flex-wrap justify-center gap-1.5 sm:gap-2">
             {presets.map((p) => (
               <button
@@ -287,7 +293,7 @@ export default function TimerPage() {
         </p>
       )}
 
-      <div className="flex gap-3 w-full max-w-sm">
+      <div className="timer-controls flex gap-3 w-full max-w-sm">
         <button
           onClick={toggleRunning}
           disabled={finished && mode === "timer"}
@@ -317,7 +323,7 @@ export default function TimerPage() {
         {fullscreen ? "Sair da tela cheia" : "Tela cheia"}
       </button>
 
-      <p className="text-[9px] sm:text-[10px] tracking-widest uppercase text-muted-foreground">
+      <p className="timer-shortcut text-[9px] sm:text-[10px] tracking-widest uppercase text-muted-foreground">
         Pressione <kbd className="px-1.5 py-0.5 rounded-md bg-muted border border-border text-foreground text-[10px] font-mono">Space</kbd> para pausar / continuar
       </p>
     </div>
@@ -327,5 +333,5 @@ export default function TimerPage() {
     return <div className="fixed inset-0 z-50 bg-background animate-fade-in">{content}</div>;
   }
 
-  return <AppLayout>{content}</AppLayout>;
+  return <AppLayout><div className="page-header"><h1 className="page-title">Tempo de foco</h1></div>{content}</AppLayout>;
 }

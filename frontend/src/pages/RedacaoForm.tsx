@@ -1,3 +1,5 @@
+import FieldGroup from "@/components/experience/FieldGroup";
+import { FormSection } from "@/components/experience/StudyUI";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AppLayout from "@/components/layout/AppLayout";
@@ -39,10 +41,11 @@ export default function RedacaoForm() {
     <AppLayout>
       <div className="page-header">
         <h1 className="page-title">Nova Redação</h1>
-        <p className="page-subtitle">Registre uma redação para avaliação</p>
+        
       </div>
 
-      <form onSubmit={handleSubmit} className="max-w-2xl space-y-5 sm:space-y-6">
+      <form onSubmit={handleSubmit} className="essay-form guided-form" aria-busy={isPending}>
+<FormSection number="01" title="Contexto da escrita" description="Identifique o texto e o material utilizado." complete={Boolean(tema)}>
         <FieldGroup label="Tema da Redação *">
           <input
             type="text"
@@ -96,17 +99,20 @@ export default function RedacaoForm() {
           />
         </FieldGroup>
 
-        <div className="rounded-lg border border-border bg-card p-4 sm:p-5">
+</FormSection>
+<FormSection number="02" title="Avaliação por competência" description="Transcreva as notas da sua correção ENEM.">
+        <div className="competency-fields">
           <p className="text-[10px] sm:text-xs font-medium tracking-wider text-muted-foreground uppercase mb-4">
             Notas por Competência (0–200)
           </p>
           <div className="space-y-4">
             {compEntries.map(([code, name], i) => (
-              <div key={code}>
-                <label className="block text-sm text-foreground mb-1.5">
+              <div key={code} className="competency-input">
+                <label htmlFor={`nota-${code}`} className="block text-sm text-foreground mb-1.5">
                   <span className="font-bold text-accent">{code}</span> — {name}
                 </label>
                 <input
+                  id={`nota-${code}`}
                   type="number"
                   min={0}
                   max={200}
@@ -126,6 +132,8 @@ export default function RedacaoForm() {
           </div>
         </div>
 
+</FormSection>
+<div className="form-submit-zone"><p>A análise será exibida após salvar a redação.</p>
         <button
           type="submit"
           disabled={isPending || !tema}
@@ -133,16 +141,9 @@ export default function RedacaoForm() {
         >
           {isPending ? "Enviando..." : "Enviar Redação"}
         </button>
+</div>
       </form>
     </AppLayout>
   );
 }
 
-function FieldGroup({ label, children }: { label: string; children: React.ReactNode }) {
-  return (
-    <div>
-      <label className="block text-[10px] sm:text-xs font-medium tracking-wider text-muted-foreground uppercase mb-1.5 sm:mb-2">{label}</label>
-      {children}
-    </div>
-  );
-}

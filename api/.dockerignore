@@ -7,3 +7,8 @@ __pycache__
 .gitignore
 *.db
 *.log
+
+api/
+tests/
+.pytest_cache/
+*.dump

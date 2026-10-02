@@ -7,3 +7,4 @@ pydantic>=2.0
 pydantic-settings
 python-dotenv
 python-multipart
+reportlab>=4.0,<5

@@ -6,14 +6,15 @@ import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig(({ mode }) => ({
   server: {
-    host: "::",
+    host: "127.0.0.1",
     port: 8080,
     hmr: {
       overlay: false,
     },
     proxy: {
       "/api": {
-        target: "http://api:8000",
+        target: "http://127.0.0.1:8000",
+        rewrite: (path) => path.replace(/^\/api/, ""),
         changeOrigin: true,
         secure: false,
       },

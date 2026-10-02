@@ -50,6 +50,8 @@ class Assunto(Base):
     semana_do_ciclo = Column(Integer, nullable=False)  # 1 a 4
     ativo = Column(Boolean, default=True)
     criado_em = Column(DateTime, default=datetime.utcnow)
+    ordem = Column(Integer, nullable=False, default=0, server_default="0")
+    referencia = Column(String(300))
 
     materia = relationship("Materia", back_populates="assuntos")
     sessoes_estudo = relationship("SessaoEstudo", back_populates="assunto")
@@ -69,6 +71,12 @@ class SessaoEstudo(Base):
     materia_id = Column(UUID(as_uuid=True), ForeignKey("tb_materia.id"), nullable=False)
     assunto_id = Column(UUID(as_uuid=True), ForeignKey("tb_assunto.id"), nullable=False)
 
+    ciclo_id = Column(UUID(as_uuid=True), ForeignKey("tb_ciclo.id"), nullable=True)
+    chave_registro = Column(UUID(as_uuid=True), unique=True, nullable=True)
+    conteudo_hash = Column(String(64), nullable=True)
+    segundos_exatos = Column(Integer, nullable=True)
+    atividade = Column(String(30), nullable=True)
+    proximo_passo = Column(String(300), nullable=True)
     tipo_sessao = Column(String(20), nullable=False)  # TEORIA, QUESTOES, REVISAO
     minutos_liquidos = Column(Integer, nullable=False)
 
@@ -94,6 +102,8 @@ class BlocoQuestoes(Base):
     materia_id = Column(UUID(as_uuid=True), ForeignKey("tb_materia.id"), nullable=False)
     assunto_id = Column(UUID(as_uuid=True), ForeignKey("tb_assunto.id"), nullable=False)
 
+    sessao_id = Column(UUID(as_uuid=True), ForeignKey("tb_sessao_estudo.id"), unique=True, nullable=True)
+    ciclo_id = Column(UUID(as_uuid=True), ForeignKey("tb_ciclo.id"), nullable=True)
     dificuldade = Column(Integer, nullable=False)  # 1-5
 
     total_questoes = Column(Integer, nullable=False)

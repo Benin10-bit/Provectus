@@ -1,0 +1,17 @@
+import json
+from collections import Counter
+from ..pdf.extraction import dump
+
+def report(meta,questions,seconds,root,sample_size,orphans):
+    assets=[a for q in questions for a in q['imagens']]+[i for q in questions for a in q['alternativas'] for i in a['imagens']]
+    statuses=Counter(q['status'] for q in questions);warnings=Counter(w['code'] for q in questions for w in q['warnings'])
+    result={'file':meta['source_file'],'sha256':meta['document_sha256'],'pages':meta['pages'],'processing_time_seconds':round(seconds,3),'questions_found':len(questions),'questions_ok':statuses['OK'],'questions_review':statuses['REVIEW'],'questions_error':statuses['ERROR'],'answers_found':sum(q['gabarito'] is not None for q in questions),'images_found':len(assets),'unique_content_assets':len({a['hash'] for a in assets}),'graphical_alternatives':sum(not a['texto'] and bool(a['imagens']) for q in questions for a in q['alternativas']),'multipage_questions':sum(q['pagina_inicio']!=q['pagina_fim'] for q in questions),'questions_with_images':sum(bool(q['imagens'] or any(a['imagens'] for a in q['alternativas'])) for q in questions),'possible_missing_formulas':sum(any(w['code']=='POSSIBLE_MISSING_FORMULA' for w in q['warnings']) for q in questions),'banks_found':dict(Counter(q.get('banca_normalizada','UNKNOWN') for q in questions)),'difficulties':dict(Counter(q.get('dificuldade_normalizada','UNKNOWN') for q in questions)),'alternative_counts':dict(Counter(str(len(q['alternativas'])) for q in questions)),'warnings_by_type':dict(warnings),'review_sample_size':sample_size,'orphan_elements':len(orphans),'raw_cache_reused':meta.get('raw_cache_reused',False),'warning_severities':dict(Counter(w['severity'] for q in questions for w in q['warnings'])),'changed_to_ok':[q['numero_original'] for q in questions if q['status']=='OK' and q['metadata'].get('previous_status')=='REVIEW'],'deduplication_executed':False,'human_approved':False,'source_engine_warnings':meta.get('source_engine_warnings',[]),'sanitization_raster_integrity_verified':meta.get('sanitization_raster_integrity_verified',False),'review_and_error':[{'question':q.get('numero_original'),'id':q['extraction_id'],'status':q['status'],'pages':[q['pagina_inicio'],q['pagina_fim']],'warnings':sorted({w['code'] for w in q['warnings']})} for q in questions if q['status']!='OK']}
+    dump(root/'report.json',result)
+    text='# Resultado do piloto\n\nExtração automática; ainda não aprovada para importação.\n\n'
+    for k,v in result.items():
+        if k not in ['review_and_error','warnings_by_type']:text+=f'- **{k}**: {json.dumps(v,ensure_ascii=False)}\n'
+    text+='\n## Warnings\n\n'+''.join(f'- {k}: {v} ocorrências\n' for k,v in warnings.items())
+    text+='\n## Todas as questões REVIEW e ERROR\n\n| Questão | Status | Páginas | Warnings |\n|---|---|---|---|\n'
+    for q in result['review_and_error']:text+=f"| {q['question']} | {q['status']} | {q['pages'][0]}–{q['pages'][1]} | {', '.join(q['warnings'])} |\n"
+    text+='\n## Interpretação\n\nVisuais capturados e ordenados geram INFO e não bloqueiam OK. UNRESOLVED_INVALID_GLYPH mantém REVIEW mesmo com recorte: imagem não recupera um glifo ausente na fonte. SOURCE_MISSING_ANSWER registra ausência conferida visualmente; PARSER_MISSING_ANSWER exige investigação. Nenhuma resposta é inferida. Os scores são proporções de verificações, não probabilidades. Veja VISUAL_QA_SECOND_PASS.md para os casos efetivamente comparados.\n'
+    (root/'report.md').write_text(text,encoding='utf8');return result

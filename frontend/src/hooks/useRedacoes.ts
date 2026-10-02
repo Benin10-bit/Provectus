@@ -27,8 +27,9 @@ export function useCreateRedacao(onSuccess?: (id: string) => void) {
         description: `Status: ${data.status}`,
       });
       qc.invalidateQueries({ queryKey: ["performance"] });
+      qc.invalidateQueries({ queryKey: ["relatorio-mensal"] });
       onSuccess?.(data.id);
     },
-    onError: () => toast.error("Erro ao registrar redação."),
+    onError: (e:Error) => toast.error(e.message),
   });
 }

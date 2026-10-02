@@ -1,0 +1,32 @@
+import { afterEach, expect, it, vi } from 'vitest';
+import { installAtmosphere } from '@/components/experience/BackgroundAtmosphere';
+afterEach(() => vi.unstubAllGlobals());
+it('coalesces movement, stays idle after a frame and cancels pending work on cleanup', () => {
+  vi.spyOn(window, 'matchMedia').mockReturnValue({ matches: true, addEventListener: vi.fn(), removeEventListener: vi.fn() } as unknown as MediaQueryList);
+  let callback: FrameRequestCallback = () => {};
+  const request = vi.fn((fn: FrameRequestCallback) => { callback = fn; return 1; });
+  const cancel = vi.fn();
+  vi.stubGlobal('requestAnimationFrame', request);
+  vi.stubGlobal('cancelAnimationFrame', cancel);
+  const light = document.createElement('div');
+  const cleanup = installAtmosphere(light);
+  const move = (x: number) => document.dispatchEvent(new MouseEvent('pointermove', { clientX: x, clientY: 300 }));
+  move(100); move(200);
+  expect(request).toHaveBeenCalledTimes(1);
+  callback(0);
+  expect(light.style.transform).toBe('translate3d(-80px, 20px, 0)');
+  expect(light.style.opacity).toBe('1');
+  expect(request).toHaveBeenCalledTimes(1);
+  move(250); cleanup();
+  expect(cancel).toHaveBeenCalled();
+  expect(light.style.opacity).toBe('0');
+  move(300);
+  expect(request).toHaveBeenCalledTimes(2);
+  vi.restoreAllMocks();
+});
+it('does not schedule animation without hover or when reduced motion is enabled', () => {
+  const request = vi.fn(); vi.stubGlobal('requestAnimationFrame', request);
+  const cleanup = installAtmosphere(document.createElement('div'));
+  document.dispatchEvent(new MouseEvent('pointermove', {clientX: 200}));
+  expect(request).not.toHaveBeenCalled(); cleanup();
+});

@@ -1,4 +1,3 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { MateriaPerformance } from "@/lib/types";
 import { formatarHoras } from "@/lib/utils";
@@ -28,11 +27,14 @@ interface RadialBarProps {
   totalQuestoes?: number;
   totalAcertos?: number;
   horasEstudo?: number;
+  blocos?: number;
 }
 
-function RadialBar({ materia, ipr, totalQuestoes, totalAcertos, horasEstudo }: RadialBarProps) {
+function RadialBar({ materia, ipr, totalQuestoes, totalAcertos, horasEstudo, blocos=0 }: RadialBarProps) {
+  const enough=(totalQuestoes||0)>=20&&blocos>=2;
+  const tone=enough?getIprColor(ipr):'hsl(var(--muted-foreground))';
   const size = 120;
-  const strokeWidth = 10;
+  const strokeWidth = 6;
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
   const progress = Math.min(Math.max(ipr, 0), 100);
@@ -69,7 +71,7 @@ function RadialBar({ materia, ipr, totalQuestoes, totalAcertos, horasEstudo }: R
     <TooltipProvider delayDuration={200}>
       <Tooltip>
         <TooltipTrigger asChild>
-          <div ref={ref} className="flex flex-col items-center gap-2 p-3 cursor-pointer" style={{ opacity: isVisible ? 1 : 0, transform: isVisible ? 'translateY(0)' : 'translateY(16px)', transition: 'opacity 0.6s ease-out, transform 0.6s ease-out' }}>
+          <div ref={ref} tabIndex={0} className="flex flex-col items-center gap-2 rounded-lg border border-border/60 bg-secondary/20 p-3 cursor-pointer transition-colors hover:border-olive/50 hover:bg-secondary/40" style={{ opacity: isVisible ? 1 : 0, transform: isVisible ? 'translateY(0)' : 'translateY(16px)', transition: 'opacity 0.25s ease-out, transform 0.25s ease-out' }}>
             <div className="relative" style={{ width: size, height: size }}>
               <svg width={size} height={size} className="-rotate-90" overflow="visible">
                 <circle
@@ -86,32 +88,32 @@ function RadialBar({ materia, ipr, totalQuestoes, totalAcertos, horasEstudo }: R
                   cy={size / 2}
                   r={radius}
                   fill="none"
-                  stroke={getIprColor(ipr)}
+                  stroke={tone}
                   strokeWidth={strokeWidth}
                   strokeLinecap="round"
                   strokeDasharray={circumference}
                   strokeDashoffset={animatedOffset}
                   style={{
-                    transition: 'stroke-dashoffset 1.2s cubic-bezier(0.4, 0, 0.2, 1)',
-                    filter: ipr >= 80 && isVisible ? `drop-shadow(0 0 6px ${getIprColor(ipr)})` : "none",
+                    transition: 'stroke-dashoffset 350ms ease-out',
+                    filter: "none",
                   }}
                 />
               </svg>
               <div className="absolute inset-0 flex flex-col items-center justify-center">
                 <span className="text-lg font-mono font-bold text-foreground">
-                  {ipr.toFixed(0)}%
+                  {totalQuestoes?`${ipr.toFixed(0)}%`:'—'}
                 </span>
               </div>
             </div>
             <div className="flex flex-col items-center gap-0.5 max-w-[120px]">
-              <span className="text-xs font-semibold text-foreground truncate max-w-full text-center">
+              <span className="text-xs font-semibold text-foreground break-words max-w-full text-center">
                 {materia}
               </span>
               <span
                 className="text-[10px] font-mono uppercase tracking-wider"
-                style={{ color: getIprColor(ipr) }}
+                style={{ color: tone }}
               >
-                {ipr >= 80 ? "Excelente" : ipr >= 70 ? "Operacional" : "Crítico"}
+                {!totalQuestoes?'Sem prática':!enough?'Amostra pequena':ipr >= 80 ? 'Bom' : ipr >= 70 ? 'Regular' : 'Conferir erros'}
               </span>
             </div>
           </div>
@@ -137,9 +139,9 @@ function RadialBar({ materia, ipr, totalQuestoes, totalAcertos, horasEstudo }: R
               </span>
             </div>
             <div className="flex justify-between text-xs">
-              <span className="text-muted-foreground">IPR</span>
+              <span className="text-muted-foreground">Precisão</span>
               <span className="font-mono font-bold" style={{ color: getIprColor(ipr) }}>
-                {ipr.toFixed(1)}%
+                {totalQuestoes?`${ipr.toFixed(1)}%`:'Sem questões'}
               </span>
             </div>
           </div>
@@ -163,77 +165,75 @@ export default function PieChartMaterias({ data }: PieChartMateriasProps) {
         totalQuestoes: item.total_questoes,
         totalAcertos: item.total_acertos,
         horasEstudo: item.horas_estudo,
+        blocos: item.amostra_blocos,
       })),
     [data]
   );
 
   const avgIpr = useMemo(() => {
-    if (!pieData.length) return 0;
-    return pieData.reduce((sum, d) => sum + d.ipr, 0) / pieData.length;
+    const total=pieData.reduce((n,d)=>n+(d.totalQuestoes||0),0);
+    return total?pieData.reduce((n,d)=>n+(d.totalAcertos||0),0)/total*100:null;
   }, [pieData]);
 
   if (!pieData.length) {
     return (
-      <Card>
-        <CardHeader>
-          <CardTitle className="text-base font-medium tracking-wider uppercase text-muted-foreground">
-            IPR por Matéria
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="p-8 text-center text-muted-foreground">
+      <div className="tac-card">
+        <p className="module-title">Precisão por Matéria</p>
+        <p className="py-8 text-center text-sm text-muted-foreground">
           Nenhuma matéria disponível
-        </CardContent>
-      </Card>
+        </p>
+      </div>
     );
   }
 
   return (
-    <Card className="col-span-full">
-      <CardHeader className="flex flex-row items-center justify-between pb-2">
+    <div className="tac-card">
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4">
         <div>
-          <CardTitle className="text-xl font-bold tracking-tight text-foreground">
-            IPR por Matéria
-          </CardTitle>
-          <p className="text-sm text-muted-foreground mt-1">
-            Índice de Performance por matéria · Média:{" "}
-            <span
-              className="font-mono font-semibold"
-              style={{ color: getIprColor(avgIpr) }}
-            >
-              {avgIpr.toFixed(0)}%
+          <p className="module-title mb-1.5">Precisão por Matéria</p>
+          <p className="text-xs text-muted-foreground">
+            Acertos / questões · Precisão conjunta:{" "}
+            <span className="num font-semibold text-foreground">
+              {avgIpr === null ? "—" : `${avgIpr.toFixed(0)}%`}
             </span>
           </p>
         </div>
-        <div className="flex items-center gap-4 text-[10px] uppercase tracking-wider text-muted-foreground">
-          <div className="flex items-center gap-1.5">
-            <div className="w-2 h-2 rounded-full" style={{ backgroundColor: "hsl(var(--success))" }} />
-            <span>≥80%</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <div className="w-2 h-2 rounded-full" style={{ backgroundColor: "hsl(var(--warning))" }} />
-            <span>70-79%</span>
-          </div>
-          <div className="flex items-center gap-1.5">
-            <div className="w-2 h-2 rounded-full" style={{ backgroundColor: "hsl(var(--critical))" }} />
-            <span>&lt;70%</span>
-          </div>
-        </div>
-      </CardHeader>
-      <CardContent className="pt-4 pb-6">
-        <div className="flex flex-wrap justify-center gap-2 sm:gap-4">
-          {pieData.map((entry) => (
-            <RadialBar
-              key={entry.materia}
-              materia={entry.materia}
-              ipr={entry.ipr}
-              color={entry.color}
-              totalQuestoes={entry.totalQuestoes}
-              totalAcertos={entry.totalAcertos}
-              horasEstudo={entry.horasEstudo}
-            />
+        <div className="flex flex-wrap items-center gap-3 text-[10px] font-mono uppercase tracking-[0.16em] text-muted-foreground">
+          {[
+            { c: "hsl(var(--success))", l: "≥80%" },
+            { c: "hsl(var(--warning))", l: "70-79%" },
+            { c: "hsl(var(--critical))", l: "<70%" },
+          ].map((i) => (
+            <span key={i.l} className="flex items-center gap-1.5">
+              <span
+                className="w-2 h-2 rounded-full"
+                style={{ backgroundColor: i.c }}
+              />
+              {i.l}
+            </span>
           ))}
         </div>
-      </CardContent>
-    </Card>
+      </div>
+
+      <p className="text-[11px] text-muted-foreground/80 mb-4 max-w-2xl">
+        Cores de desempenho só aparecem com pelo menos 20 questões em 2 blocos.
+        Limite operacional, não diagnóstico de domínio.
+      </p>
+
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-3">
+        {pieData.map((entry) => (
+          <RadialBar
+            key={entry.materia}
+            materia={entry.materia}
+            ipr={entry.ipr}
+            color={entry.color}
+            totalQuestoes={entry.totalQuestoes}
+            totalAcertos={entry.totalAcertos}
+            horasEstudo={entry.horasEstudo}
+            blocos={entry.blocos}
+          />
+        ))}
+      </div>
+    </div>
   );
 }

@@ -13,3 +13,9 @@ build/
 
 # system
 .DS_Store
+
+.env
+*.dump
+.provectus-install.json
+compose.provectus-volume.json
+provectus-backups/
