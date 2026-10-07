@@ -15,6 +15,7 @@ build/
 .DS_Store
 
 .env
+.env.ingestion
 *.dump
 .provectus-install.json
 compose.provectus-volume.json
