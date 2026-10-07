@@ -7,7 +7,7 @@ import QuestionPage from '@/pages/QuestionPage';
 import { qb } from '@/lib/questionBank';
 import { navGroups } from '@/components/layout/AppSidebar';
 vi.mock('@/components/layout/AppLayout',()=>({default:({children}:{children:React.ReactNode})=><>{children}</>}));
-vi.mock('@/lib/questionBank',async()=>{const actual=await vi.importActual<typeof import('@/lib/questionBank')>('@/lib/questionBank');return {...actual,qb:{...actual.qb,filters:vi.fn(),search:vi.fn(),library:vi.fn(),question:vi.fn(),check:vi.fn()}};});
+vi.mock('@/lib/questionBank',async()=>{const actual=await vi.importActual<typeof import('@/lib/questionBank')>('@/lib/questionBank');return {...actual,qb:{...actual.qb,availability:vi.fn(),preview:vi.fn(),filters:vi.fn(),search:vi.fn(),library:vi.fn(),question:vi.fn(),check:vi.fn()}};});
 afterEach(()=>{cleanup();vi.clearAllMocks();});
 it('opens a full page and answers without a list while preserving search filters and page',async()=>{
  const hash='a'.repeat(64);
@@ -15,6 +15,7 @@ it('opens a full page and answers without a list while preserving search filters
   statement_segments:[{kind:'text' as const,text:'Calcule ',line_id:'1'},{kind:'visual' as const,asset_hash:hash,display:'inline' as const,line_id:'1'},{kind:'text' as const,text:' agora.',line_id:'1'}],
   assets:[{hash,url:`/api/v1/question-bank/assets/${hash}`,type:'FIGURE',alt:'Fórmula',mime_type:'image/webp'}],alternatives:[{letter:'A',ordinal:1,text:'Primeira alternativa',assets:[]},{letter:'B',ordinal:2,text:'Segunda alternativa',assets:[]}],has_answer:true,selected:null,answered_at:null,correct:null,eliminated:[]};
  vi.mocked(qb.filters).mockResolvedValue({tree:[],banks:['EsPCEx'],difficulties:['MEDIA']});
+ vi.mocked(qb.availability).mockResolvedValue({total:30,tree:[{name:'Física',path:['Física'],direct:false,available:30,children:[]}]});
  vi.mocked(qb.library).mockResolvedValue({folders:[],lists:[]});
  vi.mocked(qb.search).mockResolvedValue({total:25,items:[q]});vi.mocked(qb.question).mockResolvedValue(q);
  vi.mocked(qb.check).mockResolvedValue({selected:'A',correct:false,answer:'B'});
@@ -22,7 +23,7 @@ it('opens a full page and answers without a list while preserving search filters
  render(<QueryClientProvider client={client}><MemoryRouter initialEntries={['/banco-questoes']}><Routes><Route path="/banco-questoes" element={<QuestionBankPage/>}/><Route path="/banco-questoes/questoes/:questionId" element={<QuestionPage/>}/></Routes></MemoryRouter></QueryClientProvider>);
  await screen.findByText('25 questões encontradas');
  fireEvent.change(screen.getByPlaceholderText('Buscar no enunciado'),{target:{value:'Calcule'}});
- fireEvent.change(screen.getByLabelText('Banca'),{target:{value:'EsPCEx'}});
+ fireEvent.click(screen.getByRole('checkbox',{name:'EsPCEx'}));
  await waitFor(()=>expect(screen.getByRole('button',{name:'Próxima'})).toBeEnabled());
  fireEvent.click(screen.getByRole('button',{name:'Próxima'}));
  await waitFor(()=>expect(qb.search).toHaveBeenLastCalledWith(expect.objectContaining({search:'Calcule',banks:['EsPCEx']}),2));
@@ -42,7 +43,7 @@ it('opens a full page and answers without a list while preserving search filters
  expect(qb.check).toHaveBeenCalledWith('q1','A');
  fireEvent.click(screen.getByRole('link',{name:'Voltar aos resultados'}));
  expect(screen.getByPlaceholderText('Buscar no enunciado')).toHaveValue('Calcule');
- expect(screen.getByLabelText('Banca')).toHaveValue('EsPCEx');
+ expect(screen.getByRole('checkbox',{name:'EsPCEx'})).toBeChecked();
  expect(screen.getByText('Página 2')).toBeInTheDocument();
 });
 

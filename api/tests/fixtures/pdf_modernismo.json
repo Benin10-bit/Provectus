@@ -1,0 +1,3306 @@
+[
+  {
+    "ordinal": 1,
+    "materia": "literatura",
+    "content_path": [
+      "literatura_brasileira",
+      "segunda_fase_do_modernismo"
+    ],
+    "banca_normalizada": "ESA",
+    "dificuldade_normalizada": "FACIL",
+    "enunciado": "TEXTO VIII\nSoneto de Fidelidade\nDe tudo, ao meu amor serei atento\nAntes, e com tal zelo, e sempre, e tanto\n\nQue mesmo em face do maior encanto\nDele se encante mais meu pensamento.\nQuero vivê-lo em cada vão momento\nE em louvor hei de espalhar meu canto\nE rir meu riso e derramar meu pranto\nAo seu pesar ou seu contentamento.\nE assim, quando mais tarde me procure\nQuem sabe a morte, angústia de quem vive\nQuem sabe a solidão, fim de quem ama\nEu possa me dizer do amor (que tive):\nQue não seja imortal, posto que é chama\nMas que seja infinito enquanto dure.\nDE MORAES, V. Soneto de Fidelidade., 1939. Disponível em:\nhttps://www.culturagenial.com/poema-soneto-de-fidelidade-\nde-vinicius-de-moraes/. Acesso em: 11 abr. 2024.\nTendo em vista o Soneto de Fidelidade (Texto VIII) e os estudos clássicos sobre Gêneros\nLiterários, identifique qual\nalternativa possui uma análise plenamente correta:",
+    "statement_segments": [
+      {
+        "kind": "text",
+        "text": "TEXTO VIII",
+        "bold": true,
+        "line_id": "1:260.52"
+      },
+      {
+        "kind": "text",
+        "text": "Soneto de Fidelidade",
+        "bold": true,
+        "line_id": "1:276.52"
+      },
+      {
+        "kind": "text",
+        "text": "De tudo, ao meu amor serei atento",
+        "bold": false,
+        "line_id": "1:292.52"
+      },
+      {
+        "kind": "text",
+        "text": "Antes, e com tal zelo, e sempre, e tanto",
+        "bold": false,
+        "line_id": "1:308.52"
+      },
+      {
+        "kind": "text",
+        "text": "\n",
+        "line_id": "1:308.52"
+      },
+      {
+        "kind": "text",
+        "text": "Que mesmo em face do maior encanto",
+        "bold": false,
+        "line_id": "1:340.52"
+      },
+      {
+        "kind": "text",
+        "text": "Dele se encante mais meu pensamento.",
+        "bold": false,
+        "line_id": "1:356.52"
+      },
+      {
+        "kind": "text",
+        "text": "Quero vivê-lo em cada vão momento",
+        "bold": false,
+        "line_id": "1:372.52"
+      },
+      {
+        "kind": "text",
+        "text": "E em louvor hei de espalhar meu canto",
+        "bold": false,
+        "line_id": "1:388.52"
+      },
+      {
+        "kind": "text",
+        "text": "E rir meu riso e derramar meu pranto",
+        "bold": false,
+        "line_id": "1:404.52"
+      },
+      {
+        "kind": "text",
+        "text": "Ao seu pesar ou seu contentamento.",
+        "bold": false,
+        "line_id": "1:420.52"
+      },
+      {
+        "kind": "text",
+        "text": "E assim, quando mais tarde me procure",
+        "bold": false,
+        "line_id": "1:436.52"
+      },
+      {
+        "kind": "text",
+        "text": "Quem sabe a morte, angústia de quem vive",
+        "bold": false,
+        "line_id": "1:452.52"
+      },
+      {
+        "kind": "text",
+        "text": "Quem sabe a solidão, fim de quem ama",
+        "bold": false,
+        "line_id": "1:468.52"
+      },
+      {
+        "kind": "text",
+        "text": "Eu possa me dizer do amor (que tive):",
+        "bold": false,
+        "line_id": "1:484.52"
+      },
+      {
+        "kind": "text",
+        "text": "Que não seja imortal, posto que é chama",
+        "bold": false,
+        "line_id": "1:500.52"
+      },
+      {
+        "kind": "text",
+        "text": "Mas que seja infinito enquanto dure.",
+        "bold": false,
+        "line_id": "1:516.52"
+      },
+      {
+        "kind": "text",
+        "text": "DE MORAES, V. Soneto de Fidelidade., 1939. Disponível em:",
+        "bold": false,
+        "line_id": "1:532.52"
+      },
+      {
+        "kind": "text",
+        "text": "https://www.culturagenial.com/poema-soneto-de-fidelidade-",
+        "bold": false,
+        "line_id": "1:548.52"
+      },
+      {
+        "kind": "text",
+        "text": "de-vinicius-de-moraes/. Acesso em: 11 abr. 2024.",
+        "bold": false,
+        "line_id": "1:564.52"
+      },
+      {
+        "kind": "text",
+        "text": "Tendo em vista o Soneto de Fidelidade (Texto VIII) e os estudos clássicos sobre Gêneros",
+        "bold": false,
+        "line_id": "1:580.52"
+      },
+      {
+        "kind": "text",
+        "text": "Literários, identifique qual",
+        "bold": false,
+        "line_id": "1:596.52"
+      },
+      {
+        "kind": "text",
+        "text": "alternativa possui uma análise plenamente ",
+        "bold": false,
+        "line_id": "1:612.52"
+      },
+      {
+        "kind": "text",
+        "text": "correta",
+        "bold": true,
+        "line_id": "1:612.52"
+      },
+      {
+        "kind": "text",
+        "text": ":",
+        "bold": false,
+        "line_id": "1:612.52"
+      }
+    ],
+    "assets": [],
+    "alternatives": [
+      {
+        "letter": "A",
+        "text": "Ele é um soneto com rimas e métricas irregulares, o que é previsto no gênero narrativo,\npois rompe com o clássico.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "Ele é um soneto com rimas e métricas irregulares, o que é previsto no gênero narrativo,",
+            "bold": false,
+            "line_id": "1:639.52"
+          },
+          {
+            "kind": "text",
+            "text": "pois rompe com o clássico.",
+            "bold": false,
+            "line_id": "1:655.52"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "B",
+        "text": "Por se tratar de um gênero lírico, entende-se o Soneto de Fidelidade como um poema\nprototípico dos Sonetos\nestudados neste gênero.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "Por se tratar de um gênero lírico, entende-se o Soneto de Fidelidade como um poema",
+            "bold": false,
+            "line_id": "1:680.52"
+          },
+          {
+            "kind": "text",
+            "text": "prototípico dos Sonetos",
+            "bold": false,
+            "line_id": "1:696.52"
+          },
+          {
+            "kind": "text",
+            "text": "estudados neste gênero.",
+            "bold": false,
+            "line_id": "1:712.52"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "C",
+        "text": "Ele é característico do gênero dramático, pois um soneto foi escrito para ser cantado e\ninterpretado.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "Ele é característico do gênero dramático, pois um soneto foi escrito para ser cantado e",
+            "bold": false,
+            "line_id": "1:737.52"
+          },
+          {
+            "kind": "text",
+            "text": "interpretado.",
+            "bold": false,
+            "line_id": "1:753.52"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "D",
+        "text": "É um texto com uma estrutura fixa clássica, pertence ao gênero lírico, ainda que haja\numa inovação em seu arranjo,\npois as rimas dos tercetos comportam-se de forma mista.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "É um texto com uma estrutura fixa clássica, pertence ao gênero lírico, ainda que haja",
+            "bold": false,
+            "line_id": "2:80.52"
+          },
+          {
+            "kind": "text",
+            "text": "uma inovação em seu arranjo,",
+            "bold": false,
+            "line_id": "2:96.52"
+          },
+          {
+            "kind": "text",
+            "text": "pois as rimas dos tercetos comportam-se de forma mista.",
+            "bold": false,
+            "line_id": "2:112.52"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "E",
+        "text": "O poema se caracteriza por ser de gênero épico, já que possui a estrutura mais antiga de\npoesia, chamada de Soneto.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "O poema se caracteriza por ser de gênero épico, já que possui a estrutura mais antiga de",
+            "bold": false,
+            "line_id": "2:137.52"
+          },
+          {
+            "kind": "text",
+            "text": "poesia, chamada de Soneto.",
+            "bold": false,
+            "line_id": "2:153.52"
+          }
+        ],
+        "assets": []
+      }
+    ],
+    "gabarito": "D"
+  },
+  {
+    "ordinal": 2,
+    "materia": "literatura",
+    "content_path": [
+      "literatura_brasileira",
+      "segunda_fase_do_modernismo"
+    ],
+    "banca_normalizada": "EsPCEx",
+    "dificuldade_normalizada": "DIFICIL",
+    "enunciado": "Leia o trecho do romance “São Bernardo” e dê o que se pede.\n“(...)\nO que estou é velho. Cinquenta anos pelo S. Pedro. Cinquenta anos perdidos, cinquenta anos\ngastos sem objetivo, a\n\nmaltratar-me e a maltratar os outros. O resultado é que endureci, calejei, e não é um\narranhão que penetra esta casca\nespessa e vem ferir cá dentro a sensibilidade embotada.\n(...)\nCinquenta anos! Quantas horas inúteis! Consumir-se uma pessoa a vida inteira sem saber\npara quê! Comer e dormir\ncomo um porco! Levantar-se cedo todas as manhãs e sair correndo, procurando comida! E\ndepois guardar comida para\nos filhos, para os netos, para muitas gerações. Que estupidez! Que porcaria! Não é bom vir o\ndiabo e levar tudo?\n(...)\nPenso em Madalena com insistência. Se fosse possível recomeçarmos... Para que\nenganar-me? Se fosse possível\nrecomeçarmos, aconteceria exatamente o que aconteceu. Não consigo modificar-me, é o\nque mais me aflige.\n(...)\nFoi este modo de vida que me inutilizou. Sou um aleijado. Devo ter um coração miúdo,\nlacunas no cérebro, nervos\ndiferentes dos nervos dos outros homens. E um nariz enorme, uma boca enorme, dedos\nenormes.\n(...)”\nQuanto ao trecho lido, é correto afirmar que",
+    "statement_segments": [
+      {
+        "kind": "text",
+        "text": "Leia o trecho do romance “São Bernardo” e dê o que se pede.",
+        "bold": false,
+        "line_id": "2:262.92"
+      },
+      {
+        "kind": "text",
+        "text": "“(...)",
+        "bold": false,
+        "line_id": "2:278.92"
+      },
+      {
+        "kind": "text",
+        "text": "O que estou é velho. Cinquenta anos pelo S. Pedro. Cinquenta anos perdidos, cinquenta anos",
+        "bold": false,
+        "line_id": "2:294.92"
+      },
+      {
+        "kind": "text",
+        "text": "gastos sem objetivo, a",
+        "bold": false,
+        "line_id": "2:310.92"
+      },
+      {
+        "kind": "text",
+        "text": "\n",
+        "line_id": "2:310.92"
+      },
+      {
+        "kind": "text",
+        "text": "maltratar-me e a maltratar os outros. O resultado é que endureci, calejei, e não é um",
+        "bold": false,
+        "line_id": "2:342.92"
+      },
+      {
+        "kind": "text",
+        "text": "arranhão que penetra esta casca",
+        "bold": false,
+        "line_id": "2:358.92"
+      },
+      {
+        "kind": "text",
+        "text": "espessa e vem ferir cá dentro a sensibilidade embotada.",
+        "bold": false,
+        "line_id": "2:374.92"
+      },
+      {
+        "kind": "text",
+        "text": "(...)",
+        "bold": false,
+        "line_id": "2:390.92"
+      },
+      {
+        "kind": "text",
+        "text": "Cinquenta anos! Quantas horas inúteis! Consumir-se uma pessoa a vida inteira sem saber",
+        "bold": false,
+        "line_id": "2:406.92"
+      },
+      {
+        "kind": "text",
+        "text": "para quê! Comer e dormir",
+        "bold": false,
+        "line_id": "2:422.92"
+      },
+      {
+        "kind": "text",
+        "text": "como um porco! Levantar-se cedo todas as manhãs e sair correndo, procurando comida! E",
+        "bold": false,
+        "line_id": "2:438.92"
+      },
+      {
+        "kind": "text",
+        "text": "depois guardar comida para",
+        "bold": false,
+        "line_id": "2:454.92"
+      },
+      {
+        "kind": "text",
+        "text": "os filhos, para os netos, para muitas gerações. Que estupidez! Que porcaria! Não é bom vir o",
+        "bold": false,
+        "line_id": "2:470.92"
+      },
+      {
+        "kind": "text",
+        "text": "diabo e levar tudo?",
+        "bold": false,
+        "line_id": "2:486.92"
+      },
+      {
+        "kind": "text",
+        "text": "(...)",
+        "bold": false,
+        "line_id": "2:502.92"
+      },
+      {
+        "kind": "text",
+        "text": "Penso em Madalena com insistência. Se fosse possível recomeçarmos... Para que",
+        "bold": false,
+        "line_id": "2:518.92"
+      },
+      {
+        "kind": "text",
+        "text": "enganar-me? Se fosse possível",
+        "bold": false,
+        "line_id": "2:534.92"
+      },
+      {
+        "kind": "text",
+        "text": "recomeçarmos, aconteceria exatamente o que aconteceu. Não consigo modificar-me, é o",
+        "bold": false,
+        "line_id": "2:550.92"
+      },
+      {
+        "kind": "text",
+        "text": "que mais me aflige.",
+        "bold": false,
+        "line_id": "2:566.92"
+      },
+      {
+        "kind": "text",
+        "text": "(...)",
+        "bold": false,
+        "line_id": "2:582.92"
+      },
+      {
+        "kind": "text",
+        "text": "Foi este modo de vida que me inutilizou. Sou um aleijado. Devo ter um coração miúdo,",
+        "bold": false,
+        "line_id": "2:598.92"
+      },
+      {
+        "kind": "text",
+        "text": "lacunas no cérebro, nervos",
+        "bold": false,
+        "line_id": "2:614.92"
+      },
+      {
+        "kind": "text",
+        "text": "diferentes dos nervos dos outros homens. E um nariz enorme, uma boca enorme, dedos",
+        "bold": false,
+        "line_id": "2:630.92"
+      },
+      {
+        "kind": "text",
+        "text": "enormes.",
+        "bold": false,
+        "line_id": "2:646.92"
+      },
+      {
+        "kind": "text",
+        "text": "(...)”",
+        "bold": false,
+        "line_id": "2:662.92"
+      },
+      {
+        "kind": "text",
+        "text": "Quanto ao trecho lido, é correto afirmar que",
+        "bold": false,
+        "line_id": "2:678.92"
+      }
+    ],
+    "assets": [],
+    "alternatives": [
+      {
+        "letter": "A",
+        "text": "há predomínio de uma visão ufanista do narrador.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "há predomínio de uma visão ufanista do narrador.",
+            "bold": false,
+            "line_id": "2:705.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "B",
+        "text": "o intimismo dificulta uma visão crítica.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "o intimismo dificulta uma visão crítica.",
+            "bold": false,
+            "line_id": "2:730.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "C",
+        "text": "a abordagem universal permite alcançar à dimensão regional.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "a abordagem universal permite alcançar à dimensão regional.",
+            "bold": false,
+            "line_id": "2:755.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "D",
+        "text": "a incapacidade de modificar o modo de vida revela traços deterministas.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "a incapacidade de modificar o modo de vida revela traços deterministas.",
+            "bold": false,
+            "line_id": "3:80.52"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "E",
+        "text": "o narrador externo explora conflitos internos do personagem.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "o narrador externo explora conflitos internos do personagem.",
+            "bold": false,
+            "line_id": "3:105.52"
+          }
+        ],
+        "assets": []
+      }
+    ],
+    "gabarito": "D"
+  },
+  {
+    "ordinal": 3,
+    "materia": "literatura",
+    "content_path": [
+      "literatura_brasileira",
+      "segunda_fase_do_modernismo"
+    ],
+    "banca_normalizada": "EsPCEx",
+    "dificuldade_normalizada": "MEDIA",
+    "enunciado": "\"Brasil: país do futuro? Mas o futuro não é mais o que era\" (Carlos Drummond) Este verso de\nClaro Enigma dialoga com o\nprojeto modernista ao:",
+    "statement_segments": [
+      {
+        "kind": "text",
+        "text": "\"Brasil: país do futuro? Mas o futuro não é mais o que era\" (Carlos Drummond) Este verso de",
+        "bold": false,
+        "line_id": "3:214.92"
+      },
+      {
+        "kind": "text",
+        "text": "Claro Enigma dialoga com o",
+        "bold": false,
+        "line_id": "3:230.92"
+      },
+      {
+        "kind": "text",
+        "text": "projeto modernista ao:",
+        "bold": false,
+        "line_id": "3:246.92"
+      }
+    ],
+    "assets": [],
+    "alternatives": [
+      {
+        "letter": "A",
+        "text": "Desconstruir otimismos ufanistas através do pessimismo crítico",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "Desconstruir otimismos ufanistas através do pessimismo crítico",
+            "bold": false,
+            "line_id": "3:273.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "B",
+        "text": "Exaltar o progresso industrial da década de 1920",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "Exaltar o progresso industrial da década de 1920",
+            "bold": false,
+            "line_id": "3:298.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "C",
+        "text": "Manter estrutura métrica parnasiana com temas atuais",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "Manter estrutura métrica parnasiana com temas atuais",
+            "bold": false,
+            "line_id": "3:323.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "D",
+        "text": "Retomar o bucolismo arcádico para idealizar o campo",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "Retomar o bucolismo arcádico para idealizar o campo",
+            "bold": false,
+            "line_id": "3:348.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "E",
+        "text": "Criticar o simbolismo pela ausência de engajamento",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "Criticar o simbolismo pela ausência de engajamento",
+            "bold": false,
+            "line_id": "3:373.92"
+          }
+        ],
+        "assets": []
+      }
+    ],
+    "gabarito": "A"
+  },
+  {
+    "ordinal": 4,
+    "materia": "literatura",
+    "content_path": [
+      "literatura_brasileira",
+      "segunda_fase_do_modernismo"
+    ],
+    "banca_normalizada": "EsPCEx",
+    "dificuldade_normalizada": "FACIL",
+    "enunciado": "Assinale a alternativa que contém uma das características da segunda fase modernista\nbrasileira.",
+    "statement_segments": [
+      {
+        "kind": "text",
+        "text": "Assinale a alternativa que contém uma das características da segunda fase modernista",
+        "bold": false,
+        "line_id": "3:483.32"
+      },
+      {
+        "kind": "text",
+        "text": "brasileira.",
+        "bold": false,
+        "line_id": "3:499.32"
+      }
+    ],
+    "assets": [],
+    "alternatives": [
+      {
+        "letter": "A",
+        "text": "Os efeitos da crise econômica mundial e os choques ideológicos que levaram a posições\nmais definidas formavam um\ncampo propício ao desenvolvimento de um romance caracterizado pela denúncia social.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "Os efeitos da crise econômica mundial e os choques ideológicos que levaram a posições",
+            "bold": false,
+            "line_id": "3:526.32"
+          },
+          {
+            "kind": "text",
+            "text": "mais definidas formavam um",
+            "bold": false,
+            "line_id": "3:542.32"
+          },
+          {
+            "kind": "text",
+            "text": "campo propício ao desenvolvimento de um romance caracterizado pela denúncia social.",
+            "bold": false,
+            "line_id": "3:558.32"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "B",
+        "text": "Na poesia, ganha corpo uma geração de poetas que se opõem às conquistas e inovações\ndos primeiros modernistas de\n1922. Uma nova proposta é defendida inicialmente pela revista Orfeu.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "Na poesia, ganha corpo uma geração de poetas que se opõem às conquistas e inovações",
+            "bold": false,
+            "line_id": "3:583.32"
+          },
+          {
+            "kind": "text",
+            "text": "dos primeiros modernistas de",
+            "bold": false,
+            "line_id": "3:599.32"
+          },
+          {
+            "kind": "text",
+            "text": "1922. Uma nova proposta é defendida inicialmente pela revista Orfeu.",
+            "bold": false,
+            "line_id": "3:615.32"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "C",
+        "text": "O período de 1930 a 1945 é o mais radical do movimento modernista, pela necessidade\nde ruptura com toda arte\npassadista.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "O período de 1930 a 1945 é o mais radical do movimento modernista, pela necessidade",
+            "bold": false,
+            "line_id": "3:640.32"
+          },
+          {
+            "kind": "text",
+            "text": "de ruptura com toda arte",
+            "bold": false,
+            "line_id": "3:656.32"
+          },
+          {
+            "kind": "text",
+            "text": "passadista.",
+            "bold": false,
+            "line_id": "3:672.32"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "D",
+        "text": "As revistas e manifestos marcam o segundo momento modernista, com a divulgação do\nmovi mento pelos vários\nestados brasileiros.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "As revistas e manifestos marcam o segundo momento modernista, com a divulgação do",
+            "bold": false,
+            "line_id": "3:697.32"
+          },
+          {
+            "kind": "text",
+            "text": "movi mento pelos vários",
+            "bold": false,
+            "line_id": "3:713.32"
+          },
+          {
+            "kind": "text",
+            "text": "estados brasileiros.",
+            "bold": false,
+            "line_id": "3:729.32"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "E",
+        "text": "Ao mesmo tempo em que se procura o moderno, o original e o polêmico, o nacionalismo\nse manifesta em suas\nmúltiplas facetas: uma volta às origens, a pesquisa de fontes quinhentistas, a procura\nde uma “língua brasileira”.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "Ao mesmo tempo em que se procura o moderno, o original e o polêmico, o nacionalismo",
+            "bold": false,
+            "line_id": "4:80.52"
+          },
+          {
+            "kind": "text",
+            "text": "se manifesta em suas",
+            "bold": false,
+            "line_id": "4:96.52"
+          },
+          {
+            "kind": "text",
+            "text": "múltiplas facetas: uma volta às origens, a pesquisa de fontes quinhentistas, a procura",
+            "bold": false,
+            "line_id": "4:112.52"
+          },
+          {
+            "kind": "text",
+            "text": "de uma “língua brasileira”.",
+            "bold": false,
+            "line_id": "4:128.52"
+          }
+        ],
+        "assets": []
+      }
+    ],
+    "gabarito": "A"
+  },
+  {
+    "ordinal": 5,
+    "materia": "literatura",
+    "content_path": [
+      "literatura_brasileira",
+      "segunda_fase_do_modernismo"
+    ],
+    "banca_normalizada": "EsPCEx",
+    "dificuldade_normalizada": "FACIL",
+    "enunciado": "CANÇÃO EXCÊNTRICA\n1 Ando à procura de espaço\n2 para o desenho da vida.\n3 Em números me embaraço\n\n4 e perco sempre a medida.\n5 Se penso encontrar saída,\n6 em vez de abrir um compasso,\n7 projeto-me num abraço\n8 e gero uma despedida.\n9 Se volto sobre o meu passo,\n10 é já distância perdida.\n11 Meu coração, coisa de aço,\n12 começa a achar um cansaço\n13 esta procura de espaço\n14 para o desenho da vida.\n15 Já por exausta e descrida\n16 não me animo a um breve traço:\n17 – saudosa do que não faço\n18 – do que faço, arrependida.\n(Cecília Meireles)\n______________________________\nVocabulário\nExcêntrico. 1.Que (se) desvia ou (se) afasta do centro. 2. Indivíduo original, extravagante,\nesquisito.\nExausta. Esgotada.\nDescrida. Descrente.\nNesse poema, a expressão “desenho da vida” significa",
+    "statement_segments": [
+      {
+        "kind": "text",
+        "text": "CANÇÃO EXCÊNTRICA",
+        "bold": false,
+        "line_id": "4:237.92"
+      },
+      {
+        "kind": "text",
+        "text": "1 Ando à procura de espaço",
+        "bold": false,
+        "line_id": "4:253.92"
+      },
+      {
+        "kind": "text",
+        "text": "2 para o desenho da vida.",
+        "bold": false,
+        "line_id": "4:269.92"
+      },
+      {
+        "kind": "text",
+        "text": "3 Em números me embaraço",
+        "bold": false,
+        "line_id": "4:285.92"
+      },
+      {
+        "kind": "text",
+        "text": "\n",
+        "line_id": "4:285.92"
+      },
+      {
+        "kind": "text",
+        "text": "4 e perco sempre a medida.",
+        "bold": false,
+        "line_id": "4:317.92"
+      },
+      {
+        "kind": "text",
+        "text": "5 Se penso encontrar saída,",
+        "bold": false,
+        "line_id": "4:333.92"
+      },
+      {
+        "kind": "text",
+        "text": "6 em vez de abrir um compasso,",
+        "bold": false,
+        "line_id": "4:349.92"
+      },
+      {
+        "kind": "text",
+        "text": "7 projeto-me num abraço",
+        "bold": false,
+        "line_id": "4:365.92"
+      },
+      {
+        "kind": "text",
+        "text": "8 e gero uma despedida.",
+        "bold": false,
+        "line_id": "4:381.92"
+      },
+      {
+        "kind": "text",
+        "text": "9 Se volto sobre o meu passo,",
+        "bold": false,
+        "line_id": "4:397.92"
+      },
+      {
+        "kind": "text",
+        "text": "10 é já distância perdida.",
+        "bold": false,
+        "line_id": "4:413.92"
+      },
+      {
+        "kind": "text",
+        "text": "11 Meu coração, coisa de aço,",
+        "bold": false,
+        "line_id": "4:429.92"
+      },
+      {
+        "kind": "text",
+        "text": "12 começa a achar um cansaço",
+        "bold": false,
+        "line_id": "4:445.92"
+      },
+      {
+        "kind": "text",
+        "text": "13 esta procura de espaço",
+        "bold": false,
+        "line_id": "4:461.92"
+      },
+      {
+        "kind": "text",
+        "text": "14 para o desenho da vida.",
+        "bold": false,
+        "line_id": "4:477.92"
+      },
+      {
+        "kind": "text",
+        "text": "15 Já por exausta e descrida",
+        "bold": false,
+        "line_id": "4:493.92"
+      },
+      {
+        "kind": "text",
+        "text": "16 não me animo a um breve traço:",
+        "bold": false,
+        "line_id": "4:509.92"
+      },
+      {
+        "kind": "text",
+        "text": "17 – saudosa do que não faço",
+        "bold": false,
+        "line_id": "4:525.92"
+      },
+      {
+        "kind": "text",
+        "text": "18 – do que faço, arrependida.",
+        "bold": false,
+        "line_id": "4:541.92"
+      },
+      {
+        "kind": "text",
+        "text": "(Cecília Meireles)",
+        "bold": false,
+        "line_id": "4:557.92"
+      },
+      {
+        "kind": "text",
+        "text": "______________________________",
+        "bold": false,
+        "line_id": "4:573.92"
+      },
+      {
+        "kind": "text",
+        "text": "Vocabulário",
+        "bold": false,
+        "line_id": "4:589.92"
+      },
+      {
+        "kind": "text",
+        "text": "Excêntrico. 1.Que (se) desvia ou (se) afasta do centro. 2. Indivíduo original, extravagante,",
+        "bold": false,
+        "line_id": "4:605.92"
+      },
+      {
+        "kind": "text",
+        "text": "esquisito.",
+        "bold": false,
+        "line_id": "4:621.92"
+      },
+      {
+        "kind": "text",
+        "text": "Exausta. Esgotada.",
+        "bold": false,
+        "line_id": "4:637.92"
+      },
+      {
+        "kind": "text",
+        "text": "Descrida. Descrente.",
+        "bold": false,
+        "line_id": "4:653.92"
+      },
+      {
+        "kind": "text",
+        "text": "Nesse poema, a expressão “desenho da vida” significa",
+        "bold": false,
+        "line_id": "4:669.92"
+      }
+    ],
+    "assets": [],
+    "alternatives": [
+      {
+        "letter": "A",
+        "text": "sentido da existência.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "sentido da existência.",
+            "bold": false,
+            "line_id": "4:696.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "B",
+        "text": "preservação das conquistas já feitas.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "preservação das conquistas já feitas.",
+            "bold": false,
+            "line_id": "4:721.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "C",
+        "text": "esboço de formas geométricas.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "esboço de formas geométricas.",
+            "bold": false,
+            "line_id": "4:746.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "D",
+        "text": "retrato de uma paisagem.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "retrato de uma paisagem.",
+            "bold": false,
+            "line_id": "5:80.52"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "E",
+        "text": "idade da poetisa.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "idade da poetisa.",
+            "bold": false,
+            "line_id": "5:105.52"
+          }
+        ],
+        "assets": []
+      }
+    ],
+    "gabarito": "A"
+  },
+  {
+    "ordinal": 6,
+    "materia": "literatura",
+    "content_path": [
+      "literatura_brasileira",
+      "segunda_fase_do_modernismo"
+    ],
+    "banca_normalizada": "EsPCEx",
+    "dificuldade_normalizada": "MEDIA",
+    "enunciado": "Sobre a poesia da Segunda Geração modernista, é correto afirmar que",
+    "statement_segments": [
+      {
+        "kind": "text",
+        "text": "Sobre a poesia da Segunda Geração modernista, é correto afirmar que",
+        "bold": false,
+        "line_id": "5:214.92"
+      }
+    ],
+    "assets": [],
+    "alternatives": [
+      {
+        "letter": "A",
+        "text": "apresenta fortes características regionalistas, assim como a prosa do período.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "apresenta fortes características regionalistas, assim como a prosa do período.",
+            "bold": false,
+            "line_id": "5:241.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "B",
+        "text": "valoriza as formas fixas, como o soneto, em detrimento à liberdade de expressão.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "valoriza as formas fixas, como o soneto, em detrimento à liberdade de expressão.",
+            "bold": false,
+            "line_id": "5:266.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "C",
+        "text": "preocupa-se fundamentalmente com o sentido da existência humana.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "preocupa-se fundamentalmente com o sentido da existência humana.",
+            "bold": false,
+            "line_id": "5:291.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "D",
+        "text": "apresenta forte tendência nacionalista e de crítica à realidade social brasileira",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "apresenta forte tendência nacionalista e de crítica à realidade social brasileira",
+            "bold": false,
+            "line_id": "5:316.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "E",
+        "text": "é essencialmente experimentalista e inovadora quanto a temas e formas de expressão.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "é essencialmente experimentalista e inovadora quanto a temas e formas de expressão.",
+            "bold": false,
+            "line_id": "5:341.92"
+          }
+        ],
+        "assets": []
+      }
+    ],
+    "gabarito": "C"
+  },
+  {
+    "ordinal": 7,
+    "materia": "literatura",
+    "content_path": [
+      "literatura_brasileira",
+      "segunda_fase_do_modernismo"
+    ],
+    "banca_normalizada": "EsPCEx",
+    "dificuldade_normalizada": "FACIL",
+    "enunciado": "Sobre as obras relacionadas na coluna A, assinale a alternativa que completa corretamente\na coluna B.\nCOLUNA A\n\n( 1 ) Senhora\n( 2 ) Memórias de um sargento de milícias\n( 3 ) O Ateneu\n( 4 ) Usina\n( 5 ) Quincas Borba\nCOLUNA B\n\n( ) Obra totalmente inovadora para sua época, pode ser considerada o verdadeiro romance\nde\ncostumes do Romantismo brasileiro, pois abandona a visão da burguesia urbana para\nretratar o povo\nem toda a sua simplicidade.\n( ) Retrato da sociedade carioca da época do\nSegundo Reinado, o romance narra a história do relacionamento entre Aurélia Camargo e\nFernando\nSeixas, levando o leitor a refletir a respeito da influência do dinheiro nas relações amorosas\ne nos\ncasamentos da época.\n( ) Romance narrado em terceira pessoa, é\numa análise da desagregação psicológica e financeira de Rubião, humilde professor do\ninterior de\nMinas Gerais que recebe uma herança do criador\nde um sistema filosófico chamado Humanitismo.\nRubião morre pobre e louco, acreditando ser\nNapoleão.\n( ) O personagem Sérgio, já adulto, narra seu\ntempo de aluno em um colégio interno; a narrativa\né feita em primeira pessoa, o que permite ao autor\nentrar no complexo mundo das revelações que só\nse fazem à consciência.\n( ) O romance retrata a decadência do engenho Santa Rosa, arrancado de suas bases por\nforça\ndo processo industrial, com máquinas de fábrica,\ncom ferramentas enormes, com moendas gigantes,\nque suplantam a produção artesanal.",
+    "statement_segments": [
+      {
+        "kind": "text",
+        "text": "Sobre as obras relacionadas na coluna A, assinale a alternativa que completa corretamente",
+        "bold": false,
+        "line_id": "5:451.32"
+      },
+      {
+        "kind": "text",
+        "text": "a coluna B.",
+        "bold": false,
+        "line_id": "5:467.32"
+      },
+      {
+        "kind": "text",
+        "text": "COLUNA A",
+        "bold": false,
+        "line_id": "5:483.32"
+      },
+      {
+        "kind": "text",
+        "text": "\n",
+        "line_id": "5:483.32"
+      },
+      {
+        "kind": "text",
+        "text": "( 1 ) Senhora",
+        "bold": false,
+        "line_id": "5:527.32"
+      },
+      {
+        "kind": "text",
+        "text": "( 2 ) Memórias de um sargento de milícias",
+        "bold": false,
+        "line_id": "5:543.32"
+      },
+      {
+        "kind": "text",
+        "text": "( 3 ) O Ateneu",
+        "bold": false,
+        "line_id": "5:559.32"
+      },
+      {
+        "kind": "text",
+        "text": "( 4 ) Usina",
+        "bold": false,
+        "line_id": "5:575.32"
+      },
+      {
+        "kind": "text",
+        "text": "( 5 ) Quincas Borba",
+        "bold": false,
+        "line_id": "5:591.32"
+      },
+      {
+        "kind": "text",
+        "text": "COLUNA B",
+        "bold": false,
+        "line_id": "5:607.32"
+      },
+      {
+        "kind": "text",
+        "text": "\n",
+        "line_id": "5:607.32"
+      },
+      {
+        "kind": "text",
+        "text": "( ) Obra totalmente inovadora para sua época, pode ser considerada o verdadeiro romance",
+        "bold": false,
+        "line_id": "5:651.32"
+      },
+      {
+        "kind": "text",
+        "text": "de",
+        "bold": false,
+        "line_id": "5:667.32"
+      },
+      {
+        "kind": "text",
+        "text": "costumes do Romantismo brasileiro, pois abandona a visão da burguesia urbana para",
+        "bold": false,
+        "line_id": "5:683.32"
+      },
+      {
+        "kind": "text",
+        "text": "retratar o povo",
+        "bold": false,
+        "line_id": "5:699.32"
+      },
+      {
+        "kind": "text",
+        "text": "em toda a sua simplicidade.",
+        "bold": false,
+        "line_id": "5:715.32"
+      },
+      {
+        "kind": "text",
+        "text": "( ) Retrato da sociedade carioca da época do",
+        "bold": false,
+        "line_id": "5:731.32"
+      },
+      {
+        "kind": "text",
+        "text": "Segundo Reinado, o romance narra a história do relacionamento entre Aurélia Camargo e",
+        "bold": false,
+        "line_id": "5:747.32"
+      },
+      {
+        "kind": "text",
+        "text": "Fernando",
+        "bold": false,
+        "line_id": "6:80.52"
+      },
+      {
+        "kind": "text",
+        "text": "Seixas, levando o leitor a refletir a respeito da influência do dinheiro nas relações amorosas",
+        "bold": false,
+        "line_id": "6:96.52"
+      },
+      {
+        "kind": "text",
+        "text": "e nos",
+        "bold": false,
+        "line_id": "6:112.52"
+      },
+      {
+        "kind": "text",
+        "text": "casamentos da época.",
+        "bold": false,
+        "line_id": "6:128.52"
+      },
+      {
+        "kind": "text",
+        "text": "( ) Romance narrado em terceira pessoa, é",
+        "bold": false,
+        "line_id": "6:144.52"
+      },
+      {
+        "kind": "text",
+        "text": "uma análise da desagregação psicológica e financeira de Rubião, humilde professor do",
+        "bold": false,
+        "line_id": "6:160.52"
+      },
+      {
+        "kind": "text",
+        "text": "interior de",
+        "bold": false,
+        "line_id": "6:176.52"
+      },
+      {
+        "kind": "text",
+        "text": "Minas Gerais que recebe uma herança do criador",
+        "bold": false,
+        "line_id": "6:192.52"
+      },
+      {
+        "kind": "text",
+        "text": "de um sistema filosófico chamado Humanitismo.",
+        "bold": false,
+        "line_id": "6:208.52"
+      },
+      {
+        "kind": "text",
+        "text": "Rubião morre pobre e louco, acreditando ser",
+        "bold": false,
+        "line_id": "6:224.52"
+      },
+      {
+        "kind": "text",
+        "text": "Napoleão.",
+        "bold": false,
+        "line_id": "6:240.52"
+      },
+      {
+        "kind": "text",
+        "text": "( ) O personagem Sérgio, já adulto, narra seu",
+        "bold": false,
+        "line_id": "6:256.52"
+      },
+      {
+        "kind": "text",
+        "text": "tempo de aluno em um colégio interno; a narrativa",
+        "bold": false,
+        "line_id": "6:272.52"
+      },
+      {
+        "kind": "text",
+        "text": "é feita em primeira pessoa, o que permite ao autor",
+        "bold": false,
+        "line_id": "6:288.52"
+      },
+      {
+        "kind": "text",
+        "text": "entrar no complexo mundo das revelações que só",
+        "bold": false,
+        "line_id": "6:304.52"
+      },
+      {
+        "kind": "text",
+        "text": "se fazem à consciência.",
+        "bold": false,
+        "line_id": "6:320.52"
+      },
+      {
+        "kind": "text",
+        "text": "( ) O romance retrata a decadência do engenho Santa Rosa, arrancado de suas bases por",
+        "bold": false,
+        "line_id": "6:336.52"
+      },
+      {
+        "kind": "text",
+        "text": "força",
+        "bold": false,
+        "line_id": "6:352.52"
+      },
+      {
+        "kind": "text",
+        "text": "do processo industrial, com máquinas de fábrica,",
+        "bold": false,
+        "line_id": "6:368.52"
+      },
+      {
+        "kind": "text",
+        "text": "com ferramentas enormes, com moendas gigantes,",
+        "bold": false,
+        "line_id": "6:384.52"
+      },
+      {
+        "kind": "text",
+        "text": "que suplantam a produção artesanal.",
+        "bold": false,
+        "line_id": "6:400.52"
+      }
+    ],
+    "assets": [],
+    "alternatives": [
+      {
+        "letter": "A",
+        "text": "2–1–5–4–3",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "2–1–5–4–3",
+            "bold": false,
+            "line_id": "6:427.52"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "B",
+        "text": "2–1–4–3–5",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "2–1–4–3–5",
+            "bold": false,
+            "line_id": "6:452.52"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "C",
+        "text": "1–5–2–3–4",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "1–5–2–3–4",
+            "bold": false,
+            "line_id": "6:477.52"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "D",
+        "text": "2–4–5–2–3",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "2–4–5–2–3",
+            "bold": false,
+            "line_id": "6:502.52"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "E",
+        "text": "2–1–5–3–4",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "2–1–5–3–4",
+            "bold": false,
+            "line_id": "6:527.52"
+          }
+        ],
+        "assets": []
+      }
+    ],
+    "gabarito": "E"
+  },
+  {
+    "ordinal": 8,
+    "materia": "literatura",
+    "content_path": [
+      "literatura_brasileira",
+      "segunda_fase_do_modernismo"
+    ],
+    "banca_normalizada": "EsPCEx",
+    "dificuldade_normalizada": "FACIL",
+    "enunciado": "É correto afirmar, em relação à poesia do segundo momento modernista brasileiro, que",
+    "statement_segments": [
+      {
+        "kind": "text",
+        "text": "É correto afirmar, em relação à poesia do segundo momento modernista brasileiro, que",
+        "bold": false,
+        "line_id": "6:636.92"
+      }
+    ],
+    "assets": [],
+    "alternatives": [
+      {
+        "letter": "A",
+        "text": "deixa de ser influenciada por Mário e Oswald de Andrade.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "deixa de ser influenciada por Mário e Oswald de Andrade.",
+            "bold": false,
+            "line_id": "6:663.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "B",
+        "text": "o poeta para de se questionar como indivíduo e como artista.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "o poeta para de se questionar como indivíduo e como artista.",
+            "bold": false,
+            "line_id": "6:688.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "C",
+        "text": "amadurece e amplia as conquistas da geração anterior.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "amadurece e amplia as conquistas da geração anterior.",
+            "bold": false,
+            "line_id": "6:713.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "D",
+        "text": "fortalece a busca pela poesia construtiva e apolitizada.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "fortalece a busca pela poesia construtiva e apolitizada.",
+            "bold": false,
+            "line_id": "6:738.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "E",
+        "text": "se liberta das profundas transformações ocorridas no período.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "se liberta das profundas transformações ocorridas no período.",
+            "bold": false,
+            "line_id": "7:80.52"
+          }
+        ],
+        "assets": []
+      }
+    ],
+    "gabarito": "C"
+  },
+  {
+    "ordinal": 9,
+    "materia": "literatura",
+    "content_path": [
+      "literatura_brasileira",
+      "segunda_fase_do_modernismo"
+    ],
+    "banca_normalizada": "ESA",
+    "dificuldade_normalizada": "FACIL",
+    "enunciado": "Leia o fragmento a seguir:\n“No meio do caminho tinha uma pedra tinha uma pedra no meio do caminho...”\nO trecho acima, de Carlos Drummond de Andrade, apresenta característica marcante do:",
+    "statement_segments": [
+      {
+        "kind": "text",
+        "text": "Leia o fragmento a seguir:",
+        "bold": false,
+        "line_id": "7:189.92"
+      },
+      {
+        "kind": "text",
+        "text": "“No meio do caminho tinha uma pedra tinha uma pedra no meio do caminho...”",
+        "bold": false,
+        "line_id": "7:205.92"
+      },
+      {
+        "kind": "text",
+        "text": "O trecho acima, de ",
+        "bold": false,
+        "line_id": "7:221.92"
+      },
+      {
+        "kind": "text",
+        "text": "Carlos Drummond de Andrade",
+        "bold": true,
+        "line_id": "7:221.92"
+      },
+      {
+        "kind": "text",
+        "text": ", apresenta característica marcante do:",
+        "bold": false,
+        "line_id": "7:221.92"
+      }
+    ],
+    "assets": [],
+    "alternatives": [
+      {
+        "letter": "A",
+        "text": "Parnasianismo, pois organiza a repetição de “pedra” e “caminho” como recurso de rigor\nformal e regularidade métrica,\npriorizando a perfeição da forma acima do conteúdo.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "Parnasianismo, pois organiza a repetição de “pedra” e “caminho” como recurso de rigor",
+            "bold": false,
+            "line_id": "7:248.92"
+          },
+          {
+            "kind": "text",
+            "text": "formal e regularidade métrica,",
+            "bold": false,
+            "line_id": "7:264.92"
+          },
+          {
+            "kind": "text",
+            "text": "priorizando a perfeição da forma acima do conteúdo.",
+            "bold": false,
+            "line_id": "7:280.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "B",
+        "text": "Simbolismo, pois transforma “pedra” e “caminho” em imagens místicas e sugestivas,\nexplorando musicalidade e\nsubjetividade do sentimento por meio da repetição.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "Simbolismo, pois transforma “pedra” e “caminho” em imagens místicas e sugestivas,",
+            "bold": false,
+            "line_id": "7:305.92"
+          },
+          {
+            "kind": "text",
+            "text": "explorando musicalidade e",
+            "bold": false,
+            "line_id": "7:321.92"
+          },
+          {
+            "kind": "text",
+            "text": "subjetividade do sentimento por meio da repetição.",
+            "bold": false,
+            "line_id": "7:337.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "C",
+        "text": "Modernismo, pois rompe com padrões tradicionais ao explorar linguagem direta e\nrepetição deliberada como\nprocedimento expressivo, recusando o lirismo ornamental.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "Modernismo, pois rompe com padrões tradicionais ao explorar linguagem direta e",
+            "bold": false,
+            "line_id": "7:362.92"
+          },
+          {
+            "kind": "text",
+            "text": "repetição deliberada como",
+            "bold": false,
+            "line_id": "7:378.92"
+          },
+          {
+            "kind": "text",
+            "text": "procedimento expressivo, recusando o lirismo ornamental.",
+            "bold": false,
+            "line_id": "7:394.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "D",
+        "text": "Arcadismo, pois idealiza o “caminho” como cenário bucólico e harmônico, em que a\n“pedra” simboliza o equilíbrio\nnatural da vida simples e pastoril.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "Arcadismo, pois idealiza o “caminho” como cenário bucólico e harmônico, em que a",
+            "bold": false,
+            "line_id": "7:419.92"
+          },
+          {
+            "kind": "text",
+            "text": "“pedra” simboliza o equilíbrio",
+            "bold": false,
+            "line_id": "7:435.92"
+          },
+          {
+            "kind": "text",
+            "text": "natural da vida simples e pastoril.",
+            "bold": false,
+            "line_id": "7:451.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "E",
+        "text": "Naturalismo, pois explica “pedra” e “caminho” como elementos de determinismo\nmaterial, enfatizando causalidade\nobjetiva e cientificismo na representação do cotidiano.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "Naturalismo, pois explica “pedra” e “caminho” como elementos de determinismo",
+            "bold": false,
+            "line_id": "7:476.92"
+          },
+          {
+            "kind": "text",
+            "text": "material, enfatizando causalidade",
+            "bold": false,
+            "line_id": "7:492.92"
+          },
+          {
+            "kind": "text",
+            "text": "objetiva e cientificismo na representação do cotidiano.",
+            "bold": false,
+            "line_id": "7:508.92"
+          }
+        ],
+        "assets": []
+      }
+    ],
+    "gabarito": "C"
+  },
+  {
+    "ordinal": 10,
+    "materia": "literatura",
+    "content_path": [
+      "literatura_brasileira",
+      "segunda_fase_do_modernismo"
+    ],
+    "banca_normalizada": "EsPCEx",
+    "dificuldade_normalizada": "MEDIA",
+    "enunciado": "\"Fabiano não achava palavras. A seca as queimara\" (Graciliano Ramos) Esta metáfora em\nVidas Secas:",
+    "statement_segments": [
+      {
+        "kind": "text",
+        "text": "\"Fabiano não achava palavras. A seca as queimara\" (Graciliano Ramos) Esta metáfora em",
+        "bold": false,
+        "line_id": "7:618.32"
+      },
+      {
+        "kind": "text",
+        "text": "Vidas Secas:",
+        "bold": false,
+        "line_id": "7:634.32"
+      }
+    ],
+    "assets": [],
+    "alternatives": [
+      {
+        "letter": "A",
+        "text": "Materializa a opressão social na falência da expressão",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "Materializa a opressão social na falência da expressão",
+            "bold": false,
+            "line_id": "7:661.32"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "B",
+        "text": "Exalta a eloqüência do sertanejo contra adversidades",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "Exalta a eloqüência do sertanejo contra adversidades",
+            "bold": false,
+            "line_id": "7:686.32"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "C",
+        "text": "Utiliza cultismos barrocos para descrever o ambiente",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "Utiliza cultismos barrocos para descrever o ambiente",
+            "bold": false,
+            "line_id": "7:711.32"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "D",
+        "text": "Influencia o tropicalismo na musicalidade poética",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "Influencia o tropicalismo na musicalidade poética",
+            "bold": false,
+            "line_id": "7:736.32"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "E",
+        "text": "Parodia o discurso ufanista do Romantismo",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "Parodia o discurso ufanista do Romantismo",
+            "bold": false,
+            "line_id": "7:761.32"
+          }
+        ],
+        "assets": []
+      }
+    ],
+    "gabarito": "A"
+  },
+  {
+    "ordinal": 11,
+    "materia": "literatura",
+    "content_path": [
+      "literatura_brasileira",
+      "segunda_fase_do_modernismo"
+    ],
+    "banca_normalizada": "ESA",
+    "dificuldade_normalizada": "MEDIA",
+    "enunciado": "Jorge Amado, em obras como Capitães da Areia (1937), tem como traço marcante:",
+    "statement_segments": [
+      {
+        "kind": "text",
+        "text": "Jorge Amado, em obras como Capitães da Areia (1937), tem como traço marcante:",
+        "bold": false,
+        "line_id": "8:164.92"
+      }
+    ],
+    "assets": [],
+    "alternatives": [
+      {
+        "letter": "A",
+        "text": "A linguagem hermética e o experimentalismo radical.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "A linguagem hermética e o experimentalismo radical.",
+            "bold": false,
+            "line_id": "8:191.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "B",
+        "text": "A denúncia das desigualdades sociais e a valorização da cultura popular baiana.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "A denúncia das desigualdades sociais e a valorização da cultura popular baiana.",
+            "bold": false,
+            "line_id": "8:216.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "C",
+        "text": "A idealização do sertão como espaço mítico intocado.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "A idealização do sertão como espaço mítico intocado.",
+            "bold": false,
+            "line_id": "8:241.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "D",
+        "text": "A defesa do isolamento artístico em relação a questões políticas.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "A defesa do isolamento artístico em relação a questões políticas.",
+            "bold": false,
+            "line_id": "8:266.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "E",
+        "text": "A adoção do fluxo de consciência inspirado em James Joyce.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "A adoção do fluxo de consciência inspirado em James Joyce.",
+            "bold": false,
+            "line_id": "8:291.92"
+          }
+        ],
+        "assets": []
+      }
+    ],
+    "gabarito": "B"
+  },
+  {
+    "ordinal": 12,
+    "materia": "literatura",
+    "content_path": [
+      "literatura_brasileira",
+      "segunda_fase_do_modernismo"
+    ],
+    "banca_normalizada": "Soldado da Polícia Militar - SD-PMSP",
+    "dificuldade_normalizada": "FACIL",
+    "enunciado": "Quarta-feira, 9 de maio de 1945, foi o primeiro dia de paz na Europa. As celebrações nessa\nsemana foram ensombradas\npelos acontecimentos no leste da Europa. Churchill exprimia seu temor de que as infiltrações\nsoviéticas na Europa\n\nCentral e nos Balcãs conduzissem a uma terceira guerra mundial. Perturbado por notícias\nacerca da iminente partida\npara o Pacífico de pelo menos metade das tropas americanas na Europa, Churchill alertava\npara o fato de que os russos\nainda podiam manter grandes efetivos em campo, ainda por um longo período de tempo.\nO resultado da Segunda Guerra Mundial, que já se esboçava em maio de 1945, ",
+    "statement_segments": [
+      {
+        "kind": "text",
+        "text": "Quarta-feira, 9 de maio de 1945, foi o primeiro dia de paz na Europa. As celebrações nessa",
+        "bold": false,
+        "line_id": "8:401.32"
+      },
+      {
+        "kind": "text",
+        "text": "semana foram ensombradas",
+        "bold": false,
+        "line_id": "8:417.32"
+      },
+      {
+        "kind": "text",
+        "text": "pelos acontecimentos no leste da Europa. Churchill exprimia seu temor de que as infiltrações",
+        "bold": false,
+        "line_id": "8:433.32"
+      },
+      {
+        "kind": "text",
+        "text": "soviéticas na Europa",
+        "bold": false,
+        "line_id": "8:449.32"
+      },
+      {
+        "kind": "text",
+        "text": "\n",
+        "line_id": "8:449.32"
+      },
+      {
+        "kind": "text",
+        "text": "Central e nos Balcãs conduzissem a uma terceira guerra mundial. Perturbado por notícias",
+        "bold": false,
+        "line_id": "8:481.32"
+      },
+      {
+        "kind": "text",
+        "text": "acerca da iminente partida",
+        "bold": false,
+        "line_id": "8:497.32"
+      },
+      {
+        "kind": "text",
+        "text": "para o Pacífico de pelo menos metade das tropas americanas na Europa, Churchill alertava",
+        "bold": false,
+        "line_id": "8:513.32"
+      },
+      {
+        "kind": "text",
+        "text": "para o fato de que os russos",
+        "bold": false,
+        "line_id": "8:529.32"
+      },
+      {
+        "kind": "text",
+        "text": "ainda podiam manter grandes efetivos em campo, ainda por um longo período de tempo.",
+        "bold": false,
+        "line_id": "8:545.32"
+      },
+      {
+        "kind": "text",
+        "text": "O resultado da Segunda Guerra Mundial, que já se esboçava em maio de 1945, ",
+        "bold": false,
+        "line_id": "8:561.32"
+      }
+    ],
+    "assets": [],
+    "alternatives": [
+      {
+        "letter": "A",
+        "text": "provocou a fusão das economias industriais desenvolvidas por meio da adoção de um\núnico padrão monetário.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "provocou a fusão das economias industriais desenvolvidas por meio da adoção de um",
+            "bold": false,
+            "line_id": "8:588.32"
+          },
+          {
+            "kind": "text",
+            "text": "único padrão monetário.",
+            "bold": false,
+            "line_id": "8:604.32"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "B",
+        "text": "dividiu o mundo entre países predominantemente capitalistas na Europa ocidental e\npredominantes socialistas no\nextremo oriente.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "dividiu o mundo entre países predominantemente capitalistas na Europa ocidental e",
+            "bold": false,
+            "line_id": "8:629.32"
+          },
+          {
+            "kind": "text",
+            "text": "predominantes socialistas no",
+            "bold": false,
+            "line_id": "8:645.32"
+          },
+          {
+            "kind": "text",
+            "text": "extremo oriente.",
+            "bold": false,
+            "line_id": "8:661.32"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "C",
+        "text": "consolidou a democracia liberal nos países da aliança militar de combate aos Estados\nfascistas totalitários.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "consolidou a democracia liberal nos países da aliança militar de combate aos Estados",
+            "bold": false,
+            "line_id": "8:686.32"
+          },
+          {
+            "kind": "text",
+            "text": "fascistas totalitários.",
+            "bold": false,
+            "line_id": "8:702.32"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "D",
+        "text": "reconfigurou as relações internacionais de poder com a emergência de regimes\nanticapitalistas em países do\ncontinente europeu.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "reconfigurou as relações internacionais de poder com a emergência de regimes",
+            "bold": false,
+            "line_id": "8:727.32"
+          },
+          {
+            "kind": "text",
+            "text": "anticapitalistas em países do",
+            "bold": false,
+            "line_id": "8:743.32"
+          },
+          {
+            "kind": "text",
+            "text": "continente europeu.",
+            "bold": false,
+            "line_id": "8:759.32"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "E",
+        "text": "manteve a integridade territorial da Alemanha como uma barreira militar contrária à\nexpansão do comunismo.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "manteve a integridade territorial da Alemanha como uma barreira militar contrária à",
+            "bold": false,
+            "line_id": "9:80.52"
+          },
+          {
+            "kind": "text",
+            "text": "expansão do comunismo.",
+            "bold": false,
+            "line_id": "9:96.52"
+          }
+        ],
+        "assets": []
+      }
+    ],
+    "gabarito": "D"
+  },
+  {
+    "ordinal": 13,
+    "materia": "literatura",
+    "content_path": [
+      "literatura_brasileira",
+      "segunda_fase_do_modernismo"
+    ],
+    "banca_normalizada": "EsPCEx",
+    "dificuldade_normalizada": "FACIL",
+    "enunciado": "Leia o poema abaixo.\nEncomenda\nDesejo uma fotografia\ncomo esta — o senhor vê? — como esta:\n\nem que para sempre me ria\ncomo um vestido de eterna festa.\nComo tenho a testa sombria,\nderrame luz na minha testa.\nDeixe esta ruga, que me empresta\num certo ar de sabedoria.\nNão meta fundos de floresta\nnem de arbitrária fantasia...\nNão... Neste espaço que ainda resta,\nponha uma cadeira vazia.\nFonte: Cecília Meireles (In: Vaga Música, 1942).\nQuanto aos aspectos da linguagem poética presentes no poema “Encomenda”, de Cecília\nMeireles:\nI - A composição do poema é feita em forma de soneto.\nII - Na segunda estrofe, o eu poético lança mão da antítese na percepção que tem de si\nmesmo.\nIII - Na construção dos versos, optou-se pela composição em redondilhas maiores.\nIV - Como recurso para conferir musicalidade aos versos, há o emprego de rima alternada e\nde rima interpolada.\nV - Tendo em vista se tratar de um poema do Modernismo brasileiro, optou-se pela\nconstrução em versos brancos.\nEstão corretas apenas as afirmativas",
+    "statement_segments": [
+      {
+        "kind": "text",
+        "text": "Leia o poema abaixo.",
+        "bold": false,
+        "line_id": "9:205.92"
+      },
+      {
+        "kind": "text",
+        "text": "Encomenda",
+        "bold": false,
+        "line_id": "9:221.92"
+      },
+      {
+        "kind": "text",
+        "text": "Desejo uma fotografia",
+        "bold": false,
+        "line_id": "9:237.92"
+      },
+      {
+        "kind": "text",
+        "text": "como esta — o senhor vê? — como esta:",
+        "bold": false,
+        "line_id": "9:253.92"
+      },
+      {
+        "kind": "text",
+        "text": "\n",
+        "line_id": "9:253.92"
+      },
+      {
+        "kind": "text",
+        "text": "em que para sempre me ria",
+        "bold": false,
+        "line_id": "9:285.92"
+      },
+      {
+        "kind": "text",
+        "text": "como um vestido de eterna festa.",
+        "bold": false,
+        "line_id": "9:301.92"
+      },
+      {
+        "kind": "text",
+        "text": "Como tenho a testa sombria,",
+        "bold": false,
+        "line_id": "9:317.92"
+      },
+      {
+        "kind": "text",
+        "text": "derrame luz na minha testa.",
+        "bold": false,
+        "line_id": "9:333.92"
+      },
+      {
+        "kind": "text",
+        "text": "Deixe esta ruga, que me empresta",
+        "bold": false,
+        "line_id": "9:349.92"
+      },
+      {
+        "kind": "text",
+        "text": "um certo ar de sabedoria.",
+        "bold": false,
+        "line_id": "9:365.92"
+      },
+      {
+        "kind": "text",
+        "text": "Não meta fundos de floresta",
+        "bold": false,
+        "line_id": "9:381.92"
+      },
+      {
+        "kind": "text",
+        "text": "nem de arbitrária fantasia...",
+        "bold": false,
+        "line_id": "9:397.92"
+      },
+      {
+        "kind": "text",
+        "text": "Não... Neste espaço que ainda resta,",
+        "bold": false,
+        "line_id": "9:413.92"
+      },
+      {
+        "kind": "text",
+        "text": "ponha uma cadeira vazia.",
+        "bold": false,
+        "line_id": "9:429.92"
+      },
+      {
+        "kind": "text",
+        "text": "Fonte: Cecília Meireles (In: Vaga Música, 1942).",
+        "bold": false,
+        "line_id": "9:445.92"
+      },
+      {
+        "kind": "text",
+        "text": "Quanto aos aspectos da linguagem poética presentes no poema “Encomenda”, de Cecília",
+        "bold": false,
+        "line_id": "9:461.92"
+      },
+      {
+        "kind": "text",
+        "text": "Meireles:",
+        "bold": false,
+        "line_id": "9:477.92"
+      },
+      {
+        "kind": "text",
+        "text": "I - A composição do poema é feita em forma de soneto.",
+        "bold": false,
+        "line_id": "9:493.92"
+      },
+      {
+        "kind": "text",
+        "text": "II - Na segunda estrofe, o eu poético lança mão da antítese na percepção que tem de si",
+        "bold": false,
+        "line_id": "9:509.92"
+      },
+      {
+        "kind": "text",
+        "text": "mesmo.",
+        "bold": false,
+        "line_id": "9:525.92"
+      },
+      {
+        "kind": "text",
+        "text": "III - Na construção dos versos, optou-se pela composição em redondilhas maiores.",
+        "bold": false,
+        "line_id": "9:541.92"
+      },
+      {
+        "kind": "text",
+        "text": "IV - Como recurso para conferir musicalidade aos versos, há o emprego de rima alternada e",
+        "bold": false,
+        "line_id": "9:557.92"
+      },
+      {
+        "kind": "text",
+        "text": "de rima interpolada.",
+        "bold": false,
+        "line_id": "9:573.92"
+      },
+      {
+        "kind": "text",
+        "text": "V - Tendo em vista se tratar de um poema do Modernismo brasileiro, optou-se pela",
+        "bold": false,
+        "line_id": "9:589.92"
+      },
+      {
+        "kind": "text",
+        "text": "construção em versos brancos.",
+        "bold": false,
+        "line_id": "9:605.92"
+      },
+      {
+        "kind": "text",
+        "text": "Estão corretas apenas as afirmativas",
+        "bold": false,
+        "line_id": "9:621.92"
+      }
+    ],
+    "assets": [],
+    "alternatives": [
+      {
+        "letter": "A",
+        "text": "II e IV.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "II e IV.",
+            "bold": false,
+            "line_id": "9:648.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "B",
+        "text": "I e II.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "I e II.",
+            "bold": false,
+            "line_id": "9:673.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "C",
+        "text": "III e IV.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "III e IV.",
+            "bold": false,
+            "line_id": "9:698.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "D",
+        "text": "II, III e V.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "II, III e V.",
+            "bold": false,
+            "line_id": "9:723.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "E",
+        "text": "IV e V.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "IV e V.",
+            "bold": false,
+            "line_id": "9:748.92"
+          }
+        ],
+        "assets": []
+      }
+    ],
+    "gabarito": "A"
+  },
+  {
+    "ordinal": 14,
+    "materia": "literatura",
+    "content_path": [
+      "literatura_brasileira",
+      "segunda_fase_do_modernismo"
+    ],
+    "banca_normalizada": "EsPCEx",
+    "dificuldade_normalizada": "MEDIA",
+    "enunciado": "Leia as afirmações abaixo sobre Carlos Drummond de Andrade:\nI - Preferiu não participar da Semana de Arte Moderna, mas enviou seu famoso poema “Os\nSapos”, que, lido por Ronald\nde Carvalho, tumultuou o Teatro Municipal.\n\nII - Sua fase “gauche” caracterizou-se pelo pessimismo, pelo individualismo, pelo isolamento\ne pela reflexão existencial.\nA obra mais importante foi o “Poema de Sete Faces”.\nIII - Na fase social, o eu lírico manifesta interesse pelo seu tempo e pelos problemas\ncotidianos, buscando a solidariedade\ndiante das frustrações e das esperanças humanas.\nIV - A última fase foi marcada pela poesia intimista, de orientação simbolista, prezando o\nespiritualismo e orientalismo e\na musicalidade, traços que podem ser notados no poema “O motivo da Rosa”.\nEstão corretas as afirmações:",
+    "statement_segments": [
+      {
+        "kind": "text",
+        "text": "Leia as afirmações abaixo sobre Carlos Drummond de Andrade:",
+        "bold": false,
+        "line_id": "10:164.92"
+      },
+      {
+        "kind": "text",
+        "text": "I - Preferiu não participar da Semana de Arte Moderna, mas enviou seu famoso poema “Os",
+        "bold": false,
+        "line_id": "10:180.92"
+      },
+      {
+        "kind": "text",
+        "text": "Sapos”, que, lido por Ronald",
+        "bold": false,
+        "line_id": "10:196.92"
+      },
+      {
+        "kind": "text",
+        "text": "de Carvalho, tumultuou o Teatro Municipal.",
+        "bold": false,
+        "line_id": "10:212.92"
+      },
+      {
+        "kind": "text",
+        "text": "\n",
+        "line_id": "10:212.92"
+      },
+      {
+        "kind": "text",
+        "text": "II - Sua fase “gauche” caracterizou-se pelo pessimismo, pelo individualismo, pelo isolamento",
+        "bold": false,
+        "line_id": "10:244.92"
+      },
+      {
+        "kind": "text",
+        "text": "e pela reflexão existencial.",
+        "bold": false,
+        "line_id": "10:260.92"
+      },
+      {
+        "kind": "text",
+        "text": "A obra mais importante foi o “Poema de Sete Faces”.",
+        "bold": false,
+        "line_id": "10:276.92"
+      },
+      {
+        "kind": "text",
+        "text": "III - Na fase social, o eu lírico manifesta interesse pelo seu tempo e pelos problemas",
+        "bold": false,
+        "line_id": "10:292.92"
+      },
+      {
+        "kind": "text",
+        "text": "cotidianos, buscando a solidariedade",
+        "bold": false,
+        "line_id": "10:308.92"
+      },
+      {
+        "kind": "text",
+        "text": "diante das frustrações e das esperanças humanas.",
+        "bold": false,
+        "line_id": "10:324.92"
+      },
+      {
+        "kind": "text",
+        "text": "IV - A última fase foi marcada pela poesia intimista, de orientação simbolista, prezando o",
+        "bold": false,
+        "line_id": "10:340.92"
+      },
+      {
+        "kind": "text",
+        "text": "espiritualismo e orientalismo e",
+        "bold": false,
+        "line_id": "10:356.92"
+      },
+      {
+        "kind": "text",
+        "text": "a musicalidade, traços que podem ser notados no poema “O motivo da Rosa”.",
+        "bold": false,
+        "line_id": "10:372.92"
+      },
+      {
+        "kind": "text",
+        "text": "Estão corretas as afirmações:",
+        "bold": false,
+        "line_id": "10:388.92"
+      }
+    ],
+    "assets": [],
+    "alternatives": [
+      {
+        "letter": "A",
+        "text": "I, II e III",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "I, II e III",
+            "bold": false,
+            "line_id": "10:415.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "B",
+        "text": "II, III e IV",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "II, III e IV",
+            "bold": false,
+            "line_id": "10:440.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "C",
+        "text": "II e III",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "II e III",
+            "bold": false,
+            "line_id": "10:465.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "D",
+        "text": "II e IV",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "II e IV",
+            "bold": false,
+            "line_id": "10:490.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "E",
+        "text": "III e IV.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "III e IV.",
+            "bold": false,
+            "line_id": "10:515.92"
+          }
+        ],
+        "assets": []
+      }
+    ],
+    "gabarito": "C"
+  },
+  {
+    "ordinal": 15,
+    "materia": "literatura",
+    "content_path": [
+      "literatura_brasileira",
+      "segunda_fase_do_modernismo"
+    ],
+    "banca_normalizada": "EsPCEx",
+    "dificuldade_normalizada": "MEDIA",
+    "enunciado": "Leia os tercetos de Mãos dadas (Carlos Drummond de Andrade):\n\"Não serei o poeta de um mundo caduco. / Também não cantarei o mundo futuro. / Estou\npreso à vida e olho meus\ncompanheiros. [...] / O tempo é a minha matéria, o tempo presente, os homens presentes, /\na vida presente.\"\nA recusa do \"mundo caduco\" e do \"mundo futuro\" associada ao culto do presente indica:",
+    "statement_segments": [
+      {
+        "kind": "text",
+        "text": "Leia os tercetos de Mãos dadas (Carlos Drummond de Andrade):",
+        "bold": false,
+        "line_id": "10:625.32"
+      },
+      {
+        "kind": "text",
+        "text": "\"Não serei o poeta de um mundo caduco. / Também não cantarei o mundo futuro. / Estou",
+        "bold": false,
+        "line_id": "10:641.32"
+      },
+      {
+        "kind": "text",
+        "text": "preso à vida e olho meus",
+        "bold": false,
+        "line_id": "10:657.32"
+      },
+      {
+        "kind": "text",
+        "text": "companheiros. [...] / O tempo é a minha matéria, o tempo presente, os homens presentes, /",
+        "bold": false,
+        "line_id": "10:673.32"
+      },
+      {
+        "kind": "text",
+        "text": "a vida presente.\"",
+        "bold": false,
+        "line_id": "10:689.32"
+      },
+      {
+        "kind": "text",
+        "text": "A recusa do \"mundo caduco\" e do \"mundo futuro\" associada ao culto do presente indica:",
+        "bold": false,
+        "line_id": "10:705.32"
+      }
+    ],
+    "assets": [],
+    "alternatives": [
+      {
+        "letter": "A",
+        "text": "A filiação ao Simbolismo, movimento que desprezava a realidade concreta em favor do\ntranscendente",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "A filiação ao Simbolismo, movimento que desprezava a realidade concreta em favor do",
+            "bold": false,
+            "line_id": "10:732.32"
+          },
+          {
+            "kind": "text",
+            "text": "transcendente",
+            "bold": false,
+            "line_id": "10:748.32"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "B",
+        "text": "A adesão ao Concretismo, que fragmentava o tempo em unidades verbais autônomas.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "A adesão ao Concretismo, que fragmentava o tempo em unidades verbais autônomas.",
+            "bold": false,
+            "line_id": "11:80.52"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "C",
+        "text": "O engajamento na poesia social da segunda geração modernista, com foco no coletivo e\nno histórico.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "O engajamento na poesia social da segunda geração modernista, com foco no coletivo e",
+            "bold": false,
+            "line_id": "11:105.52"
+          },
+          {
+            "kind": "text",
+            "text": "no histórico.",
+            "bold": false,
+            "line_id": "11:121.52"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "D",
+        "text": "A influência do Ultra-Romantismo, que idealizava a morte como escape da mediocridade.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "A influência do Ultra-Romantismo, que idealizava a morte como escape da mediocridade.",
+            "bold": false,
+            "line_id": "11:146.52"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "E",
+        "text": "O resgate da épica camoniana, projetando heróis nacionais em um passado glorioso.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "O resgate da épica camoniana, projetando heróis nacionais em um passado glorioso.",
+            "bold": false,
+            "line_id": "11:171.52"
+          }
+        ],
+        "assets": []
+      }
+    ],
+    "gabarito": "C"
+  },
+  {
+    "ordinal": 16,
+    "materia": "literatura",
+    "content_path": [
+      "literatura_brasileira",
+      "segunda_fase_do_modernismo"
+    ],
+    "banca_normalizada": "EsPCEx",
+    "dificuldade_normalizada": "MEDIA",
+    "enunciado": "A Geração de 30, no Modernismo brasileiro, caracterizou-se pela aproximação entre\nliteratura e questões sociopolíticas.\nSobre essa fase:",
+    "statement_segments": [
+      {
+        "kind": "text",
+        "text": "A Geração de 30, no Modernismo brasileiro, caracterizou-se pela aproximação entre",
+        "bold": false,
+        "line_id": "11:280.92"
+      },
+      {
+        "kind": "text",
+        "text": "literatura e questões sociopolíticas.",
+        "bold": false,
+        "line_id": "11:296.92"
+      },
+      {
+        "kind": "text",
+        "text": "Sobre essa fase:",
+        "bold": false,
+        "line_id": "11:312.92"
+      }
+    ],
+    "assets": [],
+    "alternatives": [
+      {
+        "letter": "A",
+        "text": "Os poetas retomaram o Parnasianismo, priorizando o esteticismo formal sobre temas\nnacionais.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "Os poetas retomaram o Parnasianismo, priorizando o esteticismo formal sobre temas",
+            "bold": false,
+            "line_id": "11:339.92"
+          },
+          {
+            "kind": "text",
+            "text": "nacionais.",
+            "bold": false,
+            "line_id": "11:355.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "B",
+        "text": "Romances regionalistas exploraram conflitos do Nordeste, como seca e coronelismo, com\nlinguagem inovadora.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "Romances regionalistas exploraram conflitos do Nordeste, como seca e coronelismo, com",
+            "bold": false,
+            "line_id": "11:380.92"
+          },
+          {
+            "kind": "text",
+            "text": "linguagem inovadora.",
+            "bold": false,
+            "line_id": "11:396.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "C",
+        "text": "A poesia concreta surgiu como principal vertente, substituindo o engajamento por\nexperimentalismo visual.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "A poesia concreta surgiu como principal vertente, substituindo o engajamento por",
+            "bold": false,
+            "line_id": "11:421.92"
+          },
+          {
+            "kind": "text",
+            "text": "experimentalismo visual.",
+            "bold": false,
+            "line_id": "11:437.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "D",
+        "text": "Autores rejeitaram toda influência europeia, criando um movimento nacionalista\nisolacionista.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "Autores rejeitaram toda influência europeia, criando um movimento nacionalista",
+            "bold": false,
+            "line_id": "11:462.92"
+          },
+          {
+            "kind": "text",
+            "text": "isolacionista.",
+            "bold": false,
+            "line_id": "11:478.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "E",
+        "text": "A produção literária limitou-se à crônica urbana, ignorando realidades rurais.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "A produção literária limitou-se à crônica urbana, ignorando realidades rurais.",
+            "bold": false,
+            "line_id": "11:503.92"
+          }
+        ],
+        "assets": []
+      }
+    ],
+    "gabarito": "B"
+  },
+  {
+    "ordinal": 17,
+    "materia": "literatura",
+    "content_path": [
+      "literatura_brasileira",
+      "segunda_fase_do_modernismo"
+    ],
+    "banca_normalizada": "ESA",
+    "dificuldade_normalizada": "MEDIA",
+    "enunciado": "Qual alternativa apresenta uma característica do Modernismo?",
+    "statement_segments": [
+      {
+        "kind": "text",
+        "text": "Qual alternativa apresenta uma característica do Modernismo?",
+        "bold": false,
+        "line_id": "11:613.32"
+      }
+    ],
+    "assets": [],
+    "alternatives": [
+      {
+        "letter": "A",
+        "text": "As cantigas são divididas em cantigas de amor, de amigo e de escárnio e maldizer. ",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "As cantigas são divididas em cantigas de amor, de amigo e de escárnio e maldizer. ",
+            "bold": false,
+            "line_id": "11:640.32"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "B",
+        "text": "Uso de jogo de palavras, principalmente antônimos, para expressar o dualismo. ",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "Uso de jogo de palavras, principalmente antônimos, para expressar o dualismo. ",
+            "bold": false,
+            "line_id": "11:665.32"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "C",
+        "text": "Apresenta ideias de liberdade e felicidade individual nos poemas. ",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "Apresenta ideias de liberdade e felicidade individual nos poemas. ",
+            "bold": false,
+            "line_id": "11:690.32"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "D",
+        "text": "Busca apresentar a verdade, entendida como o retrato fiel e convincente da realidade.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "Busca apresentar a verdade, entendida como o retrato fiel e convincente da realidade.",
+            "bold": false,
+            "line_id": "11:715.32"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "E",
+        "text": "Valorização da língua falada e suas formas típicas como recurso literário, libertando os\ntextos dos modelos\nacadêmicos.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "Valorização da língua falada e suas formas típicas como recurso literário, libertando os",
+            "bold": false,
+            "line_id": "12:80.52"
+          },
+          {
+            "kind": "text",
+            "text": "textos dos modelos",
+            "bold": false,
+            "line_id": "12:96.52"
+          },
+          {
+            "kind": "text",
+            "text": "acadêmicos.",
+            "bold": false,
+            "line_id": "12:112.52"
+          }
+        ],
+        "assets": []
+      }
+    ],
+    "gabarito": "E"
+  },
+  {
+    "ordinal": 18,
+    "materia": "literatura",
+    "content_path": [
+      "literatura_brasileira",
+      "segunda_fase_do_modernismo"
+    ],
+    "banca_normalizada": "AFA",
+    "dificuldade_normalizada": "DIFICIL",
+    "enunciado": "Observe este excerto de A rosa do povo, de Carlos Drummond de Andrade;\n\"Penetra surdamente no reino das palavras. Lá estão os poemas que esperam ser escritos.\"\nTrata-se de uma evidência - e não è a única no livro - de que o Drummond combativo e\nsocializante de A rosa do povo\ntambém está preocupado com o (a)",
+    "statement_segments": [
+      {
+        "kind": "text",
+        "text": "Observe este excerto de A rosa do povo, de Carlos Drummond de Andrade;",
+        "bold": false,
+        "line_id": "12:221.92"
+      },
+      {
+        "kind": "text",
+        "text": "\"Penetra surdamente no reino das palavras. Lá estão os poemas que esperam ser escritos.\"",
+        "bold": false,
+        "line_id": "12:237.92"
+      },
+      {
+        "kind": "text",
+        "text": "Trata-se de uma evidência - e não è a única no livro - de que o Drummond combativo e",
+        "bold": false,
+        "line_id": "12:253.92"
+      },
+      {
+        "kind": "text",
+        "text": "socializante de A rosa do povo",
+        "bold": false,
+        "line_id": "12:269.92"
+      },
+      {
+        "kind": "text",
+        "text": "também está preocupado com o (a)",
+        "bold": false,
+        "line_id": "12:285.92"
+      }
+    ],
+    "assets": [],
+    "alternatives": [
+      {
+        "letter": "A",
+        "text": "ludismo.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "ludismo.",
+            "bold": false,
+            "line_id": "12:312.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "B",
+        "text": "erotismo,",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "erotismo,",
+            "bold": false,
+            "line_id": "12:337.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "C",
+        "text": "metafísica,",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "metafísica,",
+            "bold": false,
+            "line_id": "12:362.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "D",
+        "text": "metapoesia.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "metapoesia.",
+            "bold": false,
+            "line_id": "12:387.92"
+          }
+        ],
+        "assets": []
+      }
+    ],
+    "gabarito": "D"
+  },
+  {
+    "ordinal": 19,
+    "materia": "literatura",
+    "content_path": [
+      "literatura_brasileira",
+      "segunda_fase_do_modernismo"
+    ],
+    "banca_normalizada": "EsPCEx",
+    "dificuldade_normalizada": "FACIL",
+    "enunciado": "Leia o poema a seguir: \nDistribuição da poesia\nMel silvestre tirei das plantas,\nsal tirei das águas, luz tirei do céu.\n\nEscutai, meus irmãos, poesia tirei de tudo\npara oferecer ao Senhor.\nNão tirei ouro da terra\nnem sangue dos meus irmãos.\n[...]\nA vida está malograda,\ncreio nas mágicas de Deus. [...]\n(LIMA, J. Tempo e eternidade. Poesia completa. Rio de Janeiro: Nova Aguilar, 1997, p.321 —\nFragmento)\nO poema acima, por sua temática e por sua forma, pertence ao período literário\ndenominado: ",
+    "statement_segments": [
+      {
+        "kind": "text",
+        "text": "Leia o poema a seguir: ",
+        "bold": false,
+        "line_id": "12:497.32"
+      },
+      {
+        "kind": "text",
+        "text": "Distribuição da poesia",
+        "bold": false,
+        "line_id": "12:513.32"
+      },
+      {
+        "kind": "text",
+        "text": "Mel silvestre tirei das plantas,",
+        "bold": false,
+        "line_id": "12:529.32"
+      },
+      {
+        "kind": "text",
+        "text": "sal tirei das águas, luz tirei do céu.",
+        "bold": false,
+        "line_id": "12:545.32"
+      },
+      {
+        "kind": "text",
+        "text": "\n",
+        "line_id": "12:545.32"
+      },
+      {
+        "kind": "text",
+        "text": "Escutai, meus irmãos, poesia tirei de tudo",
+        "bold": false,
+        "line_id": "12:577.32"
+      },
+      {
+        "kind": "text",
+        "text": "para oferecer ao Senhor.",
+        "bold": false,
+        "line_id": "12:593.32"
+      },
+      {
+        "kind": "text",
+        "text": "Não tirei ouro da terra",
+        "bold": false,
+        "line_id": "12:609.32"
+      },
+      {
+        "kind": "text",
+        "text": "nem sangue dos meus irmãos.",
+        "bold": false,
+        "line_id": "12:625.32"
+      },
+      {
+        "kind": "text",
+        "text": "[...]",
+        "bold": false,
+        "line_id": "12:641.32"
+      },
+      {
+        "kind": "text",
+        "text": "A vida está malograda,",
+        "bold": false,
+        "line_id": "12:657.32"
+      },
+      {
+        "kind": "text",
+        "text": "creio nas mágicas de Deus. [...]",
+        "bold": false,
+        "line_id": "12:673.32"
+      },
+      {
+        "kind": "text",
+        "text": "(LIMA, J. Tempo e eternidade. Poesia completa. Rio de Janeiro: Nova Aguilar, 1997, p.321 —",
+        "bold": false,
+        "line_id": "12:689.32"
+      },
+      {
+        "kind": "text",
+        "text": "Fragmento)",
+        "bold": false,
+        "line_id": "12:705.32"
+      },
+      {
+        "kind": "text",
+        "text": "O poema acima, por sua temática e por sua forma, pertence ao período literário",
+        "bold": false,
+        "line_id": "12:721.32"
+      },
+      {
+        "kind": "text",
+        "text": "denominado: ",
+        "bold": false,
+        "line_id": "12:737.32"
+      }
+    ],
+    "assets": [],
+    "alternatives": [
+      {
+        "letter": "A",
+        "text": "Barroco, caracterizado pelo discurso religioso em uma perspectiva teocêntrica de\ntemática religiosa e pela linguagem\nmuito bem trabalhada em jogos de palavras. ",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "Barroco, caracterizado pelo discurso religioso em uma perspectiva teocêntrica de",
+            "bold": false,
+            "line_id": "13:80.52"
+          },
+          {
+            "kind": "text",
+            "text": "temática religiosa e pela linguagem",
+            "bold": false,
+            "line_id": "13:96.52"
+          },
+          {
+            "kind": "text",
+            "text": "muito bem trabalhada em jogos de palavras. ",
+            "bold": false,
+            "line_id": "13:112.52"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "B",
+        "text": "Arcadismo, caracterizado pela febre do ouro, recém-descoberto em Minas Gerais, e\npelo bucolismo representado por\num cenário voltado para a natureza e o pastoreio.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "Arcadismo, caracterizado pela febre do ouro, recém-descoberto em Minas Gerais, e",
+            "bold": false,
+            "line_id": "13:137.52"
+          },
+          {
+            "kind": "text",
+            "text": "pelo bucolismo representado por",
+            "bold": false,
+            "line_id": "13:153.52"
+          },
+          {
+            "kind": "text",
+            "text": "um cenário voltado para a natureza e o pastoreio.",
+            "bold": false,
+            "line_id": "13:169.52"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "C",
+        "text": "Romantismo, caracterizado, em sua primeira geração, por tratar de temas indianistas em\nbusca de uma identidade\nnacional, com o fim de resgatar uma natureza de antes da colonização. ",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "Romantismo, caracterizado, em sua primeira geração, por tratar de temas indianistas em",
+            "bold": false,
+            "line_id": "13:194.52"
+          },
+          {
+            "kind": "text",
+            "text": "busca de uma identidade",
+            "bold": false,
+            "line_id": "13:210.52"
+          },
+          {
+            "kind": "text",
+            "text": "nacional, com o fim de resgatar uma natureza de antes da colonização. ",
+            "bold": false,
+            "line_id": "13:226.52"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "D",
+        "text": "Parnasianismo, caracterizado pela preocupação com a técnica de composição do poema\ne pela defesa da arte pela\narte. ",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "Parnasianismo, caracterizado pela preocupação com a técnica de composição do poema",
+            "bold": false,
+            "line_id": "13:251.52"
+          },
+          {
+            "kind": "text",
+            "text": "e pela defesa da arte pela",
+            "bold": false,
+            "line_id": "13:267.52"
+          },
+          {
+            "kind": "text",
+            "text": "arte. ",
+            "bold": false,
+            "line_id": "13:283.52"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "E",
+        "text": "Modernismo, caracterizado, em sua segunda fase, por uma poesia de versos livres e\nabordagem filosófica, social e\nreligiosa. ",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "Modernismo, caracterizado, em sua segunda fase, por uma poesia de versos livres e",
+            "bold": false,
+            "line_id": "13:308.52"
+          },
+          {
+            "kind": "text",
+            "text": "abordagem filosófica, social e",
+            "bold": false,
+            "line_id": "13:324.52"
+          },
+          {
+            "kind": "text",
+            "text": "religiosa. ",
+            "bold": false,
+            "line_id": "13:340.52"
+          }
+        ],
+        "assets": []
+      }
+    ],
+    "gabarito": "E"
+  },
+  {
+    "ordinal": 20,
+    "materia": "literatura",
+    "content_path": [
+      "literatura_brasileira",
+      "segunda_fase_do_modernismo"
+    ],
+    "banca_normalizada": "EsPCEx",
+    "dificuldade_normalizada": "FACIL",
+    "enunciado": "Sobre a segunda fase do Modernismo no Brasil, é correto afirmar que",
+    "statement_segments": [
+      {
+        "kind": "text",
+        "text": "Sobre a segunda fase do Modernismo no Brasil, é correto afirmar que",
+        "bold": false,
+        "line_id": "13:449.92"
+      }
+    ],
+    "assets": [],
+    "alternatives": [
+      {
+        "letter": "A",
+        "text": "foi marcada pela exaltação da natureza, a volta ao passado histórico, o medievalismo e a\ncriação do herói nacional na\nfigura do índio.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "foi marcada pela exaltação da natureza, a volta ao passado histórico, o medievalismo e a",
+            "bold": false,
+            "line_id": "13:476.92"
+          },
+          {
+            "kind": "text",
+            "text": "criação do herói nacional na",
+            "bold": false,
+            "line_id": "13:492.92"
+          },
+          {
+            "kind": "text",
+            "text": "figura do índio.",
+            "bold": false,
+            "line_id": "13:508.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "B",
+        "text": "se caracterizou pela linguagem rebuscada, culta, extravagante; pela valorização do\npormenor mediante jogos de\npalavras.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "se caracterizou pela linguagem rebuscada, culta, extravagante; pela valorização do",
+            "bold": false,
+            "line_id": "13:533.92"
+          },
+          {
+            "kind": "text",
+            "text": "pormenor mediante jogos de",
+            "bold": false,
+            "line_id": "13:549.92"
+          },
+          {
+            "kind": "text",
+            "text": "palavras.",
+            "bold": false,
+            "line_id": "13:565.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "C",
+        "text": "representou um amadurecimento e um aprofundamento das conquistas da geração de\n1922, resultando em uma\nliteratura mais construtiva e mais politizada.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "representou um amadurecimento e um aprofundamento das conquistas da geração de",
+            "bold": false,
+            "line_id": "13:590.92"
+          },
+          {
+            "kind": "text",
+            "text": "1922, resultando em uma",
+            "bold": false,
+            "line_id": "13:606.92"
+          },
+          {
+            "kind": "text",
+            "text": "literatura mais construtiva e mais politizada.",
+            "bold": false,
+            "line_id": "13:622.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "D",
+        "text": "se caracterizou por ser uma literatura meramente descritiva e, como tal, sem grande\nvalor literário, possuindo,\nportanto, somente interesse histórico.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "se caracterizou por ser uma literatura meramente descritiva e, como tal, sem grande",
+            "bold": false,
+            "line_id": "13:647.92"
+          },
+          {
+            "kind": "text",
+            "text": "valor literário, possuindo,",
+            "bold": false,
+            "line_id": "13:663.92"
+          },
+          {
+            "kind": "text",
+            "text": "portanto, somente interesse histórico.",
+            "bold": false,
+            "line_id": "13:679.92"
+          }
+        ],
+        "assets": []
+      },
+      {
+        "letter": "E",
+        "text": "seguiu os modelos clássicos greco-latinos e os renascentistas, retomando a mitologia\npagã como elemento estético.",
+        "segments": [
+          {
+            "kind": "text",
+            "text": "seguiu os modelos clássicos greco-latinos e os renascentistas, retomando a mitologia",
+            "bold": false,
+            "line_id": "13:704.92"
+          },
+          {
+            "kind": "text",
+            "text": "pagã como elemento estético.",
+            "bold": false,
+            "line_id": "13:720.92"
+          }
+        ],
+        "assets": []
+      }
+    ],
+    "gabarito": "C"
+  }
+]

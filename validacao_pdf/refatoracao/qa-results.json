@@ -1,0 +1,39 @@
+{
+  "academic_comparison": {
+    "reference": "PDF Modernismo enviado pelo usuário",
+    "normalization": "Apenas espaços e quebras de linha são ignorados na comparação de caracteres.",
+    "characters": 14212,
+    "sha256": "6b7392f5fd8ff3e2a7057be9cbd3b05d29a4e6a274d207207bcacacd0869a63c"
+  },
+  "files": [
+    {
+      "filename": "provectus-Modernismo-after.pdf",
+      "pages": 14,
+      "bytes": 74823,
+      "a4": true,
+      "white_page_corners": true,
+      "text_and_image_frame_violations": [],
+      "max_body_bottom_pt": 779.55,
+      "academic_characters_preserved": true
+    },
+    {
+      "filename": "provectus-Modernismo-after_each.pdf",
+      "pages": 14,
+      "bytes": 74874,
+      "a4": true,
+      "white_page_corners": true,
+      "text_and_image_frame_violations": [],
+      "max_body_bottom_pt": 775.85,
+      "academic_characters_preserved": true
+    },
+    {
+      "filename": "provectus-validacao-visual.pdf",
+      "pages": 5,
+      "bytes": 85690,
+      "a4": true,
+      "white_page_corners": true,
+      "text_and_image_frame_violations": [],
+      "max_body_bottom_pt": 780.63
+    }
+  ]
+}

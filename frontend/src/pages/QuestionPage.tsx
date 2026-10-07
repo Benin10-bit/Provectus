@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { ArrowLeft, ChevronLeft, ChevronRight } from 'lucide-react';
 import { toast } from 'sonner';
@@ -10,10 +10,10 @@ import './questionBank.css';
 
 type SearchContext = { returnTo?: string; resultIds?: string[] };
 
-/** Full-page question practice from search, with a local, unsaved answer. */
+/** Full-page question practice from search, with an answer tracked only in the question bank. */
 export default function QuestionPage() {
  const {questionId=''}=useParams();
- const location=useLocation();
+ const location=useLocation(),cache=useQueryClient();
  const context=(location.state || {}) as SearchContext;
  const returnTo=context.returnTo?.match(/^\/banco-questoes(?:\?.*)?$/) ? context.returnTo : '/banco-questoes';
  const resultIds=Array.isArray(context.resultIds) ? context.resultIds : [];
@@ -27,7 +27,7 @@ export default function QuestionPage() {
  async function answer(){
   if(!selected||!query.data||saving)return;
   setSaving(true);
-  try {const response=await qb.check(questionId,selected);setOutcome(response);}
+  try {const response=await qb.check(questionId,selected);setOutcome(response);cache.invalidateQueries({queryKey:['qb','search']});cache.invalidateQueries({queryKey:['qb','availability']});}
   catch(error){toast.error((error as Error).message);}
   finally{setSaving(false);}
  }
@@ -42,7 +42,7 @@ export default function QuestionPage() {
     {q.has_answer===false&&<p role="status" className="text-warning">Sem gabarito cadastrado; não é possível corrigir esta questão.</p>}
     {outcome?<div className="qb-feedback" role="status"><strong className={outcome.correct?'text-success':'text-critical'}>{outcome.correct?'Você acertou.':'Você errou.'}</strong><span>Gabarito: {outcome.answer}</span></div>:<button className="qb-primary" disabled={!selected||saving||!q.alternatives.length||q.has_answer===false} onClick={answer}>{saving?'Conferindo…':'Responder'}</button>}
    </QuestionCard>
-   <p className="qb-individual-note">Resposta avulsa: esta tentativa não entra no histórico das listas.</p>
+   <p className="qb-individual-note">Esta questão fica marcada como respondida no banco de questões, sem alterar as métricas do PROVECTUS.</p>
    <div className="qb-navigation"><div>{position>0&&<Link className="qb-secondary" state={nextContext} to={`/banco-questoes/questoes/${encodeURIComponent(resultIds[position-1])}`}><ChevronLeft size={18}/>Anterior</Link>}</div><div>{position>=0&&position<resultIds.length-1&&<Link className="qb-primary" state={nextContext} to={`/banco-questoes/questoes/${encodeURIComponent(resultIds[position+1])}`}>Próxima<ChevronRight size={18}/></Link>}</div></div>
   </>}
  </div></AppLayout>;

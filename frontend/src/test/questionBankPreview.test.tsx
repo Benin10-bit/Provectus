@@ -4,44 +4,72 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { MemoryRouter } from 'react-router-dom';
 import QuestionBankPage from '@/pages/QuestionBankPage';
 import { qb } from '@/lib/questionBank';
-import { navGroups } from '@/components/layout/AppSidebar';
 vi.mock('@/components/layout/AppLayout',()=>({default:({children}:{children:React.ReactNode})=><>{children}</>}));
-vi.mock('@/lib/questionBank',async()=>{const actual=await vi.importActual<typeof import('@/lib/questionBank')>('@/lib/questionBank');return {...actual,qb:{...actual.qb,filters:vi.fn(),search:vi.fn(),library:vi.fn(),question:vi.fn()}};});
+vi.mock('@/lib/questionBank',async()=>{const actual=await vi.importActual<typeof import('@/lib/questionBank')>('@/lib/questionBank');return {...actual,qb:{...actual.qb,availability:vi.fn(),preview:vi.fn(),filters:vi.fn(),search:vi.fn(),library:vi.fn(),create:vi.fn()}};});
 afterEach(()=>{cleanup();vi.clearAllMocks();});
-it('opens full rich question, returns to the same filtered page, and reveals answer only on request',async()=>{
- const hash='a'.repeat(64);
- const q={id:'q1',ordinal:1,numero_original:17,materia:'Física',content_path:['Mecânica'],banca_normalizada:'EsPCEx',dificuldade_normalizada:'MEDIA',enunciado:'Calcule [VISUAL] agora.',
-  statement_segments:[{kind:'text' as const,text:'Calcule ',line_id:'1'},{kind:'visual' as const,asset_hash:hash,display:'inline' as const,line_id:'1'},{kind:'text' as const,text:' agora.',line_id:'1'}],
-  assets:[{hash,url:`/api/v1/question-bank/assets/${hash}`,type:'FIGURE',alt:'Fórmula',mime_type:'image/webp'}],alternatives:[{letter:'A',ordinal:1,text:'Primeira alternativa',assets:[]}],answer:'A',selected:null,answered_at:null,correct:null,eliminated:[]};
- vi.mocked(qb.filters).mockResolvedValue({tree:[],banks:['EsPCEx'],difficulties:['MEDIA']});
+function setup(url='/banco-questoes'){
+ vi.mocked(qb.filters).mockResolvedValue({tree:[],banks:['EsPCEx','ENEM','ITA'],difficulties:['FACIL','MEDIA','DIFICIL']});
+ vi.mocked(qb.availability).mockResolvedValue({total:30,tree:[{name:'Física',path:['Física'],direct:false,available:30,children:[]}]});
  vi.mocked(qb.library).mockResolvedValue({folders:[],lists:[]});
- vi.mocked(qb.search).mockResolvedValue({total:25,items:[q]});vi.mocked(qb.question).mockResolvedValue(q);
+ vi.mocked(qb.search).mockResolvedValue({total:30,items:[]});
+ vi.mocked(qb.create).mockResolvedValue({id:'new-list'});
  const client=new QueryClient({defaultOptions:{queries:{retry:false}}});
- render(<QueryClientProvider client={client}><MemoryRouter><QuestionBankPage/></MemoryRouter></QueryClientProvider>);
- await screen.findByText('25 questões encontradas');
- fireEvent.change(screen.getByPlaceholderText('Buscar no enunciado'),{target:{value:'Calcule'}});
- fireEvent.change(screen.getByLabelText('Banca'),{target:{value:'EsPCEx'}});
- await waitFor(()=>expect(screen.getByRole('button',{name:'Próxima'})).toBeEnabled());
+ render(<QueryClientProvider client={client}><MemoryRouter initialEntries={[url]}><QuestionBankPage/></MemoryRouter></QueryClientProvider>);
+ return client;
+}
+it('combines multiple banks and difficulties, excludes solved questions in search AND creation, resets page and clears filters',async()=>{
+ setup();await screen.findByRole('checkbox',{name:'EsPCEx'});
  fireEvent.click(screen.getByRole('button',{name:'Próxima'}));
- await waitFor(()=>expect(qb.search).toHaveBeenLastCalledWith(expect.objectContaining({search:'Calcule',banks:['EsPCEx']}),2));
- fireEvent.click(await screen.findByRole('button',{name:'Abrir questão'}));
- const dialog=await screen.findByRole('dialog');
- expect(await within(dialog).findByText('Primeira alternativa')).toBeInTheDocument();
- expect(within(dialog).getByText('Questão 17')).toBeInTheDocument();
- expect(within(dialog).queryByText(/\[VISUAL\]/)).toBeNull();
- expect(dialog.querySelectorAll('img')).toHaveLength(1);
- const details=within(dialog).getByText('Mostrar gabarito').closest('details')!;
- expect(details.open).toBe(false);fireEvent.click(within(dialog).getByText('Mostrar gabarito'));expect(details.open).toBe(true);
- fireEvent.click(within(dialog).getByRole('button',{name:'Voltar aos resultados'}));
- expect(screen.queryByRole('dialog')).toBeNull();
- expect(screen.getByPlaceholderText('Buscar no enunciado')).toHaveValue('Calcule');
- expect(screen.getByLabelText('Banca')).toHaveValue('EsPCEx');
- expect(screen.getByText('Página 2')).toBeInTheDocument();
+ await screen.findByText('Página 2');
+ for(const name of ['EsPCEx','ENEM','FACIL','DIFICIL'])fireEvent.click(screen.getByRole('checkbox',{name}));
+ fireEvent.click(screen.getByRole('checkbox',{name:/Excluir já respondidas/}));
+ const selected={banks:['EsPCEx','ENEM'],difficulties:['FACIL','DIFICIL'],exclude_answered:true};
+ await waitFor(()=>expect(qb.search).toHaveBeenLastCalledWith(expect.objectContaining(selected),1));
+ expect(screen.getByText('Página 1')).toBeInTheDocument();
+ fireEvent.change(screen.getByPlaceholderText('Ex.: Cinemática — revisão'),{target:{value:'Prática nova'}});
+ await waitFor(()=>expect(screen.getByRole('button',{name:'Criar lista'})).toBeEnabled());
+ fireEvent.click(screen.getByRole('button',{name:'Criar lista'}));
+ await waitFor(()=>expect(qb.create).toHaveBeenCalledWith('Prática nova',20,null,expect.objectContaining(selected),expect.objectContaining({distribution:'auto'}),'shuffle'));
+ fireEvent.click(screen.getByRole('button',{name:'Remover banca ENEM'}));
+ await waitFor(()=>expect(qb.search).toHaveBeenLastCalledWith(expect.objectContaining({banks:['EsPCEx']}),1));
+ expect(screen.getByRole('checkbox',{name:'ENEM'})).not.toBeChecked();
+ fireEvent.click(screen.getByRole('button',{name:'Limpar filtros'}));
+ await waitFor(()=>expect(qb.search).toHaveBeenLastCalledWith(expect.objectContaining({banks:[],difficulties:[],exclude_answered:false}),1));
+});
+it('restores multiple selections and exclusion from a saved URL and preserves each other selection when toggling',async()=>{
+ const f={banks:['EsPCEx','ITA'],difficulties:['MEDIA','DIFICIL'],exclude_answered:true};
+ setup('/banco-questoes?f='+encodeURIComponent(JSON.stringify(f))+'&page=2');
+ await screen.findByRole('checkbox',{name:'EsPCEx'});
+ for(const name of ['EsPCEx','ITA','MEDIA','DIFICIL'])expect(screen.getByRole('checkbox',{name})).toBeChecked();
+ expect(screen.getByRole('checkbox',{name:/Excluir já respondidas/})).toBeChecked();
+ expect(within(screen.getByRole('group',{name:'Bancas'})).getByText('2 selecionadas')).toBeInTheDocument();
+ await waitFor(()=>expect(qb.search).toHaveBeenLastCalledWith(expect.objectContaining(f),2));
+ fireEvent.click(screen.getByRole('button',{name:'Remover dificuldade MEDIA'}));
+ await waitFor(()=>expect(qb.search).toHaveBeenLastCalledWith(expect.objectContaining({...f,difficulties:['DIFICIL']}),1));
 });
 
-it('numbers every sidebar entry in order including question bank',()=>{
- const items=navGroups.flatMap(g=>g.items);
- expect(items.map(i=>i.code)).toEqual(items.map((_,i)=>String(i+1).padStart(2,'0')));
- expect(items.find(i=>i.to==='/banco-questoes')?.code).toBe('05');
- expect(items.some(i=>i.code==='BQ')).toBe(false);
+it('filters correct and incorrect attempts for search and creation without conflicting with unanswered selection',async()=>{
+ setup();await screen.findByRole('checkbox',{name:'EsPCEx'});
+ fireEvent.click(screen.getByRole('checkbox',{name:/Excluir já respondidas/}));
+ fireEvent.change(screen.getByLabelText('Resultado'),{target:{value:'incorrect'}});
+ await waitFor(()=>expect(qb.search).toHaveBeenLastCalledWith(expect.objectContaining({result:'incorrect',exclude_answered:false}),1));
+ expect(screen.getByRole('checkbox',{name:/Excluir já respondidas/})).not.toBeChecked();
+ fireEvent.change(screen.getByPlaceholderText('Ex.: Cinemática — revisão'),{target:{value:'Rever erros'}});
+ await waitFor(()=>expect(screen.getByRole('button',{name:'Criar lista'})).toBeEnabled());
+ fireEvent.click(screen.getByRole('button',{name:'Criar lista'}));
+ await waitFor(()=>expect(qb.create).toHaveBeenCalledWith('Rever erros',20,null,expect.objectContaining({result:'incorrect',exclude_answered:false}),expect.objectContaining({distribution:'auto'}),'shuffle'));
+ fireEvent.change(screen.getByLabelText('Resultado'),{target:{value:'correct'}});
+ await waitFor(()=>expect(qb.search).toHaveBeenLastCalledWith(expect.objectContaining({result:'correct'}),1));
+ fireEvent.click(screen.getByRole('checkbox',{name:/Excluir já respondidas/}));
+ expect(screen.getByLabelText('Resultado')).toHaveValue('all');
+ await waitFor(()=>expect(qb.search).toHaveBeenLastCalledWith(expect.objectContaining({result:'all',exclude_answered:true}),1));
+});
+
+it('restores result selection from a saved URL and removes it with the chip',async()=>{
+ setup('/banco-questoes?f='+encodeURIComponent(JSON.stringify({result:'incorrect',exclude_answered:true})));
+ await screen.findByRole('checkbox',{name:'EsPCEx'});
+ expect(screen.getByLabelText('Resultado')).toHaveValue('incorrect');
+ expect(screen.getByRole('checkbox',{name:/Excluir já respondidas/})).not.toBeChecked();
+ fireEvent.click(screen.getByRole('button',{name:'Remover filtro de resultado'}));
+ await waitFor(()=>expect(qb.search).toHaveBeenLastCalledWith(expect.objectContaining({result:'all'}),1));
 });

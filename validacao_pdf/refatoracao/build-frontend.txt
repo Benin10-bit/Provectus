@@ -1,0 +1,38 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> vite_react_shadcn_ts@0.0.0 build
+> npm run typecheck && vite build
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> vite_react_shadcn_ts@0.0.0 typecheck
+> tsc --noEmit -p tsconfig.app.json
+
+(!) Your Vite config uses features that are unsupported by `configLoader: 'native'`, which is planned to become the default in a future major version of Vite:
+  - `__dirname` (vite.config.ts:102:25). Use `import.meta.dirname` instead
+Set `VITE_CONFIG_NATIVE_IGNORE_WARNING=true` to suppress this warning.
+vite v8.3.0 building client environment for production...
+transforming...
+✓ 2629 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/manifest.webmanifest                            0.37 kB
+dist/index.html                                      1.73 kB │ gzip:   0.72 kB
+dist/assets/index-CS2WmYiK.css                     156.25 kB │ gzip:  29.80 kB
+dist/assets/virtual_pwa-register-BDwNPIwM.js         1.12 kB │ gzip:   0.59 kB
+dist/assets/workbox-window.prod.es5-Bd17z0YL.js      5.65 kB │ gzip:   2.20 kB
+dist/assets/index-DKmVpxwR.js                    1,040.26 kB │ gzip: 290.73 kB
+
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 1.49s
+
+PWA v1.3.0
+mode      generateSW
+precache  14 entries (1283.67 KiB)
+files generated
+  dist/sw.js
+  dist/workbox-dcde9eb3.js

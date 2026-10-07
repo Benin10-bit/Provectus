@@ -1,0 +1,76 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> vite_react_shadcn_ts@0.0.0 test
+> vitest run --run
+
+[vite:react-swc] We recommend switching to `@vitejs/plugin-react` for improved performance as no swc plugins are used. More information at https://vite.dev/rolldown
+
+ RUN  v3.2.7 /workspace/scratch/382f7fb1866a/filters-work/provectus/frontend
+
+ ✓ src/test/hexRipple.test.ts (9 tests) 281ms
+stderr | src/test/listComposer.test.tsx > starts compact, previews a random composition and creates with the exact confirmed quotas
+⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+
+stderr | src/test/questionBankStandalone.test.tsx > opens a full page and answers without a list while preserving search filters and page
+⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+
+stderr | src/test/questionBankPreview.test.tsx > combines multiple banks and difficulties, excludes solved questions in search AND creation, resets page and clears filters
+⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+
+ ✓ src/test/questionPdfExport.test.tsx (3 tests) 452ms
+stderr | src/test/questionBank.test.tsx > cuts and restores choices, then reveals the correct answer after submission
+⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+
+stderr | src/test/redesign.test.tsx > Redesign preserves study workflows > submits the original session payload and clears the form after success
+⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+
+ ✓ src/test/reactiveSurface.test.ts (7 tests) 283ms
+ ✓ src/test/questionBank.test.tsx (2 tests) 973ms
+   ✓ cuts and restores choices, then reveals the correct answer after submission  905ms
+stderr | src/test/studyAdvice.test.tsx > renders the critical subject and evidence without a catalog lookup
+⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+
+ ✓ src/test/studyAdvice.test.tsx (3 tests) 138ms
+ ✓ src/test/questionBankStandalone.test.tsx (3 tests) 1528ms
+   ✓ opens a full page and answers without a list while preserving search filters and page  1453ms
+ ✓ src/test/dashboardTargets.test.tsx (2 tests) 79ms
+stderr | src/test/activeStudyIndicator.test.tsx > keeps the study timer visible on the question bank while a session runs
+⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+
+ ✓ src/test/activeStudyIndicator.test.tsx (1 test) 103ms
+ ✓ src/test/richContent.test.tsx (1 test) 78ms
+ ✓ src/test/movingIndicators.test.ts (1 test) 21ms
+ ✓ src/test/periodGoals.test.tsx (2 tests) 58ms
+ ✓ src/test/backgroundAtmosphere.test.ts (2 tests) 11ms
+ ✓ src/test/requestNoContent.test.ts (3 tests) 9ms
+ ✓ src/test/study.test.ts (5 tests) 3ms
+ ✓ src/test/example.test.ts (1 test) 2ms
+ ✓ src/test/listComposer.test.tsx (5 tests) 4624ms
+   ✓ starts compact, previews a random composition and creates with the exact confirmed quotas  560ms
+   ✓ creates exactly four Geometry and five Regency questions, with recursive controls and total validation  2023ms
+   ✓ supports a fixed subject and an AUTO remainder independently from content distribution  504ms
+   ✓ recalculates capacity on filter changes, prevents impossible totals and reports structured backend errors  967ms
+   ✓ does not apply a stale preview after the user changes the requested total  569ms
+ ✓ src/test/redesign.test.tsx (11 tests) 4120ms
+   ✓ Redesign preserves study workflows > submits the original session payload and clears the form after success  717ms
+   ✓ Redesign preserves study workflows > preserves block duration conversion and optional confidence  326ms
+   ✓ Redesign preserves study workflows > timer start, pause, presets and mode switching still respond  888ms
+   ✓ Redesign preserves study workflows > review card preserves the prepared-session URL and explains the origin  1447ms
+ ✓ src/test/questionBankPreview.test.tsx (4 tests) 4916ms
+   ✓ combines multiple banks and difficulties, excludes solved questions in search AND creation, resets page and clears filters  2771ms
+   ✓ restores multiple selections and exclusion from a saved URL and preserves each other selection when toggling  632ms
+   ✓ filters correct and incorrect attempts for search and creation without conflicting with unanswered selection  1171ms
+   ✓ restores result selection from a saved URL and removes it with the chip  340ms
+
+ Test Files  18 passed (18)
+      Tests  65 passed (65)
+   Start at  09:39:30
+   Duration  6.47s (transform 1.92s, setup 980ms, collect 5.85s, tests 17.68s, environment 6.44s, prepare 1.27s)
+

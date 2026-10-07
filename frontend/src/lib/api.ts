@@ -33,6 +33,10 @@ function mockResponse<T>(data: T, ms = 250): Promise<T> {
     return new Promise(resolve => setTimeout(() => resolve(data), ms));
 }
 
+export class ApiError extends Error {
+    constructor(message:string,public detail:unknown){super(message);this.name="ApiError";}
+}
+
 export async function request<T>(path: string, options?: RequestInit): Promise<T> {
     const res = await fetch(`${API_BASE}${path}`, {
         headers: { "Content-Type": "application/json" },
@@ -41,7 +45,7 @@ export async function request<T>(path: string, options?: RequestInit): Promise<T
     const contentType = res.headers.get("content-type") || "";
     if (!res.ok) {
         const err = await res.json().catch(() => ({}));
-        throw new Error(typeof err.detail === "string" ? err.detail : err.detail?.[0]?.msg || `Erro ${res.status}`);
+        throw new ApiError(typeof err.detail === "string" ? err.detail : err.detail?.message || err.detail?.[0]?.msg || `Erro ${res.status}`,err.detail);
     }
     if (res.status === 204) return undefined as T;
     if (!contentType.includes("application/json")) {

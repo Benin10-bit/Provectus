@@ -15,3 +15,9 @@ it('shows the API reason when deletion is rejected', async () => {
   await expect(request<void>('/api/v1/question-bank/folders/example', { method: 'DELETE' }))
     .rejects.toThrow('Esvazie a pasta antes de excluir.');
 });
+
+it('keeps the exact hierarchy path from a structured composition error', async()=>{
+  const detail={code:'quota',message:'Existem apenas 3 questões.',path:['Matemática','Geometria']};
+  vi.stubGlobal('fetch',vi.fn().mockResolvedValue(new Response(JSON.stringify({detail}),{status:422,headers:{'content-type':'application/json'}})));
+  await expect(request('/api/v1/question-bank/composition/preview')).rejects.toMatchObject({message:detail.message,detail});
+});

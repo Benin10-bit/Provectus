@@ -35,7 +35,7 @@ def test_rich_segments_and_audit_crops_are_separated():
     assert 'answer' not in data
 
 
-def test_individual_answer_is_validated_without_list_or_database_write():
+def test_individual_answer_records_only_bank_history_after_validation():
     from types import SimpleNamespace
     class Rows:
         def __init__(self,values):self.values=values
@@ -43,16 +43,21 @@ def test_individual_answer_is_validated_without_list_or_database_write():
         def scalars(self):return self
         def all(self):return self.values
     class FakeDb:
+        def __init__(self):self.solved=[];self.commits=0
         def execute(self,stmt,args):
-            assert args=={'id':'q1'}
-            if 'SELECT gabarito' in str(stmt):return Rows([SimpleNamespace(gabarito='B')])
-            assert 'SELECT letter' in str(stmt)
-            return Rows(['A','B'])
-        def commit(self):raise AssertionError('Respostas avulsas não são persistidas')
-    assert check_individual('q1',Answer(letter='B'),FakeDb())=={'selected':'B','correct':True,'answer':'B'}
-    assert check_individual('q1',Answer(letter='A'),FakeDb())['correct'] is False
-    with pytest.raises(HTTPException) as error:check_individual('q1',Answer(letter='C'),FakeDb())
+            sql=str(stmt)
+            if 'SELECT gabarito' in sql:return Rows([SimpleNamespace(gabarito='B')])
+            if 'SELECT letter' in sql:return Rows(['A','B'])
+            assert 'INSERT INTO question_bank.solved_questions' in sql
+            self.solved.append(args['qid']);return Rows([])
+        def commit(self):self.commits+=1
+    db=FakeDb()
+    assert check_individual('q1',Answer(letter='B'),db)=={'selected':'B','correct':True,'answer':'B'}
+    assert check_individual('q1',Answer(letter='A'),db)['correct'] is False
+    assert db.solved==['q1','q1'] and db.commits==2
+    with pytest.raises(HTTPException) as error:check_individual('q1',Answer(letter='C'),db)
     assert error.value.status_code==422
+    assert len(db.solved)==2 and db.commits==2
 
 
 def test_content_hierarchy_is_a_prefix():

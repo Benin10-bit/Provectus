@@ -12,6 +12,8 @@ from pydantic import BaseModel, Field
 from sqlalchemy import text, bindparam
 from sqlalchemy.orm import Session
 from .database import get_db
+from .question_composition import Composition, resolve, catalog, sample, fail
+import random
 
 router = APIRouter(prefix='/api/v1/question-bank', tags=['Banco de Questões'])
 
@@ -20,6 +22,8 @@ class Filters(BaseModel):
     banks: list[str] = Field(default_factory=list, max_length=30)
     difficulties: list[str] = Field(default_factory=list, max_length=20)
     search: str = Field('', max_length=160)
+    exclude_answered: bool = False
+    result: Literal['all','correct','incorrect'] = 'all'
 
 class FolderIn(BaseModel):
     name: str = Field(min_length=1, max_length=120)
@@ -34,6 +38,13 @@ class ListIn(BaseModel):
     folder_id: UUID | None = None
     count: int = Field(ge=1, le=1000)
     filters: Filters = Field(default_factory=Filters)
+    composition: Composition | None = None
+    order: Literal['shuffle','grouped'] = 'shuffle'
+
+class PreviewIn(BaseModel):
+    count: int = Field(ge=1, le=1000)
+    filters: Filters = Field(default_factory=Filters)
+    composition: Composition = Field(default_factory=Composition)
 
 class ListEdit(BaseModel):
     name: str | None = Field(None, min_length=1, max_length=160)
@@ -55,6 +66,8 @@ def require(db, table, id):
 
 
 def filters_sql(f: Filters):
+    if f.exclude_answered and f.result != 'all':
+        raise HTTPException(422,'Escolha questões não respondidas ou um resultado, sem combinar os dois.')
     clauses=["q.automatic_status='OK'"]
     args={}
     if f.paths:
@@ -73,6 +86,11 @@ def filters_sql(f: Filters):
         clauses.append('('+' OR '.join(branches)+')')
     if f.banks:clauses.append('q.banca_normalizada IN :banks');args['banks']=tuple(f.banks)
     if f.difficulties:clauses.append('q.dificuldade_normalizada IN :difficulties');args['difficulties']=tuple(f.difficulties)
+    if f.exclude_answered:
+        clauses.append('NOT EXISTS (SELECT 1 FROM question_bank.solved_questions solved WHERE solved.question_id=q.id)')
+    if f.result != 'all':
+        clauses.append('EXISTS (SELECT 1 FROM question_bank.solved_questions solved WHERE solved.question_id=q.id AND solved.correct=:correct)')
+        args['correct']=f.result == 'correct'
     if f.search:clauses.append('q.enunciado ILIKE :search');args['search']='%'+f.search.replace('%','\\%').replace('_','\\_')+'%'
     return ' AND '.join(clauses),args
 
@@ -90,6 +108,20 @@ def base(f):
 
 
 def dictionary(row):return dict(row._mapping)
+
+def availability_tree(db,filters):
+    where,args=filters_sql(filters)
+    rows=run_filter(db,"SELECT d.materia,d.content_path,count(*) FILTER (WHERE "+where+") AS available FROM question_bank.questions q JOIN question_bank.documents d ON d.sha256=q.document_sha256 WHERE q.automatic_status='OK' GROUP BY d.materia,d.content_path",args).all()
+    return catalog(rows)
+
+@router.post('/availability')
+def availability(filters:Filters,db:Session=Depends(get_db)):
+    tree=availability_tree(db,filters)
+    return {'tree':tree,'total':sum(n['available'] for n in tree)}
+
+@router.post('/composition/preview')
+def preview(payload:PreviewIn,db:Session=Depends(get_db)):
+    return resolve(availability_tree(db,payload.filters),payload.composition,payload.count)
 
 @router.get('/filters')
 def filter_values(db: Session=Depends(get_db)):
@@ -136,13 +168,24 @@ def question(question_id:str, db:Session=Depends(get_db)):
 
 @router.post('/questions/{question_id}/check')
 def check_individual(question_id:str,payload:Answer,db:Session=Depends(get_db)):
-    """Correct an individual attempt without creating a list or persisting an answer."""
+    """Correct an individual attempt and record it only in the question bank."""
     row=db.execute(text("SELECT gabarito FROM question_bank.questions WHERE id=:id AND automatic_status='OK'"),{'id':question_id}).first()
     if not row:raise HTTPException(404,'Questão não encontrada.')
     if not row.gabarito or not row.gabarito.strip():raise HTTPException(422,'Esta questão não tem gabarito registrado.')
     valid=set(db.execute(text('SELECT letter FROM question_bank.alternatives WHERE question_id=:id'),{'id':question_id}).scalars().all())
     if payload.letter not in valid:raise HTTPException(422,'Alternativa inválida.')
-    return {'selected':payload.letter,'correct':payload.letter.upper()==row.gabarito.strip().upper(),'answer':row.gabarito}
+    correct=payload.letter.upper()==row.gabarito.strip().upper()
+    mark_solved(db,question_id,correct)
+    db.commit()
+    return {'selected':payload.letter,'correct':correct,'answer':row.gabarito}
+
+def mark_solved(db,question_id,correct=None,answered_at=None):
+    db.execute(text('''INSERT INTO question_bank.solved_questions(question_id,correct,last_answered_at)
+      VALUES (:qid,:correct,COALESCE(:answered_at,now()))
+      ON CONFLICT(question_id) DO UPDATE SET correct=EXCLUDED.correct,last_answered_at=EXCLUDED.last_answered_at
+      WHERE EXCLUDED.correct IS NOT NULL AND (solved_questions.last_answered_at IS NULL
+        OR EXCLUDED.last_answered_at >= solved_questions.last_answered_at)'''),
+      {'qid':question_id,'correct':correct,'answered_at':answered_at})
 
 def asset_path(storage_path):
     root=Path(os.getenv('QUESTION_BANK_ASSETS_ROOT','/app/question-bank-assets')).resolve()
@@ -195,6 +238,33 @@ def delete_folder(folder_id:UUID,db:Session=Depends(get_db)):
 def create_list(payload:ListIn,db:Session=Depends(get_db)):
     if payload.folder_id:require(db,'folders',payload.folder_id)
     fragment,args=base(payload.filters)
+    if payload.composition is not None:
+        try:
+            # Recount and sample in one snapshot; writes are committed only after
+            # every group and count passes validation. Legacy lists stay valid.
+            if db.get_bind().dialect.name=='postgresql':
+                db.execute(text('LOCK TABLE question_bank.questions,question_bank.documents,question_bank.solved_questions IN SHARE MODE'))
+            resolved=resolve(availability_tree(db,payload.filters),payload.composition,payload.count)
+            rows=sample(db,fragment,args,resolved['groups'],run_filter)
+            ids=[r.id for r in rows]
+            actual=defaultdict(int)
+            for r in rows:actual[r.bucket]+=1
+            for i,group in enumerate(resolved['groups']):
+                if actual[i]!=group['quantity']:
+                    fail('availability_changed','A disponibilidade mudou. Recalcule a composição.',group['path'],requested=group['quantity'],available=actual[i])
+            if len(ids)!=payload.count or len(set(ids))!=len(ids):
+                fail('selection','Não foi possível selecionar a quantidade exata sem repetições.')
+            if payload.order=='shuffle':random.SystemRandom().shuffle(ids)
+            id=str(uuid4())
+            metadata=dict(filters=payload.filters.model_dump(),requested=payload.composition.model_dump(),actual=resolved['resolved'],order=payload.order)
+            with db.begin_nested():
+                db.execute(text('INSERT INTO question_bank.lists(id,folder_id,name,generation) VALUES (:id,:folder,:name,CAST(:generation AS jsonb))' if db.get_bind().dialect.name=='postgresql' else 'INSERT INTO question_bank.lists(id,folder_id,name,generation) VALUES (:id,:folder,:name,:generation)'),{'id':id,'folder':str(payload.folder_id) if payload.folder_id else None,'name':payload.name.strip(),'generation':json.dumps(metadata,ensure_ascii=False)})
+                db.execute(text('INSERT INTO question_bank.list_questions(list_id,question_id,ordinal) VALUES (:id,:qid,:ordinal)'),[dict(id=id,qid=qid,ordinal=i+1) for i,qid in enumerate(ids)])
+            db.commit()
+            return {'id':id,'total':len(ids),'composition':resolved['resolved']}
+        except Exception:
+            db.rollback()
+            raise
     total=run_filter(db,'SELECT count(*)'+fragment,args).scalar_one()
     if payload.count>total:raise HTTPException(422,f'Existem apenas {total} questões disponíveis para esses filtros.')
     id=str(uuid4())
@@ -220,7 +290,8 @@ def delete_list(list_id:UUID,db:Session=Depends(get_db)):
 @router.get('/lists/{list_id}')
 def list_detail(list_id:UUID,page:int=Query(1,ge=1),size:int=Query(20,ge=1,le=100),db:Session=Depends(get_db)):
     require(db,'lists',list_id)
-    name=db.execute(text('SELECT name FROM question_bank.lists WHERE id=:id'),{'id':str(list_id)}).scalar_one()
+    header=db.execute(text('SELECT name,generation FROM question_bank.lists WHERE id=:id'),{'id':str(list_id)}).one()
+    name=header.name
     total=db.execute(text('SELECT count(*) FROM question_bank.list_questions WHERE list_id=:id'),{'id':str(list_id)}).scalar_one()
     rows=db.execute(text('''SELECT lq.ordinal,q.id,q.enunciado,q.banca_normalizada,q.dificuldade_normalizada,q.numero_original,q.payload -> 'statement' -> 'segments' AS statement_segments,d.materia,d.content_path,(q.gabarito IS NOT NULL AND btrim(q.gabarito) <> '') AS has_answer,a.letter AS selected,a.correct,a.answered_at,a.eliminated, CASE WHEN a.answered_at IS NOT NULL THEN q.gabarito END AS answer
       FROM question_bank.list_questions lq JOIN question_bank.questions q ON q.id=lq.question_id JOIN question_bank.documents d ON d.sha256=q.document_sha256
@@ -233,7 +304,7 @@ def list_detail(list_id:UUID,page:int=Query(1,ge=1),size:int=Query(20,ge=1,le=10
         data['eliminated']=data['eliminated'] or []
         data['alternatives']=alts[r.id];data['assets']=images[r.id]
         result.append(data)
-    return {'id':str(list_id),'name':name,'total':total,'page':page,'size':size,'items':result}
+    return {'id':str(list_id),'name':name,'generation':header.generation,'total':total,'page':page,'size':size,'items':result}
 
 def membership(db,list_id,question_id):
     if not db.execute(text('SELECT 1 FROM question_bank.list_questions WHERE list_id=:list_id AND question_id=:qid'),{'list_id':str(list_id),'qid':question_id}).first():raise HTTPException(404,'Questão fora desta lista.')
@@ -253,14 +324,19 @@ def answer(list_id:UUID,question_id:str,payload:Answer,db:Session=Depends(get_db
     data=db.execute(text('SELECT gabarito FROM question_bank.questions WHERE id=:qid'),{'qid':question_id}).first()
     if not data or not data.gabarito:raise HTTPException(422,'Esta questão não tem gabarito registrado.')
     exists_answer=db.execute(text('SELECT letter,correct,answered_at FROM question_bank.answers WHERE list_id=:lid AND question_id=:qid'),{'lid':str(list_id),'qid':question_id}).first()
-    if exists_answer and exists_answer.answered_at:return {'selected':exists_answer.letter,'correct':exists_answer.correct,'answer':data.gabarito}
+    if exists_answer and exists_answer.answered_at:
+        mark_solved(db,question_id,exists_answer.correct,exists_answer.answered_at);db.commit()
+        return {'selected':exists_answer.letter,'correct':exists_answer.correct,'answer':data.gabarito}
     valid=set(db.execute(text('SELECT letter FROM question_bank.alternatives WHERE question_id=:qid'),{'qid':question_id}).scalars())
     if payload.letter not in valid:raise HTTPException(422,'Alternativa inválida.')
     correct=payload.letter.upper()==data.gabarito.strip().upper()
-    db.execute(text('''INSERT INTO question_bank.answers(list_id,question_id,letter,correct,answered_at) VALUES (:lid,:qid,:letter,:correct,now())
+    recorded=db.execute(text('''INSERT INTO question_bank.answers(list_id,question_id,letter,correct,answered_at) VALUES (:lid,:qid,:letter,:correct,now())
       ON CONFLICT(list_id,question_id) DO UPDATE SET letter=EXCLUDED.letter,correct=EXCLUDED.correct,answered_at=EXCLUDED.answered_at
-      WHERE answers.answered_at IS NULL'''),{'lid':str(list_id),'qid':question_id,'letter':payload.letter,'correct':correct})
-    db.commit();return {'selected':payload.letter,'correct':correct,'answer':data.gabarito}
+      WHERE answers.answered_at IS NULL RETURNING letter,correct,answered_at'''),{'lid':str(list_id),'qid':question_id,'letter':payload.letter,'correct':correct}).first()
+    if not recorded:
+        recorded=db.execute(text('SELECT letter,correct,answered_at FROM question_bank.answers WHERE list_id=:lid AND question_id=:qid'),{'lid':str(list_id),'qid':question_id}).one()
+    mark_solved(db,question_id,recorded.correct,recorded.answered_at)
+    db.commit();return {'selected':recorded.letter,'correct':recorded.correct,'answer':data.gabarito}
 
 @router.get('/lists/{list_id}/export.pdf')
 def export_pdf(list_id:UUID,db:Session=Depends(get_db),answer_placement:Literal['end','after_each']='end'):
