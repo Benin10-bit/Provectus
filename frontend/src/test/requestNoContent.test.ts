@@ -21,3 +21,13 @@ it('keeps the exact hierarchy path from a structured composition error', async()
   vi.stubGlobal('fetch',vi.fn().mockResolvedValue(new Response(JSON.stringify({detail}),{status:422,headers:{'content-type':'application/json'}})));
   await expect(request('/api/v1/question-bank/composition/preview')).rejects.toMatchObject({message:detail.message,detail});
 });
+
+it('shows the readable 422 name validation returned by the question bank', async () => {
+  const message = 'Value error, Informe um nome que não seja vazio ou apenas espaços.';
+  vi.stubGlobal('fetch', vi.fn().mockResolvedValue(new Response(JSON.stringify({ detail: [
+    { type: 'value_error', loc: ['body', 'name'], msg: message },
+  ] }), { status: 422, headers: { 'content-type': 'application/json' } })));
+  await expect(request('/api/v1/question-bank/folders', {
+    method: 'POST', body: JSON.stringify({ name: '  ' }),
+  })).rejects.toThrow(message);
+});

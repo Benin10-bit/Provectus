@@ -2,13 +2,13 @@
 
 FastAPI, React/Vite, PostgreSQL 15 e Docker Compose. Sistema de estudos com Banco de Questões separado das métricas.
 
-**Atualização desta entrega:** substitua os arquivos na instalação existente, preservando `.env`, `.env.ingestion` e as imagens. Execute `sudo bash atualizar.sh` na pasta do Compose. O script reconstrói a aplicação e aplica as migrations; não copia arquivos de outra pasta e não remove volumes. Veja a seção Construtor de listas ao final deste README.
+**Etapa 1 — Confiabilidade:** correções A01, A05, A13 e A17, sem alteração de esquema. Siga [ATUALIZACAO_ETAPA1.md](ATUALIZACAO_ETAPA1.md) após confirmar backup validado do banco e dos arquivos. Para esta entrega, reconstrua somente `api` e `frontend`, preservando `.env`, `.env.ingestion`, Compose local, volumes e imagens. Não use `atualizar.sh` nesta etapa: ele executa o migrador de versões anteriores. As seções de atualização abaixo são históricas e não acrescentam migrations a esta entrega.
 
 Na interface: **Conteúdos** organiza seu cadastro; **Estudar agora** recebe as cotas do seu ciclo e oferece matéria, assunto e atividade. A sessão integrada salva tempo e questões uma única vez. A lista de revisão usa ações de retorno sem flashcards. Nenhum catálogo fictício é inserido no seu banco.
 
 ## Desenvolvimento
 
-Use o lockfile npm (`npm ci`, `npm run dev`, porta 8080) e Python 3.11 (`pip install -r api/requirements-dev.txt`). Configure DATABASE_URL para um PostgreSQL de desenvolvimento. De `api/`, execute `python -m app.migrate`, depois `uvicorn app.main:app --host 127.0.0.1 --port 8000`. O proxy Vite remove apenas o primeiro `/api`, como o Nginx.
+Use Node.js **>=22.12.0** e o lockfile npm (`npm ci`, `npm run dev`, porta 8080); não é necessário atualizar as versões de dependências do lock. Use Python 3.11 (`pip install -r api/requirements-dev.txt`). Configure DATABASE_URL para um PostgreSQL de desenvolvimento. A inicialização de um banco novo pode exigir `python -m app.migrate`; esta Etapa 1 não exige novas migrations na instalação existente. Depois, de `api/`, execute `uvicorn app.main:app --host 127.0.0.1 --port 8000`. O proxy Vite remove apenas o primeiro `/api`, como o Nginx.
 
 API: `/docs`; saúde real do banco: `/health`. A precisão observada mantém o campo legado `ipr_geral` por compatibilidade, com `versao_metrica=precisao_v2`; não há previsão de aprovação.
 

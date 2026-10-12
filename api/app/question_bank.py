@@ -3,12 +3,12 @@ import json
 import os
 import re
 from pathlib import Path
-from typing import Literal
+from typing import Annotated, Literal
 from uuid import UUID, uuid4
 from collections import defaultdict
 from fastapi import APIRouter, Depends, HTTPException, Query
 from fastapi.responses import FileResponse, StreamingResponse
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, BeforeValidator, Field
 from sqlalchemy import text, bindparam
 from sqlalchemy.orm import Session
 from .database import get_db
@@ -16,6 +16,15 @@ from .question_composition import Composition, resolve, catalog, sample, fail
 import random
 
 router = APIRouter(prefix='/api/v1/question-bank', tags=['Banco de Questões'])
+
+def _normalize_name(value):
+    if isinstance(value, str):
+        value = value.strip()
+        if not value:
+            raise ValueError('Informe um nome que não seja vazio ou apenas espaços.')
+    return value
+
+NormalizedName = Annotated[str, BeforeValidator(_normalize_name)]
 
 class Filters(BaseModel):
     paths: list[list[str]] = Field(default_factory=list, max_length=40)
@@ -26,15 +35,15 @@ class Filters(BaseModel):
     result: Literal['all','correct','incorrect'] = 'all'
 
 class FolderIn(BaseModel):
-    name: str = Field(min_length=1, max_length=120)
+    name: NormalizedName = Field(min_length=1, max_length=120)
     parent_id: UUID | None = None
 
 class FolderEdit(BaseModel):
-    name: str | None = Field(None, min_length=1, max_length=120)
+    name: NormalizedName | None = Field(None, min_length=1, max_length=120)
     parent_id: UUID | None = None
 
 class ListIn(BaseModel):
-    name: str = Field(min_length=1, max_length=160)
+    name: NormalizedName = Field(min_length=1, max_length=160)
     folder_id: UUID | None = None
     count: int = Field(ge=1, le=1000)
     filters: Filters = Field(default_factory=Filters)
@@ -47,7 +56,7 @@ class PreviewIn(BaseModel):
     composition: Composition = Field(default_factory=Composition)
 
 class ListEdit(BaseModel):
-    name: str | None = Field(None, min_length=1, max_length=160)
+    name: NormalizedName | None = Field(None, min_length=1, max_length=160)
     folder_id: UUID | None = None
 
 class Elimination(BaseModel):

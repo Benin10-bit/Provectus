@@ -1123,7 +1123,8 @@ def gerar_relatorio_mensal(db: Session, mes: int, ano: int) -> dict:
         v["total"] for t, v in erros_por_tipo.items() if t in ("CONCEITO", "CALCULO")
     )
 
-    # Tendência de erro: compara quantidade de erros/bloco vs mês anterior
+    # Legacy classified-errors/block fields remain descriptive for compatibility.
+    # The trend uses observed wrong answers / questions, never classification volume.
     bloco_ids_ant = [b.id for b in blocos_ant]
     erros_blocos_ant = []
     if bloco_ids_ant:
@@ -1143,17 +1144,42 @@ def gerar_relatorio_mensal(db: Session, mes: int, ano: int) -> dict:
         if blocos_ant else 0
     )
 
-    if erros_por_bloco_ant == 0:
+    questoes_atual = sum(b.total_questoes for b in blocos)
+    questoes_ant = sum(b.total_questoes for b in blocos_ant)
+    erros_observados = sum(b.total_questoes - b.total_acertos for b in blocos)
+    erros_observados_ant = sum(b.total_questoes - b.total_acertos for b in blocos_ant)
+    taxa_observada = erros_observados / questoes_atual * 100 if questoes_atual else None
+    taxa_observada_ant = erros_observados_ant / questoes_ant * 100 if questoes_ant else None
+    classificados = sum(e.quantidade for e in erros_blocos)
+    cobertura = classificados / erros_observados * 100 if erros_observados else None
+
+    # Same minimum evidence as the descriptive study analysis, not a statistical test.
+    if not questoes_atual:
+        tendencia_erro = "SEM_DADOS_ATUAIS"
+    elif not questoes_ant:
         tendencia_erro = "SEM_DADOS_ANTERIORES"
-    elif erros_por_bloco_atual > erros_por_bloco_ant * 1.1:
-        tendencia_erro = "PIORANDO"
-    elif erros_por_bloco_atual < erros_por_bloco_ant * 0.9:
-        tendencia_erro = "MELHORANDO"
+    elif len(blocos) < 2 or len(blocos_ant) < 2 or questoes_atual < 20 or questoes_ant < 20:
+        tendencia_erro = "AMOSTRA_INSUFICIENTE"
     else:
-        tendencia_erro = "ESTÁVEL"
+        delta = round(taxa_observada - taxa_observada_ant, 10)
+        # +/- 5 percentage points is a product heuristic, consistent with the dashboard.
+        tendencia_erro = "PIORANDO" if delta > 5 else "MELHORANDO" if delta < -5 else "ESTÁVEL"
 
     erros_dict = {
-        "total_erros_registrados": sum(e.quantidade for e in erros_blocos),
+        "total_erros_registrados": classificados,
+        "total_erros_observados": erros_observados,
+        "total_questoes_observadas": questoes_atual,
+        "taxa_erro_observada_atual": round(taxa_observada, 2) if taxa_observada is not None else None,
+        "taxa_erro_observada_mes_anterior": round(taxa_observada_ant, 2) if taxa_observada_ant is not None else None,
+        "cobertura_classificacao_percentual": round(cobertura, 2) if cobertura is not None else None,
+        "classificacao_inconsistente": classificados > erros_observados,
+        "tendencia_erro_contexto": (
+            f'Taxa de respostas erradas: {questoes_atual} questões em {len(blocos)} blocos agora; '
+            f'{questoes_ant} questões em {len(blocos_ant)} blocos no trecho equivalente anterior. '
+            'Comparação descritiva: exige 20 questões e 2 blocos em cada trecho; '
+            'variações de até 5 pontos percentuais são estáveis (heurísticas). '
+            'Questões e dificuldades podem diferir; classificação das causas não determina a tendência.'
+        ),
         "tipos_mais_comuns": tipos_erro_lista[:5],
         "todos_os_tipos": tipos_erro_lista,
         "taxa_erro_distracao_pressa": round(

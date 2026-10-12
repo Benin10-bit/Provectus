@@ -385,7 +385,9 @@ export default function RelatorioMensalPage() {
     tipo: e.tipo_erro ?? e.tipo ?? "Sem categoria",
     total: num(e.total_ocorrencias ?? e.total ?? e.quantidade),
   }));
-  const totalErros = num(erros.total_erros_registrados ?? erros.total ?? erros.total_erros);
+  const totalClassificados = num(erros.total_erros_registrados ?? erros.total ?? erros.total_erros);
+  const temErrosObservados = erros.total_erros_observados != null;
+  const totalErros = temErrosObservados ? num(erros.total_erros_observados) : totalClassificados;
   const tendenciaErros = String(erros?.tendencia_erro ?? erros?.tendencia ?? "");
 
   const simuladosLista = Array.isArray(simulados)
@@ -750,18 +752,25 @@ export default function RelatorioMensalPage() {
         <Section title="Análise de Erros" icon={AlertTriangle}>
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
             <div className="p-4 rounded-lg border border-border bg-card/80">
-              <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground font-mono mb-2">Total de erros</p>
+              <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground font-mono mb-2">{temErrosObservados ? 'Erros observados' : 'Erros classificados'}</p>
               <p className="text-3xl font-bold font-mono text-critical mb-3">{totalErros}</p>
+              {temErrosObservados && <p className="text-[11px] font-mono text-muted-foreground mb-2">
+                {erros.taxa_erro_observada_atual != null && <>Taxa observada: {num(erros.taxa_erro_observada_atual).toFixed(1)}% · {num(erros.total_questoes_observadas)} questões.<br /></>}
+                Classificados: {totalClassificados}
+                {erros.cobertura_classificacao_percentual != null && <> · {num(erros.cobertura_classificacao_percentual).toFixed(1)}% dos erros observados</>}
+              </p>}
+              {erros.classificacao_inconsistente && <p className="text-[11px] text-warning mb-2">A classificação excede os erros observados. Confira os registros; nenhum dado foi alterado.</p>}
               {tendenciaErros && (
                 <p className="text-[11px] font-mono text-muted-foreground">
                   Tendência:{" "}
                   <span className={`font-bold ${
                     tendenciaErros.includes("MELHOR") ? "text-success" :
                     tendenciaErros.includes("PIOR") ? "text-critical" :
-                    tendenciaErros.includes("SEM_DADOS") ? "text-muted-foreground" : "text-warning"
+                    tendenciaErros.includes("SEM_DADOS") || tendenciaErros.includes("INSUFICIENTE") ? "text-muted-foreground" : "text-warning"
                   }`}>{tendenciaErros.replace(/_/g, " ")}</span>
                 </p>
               )}
+              {erros.tendencia_erro_contexto && <p className="text-[11px] text-muted-foreground mt-2">{erros.tendencia_erro_contexto}</p>}
             </div>
             {errosData.length > 0 && (
               <div className="lg:col-span-2 p-4 rounded-lg border border-border bg-card/80">

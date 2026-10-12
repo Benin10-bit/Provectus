@@ -209,6 +209,7 @@ def import_ok(root, document=None, limit=None):
     job_created = False
     counts = Counter()
     verified = set()
+    original_error = None
     try:
         conn = _connect()
         _require_schema(conn)
@@ -241,16 +242,35 @@ def import_ok(root, document=None, limit=None):
         with conn.transaction():
             conn.execute("UPDATE question_bank.import_jobs SET status='DONE',finished_at=now() WHERE id=%s", (job,))
         return {'job_id': str(job), 'status': 'DONE', **dict(counts)}
-    except BaseException:
+    except BaseException as exc:
+        original_error = exc
         if conn is not None and job_created:
-            with conn.transaction():
-                conn.execute('''UPDATE question_bank.import_jobs SET status='FAILED',finished_at=now(),
-                    error_code=%s WHERE id=%s''', (type(exc).__name__, job))
+            try:
+                with conn.transaction():
+                    conn.execute('''UPDATE question_bank.import_jobs SET status='FAILED',finished_at=now(),
+                        error_code=%s WHERE id=%s''', (type(exc).__name__, job))
+            except BaseException as status_error:
+                exc.add_note(f'Não foi possível marcar import_job_id={job} como FAILED '
+                             f'({type(status_error).__name__}). Confira o job manualmente; '
+                             'documentos confirmados anteriormente foram preservados.')
         raise
     finally:
-        db.close()
-        if conn is not None:
-            conn.close()
+        cleanup_error = None
+        for resource, name in ((db, 'staging'), (conn, 'PostgreSQL')):
+            if resource is None:
+                continue
+            try:
+                resource.close()
+            except BaseException as exc:
+                # Cleanup must not replace the import failure or stop the other close.
+                if original_error is not None:
+                    original_error.add_note(f'Falha ao fechar {name} ({type(exc).__name__}).')
+                elif cleanup_error is None:
+                    cleanup_error = exc
+                else:
+                    cleanup_error.add_note(f'Falha ao fechar {name} ({type(exc).__name__}).')
+        if original_error is None and cleanup_error is not None:
+            raise cleanup_error
 
 
 def rollback(job_id, apply=False):
