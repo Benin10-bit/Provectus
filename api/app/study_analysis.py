@@ -51,7 +51,7 @@ def dashboard_guidance(db, blocks, materia_id=None):
     for id,rows in grouped.items():
         if not critical(rows):continue
         t=topic_map[id]
-        task='Refaça alguns erros sem consulta, confira a solução e resolva questões semelhantes antes de avançar.'
+        task='Refaça alguns erros sem consulta, confira a solução e resolva questões semelhantes para verificar a dificuldade.'
         row=dict(assunto_id=id,assunto=t['nome'],materia_id=t['materia_id'],materia=names[t['materia_id']],
                  precisao=round(precisao(rows)*100,2),questoes=sum(b.total_questoes for b in rows),registros=len(rows),atividade='REVISAO',tarefa=task)
         row['destino']=session_url(row);details.append(row)
@@ -60,24 +60,20 @@ def dashboard_guidance(db, blocks, materia_id=None):
     context=(f'{assessed} assunto(s) com amostra suficiente no período; critério: menos de 70% em pelo menos 20 questões e 2 registros.'
              if assessed else 'Amostra insuficiente por assunto neste período: são necessárias 20 questões em pelo menos 2 registros. Simulados globais não identificam assuntos.')
     if assessed and not details:context='Nenhum assunto abaixo do critério entre os avaliáveis. '+context
-    # Same queue, task, due dates and ordering as Estudar Agora; never generate database obligations.
-    available=[r for r in review_items(db,topics) if r['disponivel']]
-    cards=[];seen=set()
-    for r in available:
-        if r['assunto_id'] in seen:continue
-        seen.add(r['assunto_id'])
-        t=topic_map[r['assunto_id']]
-        is_critical=t['questoes_recentes']>=MIN_QUESTIONS and t['blocos_recentes']>=MIN_RECORDS and t['precisao'] is not None and t['precisao']<70
-        tone='critical' if is_critical else 'warning' if r['prioridade']<=3 else 'default'
-        cards.append(dict(id=r['id'],categoria='Revisão prioritária' if r['prioridade']<=3 else 'Verificar retenção' if r['atividade']=='REVISAO' else 'Ampliar evidência',
-            prioridade=r['prioridade'],variante=tone,materia=r['materia'],assunto=r['assunto'],
-            motivo=r['motivo'],acao=r['tarefa'],destino=session_url(r)))
-        if len(cards)==3:break
-    if not cards:
-        has_contacts=any(t['ultimo_contato'] for t in topics)
+    from .recommender import decide
+    from .planner import utcnow
+    decision=decide(db, now=utcnow())
+    principal=decision['recomendacao']
+    available=[principal] if principal and principal['finalidade']=='REVISAO' else []
+    cards=[]
+    if principal:
+        cards=[dict(id=principal.get('objetivo_revisao') or 'proxima-sessao',categoria={'AVANCO':'Avanço','CONSOLIDACAO':'Consolidação','REVISAO':'Revisão'}[principal['finalidade']],
+                    prioridade=principal['prioridade'],variante='warning' if available else 'default',
+                    materia=principal['materia'],assunto=principal['assunto'],motivo=principal['explicacao'],
+                    acao=principal['tarefa'],destino='/estudar')]
+    else:
         cards=[dict(id='orientacao-inicial',categoria='Próximo passo',prioridade=9,variante='default',materia='',assunto='',
-            motivo='Não há retomadas disponíveis agora. Isso não comprova domínio.' if has_contacts else 'Ainda não há histórico suficiente para orientar uma revisão por assunto.',
-            acao='Escolha o próximo assunto do ciclo, tente uma aplicação sem consulta e registre o resultado para orientar o próximo retorno.',destino='/estudar')]
+                    motivo=decision['motivo'],acao=decision['motivo'],destino='/estudar')]
     status='ASSUNTOS EXIGEM ATENÇÃO' if details else 'REVISÃO PRIORITÁRIA' if available and available[0]['prioridade']<=3 else 'SEM ALERTAS NA AMOSTRA' if assessed else 'DADOS INSUFICIENTES'
     return dict(assuntos_criticos=[d['assunto_id'] for d in details],assuntos_criticos_detalhes=details,
                 criticidade_contexto=context,status_academico=status,variante_academica='critical' if details else 'warning' if status=='REVISÃO PRIORITÁRIA' else 'default',

@@ -3,7 +3,7 @@ from collections import defaultdict
 from . import models
 from .clock import local_date
 from .metrics import valid_questions, precisao, session_seconds, solving_seconds, limites_periodo
-from .study_analysis import performance_change, session_url
+from .study_analysis import performance_change
 from .evidence import SOURCES
 
 
@@ -43,8 +43,8 @@ def block_guidance(db):
             steps = [f'O último bloco teve {last.total_questoes} acertos e nenhum erro registrado. Faça uma nova seleção do mesmo tamanho e nível, em outro dia, para verificar se o resultado se repete.', 'Se acertou por dúvida, inclua esse raciocínio no retorno. Se o resultado se mantiver sem ajuda, varie os exercícios antes de aumentar quantidade ou dificuldade.']
         if len(rows) < 2 or sum(b.total_questoes for b in rows) < 20:
             reason += ' Pouca evidência por assunto: o ajuste é provisório.'
-        out.append(dict(titulo=title+' · '+last.assunto.nome, motivo=reason, passos=steps,
-                        destino=session_url(dict(materia_id=str(mid), assunto_id=str(aid), atividade=activity, tarefa=steps[0])), fonte=SOURCES['feedback']))
+        out.append(dict(titulo=title+' · '+last.assunto.nome, motivo=reason+' Ajuste para quando este assunto for retomado; a próxima atividade é escolhida em Estudar agora.', passos=steps,
+                        destino='/estudar', fonte=SOURCES['feedback']))
 
     sessions = db.query(models.SessaoEstudo).filter(models.SessaoEstudo.data >= lo, models.SessaoEstudo.data < hi).all()
     long = sorted([s for s in sessions if session_seconds(s) >= 90*60], key=session_seconds, reverse=True)

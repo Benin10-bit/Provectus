@@ -2,13 +2,13 @@
 
 FastAPI, React/Vite, PostgreSQL 15 e Docker Compose. Sistema de estudos com Banco de Questões separado das métricas.
 
-**Etapa 2 — Integridade das medidas e metas:** A02, A06 e A09 aplicados sobre a Etapa 1, com migração aditiva 009. Siga [ATUALIZACAO_ETAPA2.md](ATUALIZACAO_ETAPA2.md) após validar backup do banco e dos assets; consulte [RESULTADOS_ETAPA2.md](RESULTADOS_ETAPA2.md) para os testes e limites. Não use `atualizar.sh` ou o guia da Etapa 1 nesta entrega. Configurações, volumes e imagens persistentes são preservados. As seções históricas abaixo permanecem como referência.
+**Etapa 3 — Recomendador automático:** A03/A04/A24 implementados sobre a versão final da Etapa 2, preservando as correções anteriores. Siga [ATUALIZACAO_ETAPA3.md](ATUALIZACAO_ETAPA3.md), incluindo ensaio PostgreSQL e backup com restauração validada, antes de aplicar a migration 010. Consulte [RESULTADOS_ETAPA3.md](RESULTADOS_ETAPA3.md) para mecanismo, testes e limitações. Não use `atualizar.sh` nem os guias anteriores nesta entrega. As seções históricas abaixo permanecem como referência.
 
 Na interface: **Conteúdos** organiza seu cadastro; **Estudar agora** recebe as cotas do seu ciclo e oferece matéria, assunto e atividade. A sessão integrada salva tempo e questões uma única vez. A lista de revisão usa ações de retorno sem flashcards. Nenhum catálogo fictício é inserido no seu banco.
 
 ## Desenvolvimento
 
-Use Node.js **>=22.12.0** e o lockfile npm (`npm ci`, `npm run dev`, porta 8080); não é necessário atualizar as versões de dependências do lock. Use Python 3.11 (`pip install -r api/requirements-dev.txt`). Configure DATABASE_URL para um PostgreSQL de desenvolvimento. A inicialização de um banco novo pode exigir `python -m app.migrate`; esta Etapa 1 não exige novas migrations na instalação existente. Depois, de `api/`, execute `uvicorn app.main:app --host 127.0.0.1 --port 8000`. O proxy Vite remove apenas o primeiro `/api`, como o Nginx.
+Use Node.js **>=22.12.0** e o lockfile npm (`npm ci`, `npm run dev`, porta 8080); não é necessário atualizar as versões de dependências do lock. Use Python 3.11 (`pip install -r api/requirements-dev.txt`). Configure DATABASE_URL para um PostgreSQL de desenvolvimento. A inicialização de um banco novo pode exigir `python -m app.migrate`; para esta entrega, a atualização da instalação existente requer a migration 010, conforme o guia da Etapa 3. Depois, de `api/`, execute `uvicorn app.main:app --host 127.0.0.1 --port 8000`. O proxy Vite remove apenas o primeiro `/api`, como o Nginx.
 
 API: `/docs`; saúde real do banco: `/health`. A precisão observada mantém o campo legado `ipr_geral` por compatibilidade, com `versao_metrica=precisao_v2`; não há previsão de aprovação.
 

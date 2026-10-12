@@ -161,6 +161,7 @@ def test_report_handles_mixed_null_difficulties_and_weighted_known_times(env):
 def test_old_idempotency_hash_replays_without_rewriting_history(env):
     c,e=env;(m,a),_=catalog(c);p,id=submit(c,m,a,dificuldade=3)
     model=planner.Conclusao.model_validate(p);legacy=model.model_dump(mode='json');legacy['bloco'].pop('tempo_total_segundos')
+    for key in ('finalidade','objetivo_revisao','classe_revisao'):legacy.pop(key,None)
     digest=hashlib.sha256(json.dumps(legacy,ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
     with Session(e) as db:
         s=db.get(models.SessaoEstudo,UUID(id));s.conteudo_hash=digest

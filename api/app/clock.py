@@ -2,7 +2,7 @@
 from datetime import datetime, timezone
 from zoneinfo import ZoneInfo
 import os
-TZ = ZoneInfo(os.getenv("STUDY_TIMEZONE", "America/Sao_Paulo"))
+TZ = ZoneInfo(os.getenv("STUDY_TIMEZONE", "America/Maceio"))
 
 def utcnow():
     return datetime.now(timezone.utc).replace(tzinfo=None)

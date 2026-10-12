@@ -33,13 +33,13 @@ def test_small_and_empty_samples_never_critical(clock):
     c,e,now=clock;(m,a),_=catalog(c)
     empty=c.get('/api/v1/performance/dashboard').json()
     assert empty['status_academico']=='DADOS INSUFICIENTES'
-    assert 'Ainda não há histórico' in empty['orientacoes'][0]['motivo']
+    assert 'Familiaridade desconhecida' in empty['orientacoes'][0]['motivo']
     block(e,m,a,MONDAY-timedelta(hours=1),hits=0,total=2)
     d=c.get('/api/v1/performance/dashboard').json()
     assert not d['assuntos_criticos'] and 'insuficiente' in d['criticidade_contexto']
     now[0]+=timedelta(days=2)
     d=c.get('/api/v1/performance/dashboard').json()
-    assert d['orientacoes'][0]['categoria']=='Ampliar evidência'
+    assert d['orientacoes'][0]['categoria']=='Avanço'
     assert d['orientacoes'][0]['variante']=='default'
 
 def test_due_review_reuses_queue_and_prepared_session(clock):
@@ -48,9 +48,11 @@ def test_due_review_reuses_queue_and_prepared_session(clock):
         db.add(AcaoEstudo(assunto_id=UUID(a),descricao='Explicar a regra sem consulta',prevista_em=MONDAY-timedelta(days=1)));db.commit()
     d=c.get('/api/v1/performance/dashboard').json()
     queue=c.get('/api/v1/estudos/revisoes').json()
-    assert d['orientacoes'][0]['acao']==queue[0]['tarefa']
-    assert queue[0]['acao_id'] in d['orientacoes'][0]['destino']
-    assert d['status_academico']=='REVISÃO PRIORITÁRIA'
+    # A scheduled action alone does not establish previous study/familiarity.
+    assert queue==[]
+    principal=c.get('/api/v1/estudos/agora').json()['recomendacao']
+    assert d['orientacoes'][0]['acao']==principal['tarefa']
+    assert d['orientacoes'][0]['destino']=='/estudar'
     assert 'Saldo da semana' not in str(d['recomendacao'])
 
 def test_speed_rule_is_shared_and_requires_comparable_difficulty(clock):
@@ -71,5 +73,6 @@ def test_inconsistent_legacy_association_not_used_for_topic_diagnosis(clock):
     now[0]+=timedelta(days=2)
     d=c.get('/api/v1/performance/dashboard').json()
     assert not d['assuntos_criticos']
-    assert all(not r['assunto'] for r in d['orientacoes'])
+    assert d['orientacoes'][0]['categoria']=='Avanço'
+    assert 'Familiaridade desconhecida' in d['orientacoes'][0]['motivo']
     with Session(e) as db:assert db.query(models.BlocoQuestoes).count()==2

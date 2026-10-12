@@ -97,6 +97,9 @@ class SessaoEstudoResponse(SessaoEstudoBase):
     segundos_exatos: Optional[int] = None
     atividade: Optional[str] = None
     proximo_passo: Optional[str] = None
+    finalidade: Optional[str] = None
+    objetivo_revisao: Optional[str] = None
+    classe_revisao: Optional[str] = None
     id: UUID
     criado_em: datetime
 

@@ -278,7 +278,7 @@ def set_profile(payload:ProfileInput,db:Session=Depends(get_db)):
     ensure_week(db)  # Preserve the current target before changing future weeks.
     conf=db.get(ConfigMetas,1,with_for_update=True)
     history=conf.dados.get('_referencias_projecao', [])
-    conf.dados={**payload.model_dump(), '_referencias_projecao':history}
+    conf.dados={**payload.model_dump(), '_referencias_projecao':history, '_agenda_confirmada':True}
     capture_reference(db,conf,future=True)
     db.commit()
     return dict(mensagem='Configuração salva para as próximas semanas. A meta atual foi preservada.',configuracao={k:v for k,v in conf.dados.items() if not k.startswith('_')})
@@ -318,14 +318,6 @@ def suggestions(db:Session=Depends(get_db)):
     return block_guidance(db)
 
 def session_context(db,activity):
-    week=week_view(db);local=utcnow().replace(tzinfo=timezone.utc).astimezone(TZ);day=week['dias'][local.weekday()]
-    remaining=max(0,day['meta_minutos']-day['realizado_minutos'])
-    proposed=min(45 if local.weekday() in (3,4) else 50,int(remaining))
-    notice='Referência de duração; pause quando precisar e confirme o tempo real ao concluir.'
-    if day['inicio']:
-        clock=local.hour*60+local.minute
-        if minutes(day['inicio'])<=clock<minutes(day['fim']):proposed=min(proposed,minutes(day['fim'])-clock)
-        elif clock>=minutes(day['fim']):proposed=0;notice='A janela de hoje terminou. Não há obrigação de compensar agora.'
-        else:notice=f'Próxima janela de hoje: {day["inicio"]}–{day["fim"]}. Comece quando estiver disponível.'
-    else:proposed=0;notice='Hoje não há meta de horas. No domingo, mantenha redação leve e descanso.'
-    return dict(duracao_sugerida_minutos=proposed,aviso=notice,orientacao=guidance(activity))
+    from .recommender import availability
+    from .evidence import guidance
+    return {**availability(db,utcnow()), 'orientacao':guidance(activity)}

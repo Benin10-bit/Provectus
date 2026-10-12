@@ -37,6 +37,8 @@ class AcaoEstudo(Base):
     criada_em = Column(DateTime, nullable=False, default=utcnow)
     concluida_em = Column(DateTime)
     resultado = Column(String(30))
+    consequencia = Column(String(300))
+    uso_em = Column(DateTime)
 
 class ConfigMetas(Base):
     __tablename__ = 'tb_config_metas'

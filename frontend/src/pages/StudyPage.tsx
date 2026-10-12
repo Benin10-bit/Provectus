@@ -9,34 +9,37 @@ import {MateriaSelect,AssuntoSelect} from '@/components/form/Selectors';
 import {LoadingState,ErrorState} from '@/components/ui/states';
 import {Method} from '@/components/dashboard/WeeklyGoals';
 import {useMaterias} from '@/hooks/useConfiguracoes';
-import {Activity,activityNames,Cycle,Draft,DRAFT_KEY,elapsedMs,completionData,getNow,loadDraft,studyPost} from '@/lib/study';
+import {RecommendationMeta,Activity,activityNames,Cycle,Draft,DRAFT_KEY,elapsedMs,completionData,getNow,loadDraft,studyPost} from '@/lib/study';
 
 export default function StudyPage(){
  const qc=useQueryClient();const [params]=useSearchParams();
- const now=useQuery({queryKey:['estudos','agora'],queryFn:getNow});
+ const [minutes,setMinutes]=useState<number|undefined>();
+ const now=useQuery({queryKey:['estudos','agora',minutes],queryFn:()=>getNow(minutes),refetchInterval:60_000});
  const [draft,setDraft]=useState<Draft|null>(loadDraft);
  const [manual,setManual]=useState(Boolean(params.get('assunto')));
  const [materia,setMateria]=useState(params.get('materia')||'');const [assunto,setAssunto]=useState(params.get('assunto')||'');
  const [activity,setActivity]=useState<Activity>((params.get('atividade') as Activity)||'TEORIA');
  useEffect(()=>{const sync=(e:StorageEvent)=>{if(e.key===DRAFT_KEY)setDraft(loadDraft());};window.addEventListener('storage',sync);return()=>window.removeEventListener('storage',sync);},[]);
  const saveDraft=(d:Draft|null)=>{try{if(d)localStorage.setItem(DRAFT_KEY,JSON.stringify(d));else localStorage.removeItem(DRAFT_KEY);setDraft(d);window.dispatchEvent(new Event('provectus:study-draft'));}catch{toast.error('Não foi possível guardar o rascunho neste navegador. Libere o armazenamento antes de começar.');}};
- const start=(m:string,a:string,t:Activity,task:string,action:string|null)=>{
+ const start=(m:string,a:string,t:Activity,task:string,action:string|null,meta?:RecommendationMeta)=>{
   if(!m||!a){toast.error('Selecione matéria e assunto.');return;}
   if(task==='Estude o ponto escolhido no seu material.'&&a===params.get('assunto')&&t===params.get('atividade'))task=params.get('tarefa')||task;
-  saveDraft({id:crypto.randomUUID(),materia_id:m,assunto_id:a,atividade:t,data:new Date().toISOString(),elapsed:0,runningSince:Date.now(),acao_id:action,tarefa:task,total:'',acertos:'',proximo:'',retomar:'',causa:'',resultado:'CONSEGUI'});
+  if(!meta && a===params.get('assunto') && t===params.get('atividade') && params.get('finalidade')==='REVISAO')meta={finalidade:'REVISAO',objetivo_revisao:params.get('objetivo'),classe_revisao:['MANUTENCAO','RECORRENTE','PRIORITARIA'].includes(params.get('classe')||'')?params.get('classe') as RecommendationMeta['classe_revisao']:null};
+  saveDraft({...meta,aceita_em:meta?new Date().toISOString():undefined,iniciada_em:new Date().toISOString(),id:crypto.randomUUID(),materia_id:m,assunto_id:a,atividade:t,data:new Date().toISOString(),elapsed:0,runningSince:Date.now(),acao_id:action,tarefa:task,total:'',acertos:'',proximo:'',retomar:'',causa:'',resultado:'CONSEGUI'});
  };
  const n=now.data;
  return <AppLayout><div className="page-header"><h1 className="page-title">Estudar agora</h1></div>
  {draft?<ActiveSession draft={draft} change={saveDraft} done={()=>{saveDraft(null);qc.invalidateQueries();}}/>:<>
+ <details className="context-disclosure mb-4"><summary>Ajustar tempo disponível agora</summary><label className="block text-sm">Minutos (opcional)<input aria-label="Minutos disponíveis agora" className="form-input mt-2" type="number" min="0" max="600" value={minutes??''} onChange={e=>setMinutes(e.target.value===''?undefined:Math.max(0,Math.min(600,Math.floor(Number(e.target.value)))))}/></label></details>
  {now.isLoading?<LoadingState/>:now.isError?<ErrorState message={(now.error as Error).message}/>:<>
  {n?.recomendacao&&<section className="study-decision tac-card">
   <div className="study-decision-main">
-   <p className="page-eyebrow"><Target size={14}/> PRÓXIMA SESSÃO DO CICLO</p>
-   <div className="decision-meta"><span className="status-chip">{n.recomendacao.materia}</span><span className="status-chip neutral">{activityNames[n.recomendacao.atividade]}</span></div>
+   <p className="page-eyebrow"><Target size={14}/> PRÓXIMA ATIVIDADE</p>
+   <div className="decision-meta"><span className="status-chip">{n.recomendacao.materia}</span><span className="status-chip neutral">{n.recomendacao.finalidade?{AVANCO:'Avanço',CONSOLIDACAO:'Consolidação',REVISAO:'Revisão'}[n.recomendacao.finalidade]+' · ':''}{activityNames[n.recomendacao.atividade]}</span></div>
    <h2>{n.recomendacao.assunto}</h2>
    <div className="decision-task"><span className="micro-label">O que fazer agora</span><p>{n.recomendacao.tarefa}</p></div>
    {n.recomendacao.referencia&&<p className="text-sm text-muted-foreground">Material: {n.recomendacao.referencia}</p>}
-   <div className="decision-actions"><button className="btn-tactical inline-flex" onClick={()=>{const r=n.recomendacao!;start(r.materia_id,r.assunto_id,r.atividade,r.tarefa,r.acao_id);}}><Play size={16}/> Começar sessão <ActionArrow/></button><button className="text-sm text-accent underline" onClick={()=>setManual(!manual)}>Escolher outra</button></div>
+   <div className="decision-actions"><button className="btn-tactical inline-flex" onClick={()=>{const r=n.recomendacao!;start(r.materia_id,r.assunto_id,r.atividade,r.tarefa,r.acao_id,{finalidade:r.finalidade,objetivo_revisao:r.objetivo_revisao,classe_revisao:r.classe_revisao});}}><Play size={16}/> Começar sessão <ActionArrow/></button><button className="text-sm text-accent underline" onClick={()=>setManual(!manual)}>Escolher outra</button></div>
   </div>
   <aside className="decision-reason">
    <div className="suggested-duration"><span className="micro-label">Tempo de referência</span>{n.recomendacao.duracao_sugerida_minutos?<p><strong>{n.recomendacao.duracao_sugerida_minutos}</strong><span>min líquidos</span></p>:<p className="text-sm">Sem meta de duração para agora.</p>}</div>

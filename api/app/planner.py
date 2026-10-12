@@ -66,6 +66,11 @@ class AcaoInput(schemas.APIModel):
     causa: Literal["CONCEITO", "INTERPRETACAO", "CALCULO", "DISTRACAO", "PRESSA", "CONTEUDO_ESQUECIDO"] | None = None
     prevista_em: datetime | None = None
     bloco_id: UUID | None = None
+    consequencia: str | None = Field(None, min_length=1, max_length=300)
+    uso_em: datetime | None = None
+    @field_validator("uso_em")
+    @classmethod
+    def use_utc(cls,v): return utc_naive(v) if v else None
     model_config = {"str_strip_whitespace": True}
     @field_validator("prevista_em")
     @classmethod
@@ -78,6 +83,9 @@ class Conclusao(schemas.APIModel):
     data: datetime
     segundos: int = Field(gt=0, le=86400)
     atividade: Literal["TEORIA", "QUESTOES", "REVISAO", "ANALISE_ERROS"]
+    finalidade: Literal['AVANCO','CONSOLIDACAO','REVISAO'] | None = None
+    objetivo_revisao: str | None = Field(None,max_length=200)
+    classe_revisao: Literal['MANUTENCAO','RECORRENTE','PRIORITARIA'] | None = None
     proximo_passo: str | None = Field(None, max_length=300)
     bloco: BlocoIntegrado | None = None
     acao_id: UUID | None = None
@@ -86,6 +94,8 @@ class Conclusao(schemas.APIModel):
     _data = field_validator("data")(schemas.validar_data)
     @model_validator(mode="after")
     def consistencia(self):
+        if self.finalidade != 'REVISAO' and (self.objetivo_revisao or self.classe_revisao):
+            raise ValueError('Metadados revisionais exigem finalidade de revisão.')
         if self.bloco and self.bloco.tempo_total_segundos is not None and self.bloco.tempo_total_segundos > self.segundos:
             raise ValueError("O tempo de questões não pode superar a duração líquida da sessão.")
         if bool(self.acao_id) != bool(self.resultado_acao):
@@ -164,7 +174,7 @@ def coverage(materia_id:UUID|None=None, db:Session=Depends(get_db)):
     sm,bm,am=defaultdict(list),defaultdict(list),defaultdict(list)
     associations={a.id:a.materia_id for a in topics}
     for s in sessions:
-        if associations.get(s.assunto_id)==s.materia_id:sm[s.assunto_id].append(s)
+        if associations.get(s.assunto_id)==s.materia_id and session_seconds(s)>0:sm[s.assunto_id].append(s)
     for b in blocks:
         if valid_questions(b) and associations.get(b.assunto_id)==b.materia_id:bm[b.assunto_id].append(b)
     for a in actions:am[a.assunto_id].append(a)
@@ -178,7 +188,8 @@ def coverage(materia_id:UUID|None=None, db:Session=Depends(get_db)):
         state="SEM REGISTRO" if not contacts else "TEORIA SEM PRÁTICA" if not bs else "POUCA PRÁTICA" if n<20 or len(practice)<2 else "PRÁTICA REGISTRADA"
         if bs and not practice:state="EVIDÊNCIA ANTIGA"
         out.append(dict(id=str(a.id),materia_id=str(a.materia_id),nome=a.nome,ordem=a.ordem,referencia=a.referencia,
-            estado=state,ultimo_contato=iso_utc(last),total_questoes=sum(b.total_questoes for b in bs),
+            familiaridade='REGISTRADO' if contacts else 'DECLARADO_ESTUDADO' if a.familiaridade_declarada=='ESTUDADO' else 'NAO_ESTUDADO' if a.familiaridade_declarada=='NAO_ESTUDADO' else 'DESCONHECIDO',
+            familiaridade_declarada=a.familiaridade_declarada,estado=state,ultimo_contato=iso_utc(last),total_questoes=sum(b.total_questoes for b in bs),
             questoes_recentes=n,blocos_recentes=len(practice),precisao=round(precisao(practice)*100,2) if n else None,
             teoria_registrada=any(s.tipo_sessao=="TEORIA" for s in ss),
             proximo_passo=latest.proximo_passo if latest else None,ultima_atividade=latest.atividade or latest.tipo_sessao if latest else None,
@@ -187,118 +198,33 @@ def coverage(materia_id:UUID|None=None, db:Session=Depends(get_db)):
 
 def action_view(a):
     return dict(id=str(a.id),assunto_id=str(a.assunto_id),bloco_id=str(a.bloco_id) if a.bloco_id else None,descricao=a.descricao,causa=a.causa,
-        prevista_em=iso_utc(a.prevista_em),concluida_em=iso_utc(a.concluida_em),resultado=a.resultado)
+        consequencia=a.consequencia,uso_em=iso_utc(a.uso_em),prevista_em=iso_utc(a.prevista_em),concluida_em=iso_utc(a.concluida_em),resultado=a.resultado)
 
 def review_items(db, topics):
-    """Derived queue: reads never create obligations or rewrite historical records."""
-    ids=[UUID(t['id']) for t in topics]
-    if not ids:return []
-    now=utcnow()
-    blocks=db.query(models.BlocoQuestoes).filter(models.BlocoQuestoes.assunto_id.in_(ids),models.BlocoQuestoes.data<=now).all()
-    sessions=db.query(models.SessaoEstudo).filter(models.SessaoEstudo.assunto_id.in_(ids),models.SessaoEstudo.data<=now).all()
-    errors=db.query(models.ErroQuestao).join(models.BlocoQuestoes).filter(models.BlocoQuestoes.assunto_id.in_(ids),models.BlocoQuestoes.data<=now).all()
-    completed=db.query(AcaoEstudo).filter(AcaoEstudo.assunto_id.in_(ids),AcaoEstudo.concluida_em.is_not(None),AcaoEstudo.concluida_em<=now).all()
-    finished=defaultdict(list)
-    for a in completed:finished[str(a.assunto_id)].append(a.concluida_em)
-    causes=defaultdict(set)
-    for error in errors:
-        if error.quantidade>0:causes[error.bloco_id].add(str(error.tipo_erro))
-    bm,sm=defaultdict(list),defaultdict(list)
-    associations={t['id']:t['materia_id'] for t in topics}
-    for b in blocks:
-        if valid_questions(b) and associations.get(str(b.assunto_id))==str(b.materia_id):bm[str(b.assunto_id)].append(b)
-    for s in sessions:
-        if associations.get(str(s.assunto_id))==str(s.materia_id):sm[str(s.assunto_id)].append(s)
-    names={str(m.id):m.nome for m in db.query(models.Materia).all()}
-    result=[]
-    for t in topics:
-        def item(kind,activity,task,reason,due,priority,action=None):
-            return dict(id=action['id'] if action else 'auto:'+t['id'],origem=kind,
-                materia_id=t['materia_id'],materia=names.get(t['materia_id'],''),assunto_id=t['id'],assunto=t['nome'],
-                atividade=activity,tarefa=task,motivo=reason,prevista_em=iso_utc(due),disponivel=due<=now,
-                prioridade=priority,acao_id=action['id'] if action else None,referencia=t['referencia'])
-        for a in t['pendencias']:
-            due=utc_naive(datetime.fromisoformat(a['prevista_em']))
-            result.append(item('PROGRAMADA','ANALISE_ERROS' if a['causa'] else 'REVISAO',a['descricao'],
-                'Ação programada por você; a data não representa dívida de estudo.',due,0,a))
-        # One action per topic at a time; scheduled actions also suppress duplicate suggestions.
-        if t['pendencias'] or not t['ultimo_contato']:continue
-        bs=sorted(bm[t['id']],key=lambda b:(b.data,str(b.id)))
-        ss=sorted(sm[t['id']],key=lambda s:(s.data,str(s.id)))
-        last_review=max([s.data for s in ss if s.atividade in ('REVISAO','ANALISE_ERROS') or s.tipo_sessao=='REVISAO']+finished[t['id']],default=None)
-        last_session=ss[-1] if ss else None
-        latest=bs[-1] if bs else None
-        last=utc_naive(datetime.fromisoformat(t['ultimo_contato']))
-        floor=last_review+timedelta(days=2) if last_review else datetime.min
-        unresolved=[b for b in bs if causes[b.id] and b.total_acertos<b.total_questoes and (not last_review or b.data>last_review)]
-        if unresolved:
-            b=unresolved[-1]
-            result.append(item('AUTOMATICA','ANALISE_ERROS','Refaça sem consulta alguns erros deste assunto, confira a solução e resolva duas questões semelhantes.',
-                f'Há erros classificados sem uma sessão posterior de revisão/análise. Causas informadas: {", ".join(sorted(causes[b.id]))}.',max(b.data,floor),1))
-        elif last_session and last_session.proximo_passo and (not latest or latest.data<=last_session.data):
-            result.append(item('AUTOMATICA','QUESTOES' if bs else 'REVISAO',last_session.proximo_passo,
-                'Próximo passo deixado na última sessão deste assunto.',max(last_session.data,floor),2))
-        elif not bs:
-            result.append(item('AUTOMATICA','QUESTOES','Resolva 5–10 questões sem consulta; confira as soluções e registre total e acertos.',
-                'Há estudo registrado, mas nenhuma prática válida. Faça um diagnóstico, não uma releitura obrigatória.',max(last,floor),3))
-        else:
-            recent=[b for b in bs if b.data>=now-timedelta(days=60)][-2:]
-            n=sum(b.total_questoes for b in recent)
-            hits=sum(b.total_acertos for b in recent)
-            from .study_analysis import critical, performance_change
-            change=performance_change([b for b in bs if b.data>=now-timedelta(days=60)])
-            if not recent:
-                activity='REVISAO';task='Resolva 5–10 questões sem consulta para verificar retenção; reveja somente os pontos que não conseguir explicar.'
-                reason='A última prática tem mais de 60 dias. Isso pede uma verificação, não comprova esquecimento.';priority=3;due=latest.data+timedelta(days=7)
-            elif critical(recent):
-                activity='REVISAO';task='Confira os erros das duas últimas tentativas, reveja o ponto de teoria necessário e faça 5–10 questões novas.'
-                reason=f'{hits} acertos em {n} questões nas duas últimas tentativas recentes. Verifique a dificuldade sem presumir sua causa.';priority=2;due=latest.data+timedelta(days=1)
-            elif change:
-                _,activity,reason,task=change;priority=3;due=latest.data+timedelta(days=1)
-            elif n<20 or len(recent)<2:
-                activity='QUESTOES';task='Faça 5–10 questões novas sem consulta e confira os erros para ampliar a evidência.'
-                reason=f'Amostra pequena: {n} questões em {len(recent)} tentativa(s) recente(s).';priority=4;due=latest.data+timedelta(days=1)
-            else:
-                activity='REVISAO';task='Faça um pequeno bloco sem consulta e explique uma solução; reveja a teoria apenas se necessário.'
-                reason='Retorno periódico para verificar retenção, sem flashcards nem diagnóstico automático de domínio.';priority=5;due=latest.data+timedelta(days=7)
-            result.append(item('AUTOMATICA',activity,task,reason,max(due,floor),priority))
-    return sorted(result,key=lambda r:(not r['disponivel'],r['prioridade'],r['prevista_em'],r['materia'],r['assunto'],r['id']))
+    from .recommender import queue
+    return queue(db, now=utcnow(), topic_ids={t['id'] for t in topics})
 
 @router.get('/revisoes')
 def review_queue(materia_id:UUID|None=None,db:Session=Depends(get_db)):
     return review_items(db,coverage(materia_id,db))
 
-@router.get("/agora")
-def recommend(db:Session=Depends(get_db)):
-    cycle=cycle_view(db)
-    if not cycle:return dict(ciclo=None,recomendacao=None,motivo="Informe as cotas do seu ciclo uma vez para receber uma sugestão.")
-    eligible=[g for g in cycle['metas'] if g['proporcao']<1 and g['ativa']]
-    if not eligible:return dict(ciclo=cycle,recomendacao=None,motivo="Ciclo concluído. Inicie o próximo com as mesmas cotas ou ajuste a distribuição." if cycle['completo'] else "Há cotas de matérias inativas. Reative-as para continuar o ciclo.")
-    g=min(eligible,key=lambda g:(g['proporcao'],g['ultima_sessao'] or '',g['ordem'],g['materia_id']))
-    topics=coverage(UUID(g['materia_id']),db)
-    if not topics:return dict(ciclo=cycle,recomendacao=None,materia_id=g['materia_id'],motivo=f"Cadastre o próximo assunto de {g['nome']} para começar.")
-    latest=db.query(models.SessaoEstudo).filter_by(materia_id=UUID(g['materia_id'])).order_by(models.SessaoEstudo.data.desc()).first()
-    repair_last=latest and (latest.atividade in ('REVISAO','ANALISE_ERROS') or latest.tipo_sessao=='REVISAO')
-    reviews=[r for r in review_items(db,topics) if r['disponivel']]
-    fresh=[t for t in topics if t['estado'] in ('SEM REGISTRO','TEORIA SEM PRÁTICA','POUCA PRÁTICA')]
-    continuation=next((t for t in topics if latest and t['id']==str(latest.assunto_id) and t['proximo_passo']),None)
-    action=None
-    review_reason=''
-    if reviews and (not repair_last or not fresh):
-        chosen=reviews[0];topic=next(t for t in topics if t['id']==chosen['assunto_id'])
-        action={'id':chosen['acao_id']} if chosen['acao_id'] else None
-        activity=chosen['atividade'];task=chosen['tarefa'];review_reason=chosen['motivo']
-    elif continuation and not repair_last:
-        topic=continuation;activity='TEORIA' if not topic['total_questoes'] else 'QUESTOES';task=topic['proximo_passo']
-    else:
-        topic=fresh[0] if fresh else min(topics,key=lambda t:(t['ultimo_contato'] or '',t['ordem'],t['id']))
-        activity='TEORIA' if topic['estado']=='SEM REGISTRO' else 'QUESTOES'
-        task='Estude este ponto e resolva um exemplo no seu material.' if activity=='TEORIA' else 'Resolva um pequeno bloco sem consulta e confira os erros. A amostra ajuda a definir o próximo passo.'
-    from .goals import session_context
-    return dict(ciclo=cycle,motivo=None,recomendacao=dict(materia_id=g['materia_id'],materia=g['nome'],assunto_id=topic['id'],assunto=topic['nome'],atividade=activity,tarefa=task,
-        **session_context(db,activity),
-        referencia=topic['referencia'],acao_id=action['id'] if action else None,
-        explicacao=f"{g['proporcao']*100:.0f}% da cota de {g['nome']} concluída: menor proporção disponível; empates usam o maior tempo sem estudo e a ordem do ciclo. {review_reason or topic['estado'].capitalize()}."))
+@router.get('/agora')
+def recommend(minutos:int|None=Query(default=None,ge=0,le=600),db:Session=Depends(get_db)):
+    from .recommender import decide
+    return decide(db, now=utcnow(), minutes=minutos)
+
+class FamiliaridadeInput(schemas.APIModel):
+    declaracao: Literal['ESTUDADO','NAO_ESTUDADO'] | None = None
+
+@router.patch('/assuntos/{id}/familiaridade')
+def declare_familiarity(id:UUID,payload:FamiliaridadeInput,db:Session=Depends(get_db)):
+    topic=db.get(models.Assunto,id)
+    if not topic:raise HTTPException(404,'Assunto não encontrado.')
+    if topic.familiaridade_declarada!=payload.declaracao:
+        topic.familiaridade_declarada=payload.declaracao
+        topic.familiaridade_alterada_em=utcnow()
+    db.commit()
+    return dict(id=str(id),declaracao=topic.familiaridade_declarada)
 
 @router.patch("/assuntos/{id}")
 def update_topic(id:UUID,payload:AssuntoPatch,db:Session=Depends(get_db)):
@@ -316,7 +242,7 @@ def add_action(db,payload,block=None):
     if payload.bloco_id and not block:raise HTTPException(404,"Bloco não encontrado.")
     if block and block.assunto_id!=topic.id:raise HTTPException(422,"Bloco de outro assunto.")
     if block and payload.causa and block.total_acertos>=block.total_questoes:raise HTTPException(422,"Bloco sem erros: programe uma revisão sem indicar causa de erro.")
-    a=AcaoEstudo(assunto_id=topic.id,bloco_id=block.id if block else None,descricao=payload.descricao,causa=payload.causa,prevista_em=payload.prevista_em or utcnow())
+    a=AcaoEstudo(assunto_id=topic.id,bloco_id=block.id if block else None,descricao=payload.descricao,causa=payload.causa,prevista_em=payload.prevista_em or utcnow(),consequencia=payload.consequencia,uso_em=payload.uso_em)
     db.add(a)
     if block and payload.causa and block.total_questoes>block.total_acertos:
         # One occurrence is an explicitly selected return action, not all errors in the block.
@@ -353,7 +279,11 @@ def complete(payload:Conclusao,db:Session=Depends(get_db)):
     existing=db.query(models.SessaoEstudo).filter_by(chave_registro=payload.chave_registro).first()
     if existing:
         compatible_hashes = {fingerprint}
+        import json
         legacy = payload.model_dump(mode='json')
+        if payload.finalidade is None and payload.objetivo_revisao is None and payload.classe_revisao is None:
+            for key in ('finalidade','objetivo_revisao','classe_revisao'):legacy.pop(key,None)
+            compatible_hashes.add(hashlib.sha256(json.dumps(legacy,ensure_ascii=False,separators=(',',':')).encode()).hexdigest())
         if payload.bloco and payload.bloco.tempo_total_segundos is None:
             legacy['bloco'].pop('tempo_total_segundos', None)
             if payload.bloco.dificuldade is None:
@@ -368,6 +298,7 @@ def complete(payload:Conclusao,db:Session=Depends(get_db)):
         tipo_sessao='REVISAO' if payload.atividade=='ANALISE_ERROS' else payload.atividade,
         minutos_liquidos=max(1,(payload.segundos+59)//60),segundos_exatos=payload.segundos,
         atividade=payload.atividade,proximo_passo=payload.proximo_passo or None,ciclo_id=cycle_id,
+        finalidade=payload.finalidade,objetivo_revisao=payload.objetivo_revisao,classe_revisao=payload.classe_revisao,
         chave_registro=payload.chave_registro,conteudo_hash=fingerprint)
     db.add(s);db.flush();b=None
     if payload.bloco:
@@ -390,6 +321,8 @@ def edit_session(id:UUID,payload:schemas.SessaoEstudoCreate,db:Session=Depends(g
     b=db.query(models.BlocoQuestoes).filter_by(sessao_id=id).first()
     if b and b.tempo_questoes_informado is True and b.tempo_total_segundos is not None and b.tempo_total_segundos > payload.minutos_liquidos*60:
         raise HTTPException(422,"A sessão deve comportar o tempo de questões registrado. Corrija o bloco primeiro.")
+    if s.materia_id!=payload.materia_id or s.assunto_id!=payload.assunto_id or s.tipo_sessao!=payload.tipo_sessao:
+        s.finalidade=None;s.objetivo_revisao=None;s.classe_revisao=None
     for k,v in payload.model_dump().items():setattr(s,k,v)
     s.segundos_exatos=payload.minutos_liquidos*60
     s.atividade=payload.tipo_sessao
@@ -418,6 +351,8 @@ def edit_block(id:UUID,payload:schemas.BlocoQuestoesCreate,db:Session=Depends(ge
     db.query(AcaoEstudo).filter_by(bloco_id=b.id).update({AcaoEstudo.assunto_id:b.assunto_id})
     if b.sessao_id:
         s=db.get(models.SessaoEstudo,b.sessao_id)
+        if s.materia_id!=b.materia_id or s.assunto_id!=b.assunto_id:
+            s.finalidade=None;s.objetivo_revisao=None;s.classe_revisao=None
         s.materia_id=b.materia_id;s.assunto_id=b.assunto_id;s.data=b.data
     db.commit();db.refresh(b);return b
 

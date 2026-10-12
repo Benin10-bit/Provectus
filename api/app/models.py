@@ -52,6 +52,8 @@ class Assunto(Base):
     criado_em = Column(DateTime, default=datetime.utcnow)
     ordem = Column(Integer, nullable=False, default=0, server_default="0")
     referencia = Column(String(300))
+    familiaridade_declarada = Column(String(20))
+    familiaridade_alterada_em = Column(DateTime)
 
     materia = relationship("Materia", back_populates="assuntos")
     sessoes_estudo = relationship("SessaoEstudo", back_populates="assunto")
@@ -77,6 +79,9 @@ class SessaoEstudo(Base):
     segundos_exatos = Column(Integer, nullable=True)
     atividade = Column(String(30), nullable=True)
     proximo_passo = Column(String(300), nullable=True)
+    finalidade = Column(String(20), nullable=True)
+    objetivo_revisao = Column(String(200), nullable=True)
+    classe_revisao = Column(String(20), nullable=True)
     tipo_sessao = Column(String(20), nullable=False)  # TEORIA, QUESTOES, REVISAO
     minutos_liquidos = Column(Integer, nullable=False)
 

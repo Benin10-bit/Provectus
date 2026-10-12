@@ -3,7 +3,7 @@ import { SectionHeading, ActionArrow } from "@/components/experience/StudyUI";
 import { Link } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { request } from "@/lib/api";
-import { getNow } from "@/lib/study";
+import { getNow, loadDraft } from "@/lib/study";
 import type {
   BlocoQuestoesResponse,
   SimuladoSemanalResponse,
@@ -33,7 +33,7 @@ import {
 } from "@/hooks/usePerformance";
 import type { Periodo } from "@/lib/types";
 import { formatarHoras } from "@/lib/utils";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const PERIODOS: { value: Periodo; label: string }[] = [
   { value: "semana", label: "Semana" },
@@ -43,6 +43,8 @@ const PERIODOS: { value: Periodo; label: string }[] = [
 ];
 
 export default function Dashboard() {
+  const [activeDraft,setActiveDraft]=useState(loadDraft);
+  useEffect(()=>{const sync=()=>setActiveDraft(loadDraft());window.addEventListener('storage',sync);window.addEventListener('provectus:study-draft',sync);return()=>{window.removeEventListener('storage',sync);window.removeEventListener('provectus:study-draft',sync);};},[]);
   const [periodo, setPeriodo] = useState<Periodo>("semana");
   const [materiaId, setMateriaId] = useState<string>("");
 
@@ -53,7 +55,8 @@ export default function Dashboard() {
   } = useDashboard(periodo, materiaId);
   const suggestion = useQuery({
     queryKey: ["estudos", "agora"],
-    queryFn: getNow,
+    queryFn: () => getNow(),
+    refetchInterval: 60_000,
   });
   const series = useQuery({
     queryKey: ["performance", "series", periodo, materiaId],
@@ -175,10 +178,10 @@ export default function Dashboard() {
       <div className="dashboard-action-grid">
         <div className="tac-card next-session dashboard-next">
           <div><p className="page-eyebrow">PRÓXIMA AÇÃO</p>
-            <h2>{suggestion.data?.recomendacao ? `${suggestion.data.recomendacao.materia} · ${suggestion.data.recomendacao.assunto}` : "Ciclo aguardando definição"}</h2>
-            <p className="text-sm text-muted-foreground mt-3">{suggestion.data?.recomendacao?.tarefa ?? "Retome seu ciclo com matéria, assunto e atividade definidos."}</p>
+            <h2>{activeDraft?"Retomar sessão em andamento":suggestion.data?.recomendacao ? `${suggestion.data.recomendacao.materia} · ${suggestion.data.recomendacao.assunto}` : "Próxima atividade"}</h2>
+            <p className="text-sm text-muted-foreground mt-3">{activeDraft?.tarefa ?? suggestion.data?.recomendacao?.tarefa ?? suggestion.data?.motivo ?? "Consulte a próxima atividade disponível."}</p>
           </div>
-          <Link to="/estudar" className="btn-tactical inline-flex">Estudar agora <ActionArrow /></Link>
+          <Link to="/estudar" className="btn-tactical inline-flex">{activeDraft?"Retomar sessão":"Estudar agora"} <ActionArrow /></Link>
         </div>
         <CardRecomendacao d={d} materia={materiaId} />
       </div>

@@ -6,9 +6,9 @@ import AppLayout from '@/components/layout/AppLayout';
 import {MateriaSelect} from '@/components/form/Selectors';
 import {LoadingState,ErrorState,EmptyState} from '@/components/ui/states';
 import {request} from '@/lib/api';
-import {Activity,activityNames} from '@/lib/study';
+import {RecommendationMeta,Activity,activityNames} from '@/lib/study';
 
-interface Review {
+interface Review extends RecommendationMeta {
  id:string;origem:'AUTOMATICA'|'PROGRAMADA';materia_id:string;materia:string;
  assunto_id:string;assunto:string;atividade:Activity;tarefa:string;motivo:string;
  prevista_em:string;disponivel:boolean;acao_id:string|null;referencia:string|null;
@@ -24,6 +24,9 @@ export default function ReviewPage(){
  function card(r:Review){
   const params=new URLSearchParams({materia:r.materia_id,assunto:r.assunto_id,atividade:r.atividade,tarefa:r.tarefa});
   if(r.acao_id)params.set('acao',r.acao_id);
+  params.set('finalidade','REVISAO');
+  if(r.objetivo_revisao)params.set('objetivo',r.objetivo_revisao);
+  if(r.classe_revisao)params.set('classe',r.classe_revisao);
   return <article key={r.id} className="tac-card review-card space-y-3">
    <div className="review-card-meta"><span className="status-chip">{r.materia}</span><span className="status-chip neutral">{r.origem==='AUTOMATICA'?'Automática':'Programada'}</span></div><p className="micro-label">{activityNames[r.atividade]} · {r.disponivel?'Disponível agora':'Próximo retorno'}</p>
    <h3 className="text-base font-bold">{r.assunto}</h3>
@@ -40,7 +43,7 @@ export default function ReviewPage(){
   <div className="review-filter mb-5"><MateriaSelect value={materia} onChange={setMateria}/></div>
   {q.isLoading?<LoadingState/>:q.isError?<ErrorState message={(q.error as Error).message}/>:<><div className="review-lanes">
    <section className="review-lane"><header><RotateCcw size={18}/><h2>Retomadas automáticas</h2><span>{automatic.length}</span></header>
-    {automatic.length?<div className="review-stack">{automatic.map(card)}</div>:<EmptyState message={rows.length?'Nenhum retorno automático disponível agora. Confira os próximos retornos abaixo ou avance pelo ciclo.':'Ainda não há histórico que justifique revisão. Comece um assunto em Estudar agora; assuntos nunca estudados ficam em Conteúdos.'}/>}</section>
+    {automatic.length?<div className="review-stack">{automatic.map(card)}</div>:<EmptyState message={rows.length?'Nenhum retorno automático disponível agora. Confira os próximos retornos abaixo ou avance pelo ciclo.':'Não há retorno identificado agora. Consulte Estudar agora ou indique um assunto já estudado em Conteúdos.'}/>}</section>
    <section className="review-lane"><header><CalendarDays size={18}/><h2>Programadas por você</h2><span>{scheduled.length}</span></header>
     {scheduled.length?<div className="review-stack">{scheduled.map(card)}</div>:<p className="text-sm text-muted-foreground">Nenhuma ação manual disponível. Cadastrar ações é opcional.</p>}</section>
    </div>{future.length>0&&<details className="future-reviews tac-card mb-6"><summary className="text-sm text-accent cursor-pointer">Próximos retornos · {future.length}</summary><div className="grid lg:grid-cols-2 gap-4 mt-4">{future.map(card)}</div></details>}

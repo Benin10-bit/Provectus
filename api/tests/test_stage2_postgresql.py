@@ -61,7 +61,7 @@ def test_migration_preserves_legacy_and_nullable_contract(pg_env):
         assert version>=150000
         columns={x['name']:x for x in inspect(conn).get_columns('tb_bloco_questoes')}
         assert columns['dificuldade']['nullable'] and columns['tempo_total_segundos']['nullable']
-        assert conn.execute(text('SELECT count(*) FROM provectus_migrations')).scalar()==9
+        assert conn.execute(text('SELECT count(*) FROM provectus_migrations')).scalar()==len(list(migrate.MIGRATIONS.glob('*.sql')))
     rows=c.get('/api/v1/performance/blocos').json()
     legacy=next(b for b in rows if b['id']==old)
     assert legacy['dificuldade']==3 and legacy['tempo_total_segundos']==3600 and legacy['tempo_medio_por_questao'] is None

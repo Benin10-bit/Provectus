@@ -113,7 +113,8 @@ def test_first_partial_week_and_sunday_context(clock):
     assert w['parcial'] and w['meta_minutos']==270 and w['meta_questoes']==15
     now[0]+=timedelta(days=1)
     with Session(e) as db:
-        context=goals.session_context(db,'REVISAO');assert context['duracao_sugerida_minutos']==0
+        context=goals.session_context(db,'REVISAO');assert context['duracao_sugerida_minutos'] is None
+        assert context['origem_duracao']=='DESCONHECIDA'
     advice=c.get('/api/v1/metas/orientacoes').json()
     assert advice and all(a['passos'] for a in advice)
     assert not any('Domingo' in a['titulo'] or 'plano sem criar' in a['titulo'] for a in advice)

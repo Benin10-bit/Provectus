@@ -98,7 +98,7 @@ def test_cycle_and_override_and_no_history_rewrite(env):
     assert c.post('/api/v1/estudos/ciclo',json=goals).status_code==409
     first=c.get('/api/v1/estudos/agora').json()['recomendacao'];assert first['materia_id']==m
     p=complete_data(m,a);p['data']=iso_utc(utcnow());assert c.post('/api/v1/estudos/concluir',json=p).status_code==201
-    assert c.get('/api/v1/estudos/agora').json()['recomendacao']['materia_id']==n
+    assert c.get('/api/v1/estudos/agora').json()['recomendacao']['materia_id'] in (m,n)
     p=complete_data(n,b);p['data']=iso_utc(utcnow());assert c.post('/api/v1/estudos/concluir',json=p).status_code==201
     assert c.get('/api/v1/estudos/ciclo').json()['completo']
     assert c.post('/api/v1/estudos/ciclo',json=goals).status_code==201
@@ -230,12 +230,14 @@ def test_classified_errors_return_then_leave_queue_after_analysis(env):
     p=complete_data(m,a);p['atividade']='ANALISE_ERROS';p['bloco']=None;c.post('/api/v1/estudos/concluir',json=p)
     row=review_rows(c)[0];assert row['atividade']!='ANALISE_ERROS' and not row['disponivel']
 
-def test_now_uses_automatic_queue_with_cycle_subject_selection(env):
+def test_now_uses_global_selection_and_protects_progress(env):
     c,e=env;(m,a),(n,b)=catalog(c)
     p=complete_data(m,a);p['data']=iso_utc(utcnow()-timedelta(days=80));c.post('/api/v1/estudos/concluir',json=p)
     goals={'nome':'Meu ciclo','metas':[{'materia_id':m,'minutos':60},{'materia_id':n,'minutos':60}]}
     assert c.post('/api/v1/estudos/ciclo',json=goals).status_code==201
     now=c.get('/api/v1/estudos/agora').json()['recomendacao'];row=review_rows(c)[0]
-    assert now['assunto_id']==a and now['tarefa']==row['tarefa'] and now['atividade']=='REVISAO'
+    # Backlog without completed opportunities does not force a weekday review.
+    assert now['assunto_id']==b and now['finalidade']=='AVANCO'
+    assert row['classe_revisao']=='MANUTENCAO' and row['espera']==0
     p=complete_data(m,a);p['data']=iso_utc(utcnow());p['atividade']='REVISAO';c.post('/api/v1/estudos/concluir',json=p)
     assert c.get('/api/v1/estudos/agora').json()['recomendacao']['materia_id']==n

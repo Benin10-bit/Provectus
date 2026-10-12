@@ -27,6 +27,7 @@ def test_strategic_and_operational_guidance_have_different_scope(clock):
     r=c.get('/api/v1/metas/orientacoes');assert r.status_code==200
     guidance=r.json();assert 'último bloco' in guidance[0]['motivo']
     assert any('5 questões novas' in x for x in guidance[0]['passos'])
-    assert a in guidance[0]['destino']
+    assert guidance[0]['destino']=='/estudar'
+    assert 'quando este assunto for retomado' in guidance[0]['motivo']
     assert not set(d['recomendacoes_estudo']) & {x['motivo'] for x in guidance}
     assert all('Reduza a meta' not in str(x) for x in guidance)
