@@ -2,7 +2,7 @@
 
 FastAPI, React/Vite, PostgreSQL 15 e Docker Compose. Sistema de estudos com Banco de Questões separado das métricas.
 
-**Etapa 1 — Confiabilidade:** correções A01, A05, A13 e A17, sem alteração de esquema. Siga [ATUALIZACAO_ETAPA1.md](ATUALIZACAO_ETAPA1.md) após confirmar backup validado do banco e dos arquivos. Para esta entrega, reconstrua somente `api` e `frontend`, preservando `.env`, `.env.ingestion`, Compose local, volumes e imagens. Não use `atualizar.sh` nesta etapa: ele executa o migrador de versões anteriores. As seções de atualização abaixo são históricas e não acrescentam migrations a esta entrega.
+**Etapa 2 — Integridade das medidas e metas:** A02, A06 e A09 aplicados sobre a Etapa 1, com migração aditiva 009. Siga [ATUALIZACAO_ETAPA2.md](ATUALIZACAO_ETAPA2.md) após validar backup do banco e dos assets; consulte [RESULTADOS_ETAPA2.md](RESULTADOS_ETAPA2.md) para os testes e limites. Não use `atualizar.sh` ou o guia da Etapa 1 nesta entrega. Configurações, volumes e imagens persistentes são preservados. As seções históricas abaixo permanecem como referência.
 
 Na interface: **Conteúdos** organiza seu cadastro; **Estudar agora** recebe as cotas do seu ciclo e oferece matéria, assunto e atividade. A sessão integrada salva tempo e questões uma única vez. A lista de revisão usa ações de retorno sem flashcards. Nenhum catálogo fictício é inserido no seu banco.
 

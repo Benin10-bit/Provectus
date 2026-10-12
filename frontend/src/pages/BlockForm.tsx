@@ -12,7 +12,7 @@ import type { BlocoQuestoesCreate } from "@/lib/types";
 export default function BlockPage() {
   const [materiaId, setMateriaId] = useState("");
   const [assuntoId, setAssuntoId] = useState("");
-  const [dificuldade, setDificuldade] = useState(3);
+  const [dificuldade, setDificuldade] = useState('');
   const [totalQ, setTotalQ] = useState("");
   const [totalA, setTotalA] = useState("");
   const [tempo, setTempo] = useState("");
@@ -25,7 +25,7 @@ export default function BlockPage() {
 
   const resetForm = () => {
     setConfiancaSet(false);
-    setMateriaId(""); setAssuntoId(""); setTotalQ(""); setTotalA(""); setTempo(""); setDificuldade(3); setConfianca(3);
+    setMateriaId(""); setAssuntoId(""); setTotalQ(""); setTotalA(""); setTempo(""); setDificuldade(''); setConfianca(3);
   };
 
   const mutation = useCreateBloco((pct) => {
@@ -36,7 +36,7 @@ export default function BlockPage() {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setResultado(null);
-    if (!materiaId || !assuntoId || !totalQ || !totalA || !tempo) {
+    if (!materiaId || !assuntoId || !totalQ || totalA === "") {
       toast.error("Preencha todos os campos obrigatórios.");
       return;
     }
@@ -47,10 +47,10 @@ export default function BlockPage() {
     const data: BlocoQuestoesCreate = {
       materia_id: materiaId,
       assunto_id: assuntoId,
-      dificuldade,
+      dificuldade: dificuldade ? Number(dificuldade) : null,
       total_questoes: tq,
       total_acertos: ta,
-      tempo_total_segundos: parseInt(tempo) * 60,
+      tempo_total_segundos: tempo ? Math.round(Number(tempo) * 60) : null,
       nivel_confianca_medio: confiancaSet ? confianca : null,
     };
     mutation.mutate(data);
@@ -90,8 +90,8 @@ export default function BlockPage() {
 
 </FormSection>
 <FormSection number="02" title="Resultado do bloco" description="Dificuldade, acertos e tempo da prática." complete={Boolean(totalQ && totalA && tempo)}>
-            <FieldGroup label={`Dificuldade: ${dificuldade}`}>
-              <input type="range" min={1} max={5} value={dificuldade} onChange={(e) => setDificuldade(+e.target.value)} className="w-full accent-accent" />
+            <FieldGroup label="Dificuldade (opcional)">
+              <select aria-label="Dificuldade" value={dificuldade} onChange={e=>setDificuldade(e.target.value)} className="form-select"><option value="">Não informada</option>{[1,2,3,4,5].map(v=><option key={v} value={v}>{v}</option>)}</select>
             </FieldGroup>
             <div className="grid grid-cols-2 gap-3 sm:gap-4">
               <FieldGroup label="Total de Questões">
@@ -101,8 +101,8 @@ export default function BlockPage() {
                 <input type="number" min={0} value={totalA} onChange={(e) => setTotalA(e.target.value)} className="form-input" placeholder="Ex: 15" />
               </FieldGroup>
             </div>
-            <FieldGroup label="Tempo Total (minutos)">
-              <input type="number" min={1} value={tempo} onChange={(e) => setTempo(e.target.value)} className="form-input" placeholder="Ex: 30" />
+            <FieldGroup label="Tempo de resolução (minutos; opcional)">
+              <input type="number" min="0.02" step="0.01" value={tempo} onChange={(e) => setTempo(e.target.value)} className="form-input" placeholder="Ex: 30" />
             </FieldGroup>
 
 </FormSection>
@@ -128,7 +128,7 @@ export default function BlockPage() {
                   <div className="min-w-0 flex-1">
                     <p className="text-sm font-semibold text-foreground truncate">{getMateriaNome(b.materia_id)}</p>
                     <p className="text-[10px] sm:text-xs text-muted-foreground truncate">
-                      {b.total_acertos}/{b.total_questoes} • Dif: {b.dificuldade} • {Math.round(b.tempo_total_segundos / 60)}min
+                      {b.total_acertos}/{b.total_questoes} • Dif: {b.dificuldade ?? "não informada"} • {b.tempo_medio_por_questao == null ? "tempo de resolução desconhecido" : `${Math.round((b.tempo_total_segundos||0)/60)}min de resolução`}
                     </p>
                   </div>
                   <div className="text-right shrink-0">

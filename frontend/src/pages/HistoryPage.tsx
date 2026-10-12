@@ -81,7 +81,7 @@ export default function HistoryPage() {
                     <span className="font-normal text-muted-foreground">— {getAssuntoNome(b.assunto_id)}</span>
                   </p>
                   <p className="text-[10px] sm:text-xs text-muted-foreground truncate">
-                    {b.total_acertos}/{b.total_questoes} • Dif: {b.dificuldade} • {Math.round(b.tempo_total_segundos / 60)}min • Tempo/Q: {b.tempo_medio_por_questao}s
+                    {b.total_acertos}/{b.total_questoes} • Dif: {b.dificuldade ?? "não informada"} • {b.tempo_medio_por_questao == null ? "tempo de resolução desconhecido" : `${Math.round((b.tempo_total_segundos||0)/60)}min • Tempo/Q: ${b.tempo_medio_por_questao}s`}
                   </p>
                 </div>
                 <div className="flex items-center gap-3 sm:text-right shrink-0">

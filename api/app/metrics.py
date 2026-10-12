@@ -16,7 +16,22 @@ def session_seconds(s):
     return s.segundos_exatos if s.segundos_exatos is not None else s.minutos_liquidos * 60
 
 def block_seconds(b):
-    return 0 if b.sessao_id else b.tempo_total_segundos
+    return 0 if b.sessao_id else (b.tempo_total_segundos or 0)
+
+def solving_seconds(b):
+    """Only recorded solving time; legacy integrated durations may be mixed."""
+    seconds = b.tempo_total_segundos
+    if seconds is None or seconds <= 0:
+        return None
+    if b.sessao_id and b.tempo_questoes_informado is not True:
+        return None
+    if b.tempo_questoes_informado is False:
+        return None
+    if b.sessao_id:
+        session = b.sessao
+        if session is None or seconds > session_seconds(session):
+            return None
+    return seconds
 
 def limites_periodo(periodo):
     now = utcnow()
@@ -83,6 +98,8 @@ def dashboard(db, periodo="semana", materia_id=None):
         tendencia_contexto=trend_reason, status_missao="SEM PRÁTICA REGISTRADA" if not total else "ESTUDOS REGISTRADOS",
         assuntos_criticos=attention, status_horas="SEM META DE PERÍODO", status_questoes="SEM META DE PERÍODO",
         recomendacao=recommendation, tem_evidencia=bool(total), amostra_blocos=len(blocks),
+        horas_incompletas=any(not b.sessao_id and b.tempo_total_segundos is None for b in blocks),
+        blocos_sem_tempo_liquido=sum(not b.sessao_id and b.tempo_total_segundos is None for b in blocks),
         meta_horas=None, meta_questoes=None, versao_metrica="precisao_v2", registros_inconsistentes=invalid)
     if periodo=='semana':
         from .goals import week_view, status
@@ -100,24 +117,21 @@ def dashboard(db, periodo="semana", materia_id=None):
                 status_questoes=week['status']['questoes'],status_missao=week['status_missao'])
             result['variante_missao']='success' if week['status_missao']=='METAS DA SEMANA CONCLUÍDAS' else 'warning' if week['status_missao'] in ('AJUSTAR PLANO','RETOMAR O RITMO') else 'default'
     if periodo in ('mes', 'ano'):
-        from .goals import week_view
-        week = week_view(db)
-        factor = 4 if periodo == 'mes' else 48
-        def period_status(actual, target):
-            return 'SEM META' if target <= 0 else 'META ATINGIDA' if actual >= target else 'EM ANDAMENTO'
-        result['contexto_meta'] = f'Metas do período = {factor} × a meta semanal atual, incluindo ajustes. Precisão não é multiplicada.'
+        from .goals import period_projection
+        goal = period_projection(db, periodo, now=end)
+        result['contexto_meta'] = goal['contexto']
+        result['natureza_meta'] = goal['natureza']
+        result['referencia_meta'] = goal['referencia']
         if materia_id:
-            goal = next((g for g in week['materias'] if g['materia_id'] == str(materia_id)), None)
-            if goal:
-                target = goal['meta_minutos'] * factor
-                result.update(meta_horas=round(target/60, 2), status_horas=period_status(seconds/60, target))
-            result['contexto_meta'] += ' Questões não possuem meta individual por matéria.'
+            result['contexto_meta'] += ' Sem metas mensais ou anuais individuais por matéria.'
         else:
-            minutes = week['meta_minutos'] * factor
-            questions = week['meta_questoes'] * factor
-            result.update(meta_horas=round(minutes/60, 2), meta_questoes=questions,
-                          status_horas=period_status(seconds/60, minutes),
-                          status_questoes=period_status(total, questions))
+            target_minutes, target_questions = goal['minutos'], goal['questoes']
+            def projection_status(actual, target):
+                return 'INFORMAÇÃO INDISPONÍVEL' if target is None else 'SEM META' if target <= 0 else 'PROJEÇÃO ATINGIDA' if actual >= target else 'PROJEÇÃO DE PLANEJAMENTO'
+            result.update(meta_horas=round(target_minutes / 60, 2) if target_minutes is not None else None,
+                          meta_questoes=target_questions,
+                          status_horas=projection_status(seconds / 60, target_minutes),
+                          status_questoes=projection_status(total, target_questions))
     from .study_analysis import dashboard_guidance
     result.update(dashboard_guidance(db, blocks, materia_id))
     from .study_strategy import study_strategy

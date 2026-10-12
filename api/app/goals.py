@@ -8,9 +8,9 @@ from pydantic import BaseModel, Field, model_validator
 from sqlalchemy.orm import Session
 from . import models
 from .database import get_db
-from .clock import TZ, utcnow, utc_naive, local_date
+from .clock import TZ, utcnow, utc_naive, local_date, month_bounds
 from .planning_models import ConfigMetas, SemanaMetas, Planejamento, MetaCiclo
-from .metrics import session_seconds, block_seconds, valid_questions
+from .metrics import session_seconds, block_seconds, solving_seconds, valid_questions
 from .evidence import SOURCES, guidance
 
 router=APIRouter(prefix='/api/v1/metas',tags=['Metas semanais'])
@@ -83,15 +83,65 @@ def profile(db):
             conf=ConfigMetas(id=1,dados=deepcopy(DEFAULT));db.add(conf);db.commit()
     return conf
 
+def reference_values(config):
+    """Stable full-week plan: no exceptional reduction or empirical recalibration."""
+    minutes_total = sum(d['minutos'] for d in config['dias'])
+    automatic = int(minutes_total * config['percentual_pratica'] / 100 / config['minutos_por_questao'] // 5) * 5
+    return dict(minutos=minutes_total, questoes=config.get('meta_questoes') if config.get('meta_questoes') is not None else automatic,
+                redacoes=config['redacoes'])
+
+
+def capture_reference(db, conf, now=None, future=False):
+    now = now or utcnow()
+    history = list(conf.dados.get('_referencias_projecao', []))
+    values = reference_values(conf.dados)
+    if not history or future:
+        effective = bounds(monday(now) + timedelta(days=7))[0] if future else now
+        record = dict(**values, registrada_em=now.isoformat(), vigente_desde=effective.isoformat())
+        # Explicit configuration changes replace only an unactivated scheduled reference.
+        history = [r for r in history if r['vigente_desde'] != record['vigente_desde']]
+        history.append(record)
+        conf.dados = {**conf.dados, '_referencias_projecao': history}
+        db.commit()
+    return history
+
+
+def period_projection(db, period, year=None, month=None, now=None):
+    """Known planning projection, never a reconstruction of effective past goals."""
+    now = now or utcnow()
+    today = local_date(now)
+    year = year or today.year
+    month = month or today.month
+    if period == 'mes':
+        lo, hi = month_bounds(year, month)
+    else:
+        lo = month_bounds(year, 1)[0]
+        hi = month_bounds(year + 1, 1)[0]
+    conf = profile(db)
+    conf = db.get(ConfigMetas, 1, with_for_update=True)
+    history = capture_reference(db, conf, now)
+    cutoff = min(now, hi - timedelta(microseconds=1))
+    known = [r for r in history if datetime.fromisoformat(r['vigente_desde']) <= cutoff and datetime.fromisoformat(r['registrada_em']) <= cutoff]
+    ref = max(known, key=lambda r:(r['vigente_desde'], r['registrada_em'])) if known and lo <= now else None
+    factor = 4 if period == 'mes' else 48
+    return dict(minutos=ref['minutos'] * factor if ref else None,
+                questoes=ref['questoes'] * factor if ref else None,
+                redacoes=ref['redacoes'] * factor if ref else None,
+                referencia=deepcopy(ref), fator=factor,
+                natureza='PROJECAO_DE_PLANEJAMENTO' if ref else 'INFORMACAO_INDISPONIVEL',
+                contexto=('Projeção de planejamento: mês = 4 × referência semanal; ano = 48 × referência semanal. '
+                          'Ajustes excepcionais e semanas parciais não mudam a referência; não há dívida automática. '
+                          f"Referência registrada em {ref['registrada_em']}; não reconstrói metas efetivas do passado." if ref else
+                          'Não há referência registrada para este período; a configuração atual não foi aplicada retroativamente.'))
+
+
 def calibration(db,start,config):
     hi=bounds(start)[0];lo=hi-timedelta(days=28)
     rows=db.query(models.BlocoQuestoes).filter(models.BlocoQuestoes.data>=lo,models.BlocoQuestoes.data<hi).all()
-    # Mixed theory + questions sessions do not measure question-solving pace.
-    eligible_sessions={s.id for s in db.query(models.SessaoEstudo).filter(models.SessaoEstudo.data>=lo,models.SessaoEstudo.data<hi).all() if (s.atividade or s.tipo_sessao)=='QUESTOES'}
-    rows=[b for b in rows if valid_questions(b) and (not b.sessao_id or b.sessao_id in eligible_sessions) and 30<=b.tempo_total_segundos/b.total_questoes<=1800]
+    rows=[b for b in rows if valid_questions(b) and solving_seconds(b) is not None and 30<=solving_seconds(b)/b.total_questoes<=1800]
     n=sum(b.total_questoes for b in rows)
     if len(rows)>=3 and n>=30:
-        cost=max(2,min(15,median(b.tempo_total_segundos/b.total_questoes/60 for b in rows)*1.5))
+        cost=max(2,min(15,median(solving_seconds(b)/b.total_questoes/60 for b in rows)*1.5))
         source='Mediana do tempo por questão nos blocos elegíveis dos 28 dias anteriores + 50% de reserva para correção (heurística).'
     else:
         cost=config['minutos_por_questao'];source='Estimativa inicial editável, incluindo tentativa e correção; histórico insuficiente para calibrar.'
@@ -107,6 +157,8 @@ def split_minutes(total,weights):
 
 def ensure_week(db,now=None):
     now=now or utcnow();start=monday(now)
+    conf=profile(db)
+    capture_reference(db, conf, now)
     week=db.get(SemanaMetas,start)
     if week:return week
     conf=profile(db)
@@ -147,7 +199,8 @@ def totals(db,start,end):
             if hasattr(x,'materia_id'):subjects[str(x.materia_id)]=subjects.get(str(x.materia_id),0)+value
     for b in blocks+sims:
         if valid_questions(b):count+=b.total_questoes;hits+=b.total_acertos
-    return dict(minutos=sum(daily.values()),questoes=count,acertos=hits,redacoes=essays,dias=daily,materias=subjects)
+    return dict(minutos=sum(daily.values()),questoes=count,acertos=hits,redacoes=essays,dias=daily,materias=subjects,
+        blocos_sem_tempo_liquido=sum(not b.sessao_id and b.tempo_total_segundos is None for b in blocks))
 
 def status(actual,target,expected,closed=False):
     if target<=0:return 'SEM META'
@@ -209,7 +262,8 @@ def week_view(db,week=None,now=None):
         calibracao=plan['calibracao'],percentual_pratica=plan['percentual_pratica'],
         materias=[{**w,'realizado_minutos':round(actual['materias'].get(w['materia_id'],0),1)} for w in weights],
         diagnostico_missao=mission_guidance(mission, actual, target, qtarget, rtarget, remaining_capacity),
-        distribuicao_ciclo_id=plan['ciclo_id'])
+        distribuicao_ciclo_id=plan['ciclo_id'],
+        projecoes={p:period_projection(db,p,now=now) for p in ('mes','ano')})
 
 @router.get('/semana')
 def current_week(db:Session=Depends(get_db)):
@@ -217,13 +271,17 @@ def current_week(db:Session=Depends(get_db)):
 
 @router.get('/configuracao')
 def get_profile(db:Session=Depends(get_db)):
-    return profile(db).dados
+    return {k:v for k,v in profile(db).dados.items() if not k.startswith('_')}
 
 @router.put('/configuracao')
 def set_profile(payload:ProfileInput,db:Session=Depends(get_db)):
     ensure_week(db)  # Preserve the current target before changing future weeks.
-    conf=db.get(ConfigMetas,1,with_for_update=True);conf.dados=payload.model_dump();db.commit()
-    return dict(mensagem='Configuração salva para as próximas semanas. A meta atual foi preservada.',configuracao=conf.dados)
+    conf=db.get(ConfigMetas,1,with_for_update=True)
+    history=conf.dados.get('_referencias_projecao', [])
+    conf.dados={**payload.model_dump(), '_referencias_projecao':history}
+    capture_reference(db,conf,future=True)
+    db.commit()
+    return dict(mensagem='Configuração salva para as próximas semanas. A meta atual foi preservada.',configuracao={k:v for k,v in conf.dados.items() if not k.startswith('_')})
 
 @router.patch('/semana/ajuste')
 def adjust(payload:Adjustment,db:Session=Depends(get_db)):
@@ -247,6 +305,7 @@ def question_goal(payload:QuestionGoalInput,db:Session=Depends(get_db)):
     week.plano=plan
     if payload.proximas_semanas:
         conf.dados={**conf.dados,'meta_questoes':payload.meta_questoes}
+        capture_reference(db,conf,future=True)
     db.commit()
     return week_view(db,week)
 

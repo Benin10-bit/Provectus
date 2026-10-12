@@ -30,10 +30,10 @@ export interface SessaoEstudoResponse extends SessaoEstudoCreate {
 export interface BlocoQuestoesCreate {
     materia_id: string;
     assunto_id: string;
-    dificuldade: number;
+    dificuldade?: number | null;
     total_questoes: number;
     total_acertos: number;
-    tempo_total_segundos: number;
+    tempo_total_segundos?: number | null;
     nivel_confianca_medio?: number | null;
     data?: string;
 }
@@ -42,7 +42,9 @@ export interface BlocoQuestoesResponse extends BlocoQuestoesCreate {
     sessao_id?: string | null;
     id: string;
     percentual_acerto: number;
-    tempo_medio_por_questao: number;
+    tempo_medio_por_questao: number | null;
+    dificuldade_informada?: boolean | null;
+    tempo_questoes_informado?: boolean | null;
     criado_em: string;
 }
 
@@ -72,6 +74,8 @@ export interface CriticalTopic {
     precisao: number; questoes: number; registros: number; tarefa: string; destino: string;
 }
 export interface DashboardResumo {
+    horas_incompletas?: boolean;
+    blocos_sem_tempo_liquido?: number;
     recomendacoes_estudo?: string[];
     amostra_blocos?: number;
     orientacoes?: StudyOrientation[];

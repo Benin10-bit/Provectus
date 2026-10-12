@@ -115,7 +115,7 @@ export async function createBloco(data: BlocoQuestoesCreate): Promise<BlocoQuest
         ...data,
         id: `b_new_${Date.now()}`,
         percentual_acerto: pct,
-        tempo_medio_por_questao: Math.round(data.tempo_total_segundos / data.total_questoes),
+        tempo_medio_por_questao: data.tempo_total_segundos == null ? null : Math.round(data.tempo_total_segundos / data.total_questoes),
         criado_em: new Date().toISOString(),
       } as BlocoQuestoesResponse);
     }

@@ -56,7 +56,8 @@ class AssuntoPatch(schemas.APIModel):
 class BlocoIntegrado(schemas.APIModel):
     total_questoes: int = Field(gt=0, le=10000)
     total_acertos: int = Field(ge=0)
-    dificuldade: int = Field(default=3, ge=1, le=5)
+    dificuldade: int | None = Field(None, ge=1, le=5)
+    tempo_total_segundos: int | None = Field(None, gt=0, le=86400)
     _contagem = model_validator(mode="after")(schemas.validar_contagem)
 
 class AcaoInput(schemas.APIModel):
@@ -85,6 +86,8 @@ class Conclusao(schemas.APIModel):
     _data = field_validator("data")(schemas.validar_data)
     @model_validator(mode="after")
     def consistencia(self):
+        if self.bloco and self.bloco.tempo_total_segundos is not None and self.bloco.tempo_total_segundos > self.segundos:
+            raise ValueError("O tempo de questões não pode superar a duração líquida da sessão.")
         if bool(self.acao_id) != bool(self.resultado_acao):
             raise ValueError("Informe o resultado da ação selecionada.")
         if self.nova_acao and self.nova_acao.assunto_id != self.assunto_id:
@@ -349,7 +352,15 @@ def complete(payload:Conclusao,db:Session=Depends(get_db)):
     fingerprint=hashlib.sha256(payload.model_dump_json().encode()).hexdigest()
     existing=db.query(models.SessaoEstudo).filter_by(chave_registro=payload.chave_registro).first()
     if existing:
-        if existing.conteudo_hash!=fingerprint:raise HTTPException(409,"Esta sessão já foi salva com outros dados. Edite o registro no histórico.")
+        compatible_hashes = {fingerprint}
+        legacy = payload.model_dump(mode='json')
+        if payload.bloco and payload.bloco.tempo_total_segundos is None:
+            legacy['bloco'].pop('tempo_total_segundos', None)
+            if payload.bloco.dificuldade is None:
+                legacy['bloco']['dificuldade'] = 3
+            import json
+            compatible_hashes.add(hashlib.sha256(json.dumps(legacy, ensure_ascii=False, separators=(',', ':')).encode()).hexdigest())
+        if existing.conteudo_hash not in compatible_hashes:raise HTTPException(409,"Esta sessão já foi salva com outros dados. Edite o registro no histórico.")
         return dict(sessao_id=str(existing.id),repetido=True)
     validar_assunto(db,payload.materia_id,payload.assunto_id)
     cycle_id=active_cycle_for_date(db,payload.data,state)
@@ -361,7 +372,9 @@ def complete(payload:Conclusao,db:Session=Depends(get_db)):
     db.add(s);db.flush();b=None
     if payload.bloco:
         b=models.BlocoQuestoes(**payload.bloco.model_dump(),materia_id=s.materia_id,assunto_id=s.assunto_id,
-            data=s.data,tempo_total_segundos=payload.segundos,sessao_id=s.id,ciclo_id=cycle_id)
+            data=s.data,sessao_id=s.id,ciclo_id=cycle_id,
+            dificuldade_informada=payload.bloco.dificuldade is not None,
+            tempo_questoes_informado=payload.bloco.tempo_total_segundos is not None)
         db.add(b);db.flush()
     if payload.acao_id:resolve_action(db,payload.acao_id,payload.resultado_acao,s.assunto_id)
     if payload.nova_acao:add_action(db,payload.nova_acao,b)
@@ -374,12 +387,15 @@ def edit_session(id:UUID,payload:schemas.SessaoEstudoCreate,db:Session=Depends(g
     s=db.get(models.SessaoEstudo,id,with_for_update=True)
     if not s:raise HTTPException(404,"Sessão não encontrada.")
     validar_assunto(db,payload.materia_id,payload.assunto_id)
+    b=db.query(models.BlocoQuestoes).filter_by(sessao_id=id).first()
+    if b and b.tempo_questoes_informado is True and b.tempo_total_segundos is not None and b.tempo_total_segundos > payload.minutos_liquidos*60:
+        raise HTTPException(422,"A sessão deve comportar o tempo de questões registrado. Corrija o bloco primeiro.")
     for k,v in payload.model_dump().items():setattr(s,k,v)
     s.segundos_exatos=payload.minutos_liquidos*60
     s.atividade=payload.tipo_sessao
     b=db.query(models.BlocoQuestoes).filter_by(sessao_id=id).first()
     if b:
-        b.materia_id=s.materia_id;b.assunto_id=s.assunto_id;b.data=s.data;b.tempo_total_segundos=s.segundos_exatos
+        b.materia_id=s.materia_id;b.assunto_id=s.assunto_id;b.data=s.data
         db.query(AcaoEstudo).filter_by(bloco_id=b.id).update({AcaoEstudo.assunto_id:s.assunto_id})
     db.commit();db.refresh(s);return s
 
@@ -390,12 +406,19 @@ def edit_block(id:UUID,payload:schemas.BlocoQuestoesCreate,db:Session=Depends(ge
     validar_assunto(db,payload.materia_id,payload.assunto_id)
     count=db.query(func.coalesce(func.sum(models.ErroQuestao.quantidade),0)).filter_by(bloco_id=id).scalar()
     if count>payload.total_questoes-payload.total_acertos:raise HTTPException(422,"A correção deixaria mais erros classificados do que questões erradas.")
-    for k,v in payload.model_dump().items():setattr(b,k,v)
+    if b.sessao_id:
+        s=db.get(models.SessaoEstudo,b.sessao_id,with_for_update=True)
+        if payload.tempo_total_segundos is not None and payload.tempo_total_segundos > session_seconds(s) and (payload.confirmar_tempo_questoes or payload.tempo_total_segundos != b.tempo_total_segundos or b.tempo_questoes_informado is True):
+            raise HTTPException(422,"O tempo de questões não pode superar a duração líquida da sessão.")
+    if payload.dificuldade != b.dificuldade or payload.confirmar_dificuldade:
+        b.dificuldade_informada=payload.dificuldade is not None
+    if payload.tempo_total_segundos != b.tempo_total_segundos or payload.confirmar_tempo_questoes:
+        b.tempo_questoes_informado=payload.tempo_total_segundos is not None
+    for k,v in payload.model_dump(exclude={'confirmar_dificuldade','confirmar_tempo_questoes'}).items():setattr(b,k,v)
     db.query(AcaoEstudo).filter_by(bloco_id=b.id).update({AcaoEstudo.assunto_id:b.assunto_id})
     if b.sessao_id:
         s=db.get(models.SessaoEstudo,b.sessao_id)
         s.materia_id=b.materia_id;s.assunto_id=b.assunto_id;s.data=b.data
-        s.segundos_exatos=b.tempo_total_segundos;s.minutos_liquidos=max(1,(b.tempo_total_segundos+59)//60)
     db.commit();db.refresh(b);return b
 
 @router.put("/simulados/{id}",response_model=schemas.SimuladoSemanalResponse)
@@ -423,7 +446,7 @@ def subject_performance(periodo:Literal['semana','mes','ano','total']='semana',d
     s,b=models.SessaoEstudo,models.BlocoQuestoes
     session_totals=dict(db.query(s.materia_id,func.sum(func.coalesce(s.segundos_exatos,s.minutos_liquidos*60))).filter(s.data>=start,s.data<end).group_by(s.materia_id).all())
     valid=(b.total_questoes>0)&(b.total_acertos>=0)&(b.total_acertos<=b.total_questoes)
-    block_totals={row[0]:row[1:] for row in db.query(b.materia_id,func.sum(case((valid,b.total_questoes),else_=0)),func.sum(case((valid,b.total_acertos),else_=0)),func.sum(case((b.sessao_id.is_(None),b.tempo_total_segundos),else_=0)),func.sum(case((valid,1),else_=0))).filter(b.data>=start,b.data<end).group_by(b.materia_id).all()}
+    block_totals={row[0]:row[1:] for row in db.query(b.materia_id,func.sum(case((valid,b.total_questoes),else_=0)),func.sum(case((valid,b.total_acertos),else_=0)),func.sum(case((b.sessao_id.is_(None),func.coalesce(b.tempo_total_segundos,0)),else_=0)),func.sum(case((valid,1),else_=0))).filter(b.data>=start,b.data<end).group_by(b.materia_id).all()}
     result=[]
     for m in db.query(models.Materia).filter(models.Materia.ativa.is_(True)).order_by(models.Materia.nome):
         q,a,sec,n=block_totals.get(m.id,(0,0,0,0))

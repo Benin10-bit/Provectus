@@ -111,18 +111,21 @@ class BlocoQuestoesBase(APIModel):
     materia_id: UUID
     assunto_id: UUID
 
-    dificuldade: int = Field(..., ge=1, le=5)
+    dificuldade: int | None = Field(None, ge=1, le=5)
 
     total_questoes: int = Field(..., ge=1)
     total_acertos: int = Field(..., ge=0)
 
-    tempo_total_segundos: int = Field(..., gt=0)
+    tempo_total_segundos: int | None = Field(None, gt=0)
     nivel_confianca_medio: Optional[int] = Field(None, ge=1, le=5)
 
     data: datetime = Field(default_factory=datetime.utcnow)
 
 
 class BlocoQuestoesCreate(BlocoQuestoesBase):
+    # Explicit confirmation is needed to qualify an unchanged legacy value.
+    confirmar_dificuldade: bool = False
+    confirmar_tempo_questoes: bool = False
     _validar_data = field_validator("data")(validar_data)
     _validar_contagem = model_validator(mode="after")(validar_contagem)
 
@@ -130,13 +133,15 @@ class BlocoQuestoesCreate(BlocoQuestoesBase):
 class BlocoQuestoesResponse(BlocoQuestoesBase):
     total_questoes: int
     total_acertos: int
-    tempo_total_segundos: int
-    dificuldade: int
+    tempo_total_segundos: int | None
+    dificuldade: int | None
+    dificuldade_informada: bool | None = None
+    tempo_questoes_informado: bool | None = None
     sessao_id: Optional[UUID] = None
     ciclo_id: Optional[UUID] = None
     id: UUID
     percentual_acerto: float
-    tempo_medio_por_questao: float
+    tempo_medio_por_questao: float | None
     criado_em: datetime
 
     model_config = ConfigDict(from_attributes=True)
@@ -303,6 +308,10 @@ class CriticalTopic(APIModel):
     destino: str
 
 class DashboardResumo(APIModel):
+    horas_incompletas: bool = False
+    blocos_sem_tempo_liquido: int = 0
+    natureza_meta: str | None = None
+    referencia_meta: dict | None = None
     recomendacoes_estudo: List[str] = Field(default_factory=list)
     orientacoes: List[StudyOrientation] = Field(default_factory=list)
     assuntos_criticos_detalhes: List[CriticalTopic] = Field(default_factory=list)
@@ -454,7 +463,9 @@ class BlocoPorMateria(APIModel):
     total_questoes: int
     total_acertos: int
     percentual_acerto: float
-    tempo_medio_por_questao: float
+    tempo_medio_por_questao: float | None
+    questoes_com_tempo: int = 0
+    blocos_com_tempo: int = 0
     ipr_medio: float
 
 
@@ -475,7 +486,7 @@ class BlocoPorAssunto(APIModel):
 
 class BlocoPorDificuldade(APIModel):
     """Distribuição de blocos por nível de dificuldade."""
-    dificuldade: int
+    dificuldade: int | None
     total_blocos: int
     total_questoes: int
     total_acertos: int
@@ -599,11 +610,11 @@ class ProjecaoFechamento(APIModel):
     projecao_horas_mes: float
     projecao_questoes_mes: float
     projecao_percentual_dias_estudados: float
-    on_track_meta_horas: bool
-    on_track_meta_questoes: bool
+    on_track_meta_horas: bool | None
+    on_track_meta_questoes: bool | None
     dias_restantes: int
-    horas_necessarias_por_dia: float
-    questoes_necessarias_por_dia: float
+    horas_necessarias_por_dia: float | None
+    questoes_necessarias_por_dia: float | None
 
 
 class ScoreConsistencia(APIModel):

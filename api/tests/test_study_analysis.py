@@ -8,7 +8,7 @@ from app.planning_models import AcaoEstudo
 
 def block(engine,m,a,when,hits=5,total=10,seconds=600,difficulty=3):
     with Session(engine) as db:
-        db.add(models.BlocoQuestoes(materia_id=UUID(m),assunto_id=UUID(a),data=when,total_questoes=total,total_acertos=hits,tempo_total_segundos=seconds,dificuldade=difficulty));db.commit()
+        db.add(models.BlocoQuestoes(materia_id=UUID(m),assunto_id=UUID(a),data=when,total_questoes=total,total_acertos=hits,tempo_total_segundos=seconds,dificuldade=difficulty,dificuldade_informada=True));db.commit()
 
 def test_critical_topics_keep_granularity_and_periods(clock):
     c,e,now=clock;(m,a),(n,b)=catalog(c)

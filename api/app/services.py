@@ -7,7 +7,7 @@ from datetime import datetime, timedelta, timezone
 import math
 
 from . import models, schemas
-from .metrics import precisao, dashboard, limites_periodo, session_seconds, block_seconds
+from .metrics import precisao, dashboard, limites_periodo, session_seconds, block_seconds, solving_seconds
 from .clock import utcnow, local_date, month_bounds, TZ
 from .planning_models import Planejamento
 
@@ -157,7 +157,9 @@ def registrar_bloco_questoes(db, payload):
     from .planner import validar_assunto, active_cycle_for_date
     validar_assunto(db, payload.materia_id, payload.assunto_id)
     state = db.get(Planejamento, 1, with_for_update=True)
-    db_obj = models.BlocoQuestoes(**payload.model_dump())
+    db_obj = models.BlocoQuestoes(**payload.model_dump(exclude={'confirmar_dificuldade','confirmar_tempo_questoes'}),
+        dificuldade_informada=payload.dificuldade is not None,
+        tempo_questoes_informado=payload.tempo_total_segundos is not None)
     db_obj.ciclo_id = active_cycle_for_date(db, payload.data, state)
     db.add(db_obj)
     db.commit()
@@ -923,6 +925,8 @@ def gerar_relatorio_mensal(db: Session, mes: int, ano: int) -> dict:
 
     resumo_geral = {
         "horas_totais": horas_totais,
+        "horas_incompletas": any(not b.sessao_id and b.tempo_total_segundos is None for b in blocos),
+        "blocos_sem_tempo_liquido": sum(not b.sessao_id and b.tempo_total_segundos is None for b in blocos),
         "total_sessoes": len(sessoes),
         "total_blocos": len(blocos),
         "total_simulados": len(simulados),
@@ -1005,14 +1009,18 @@ def gerar_relatorio_mensal(db: Session, mes: int, ano: int) -> dict:
     # Por matéria
     blocos_por_materia = defaultdict(lambda: {
         "total_blocos": 0, "total_questoes": 0, "total_acertos": 0,
-        "tempos_medios": [], "segundos": 0, "iprs": []
+        "tempos_medios": [], "segundos": 0, "questoes_com_tempo": 0, "blocos_com_tempo": 0, "iprs": []
     })
     for b in blocos:
         mid = b.materia_id
         blocos_por_materia[mid]["total_blocos"] += 1
         blocos_por_materia[mid]["total_questoes"] += b.total_questoes
         blocos_por_materia[mid]["total_acertos"] += b.total_acertos
-        blocos_por_materia[mid]["segundos"] += b.tempo_total_segundos
+        seconds = solving_seconds(b)
+        if seconds is not None:
+            blocos_por_materia[mid]["segundos"] += seconds
+            blocos_por_materia[mid]["questoes_com_tempo"] += b.total_questoes
+            blocos_por_materia[mid]["blocos_com_tempo"] += 1
         blocos_por_materia[mid]["iprs"].append(_calcular_ipr_bloco(b))
 
     blocos_materia_lista = []
@@ -1025,7 +1033,9 @@ def gerar_relatorio_mensal(db: Session, mes: int, ano: int) -> dict:
             "total_questoes": dados["total_questoes"],
             "total_acertos": dados["total_acertos"],
             "percentual_acerto": _pct(dados["total_acertos"], dados["total_questoes"]),
-            "tempo_medio_por_questao": round(dados["segundos"] / dados["total_questoes"], 1) if dados["total_questoes"] else 0,
+            "tempo_medio_por_questao": round(dados["segundos"] / dados["questoes_com_tempo"], 1) if dados["questoes_com_tempo"] else None,
+            "questoes_com_tempo": dados["questoes_com_tempo"],
+            "blocos_com_tempo": dados["blocos_com_tempo"],
             "ipr_medio": _pct(dados["total_acertos"], dados["total_questoes"]),
         })
 
@@ -1079,7 +1089,7 @@ def gerar_relatorio_mensal(db: Session, mes: int, ano: int) -> dict:
         blocos_por_dif[d]["iprs"].append(_calcular_ipr_bloco(b))
 
     blocos_dif_lista = []
-    for dif in sorted(blocos_por_dif.keys()):
+    for dif in sorted(blocos_por_dif.keys(), key=lambda d:(d is None, d or 0)):
         dados = blocos_por_dif[dif]
         blocos_dif_lista.append({
             "dificuldade": dif,
@@ -1458,7 +1468,7 @@ def gerar_relatorio_mensal(db: Session, mes: int, ano: int) -> dict:
     # 14. PROJEÇÃO DE FECHAMENTO (só faz sentido se mês atual)
     # ----------------------------------------------------------
 
-    hoje = datetime.now(TZ)
+    hoje = utcnow().replace(tzinfo=timezone.utc).astimezone(TZ)
     eh_mes_atual = (mes == hoje.month and ano == hoje.year)
 
     if eh_mes_atual:
@@ -1468,8 +1478,10 @@ def gerar_relatorio_mensal(db: Session, mes: int, ano: int) -> dict:
         dias_passados = dias_no_mes
         dias_restantes = 0
 
-    meta_horas_mes = 0
-    meta_questoes_mes = 0
+    from .goals import period_projection
+    goal_projection = period_projection(db, 'mes', year=ano, month=mes, now=utcnow())
+    meta_horas_mes = round(goal_projection['minutos'] / 60, 2) if goal_projection['minutos'] is not None else None
+    meta_questoes_mes = goal_projection['questoes']
 
     media_h_dia = round(horas_totais / max(dias_passados, 1), 2)
     media_q_dia = round(total_questoes / max(dias_passados, 1), 1)
@@ -1477,12 +1489,8 @@ def gerar_relatorio_mensal(db: Session, mes: int, ano: int) -> dict:
     if eh_mes_atual:
         proj_horas = round(horas_totais + media_h_dia * dias_restantes, 1)
         proj_questoes = round(total_questoes + media_q_dia * dias_restantes)
-        h_necessarias = round(
-            max(meta_horas_mes - horas_totais, 0) / max(dias_restantes, 1), 2
-        )
-        q_necessarias = round(
-            max(meta_questoes_mes - total_questoes, 0) / max(dias_restantes, 1), 1
-        )
+        h_necessarias = None
+        q_necessarias = None
     else:
         proj_horas = horas_totais
         proj_questoes = total_questoes
@@ -1497,8 +1505,8 @@ def gerar_relatorio_mensal(db: Session, mes: int, ano: int) -> dict:
         "projecao_percentual_dias_estudados": round(
             (dias_estudados / max(dias_passados, 1)) * 100, 1
         ),
-        "on_track_meta_horas": proj_horas >= meta_horas_mes,
-        "on_track_meta_questoes": proj_questoes >= meta_questoes_mes,
+        "on_track_meta_horas": proj_horas >= meta_horas_mes if eh_mes_atual and meta_horas_mes is not None and meta_horas_mes > 0 else None,
+        "on_track_meta_questoes": proj_questoes >= meta_questoes_mes if eh_mes_atual and meta_questoes_mes is not None and meta_questoes_mes > 0 else None,
         "dias_passados": dias_passados,
         "dias_restantes": dias_restantes,
         "horas_necessarias_por_dia": h_necessarias,
@@ -1772,9 +1780,9 @@ def gerar_relatorio_mensal(db: Session, mes: int, ano: int) -> dict:
     }]
     if total_questoes and total_questoes < 20:
         recomendacoes_mensais.append({"categoria": "AMOSTRA", "prioridade": "NORMAL", "mensagem": "Poucas questões para avaliar desempenho.", "acao_sugerida": "Faça um pequeno diagnóstico no assunto atual antes de atribuir uma causa aos erros."})
-    # No invented monthly goals. Projections remain descriptive, never a debt.
-    for key in ("meta_horas_mes", "meta_questoes_mes", "on_track_meta_horas", "on_track_meta_questoes"):
-        projecao[key] = None
+    projecao['natureza_meta'] = goal_projection['natureza']
+    projecao['referencia_semanal'] = goal_projection['referencia']
+    projecao['contexto_meta'] = goal_projection['contexto']
     projecao["horas_necessarias_por_dia"] = None
     projecao["questoes_necessarias_por_dia"] = None
     resumo_geral["tem_evidencia"] = total_questoes > 0

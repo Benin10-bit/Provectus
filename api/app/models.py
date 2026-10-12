@@ -104,12 +104,14 @@ class BlocoQuestoes(Base):
 
     sessao_id = Column(UUID(as_uuid=True), ForeignKey("tb_sessao_estudo.id"), unique=True, nullable=True)
     ciclo_id = Column(UUID(as_uuid=True), ForeignKey("tb_ciclo.id"), nullable=True)
-    dificuldade = Column(Integer, nullable=False)  # 1-5
+    dificuldade = Column(Integer, nullable=True)  # 1-5 or unknown
+    dificuldade_informada = Column(Boolean, nullable=True)  # NULL: legacy provenance unknown
 
     total_questoes = Column(Integer, nullable=False)
     total_acertos = Column(Integer, nullable=False)
 
-    tempo_total_segundos = Column(Integer, nullable=False)
+    tempo_total_segundos = Column(Integer, nullable=True)
+    tempo_questoes_informado = Column(Boolean, nullable=True)  # NULL: legacy
     nivel_confianca_medio = Column(Integer)  # 1-5
 
     criado_em = Column(DateTime, default=datetime.utcnow)
@@ -117,6 +119,7 @@ class BlocoQuestoes(Base):
     materia = relationship("Materia", back_populates="blocos_questoes")
     assunto = relationship("Assunto", back_populates="blocos_questoes")
     erros = relationship("ErroQuestao", back_populates="bloco", cascade="all, delete")
+    sessao = relationship("SessaoEstudo")
 
 
     @hybrid_property
@@ -127,9 +130,9 @@ class BlocoQuestoes(Base):
 
     @hybrid_property
     def tempo_medio_por_questao(self):
-        if self.total_questoes > 0:
-            return self.tempo_total_segundos / self.total_questoes
-        return 0
+        from .metrics import solving_seconds
+        seconds = solving_seconds(self)
+        return seconds / self.total_questoes if seconds is not None and self.total_questoes > 0 else None
 
 
 # ==========================================================

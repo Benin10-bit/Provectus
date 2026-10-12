@@ -223,15 +223,15 @@ def test_trend_explains_missing_history_and_compares_equal_windows(clock):
 
 
 @pytest.mark.parametrize('period,factor', [('mes',4),('ano',48)])
-def test_dashboard_period_targets_follow_current_week(clock,period,factor):
+def test_dashboard_period_targets_ignore_weekly_exceptions(clock,period,factor):
     c,e,now=clock
     c.patch('/api/v1/metas/semana/questoes',json={'meta_questoes':200})
     for adjustment in (100,50,0):
         w=c.patch('/api/v1/metas/semana/ajuste',json={'percentual':adjustment}).json()
         d=c.get(f'/api/v1/performance/dashboard?periodo={period}').json()
-        assert d['meta_horas']==round(w['meta_minutos']/60*factor,2)
-        assert d['meta_questoes']==w['meta_questoes']*factor
-        assert d['status_horas']==('SEM META' if adjustment==0 else 'EM ANDAMENTO')
+        assert d['meta_horas']==14*factor
+        assert d['meta_questoes']==55*factor
+        assert d['status_horas']=='PROJEÇÃO DE PLANEJAMENTO'
     assert c.get('/api/v1/performance/dashboard?periodo=total').json()['meta_horas'] is None
 
 
@@ -241,5 +241,5 @@ def test_period_subject_targets_are_not_global(clock):
     w=c.get('/api/v1/metas/semana').json()
     quota=next(x for x in w['materias'] if x['materia_id']==m)
     d=c.get(f'/api/v1/performance/dashboard?periodo=mes&materia_id={m}').json()
-    assert d['meta_horas']==round(quota['meta_minutos']*4/60,2)
+    assert d['meta_horas'] is None
     assert d['meta_questoes'] is None

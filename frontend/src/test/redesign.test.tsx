@@ -60,12 +60,18 @@ describe('Redesign preserves study workflows',()=>{
   await waitFor(()=>expect(screen.getByLabelText('Minutos Líquidos')).toHaveValue(null));
  });
  it('preserves block duration conversion and optional confidence',async()=>{
-  mount(<BlockForm/>,'/bloco');await selectTopic();fill('Total de Questões','20');fill('Total de Acertos','15');fill('Tempo Total (minutos)','30');
+  mount(<BlockForm/>,'/bloco');await selectTopic();fill('Total de Questões','20');fill('Total de Acertos','15');fill('Tempo de resolução (minutos; opcional)','30');
   fireEvent.click(screen.getByRole('button',{name:'Registrar Bloco'}));
   await waitFor(()=>expect(posted).toHaveLength(1));
   expect(posted[0].url).toBe('/api/api/v1/performance/blocos');
-  expect(posted[0].body).toMatchObject({total_questoes:20,total_acertos:15,tempo_total_segundos:1800,nivel_confianca_medio:null});
+  expect(posted[0].body).toMatchObject({total_questoes:20,total_acertos:15,tempo_total_segundos:1800,dificuldade:null,nivel_confianca_medio:null});
   expect(await screen.findByText('75% de acerto')).toBeInTheDocument();
+ });
+ it('records explicitly selected difficulty 3 and unknown solving time',async()=>{
+  mount(<BlockForm/>,'/bloco');await selectTopic();fill('Total de Questões','10');fill('Total de Acertos','0');
+  fill('Dificuldade','3');fireEvent.click(screen.getByRole('button',{name:'Registrar Bloco'}));
+  await waitFor(()=>expect(posted).toHaveLength(1));
+  expect(posted[0].body).toMatchObject({dificuldade:3,tempo_total_segundos:null,total_questoes:10,total_acertos:0});
  });
  it('preserves simulated-exam submission and does not invent optional ratings',async()=>{
   mount(<ExamForm/>,'/simulado');fill('Número do Ciclo','2');fill('Número da Semana','3');fill('Total de Questões','60');fill('Total de Acertos','45');fill('Tempo Total (minutos)','180');

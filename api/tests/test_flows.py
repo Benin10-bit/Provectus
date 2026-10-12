@@ -82,7 +82,7 @@ def test_integrated_idempotency_hours_and_edit(env):
     assert c.get('/api/v1/performance/dashboard?periodo=total').json()['horas_liquidas']==.5
     with Session(e) as db:
         assert db.query(models.SessaoEstudo).count()==1;assert db.query(models.BlocoQuestoes).count()==1
-        assert db.query(models.BlocoQuestoes).first().tempo_total_segundos==1800
+        assert db.query(models.BlocoQuestoes).first().tempo_total_segundos is None
     day=local_date(datetime.fromisoformat(payload['data']))
     report=c.get(f'/api/v1/performance/relatorio/mensal?mes={day.month}&ano={day.year}')
     assert report.status_code==200,report.text

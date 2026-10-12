@@ -373,7 +373,7 @@ export default function RelatorioMensalPage() {
 
   // por_dificuldade é array no backend
   const dificuldadeData = arr<any>(blocos.por_dificuldade ?? blocos.distribuicao_por_dificuldade).map(d => ({
-    dificuldade: `Nível ${d.dificuldade ?? "?"}`,
+    dificuldade: d.dificuldade == null ? "Não informada" : `Nível ${d.dificuldade}`,
     total: num(d.total_questoes ?? d.total),
     acertos: num(d.total_acertos),
     pct: num(d.percentual_acerto),
@@ -450,6 +450,7 @@ export default function RelatorioMensalPage() {
         </div></div>
       </div>
 
+      {resumo.horas_incompletas&&<p className="context-note mb-3">Há blocos independentes sem duração. Horas somam somente tempos conhecidos; duração desconhecida não significa zero.</p>}
       <p className="context-note mb-6">Precisão observada = acertos / questões. Horas e presença são descritivas; não medem domínio. Comparações usam janelas equivalentes.</p>
       {isEmpty && (
         <div className="rounded-lg border border-border bg-card/60 p-6 text-center mb-6">
@@ -684,6 +685,7 @@ export default function RelatorioMensalPage() {
           {dificuldadeData.length > 0 && (
             <div className="p-4 rounded-lg border border-border bg-card/80 mt-3">
               <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground font-mono mb-3">Distribuição por dificuldade</p>
+              <p className="text-xs text-muted-foreground mb-2">Valores históricos foram preservados; níveis sem origem confirmada não entram nas comparações de desempenho.</p>
               <ResponsiveContainer width="100%" height={180}>
                 <BarChart data={dificuldadeData}>
                   <CartesianGrid strokeDasharray="2 6" stroke="hsl(var(--border))" />
@@ -896,6 +898,7 @@ export default function RelatorioMensalPage() {
       {/* PROJEÇÃO */}
       {Object.keys(projecao).length > 0 && (
         <Section title="Projeção de Fechamento" icon={GitCompareArrows}>
+          {projecao.contexto_meta&&<p className="text-xs text-muted-foreground mb-3">{projecao.contexto_meta}</p>}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div className="p-4 rounded-lg border border-border bg-card/80">
               <p className="text-[10px] tracking-[0.2em] uppercase text-muted-foreground font-mono mb-2">Horas projetadas</p>
@@ -903,7 +906,7 @@ export default function RelatorioMensalPage() {
                 {formatarHoras(num(projecao.projecao_horas_mes ?? projecao.horas_projetadas ?? projecao.horas))}
               </p>
               <p className="text-[11px] text-muted-foreground mt-1">
-                Projeção descritiva, sem meta mensal imposta.
+                {projecao.meta_horas_mes == null ? "Referência de planejamento indisponível" : `Referência mensal: ${formatarHoras(projecao.meta_horas_mes)} (4 × semana de referência)`}
               </p>
               {num(projecao.dias_restantes) > 0 && num(projecao.horas_necessarias_por_dia) > 0 && (
                 <p className="text-[10px] text-muted-foreground/80 font-mono mt-1">
@@ -917,7 +920,7 @@ export default function RelatorioMensalPage() {
                 {num(projecao.projecao_questoes_mes ?? projecao.questoes_projetadas ?? projecao.questoes).toLocaleString("pt-BR")}
               </p>
               <p className="text-[11px] text-muted-foreground mt-1">
-                A distribuição de estudo é definida pelo seu ciclo.
+                {projecao.meta_questoes_mes == null ? "Referência de planejamento indisponível" : `Referência mensal: ${projecao.meta_questoes_mes} questões (4 × semana de referência)`}
               </p>
               {num(projecao.dias_restantes) > 0 && num(projecao.questoes_necessarias_por_dia) > 0 && (
                 <p className="text-[10px] text-muted-foreground/80 font-mono mt-1">

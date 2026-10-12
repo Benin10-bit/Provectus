@@ -1,7 +1,7 @@
 """Shared descriptive rules, not diagnoses or scientifically calibrated cutoffs."""
 from collections import defaultdict
 from urllib.parse import urlencode
-from .metrics import valid_questions, precisao
+from .metrics import valid_questions, precisao, solving_seconds
 
 MIN_QUESTIONS = 20
 MIN_RECORDS = 2
@@ -15,7 +15,7 @@ def critical(rows):
 def performance_change(rows):
     """Compare two pairs on one topic at the same recorded difficulty."""
     recent = sorted(rows, key=lambda b:(b.data,str(b.id)))[-4:]
-    if len(recent) < 4 or any(b.dificuldade is None for b in recent) or len({b.dificuldade for b in recent}) != 1:
+    if len(recent) < 4 or any(b.dificuldade is None or b.dificuldade_informada is not True for b in recent) or len({b.dificuldade for b in recent}) != 1:
         return None
     before, after = recent[:2], recent[2:]
     if not sufficient(before) or not sufficient(after):return None
@@ -23,9 +23,9 @@ def performance_change(rows):
     if delta < -.10:
         return ('QUEDA RECENTE', 'REVISAO', 'A precisão caiu mais de 10 pontos entre dois pares de tentativas na mesma dificuldade registrada.',
                 'Refaça os erros recentes sem consulta, compare as soluções e teste o mesmo raciocínio em questões novas.')
-    if all(b.tempo_total_segundos > 0 for b in recent) and precisao(after) >= .70 and abs(delta) <= .05:
-        old=sum(b.tempo_total_segundos for b in before)/sum(b.total_questoes for b in before)
-        new=sum(b.tempo_total_segundos for b in after)/sum(b.total_questoes for b in after)
+    if all(solving_seconds(b) is not None for b in recent) and precisao(after) >= .70 and abs(delta) <= .05:
+        old=sum(solving_seconds(b) for b in before)/sum(b.total_questoes for b in before)
+        new=sum(solving_seconds(b) for b in after)/sum(b.total_questoes for b in after)
         if new > old * 1.25:
             return ('TEMPO EM ALTA', 'QUESTOES', 'O tempo por questão aumentou mais de 25%, com precisão estável e mesma dificuldade registrada; as questões podem ser diferentes.',
                     'Faça um pequeno bloco cronometrado do mesmo nível; identifique onde gasta tempo e confira o raciocínio antes de buscar velocidade.')

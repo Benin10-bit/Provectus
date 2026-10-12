@@ -2,7 +2,7 @@
 from collections import defaultdict
 from . import models
 from .clock import local_date
-from .metrics import valid_questions, precisao, session_seconds, limites_periodo
+from .metrics import valid_questions, precisao, session_seconds, solving_seconds, limites_periodo
 from .study_analysis import performance_change, session_url
 from .evidence import SOURCES
 
@@ -21,7 +21,8 @@ def block_guidance(db):
         score = precisao(rows) * 100
         errors = last.total_questoes - last.total_acertos
         reason = f'{last.materia.nome} · {last.assunto.nome}: último bloco em {local_date(last.data):%d/%m}, {last.total_acertos}/{last.total_questoes} acertos'
-        reason += f' em {last.tempo_total_segundos / 60:.0f} minutos.' if last.tempo_total_segundos > 0 else '; duração não registrada.'
+        seconds = solving_seconds(last)
+        reason += f' em {seconds / 60:.0f} minutos de resolução.' if seconds is not None else '; tempo específico de resolução desconhecido.'
         reason += f' Na semana: {score:.0f}% em {len(rows)} bloco(s).'
         change = performance_change(rows)
         if change:
